@@ -1,0 +1,10 @@
+<testng-results>
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="17" started-at="2015-07-04T17:26:44Z" finished-at="2015-07-04T17:26:44Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="17" started-at="2015-07-04T17:26:44Z" finished-at="2015-07-04T17:26:44Z">
+    </test>
+  </suite>
+</testng-results>
