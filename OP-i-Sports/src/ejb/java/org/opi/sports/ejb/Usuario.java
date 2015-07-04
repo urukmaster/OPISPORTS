@@ -48,7 +48,7 @@ public class Usuario implements Serializable {
 
 	//bi-directional many-to-one association to Reservacione
 	@OneToMany(mappedBy="usuario")
-	private List<Reservacione> reservaciones;
+	private List<Reservaciones> reservaciones;
 
 	//bi-directional many-to-one association to Reto
 	@OneToMany(mappedBy="usuario")
@@ -218,26 +218,26 @@ public class Usuario implements Serializable {
 		return mensajerias2;
 	}
 
-	public List<Reservacione> getReservaciones() {
+	public List<Reservaciones> getReservaciones() {
 		return this.reservaciones;
 	}
 
-	public void setReservaciones(List<Reservacione> reservaciones) {
+	public void setReservaciones(List<Reservaciones> reservaciones) {
 		this.reservaciones = reservaciones;
 	}
 
-	public Reservacione addReservacione(Reservacione reservacione) {
-		getReservaciones().add(reservacione);
-		reservacione.setUsuario(this);
+	public Reservaciones addReservacione(Reservaciones reservaciones) {
+		getReservaciones().add(reservaciones);
+		reservaciones.setUsuario(this);
 
-		return reservacione;
+		return reservaciones;
 	}
 
-	public Reservacione removeReservacione(Reservacione reservacione) {
-		getReservaciones().remove(reservacione);
-		reservacione.setUsuario(null);
+	public Reservaciones removeReservacione(Reservaciones reservaciones) {
+		getReservaciones().remove(reservaciones);
+		reservaciones.setUsuario(null);
 
-		return reservacione;
+		return reservaciones;
 	}
 
 	public List<Reto> getRetos() {

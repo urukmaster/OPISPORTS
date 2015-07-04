@@ -38,7 +38,7 @@ public class Servicio implements Serializable {
 
 	//bi-directional many-to-one association to Reservacione
 	@OneToMany(mappedBy="servicio")
-	private List<Reservacione> reservaciones;
+	private List<Reservaciones> reservaciones;
 
 	//bi-directional many-to-one association to Reto
 	@OneToMany(mappedBy="servicio")
@@ -140,22 +140,22 @@ public class Servicio implements Serializable {
 		return foto;
 	}
 
-	public List<Reservacione> getReservaciones() {
+	public List<Reservaciones> getReservaciones() {
 		return this.reservaciones;
 	}
 
-	public void setReservaciones(List<Reservacione> reservaciones) {
+	public void setReservaciones(List<Reservaciones> reservaciones) {
 		this.reservaciones = reservaciones;
 	}
 
-	public Reservacione addReservacione(Reservacione reservacione) {
+	public Reservaciones addReservacione(Reservaciones reservacione) {
 		getReservaciones().add(reservacione);
 		reservacione.setServicio(this);
 
 		return reservacione;
 	}
 
-	public Reservacione removeReservacione(Reservacione reservacione) {
+	public Reservaciones removeReservacione(Reservaciones reservacione) {
 		getReservaciones().remove(reservacione);
 		reservacione.setServicio(null);
 

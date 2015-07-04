@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name="Reservaciones")
 @NamedQuery(name="Reservacione.findAll", query="SELECT r FROM Reservacione r")
-public class Reservacione implements Serializable {
+public class Reservaciones implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
