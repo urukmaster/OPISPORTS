@@ -37,7 +37,7 @@ public class Reservacione implements Serializable {
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 
-	public Reservacione() {
+	public Reservaciones() {
 	}
 
 	public int getIdCalendario() {
