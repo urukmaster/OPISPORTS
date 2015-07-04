@@ -1,0 +1,31 @@
+[
+  {
+	"text": "Main Navigation",
+	"heading": "true",
+	"translate": "sidebar.heading.HEADER"
+  },
+{
+	"text": "Establecimientos Deportivos",
+	"sref": "app.establecimientos",
+	"icon": "fa fa-futbol-o",
+	"label": "label label-info"
+  },
+  {
+	"text": "Eventos Masivos",
+	"sref": "app.eventos",
+	"icon": "fa fa-gamepad",
+	"label": "label label-info"
+  },
+  {
+	"text": "Registrar",
+	"sref": "app.registrarUsuario",
+	"icon": "icon-user",
+	"label": "label label-info"
+  },
+  {
+	"text": "Configuración",
+	"sref": "app.configuracion",
+	"icon": "icon-user",
+	"label": "label label-info"
+  }
+]
