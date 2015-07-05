@@ -1,0 +1,15 @@
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/contracts/TipoServicioRequest.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/utils/PojoUtils.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/PassthroughFilter.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/WSFilter.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/OpiSportsApplication.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/services/TipoServicioServiceInterface.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/SwaggerConfig.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/ServletInitializer.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/controllers/TipoServicioController.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/pojo/TipoServicioPOJO.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/utils/Utils.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/config/WebMvcConfig.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/repositories/TipoServicioRepository.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/services/TipoServicioService.java
+/Users/lopez/Documents/Git/MiRepositorio/Op-i-Sports/src/main/java/org/opi/sports/contracts/TipoServicioResponse.java
