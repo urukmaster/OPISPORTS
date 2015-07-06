@@ -1,0 +1,290 @@
+<div class="panel panel-default">
+   <div class="panel-heading">Formulario de registro</div>
+   <div class="panel-body">
+      <form action="/" method="POST" form-wizard="" validate-steps="true" validate-form="" steps="4">
+         <div class="form-wizard wizard-horizontal">
+            <!-- START wizard steps indicator-->
+            <ol class="row">
+               <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)" class="col-md-3">
+                  <h4>Informacion inicial</h4>
+                  <small class="text-muted"></small>
+               </li>
+               <li ng-class="{'active':wizard.active(2)}" ng-click="wizard.go(2)" class="col-md-3">
+                  <h4>Informacion personal</h4>
+                  <small class="text-muted"></small>
+               </li>
+               <li ng-class="{'active':wizard.active(3)}" ng-click="wizard.go(3)" class="col-md-3">
+                  <h4>Preferencias deportivas</h4>
+                  <small class="text-muted"></small>
+               </li>
+               <li ng-class="{'active':wizard.active(4)}" ng-click="wizard.go(4)" class="col-md-3">
+                  <h4>¡Casi listo!</h4>
+                  <small class="text-muted"></small>
+               </li>
+            </ol>
+            <!-- END wizard steps indicator-->
+            <!-- START Wizard Step inputs -->
+            <div id="step1" ng-show="wizard.active(1)">
+               <fieldset>
+                  <legend>Inicio sesion</legend>
+                  <!-- START row -->
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Correo</label>
+                           <div class="controls">
+                              <input type="email" value="j@g.com" name="correp" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Contraseña</label>
+                           <div class="controls">
+                              <input type="password" name="contrasena" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Confirmar contraseña</label>
+                           <div class="controls">
+                              <input type="password" name="contraena2" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END row -->
+               </fieldset>
+               <ul class="pager">
+                  <li class="next"><a href="#" ng-click="wizard.go(2)">Siguiente <span>&rarr;</span></a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+            <!-- START Wizard Step inputs -->
+            <div id="step2" ng-show="wizard.active(2)">
+               <fieldset>
+                  <legend>Personal</legend>
+                  <!-- START row -->
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>Nombre</label>
+                           <input type="text" name="nombre" data-parsley-group="step2" placeholder="" required="required" class="form-control" />
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>Apellido</label>
+                           <input type="text" name="apellido" data-parsley-group="step2" placeholder="" required="required" class="form-control" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Genero</label>
+                           <div class="radio c-radio c-radio-nofont">
+                              <label class="radio-inline c-radio">
+                              <input id="rbtMascuino" type="radio" name="i-radio" value="option1" checked="checked" />
+                              <span class="fa fa-circle"></span>Masculino</label>
+                              <label class="radio-inline c-radio">
+                              <input id="rbtFemenino" type="radio" name="i-radio" value="option2" />
+                              <span class="fa fa-circle"></span>Femenino</label>
+                              <label class="radio-inline c-radio">
+                              <input id="rbtOtro" type="radio" name="i-radio" value="option3" />
+                              <span class="fa fa-circle"></span>Otro</label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div  ng-controller="DatepickerDemoCtrl" class="form-group">
+                           <label>Fecha de nacimiento</label>
+                           <p class="input-group">
+                              <input type="text" name="date" required="" datepicker-popup="{{format}}" ng-model="date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"
+                              class="form-control" />
+                              <span class="input-group-btn">
+                                 <button type="button" ng-click="open($event)" class="btn btn-default">
+                                    <em class="fa fa-calendar"></em>
+                                 </button>
+                              </span>
+                           </p>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Celular</label>
+                           <input type="text" name="celulra" data-parsley-group="step2" placeholder="" required="required" class="form-control" />
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END row -->
+               </fieldset>
+               <ul class="pager">
+                  <li class="previous">
+                     <a href="#" ng-click="wizard.go(1)">
+                        <span>&larr; Anterior</span>
+                     </a>
+                  </li>
+                  <li class="next"><a href="#" ng-click="wizard.go(3)">Siguiente <span>&rarr;</span></a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+            <!-- START Wizard Step inputs -->
+            <div id="step3" ng-show="wizard.active(3)">
+               <fieldset>
+                  <legend>Deportes</legend>
+                  <!-- START row -->
+                  <div class="row">
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-success">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-success-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="1" required="" ng-model="register.sds" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Ciclismo</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-danger">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-danger-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="2" required="" ng-model="register.dsds" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Aguas</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-warning">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-warning-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="3" required="" ng-model="register.ag" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Triatlon</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-info">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-info-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="4" required="" ng-model="register.tria" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Carreras</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-purple">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-purple-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="5" required="" ng-model="register.mountain" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Mountain bike</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xs-6 col-md-4">
+                        <div class="panel widget bg-inverse">
+                           <div class="row row-table">
+                              <div class="col-xs-4 text-center bg-inverse-dark pv-lg">
+                                 <div class="checkbox c-checkbox">
+                                    <label>
+                                    <input type="checkbox" name="6" required="" ng-model="register.paintball" />
+                                    <span class="fa fa-check"></span>
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-xs-8 pv-lg">
+                                 <div class="h4 m0 text-bold">Paintball</div>
+                                 <div class="text-uppercase"> 
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END row -->
+               </fieldset>
+               <ul class="pager">
+                  <li class="previous">
+                     <a href="#" ng-click="wizard.go(2)">
+                        <span>&larr; Anterior</span>
+                     </a>
+                  </li>
+                  <li class="next"><a href="#" ng-click="wizard.go(4)">Siguiente <span>&rarr;</span></a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+            <!-- START Wizard Step inputs -->
+            <div id="step4" ng-show="wizard.active(4)">
+               <div class="jumbotron">
+                  <h1>¡Listo!</h1>
+                  <p>Para terminar por favor presiona el boton de "Registrar" y ya podras disfrutar de todos los beneficios del deporte.</p>
+                  <p>
+                     <button type="button" class="btn btn-info btn-lg">Registrar</button>
+                  </p>
+               </div>
+               <ul class="pager">
+                  <li class="previous">
+                     <a href="#" ng-click="wizard.go(3)">
+                        <span>&larr; Anterior</span>
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+         </div>
+      </form>
+   </div>
+</div>
