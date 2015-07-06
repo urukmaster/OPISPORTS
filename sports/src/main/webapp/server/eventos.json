@@ -1,0 +1,29 @@
+[{
+  "id": 1,
+  "nombre": "La corrida de cartago",
+  "establecimiento": "Deportes la virgen de los angeles",
+  "direccion":"De la iglesia de los angeles 200 sur",
+  "fecha" : "07/07/2015",
+  "hora" : "7:00 a.m"
+}, {
+  "id": 2,
+  "nombre": "Corre por mi",
+  "establecimiento": "Mc Donalds",
+  "direccion":"Parque central de San José",
+  "fecha" : "30/06/2015",
+  "hora" : "7:30 a.m"
+}, {
+  "id": 3,
+  "nombre": "Triatlon UACA",
+  "establecimiento": "UACA",
+  "direccion":"De la UACA 500 oeste.",
+  "fecha" : "03/08/2015",
+  "hora" : "6:00 a.m"
+}, {
+  "id": 4,
+  "nombre": "Carrera recreativa San Miguel",
+  "establecimiento": "Centro deportivo charrara",
+  "direccion":"De la ferreteria brenes 200 norte.",
+  "fecha" : "09/09/2015",
+  "hora" : "7:00 a.m"
+}]
