@@ -1,0 +1,41 @@
+[{
+  "id": 1,
+  "nombre": "Sintetica",
+  "actividadDeportiva": "Futbol",
+  "precio": "5000",
+  "horaApertura": "08:00",
+  "horaCierre":"22:00",
+  "arbitro":"Sí"
+}, {
+  "id": 2,
+  "nombre": "Pavimento",
+  "actividadDeportiva": "Basket",
+  "precio": "3000",
+  "horaApertura": "08:00",
+  "horaCierre":"22:00",
+  "arbitro":"No"
+}, {
+  "id": 3,
+  "nombre": "Bosque",
+  "actividadDeportiva": "Paint Ball",
+  "precio": "7000",
+  "horaApertura": "08:00",
+  "horaCierre":"22:00",
+  "arbitro":"Sí"
+}, {
+  "id": 4,
+  "nombre": "Natural",
+  "actividadDeportiva": "Futbol",
+  "precio": "4000",
+  "horaApertura": "08:00",
+  "horaCierre":"22:00",
+  "arbitro":"No"
+}, {
+  "id": 5,
+  "nombre": "Parejas",
+  "actividadDeportiva": "Tennis",
+  "precio": "1000",
+  "horaApertura": "08:00",
+  "horaCierre":"22:00",
+  "arbitro":"Sí"
+}]

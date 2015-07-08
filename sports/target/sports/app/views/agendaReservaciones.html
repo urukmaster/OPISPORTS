@@ -1,0 +1,49 @@
+<h3>Reservaciones
+</h3>
+<!-- START row-->
+<div ng-controller="CalendarController" class="calendar-app">
+    <div class="row">
+        <div class="col-lg-3 col-md-4">
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12 co-xs-pull-12">
+                    <!-- START panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Servicios</h4>
+                        </div>
+                        <!-- Default external events list-->
+                        <div class="external-events-trash">
+                            <div class="panel-body">
+                                <div class="external-events">
+                                    <div class="bg-green">Cancha de futbol 5</div>
+                                    <div class="bg-danger">Cancha de Basket (Pavimento)</div>
+                                    <div class="bg-info">Paint Ball</div>
+                                </div>
+                                <p>
+                           <span class="checkbox c-checkbox">
+                              <label>
+                                  <input id="remove-after-drop" type="checkbox" />
+                                  <span class="fa fa-check"></span>Remover despues de arrastrar</label>
+                           </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END panel-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-8">
+            <!-- START panel-->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!-- START calendar-->
+                    <div id="calendar"></div>
+                    <!-- END calendar-->
+                </div>
+            </div>
+            <!-- END panel-->
+        </div>
+    </div>
+    <!-- END row-->
+</div>
