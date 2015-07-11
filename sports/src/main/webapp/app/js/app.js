@@ -119,13 +119,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('retos.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.establecimientos', {
-                url: '/establecimientos',
-                title: 'Establecimientos',
-                templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
@@ -136,7 +129,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.usuarios', {
                 url: '/usuarios',
                 title: 'Usuarios',
-                templateUrl: helper.basepath('usuarios.html'),
+                    templateUrl: helper.basepath('usuarios.html'),
                 controller: 'UsuariosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
@@ -153,10 +146,28 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
-            .state('app.profile',{
-                url: '/profile',
+            .state('app.establecimientos', {
+                url: '/establecimientos',
+                title: 'Establecimientos',
+                templateUrl: helper.basepath('establecimientos.html'),
+                controller: 'EstablecimientosController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.perfil',{
+                url: '/perfil/{mid:[0-9]{1,4}}',
                 title: 'Perfil',
-                templateUrl: helper.basepath('profile.html'),
+                templateUrl: helper.basepath('perfil.html')
+            })
+            .state('app.perfil.informacion',{
+                url: '/informacion',
+                title: 'Informacion',
+                templateUrl: helper.basepath('perfil-informacion.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfil.servicios',{
+                url: '/servicios',
+                title: 'Servicios',
+                templateUrl: helper.basepath('perfil-servicios.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
@@ -187,17 +198,41 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.servicio', {
                 url: '/servicio',
                 title: 'Servicios',
-                templateUrl: helper.basepath('servicio.html'),
                 controller: 'ServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.tipoServicio', {
                 url: '/tipoServicio',
+                templateUrl: helper.basepath('servicio.html'),
                 title: 'Tipos de Servicio',
                 templateUrl: helper.basepath('tipoServicios.html'),
                 controller: 'TipoServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
+            .state('app.mailbox', {
+                url: '/mailbox',
+                title: 'Mailbox',
+                abstract: true,
+                templateUrl: helper.basepath('mailbox.html'),
+                controller: 'MailboxController'
+            })
+            .state('app.mailbox.folder', {
+                url: '/folder/:folder',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-inbox.html')
+            })
+            .state('app.mailbox.view', {
+                url : "/{mid:[0-9]{1,4}}",
+                title: 'View mail',
+                templateUrl: helper.basepath('mailbox-view.html'),
+                resolve: helper.resolveFor('ngWig')
+            })
+            .state('app.mailbox.compose', {
+                url: '/compose',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-compose.html'),
+                resolve: helper.resolveFor('ngWig')
+             })
             .state('app.centroDistribucion', {
                 url: '/centroDistribucion',
                 title: 'Centro de Distribucion',
@@ -436,6 +471,11 @@ App
         ]
     })
 ;
+
+//Prueba
+
+
+//
 /**=========================================================
  * Module: access-login.js
  * Demo for login api
