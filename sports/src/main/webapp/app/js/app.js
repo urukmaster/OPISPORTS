@@ -122,7 +122,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
-                templateUrl: helper.basepath('Eventos.html'),
+                templateUrl: helper.basepath('eventos.html'),
                 controller: 'EventosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
@@ -756,7 +756,7 @@ App.controller('CalendarController', ['$scope', function($scope) {
             header: {
                 left:   'prev,next today',
                 center: 'title',
-                right:  'month,agendaWeek,agendaDay'
+                right:  'agendaWeek'
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
@@ -956,6 +956,7 @@ App.controller('CalendarController', ['$scope', function($scope) {
         initExternalEvents(calendar);
 
         initCalendar(calendar, demoEvents);
+        
 
     });
 
