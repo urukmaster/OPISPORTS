@@ -119,13 +119,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('retos.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.establecimientos', {
-                url: '/establecimientos',
-                title: 'Establecimientos',
-                templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
@@ -136,7 +129,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.usuarios', {
                 url: '/usuarios',
                 title: 'Usuarios',
-                templateUrl: helper.basepath('usuarios.html'),
+                    templateUrl: helper.basepath('usuarios.html'),
                 controller: 'UsuariosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
@@ -153,22 +146,28 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
-            .state('app.profile',{
-                url: '/profile',
-                title: 'Perfil',
-                templateUrl: helper.basepath('profile.html'),
-                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            .state('app.establecimientos', {
+                url: '/establecimientos',
+                title: 'Establecimientos',
+                templateUrl: helper.basepath('establecimientos.html'),
+                controller: 'EstablecimientosController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.profile.informacion',{
+            .state('app.perfil',{
+                url: '/perfil/{mid:[0-9]{1,4}}',
+                title: 'Perfil',
+                templateUrl: helper.basepath('perfil.html')
+            })
+            .state('app.perfil.informacion',{
                 url: '/informacion',
                 title: 'Informacion',
-                templateUrl: helper.basepath('profile-informacion.html'),
+                templateUrl: helper.basepath('perfil-informacion.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
-            .state('app.profile.servicios',{
+            .state('app.perfil.servicios',{
                 url: '/servicios',
                 title: 'Servicios',
-                templateUrl: helper.basepath('profile-servicios.html'),
+                templateUrl: helper.basepath('perfil-servicios.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
@@ -465,6 +464,11 @@ App
         ]
     })
 ;
+
+//Prueba
+
+
+//
 /**=========================================================
  * Module: access-login.js
  * Demo for login api
