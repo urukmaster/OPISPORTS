@@ -5,7 +5,8 @@
 
 var gridEventos = {};
 
-App.controller('EventosController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('EventosController', ['$scope', 'uiGridConstants', '$http', '$state', function($scope, 
+		uiGridConstants, $http, $state) {
 
     var data = [];
 
@@ -16,17 +17,31 @@ App.controller('EventosController', ['$scope', 'uiGridConstants', '$http', funct
             {field: 'direccion', name:"Dirección"},
             { field: 'fecha', name:"Fecha"},
             { field: 'hora', name:"Hora"},
-            {name: 'acciones', cellTemplate:'<div ng-controller="EventoModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '</div>'}
+            {name: 'acciones', cellTemplate:'<div ng-controller="EventoModalController">'+
+            	'<div class="btn-group btn-group-justified" role="group">' +
+            	'<div class="btn-group" role="group" ng-controller="EventosController">'+
+            	'<button type="button" class="btn btn-primary" ng-click="consultarEvento(row)"><span class="fa fa-search"></span></button>' +
+            	'</div>' + '<div class="btn-group" role="group">' +
+            	'<button type="button" class="btn btn-green" ng-click="modificar(row)"><span class="fa fa-pencil"></span></button>' +
+            	'</div>' + '<div class="btn-group" role="group">'+
+            	'<button type="button" class="btn btn-warning"><span class="fa fa-trash"></span></button>' +
+            	'</div>' + '</div>'+ '</div>'}
         ],
         data: data,
         onRegisterApi: function(gridApi) {
             $scope.gridApi = gridApi;
         }
     }
+    
+    $scope.registrar = function () {
+        $state.go('app.registrarEventoMasivo');
+    };    
+    
+    $scope.consultarEvento = function($row){
+        consultarEvento = $row;
+        $state.go('app.perfilEvento');
+    };
+    
     $http.get('server/eventos.json')
         .success(function(data) {
             data.forEach( function(row) {
@@ -42,17 +57,6 @@ App.controller('EventosController', ['$scope', 'uiGridConstants', '$http', funct
  =========================================================*/
 var eventoModificar = {};
 App.controller('EventoModalController', ['$scope', '$modal', function ($scope, $modal) {
-
-    $scope.registrar = function () {
-
-        var RegistrarModalInstance = $modal.open({
-            templateUrl: '/myEventoModalContent.html',
-            controller: RegistrarEventoInstanceCtrl,
-            size: 'lg'
-        });
-
-
-    };
 
     $scope.modificar = function ($row) {
         eventoModificar = $row.entity;

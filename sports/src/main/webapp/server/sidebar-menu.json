@@ -27,5 +27,11 @@
 	"sref": "app.configuracion",
 	"icon": "icon-user",
 	"label": "label label-info"
+  },
+  {
+	"text": "Centros de distribucion",
+	"sref": "app.centroDistribucion",
+	"icon": "icon-user",
+	"label": "label label-info"
   }
 ]

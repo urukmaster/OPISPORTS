@@ -198,6 +198,13 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 controller: 'TipoServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
+            .state('app.centroDistribucion', {
+                url: '/centroDistribucion',
+                title: 'Centro de Distribucion',
+                templateUrl: helper.basepath('centroDeDistribucion.html'),
+                controller: 'CentroDistribucionController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
 
             //
             // CUSTOM RESOLVES
