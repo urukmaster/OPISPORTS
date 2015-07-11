@@ -2,8 +2,12 @@
     <wb-module deploy-name="sports">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+<<<<<<< HEAD
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+=======
+>>>>>>> 07e091ca2c0be9d8d1ea65f22683f455e07a3dd8
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <property name="context-root" value="sports"/>
         <property name="java-output-path" value="/sports/target/classes"/>
     </wb-module>

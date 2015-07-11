@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
 	"text": "Main Navigation",
@@ -29,3 +30,30 @@
 	"label": "label label-info"
   }
 ]
+=======
+[
+  {
+	"text": "Main Navigation",
+	"heading": "true",
+	"translate": "sidebar.heading.HEADER"
+  },
+  {
+	"text": "Registrar",
+	"sref": "app.usuarios",
+	"icon": "icon-user",
+	"label": "label label-info"
+  },
+  {
+	"text": "Profile",
+	"sref": "app.establecimientos",
+	"icon": "icon-user",
+	"label": "label label-info"
+  },
+  {
+	"text": "Centros de distribucion",
+	"sref": "app.centroDistribucion",
+	"icon": "icon-user",
+	"label": "label label-info"
+  }
+]
+>>>>>>> 991da1240ccdf0894161e6b8d231336ef9d80138

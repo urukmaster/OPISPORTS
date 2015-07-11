@@ -1,0 +1,95 @@
+<div class="unwrap">
+   <div style="background-image: url(app/img/cancha2.jpg)" class="bg-cover">
+      <div class="p-xl text-center text-white">
+
+         <h3 class="m0">La Jaula</h3>
+         <p>Establecimiento Deportivo</p>
+         <p>Canchas de Futbol 5 y Futbol 7.</p>
+      </div>
+   </div>
+   <div class="text-center bg-gray-dark p-lg mb-xl">
+      <div class="row row-table">
+         <div class="col-xs-6 br">
+            <h3 class="m0">400</h3>
+            <p class="m0">
+               <span class="hidden-xs">Visitas de</span>
+               <span>perfil</span>
+            </p>
+         </div>
+         <div class="col-xs-6 br">
+            <h3 class="m0">2000</h3>
+            <p class="m0">Me gusta</p>
+         </div>
+      </div>
+   </div>
+   <div class="p-lg">
+      <div class="row">
+         <div class="col-lg-9">
+            <div id="panelDemo15" class="panel panel-default">
+               <div class="panel-body">
+                  <ul class="nav nav-pills nav-stacked">
+                     <li ui-sref-active="active" ng-repeat="fold in folders">
+                        <a ui-sref="app.mailbox.folder({folder: fold.folder})">
+                           <span ng-if="fold.alert" class="label label-green pull-right">{{fold.alert}}</span>
+                           <em ng-class="fold.icon" class="fa fa-fw fa-lg"></em>
+                           <span>{{fold.name}}</span>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+
+         </div>
+         <div class="col-lg-3">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <div class="text-center">
+                     <h3 class="mt0">La Jaula</h3>
+                     <p>Establecimiento Deportivo</p>
+                  </div>
+                  <hr/>
+                  <ul class="list-unstyled ph-xl">
+                     <li>
+                        <em class="fa fa-home fa-fw mr-lg"></em>Calle blancos, San Jose</li>
+                     <li>
+                        <em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">lajaula.com</a>
+                     </li>
+                     <li>
+                        <em class="fa fa-phone fa-fw mr-lg"></em><a href="#">+   (506) 2224-7979</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="panel panel-default">
+               <div class="list-group">
+                  <a href="#" class="list-group-item">
+                     <em class="pull-right fa fa-users fa-lg fa-fw text-muted mt"></em>
+                     <h4 class="list-group-item-heading">1000</h4>
+                     <p class="list-group-item-text">Friends</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                     <em class="pull-right fa fa-rss fa-lg fa-fw text-muted mt"></em>
+                     <h4 class="list-group-item-heading">3000</h4>
+                     <p class="list-group-item-text">Subscriptions</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                     <em class="pull-right fa fa-map-marker fa-lg fa-fw text-muted mt"></em>
+                     <h4 class="list-group-item-heading">100</h4>
+                     <p class="list-group-item-text">Places</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                     <em class="pull-right fa fa-briefcase fa-lg fa-fw text-muted mt"></em>
+                     <h4 class="list-group-item-heading">400</h4>
+                     <p class="list-group-item-text">Projects</p>
+                  </a>
+                  <a href="#" class="list-group-item">
+                     <em class="pull-right fa fa-twitter fa-lg fa-fw text-muted mt"></em>
+                     <h4 class="list-group-item-heading">17300</h4>
+                     <p class="list-group-item-text">Twees</p>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
