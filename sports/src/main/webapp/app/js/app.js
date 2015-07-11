@@ -198,12 +198,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.servicio', {
                 url: '/servicio',
                 title: 'Servicios',
-                templateUrl: helper.basepath('servicio.html'),
                 controller: 'ServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.tipoServicio', {
                 url: '/tipoServicio',
+                templateUrl: helper.basepath('servicio.html'),
                 title: 'Tipos de Servicio',
                 templateUrl: helper.basepath('tipoServicios.html'),
                 controller: 'TipoServicioController',
@@ -232,6 +232,13 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Mailbox',
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
+             })
+            .state('app.centroDistribucion', {
+                url: '/centroDistribucion',
+                title: 'Centro de Distribucion',
+                templateUrl: helper.basepath('centroDeDistribucion.html'),
+                controller: 'CentroDistribucionController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
 
             //

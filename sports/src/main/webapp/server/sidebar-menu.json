@@ -17,10 +17,9 @@
 	"label": "label label-info"
   },
   {
-	"text": "Mailbox",
-	"sref": "app.mailbox.folder",
-	"icon": "fa fa-gamepad",
-	"params": {"folder": "inbox"} ,
-	"translate": "sidebar.nav.extra.MAILBOX"
+	"text": "Centros de distribucion",
+	"sref": "app.centroDistribucion",
+	"icon": "icon-user",
+	"label": "label label-info"
   }
 ]
