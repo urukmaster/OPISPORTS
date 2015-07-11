@@ -1,56 +1,6 @@
 <h3>Eventos</h3>
-<div  class="container-fluid" ng-controller="EventoModalController">
-    <div>
-        <!-- Modal inline template-->
-        <script type="text/ng-template" id="/myEventoModalContent.html">
-            <div class="modal-header">
-                <h4 id="myModalLabel" class="modal-title">{{accion+" Eventos"}}</h4>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Nombre</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.nombre" type="text"  class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Establecimiento</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.establecimiento" type="text"  class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Direcci�n</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.direccion" type="text" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Fecha</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.fecha" type="date"  class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Hora</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.hora" type="time"  class="form-control" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button ng-hide="accion != 'Registrar' " ng-click="eventoForm.registrar()"type="submit" class="btn btn-primary"> {{accion}} </button>
-                <button ng-hide="accion != 'Modificar' " ng-click="eventoForm.modificar()"type="submit" class="btn btn-primary"> {{accion}} </button>
-                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
-            </div>
-        </script>
-        <button ng-click="registrar()" class="btn btn-primary" ><span class="fa fa-plus"></span></button>
-
-    </div>
+<div  class="container-fluid">
+	<button ng-click="registrar()" class="btn btn-primary" ><span class="fa fa-plus"></span></button>
     <div class="row">
         <div class="col-lg-12">
             <div ng-controller="EventosController" class="container-fluid">

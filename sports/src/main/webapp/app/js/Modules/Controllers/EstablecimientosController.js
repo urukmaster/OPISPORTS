@@ -55,7 +55,7 @@ App.controller('EstablecimientoModalController', ['$scope', '$modal', '$state', 
 
     $scope.consultar = function($row){
         consultarEstablecimiento = $row;
-        $state.go('app.profile');
+        $state.go('app.perfilEstablecimiento');
     };
 
     $scope.modificar = function ($row) {

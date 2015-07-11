@@ -24,11 +24,8 @@
   },
   {
 	"text": "Configuración",
-	"sref": "app.tipoServicio",
+	"sref": "app.configuracion",
 	"icon": "icon-user",
 	"label": "label label-info"
-  },
-  {
-
   }
 ]

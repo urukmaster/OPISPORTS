@@ -16,6 +16,4 @@ public class TipoServicioResponse {
 		this.tipoServicio = tipoServicio;
 	}
 	
-	
-	
 }

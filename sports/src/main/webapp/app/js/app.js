@@ -153,10 +153,10 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
-            .state('app.profile',{
-                url: '/profile',
+            .state('app.perfilEstablecimiento',{
+                url: '/perfilEstablecimiento',
                 title: 'Perfil',
-                templateUrl: helper.basepath('profile.html'),
+                templateUrl: helper.basepath('perfilEstablecimiento.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
@@ -709,7 +709,7 @@ App.controller('CalendarController', ['$scope', function($scope) {
             header: {
                 left:   'prev,next today',
                 center: 'title',
-                right:  'month,agendaWeek,agendaDay'
+                right:  'agendaWeek'
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
@@ -909,6 +909,7 @@ App.controller('CalendarController', ['$scope', function($scope) {
         initExternalEvents(calendar);
 
         initCalendar(calendar, demoEvents);
+        
 
     });
 
