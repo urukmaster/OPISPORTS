@@ -1,0 +1,81 @@
+<h3>Usuarios</h3>
+<div  class="container-fluid" ng-controller="UsuarioModalController">
+    <div>
+        <!-- Modal inline template-->
+        <script type="text/ng-template" id="/myUsuarioModalContent.html">
+            <div class="modal-header">
+                <h4 id="myModalLabel" class="modal-title">{{accion+" Usuarios"}}</h4>
+            </div>
+            <div class="panel panel-default">
+               <div class="panel-body">
+                    <form class="form-horizontal" novalidate="" name="usuario">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                                <input name="email" ng-model="usuarioForm.correo" type="email" placeholder="example@example.com" class="form-control"/>
+                                <span ng-show="validateInput('email', 'required')" class="text-danger">This field is required</span>
+                                <span ng-show="usuario.email.$dirty &amp;&amp; usuario.email.$error.email" class="text-danger">This field must be a valid email address</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Nombre</label>
+                            <div class="col-lg-10">
+                                <input name="nombre" ng-model="usuarioForm.nombre" type="text" class="form-control" required="" />
+                                <span ng-show="usuario.nombre.$dirty &amp;&amp; usuario.nombre.$error.required" class="text-danger">This field is required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Apellido</label>
+                            <div class="col-lg-10">
+                                <input name="apellido" ng-model="usuarioForm.apellido" type="text" class="form-control" required=""/>
+                                <span ng-show="usuario.apellido.$dirty &amp;&amp; usuario.apellido.$error.required" class="text-danger">This field is required</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <label class="col-lg-2 control-label">Género</label>
+                            <div class="col-lg-10">
+                                <input name="genero" ng-model="usuarioForm.genero" type="text" class="form-control" required=""/>
+                                <span ng-show="usuario.genero.$dirty &amp;&amp; usuario.genero.$error.required" class="text-danger">This field is required</span>
+                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Fecha Nacimiento</label>
+                            <div class="col-lg-10">
+                                <input name="fechaNacimiento" ng-model="usuarioForm.fechaNacimiento" type="text" class="form-control" required=""/>
+                                <span ng-show="usuario.fechaNacimiento.$dirty &amp;&amp; usuario.fechaNacimiento.$error.required" class="text-danger">This field is required</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="accion != 'Modificar' ">
+                                <label class="col-lg-2 control-label">Contraseña</label>
+                                <div class="col-lg-10">
+                                    <input name="contrasenna"ng-model="usuarioForm.contrasenna" type="password" class="form-control" required=""/>
+                                    <span ng-show="usuario.contrasenna.$dirty &amp;&amp; usuario.contrasenna.$error.required" class="text-danger">This field is required</span>
+                                </div>
+                        </div>
+                        <div class="form-group" ng-show="accion != 'Modificar' ">
+                                <label class="col-lg-2 control-label">Confirmar Contraseña</label>
+                                <div class="col-lg-10">
+                                    <input name="confirmarContrasenna" type="password" class="form-control" required="" />
+                                    <p ng-show="contrasenna != confirmarContrasenna" class="text-danger">Input does Not match</p>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-show="accion == 'Registrar' " ng-click="usuarioForm.registrar()"type="submit" class="btn btn-primary"> {{accion}} </button>
+                <button ng-show="accion == 'Modificar' " ng-click="usuarioForm.modificar()"type="submit" class="btn btn-primary"> {{accion}} </button>
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+        </script>
+        <button ng-click="registrar()" class="btn btn-primary" ><span class="fa fa-plus"></span></button>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="container-fluid">
+                <div id="uigrid-demo" ui-grid="gridUsuarios" class="table-uigrid"></div>
+            </div>
+        </div>
+    </div>
+ </div>
