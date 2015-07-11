@@ -159,6 +159,18 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('profile.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.perfilEvento',{
+                url: '/perfilEvento',
+                title: 'Perfil de evento',
+                templateUrl: helper.basepath('perfilEvento.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.registrarEventoMasivo',{
+                url: '/registrarEventoMasivo',
+                title: 'Registrar Evento',
+                templateUrl: helper.basepath('registrarEventoMasivo.html'),
+                resolve: helper.resolveFor('parsley')
+            })
             .state('app.registrarUsuario',{
                 url: '/registrarUsuario',
                 title: 'Registrar Usuario',

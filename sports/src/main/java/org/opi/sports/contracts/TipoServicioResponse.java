@@ -15,7 +15,4 @@ public class TipoServicioResponse {
 	public void setTipoServicio(List<TipoServicioPOJO> tipoServicio) {
 		this.tipoServicio = tipoServicio;
 	}
-	
-	
-	
 }
