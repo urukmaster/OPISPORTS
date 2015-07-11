@@ -14,14 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView login(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
-		return mav;
-	}
-	
 	@RequestMapping(value = "app", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 		

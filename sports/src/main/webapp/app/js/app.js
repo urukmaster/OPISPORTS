@@ -159,6 +159,18 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('profile.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.profile.informacion',{
+                url: '/informacion',
+                title: 'Informacion',
+                templateUrl: helper.basepath('profile-informacion.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.profile.servicios',{
+                url: '/servicios',
+                title: 'Servicios',
+                templateUrl: helper.basepath('profile-servicios.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
             .state('app.perfilEvento',{
                 url: '/perfilEvento',
                 title: 'Perfil de evento',
@@ -197,6 +209,30 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('tipoServicios.html'),
                 controller: 'TipoServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.mailbox', {
+                url: '/mailbox',
+                title: 'Mailbox',
+                abstract: true,
+                templateUrl: helper.basepath('mailbox.html'),
+                controller: 'MailboxController'
+            })
+            .state('app.mailbox.folder', {
+                url: '/folder/:folder',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-inbox.html')
+            })
+            .state('app.mailbox.view', {
+                url : "/{mid:[0-9]{1,4}}",
+                title: 'View mail',
+                templateUrl: helper.basepath('mailbox-view.html'),
+                resolve: helper.resolveFor('ngWig')
+            })
+            .state('app.mailbox.compose', {
+                url: '/compose',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-compose.html'),
+                resolve: helper.resolveFor('ngWig')
             })
 
             //

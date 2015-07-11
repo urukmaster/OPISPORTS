@@ -4,28 +4,23 @@
 	"heading": "true",
 	"translate": "sidebar.heading.HEADER"
   },
-{
-	"text": "Establecimientos Deportivos",
-	"sref": "app.establecimientos",
-	"icon": "fa fa-futbol-o",
-	"label": "label label-info"
-  },
-  {
-	"text": "Eventos Masivos",
-	"sref": "app.eventos",
-	"icon": "fa fa-gamepad",
-	"label": "label label-info"
-  },
   {
 	"text": "Registrar",
-	"sref": "app.registrarUsuario",
+	"sref": "app.usuarios",
 	"icon": "icon-user",
 	"label": "label label-info"
   },
   {
-	"text": "Configuración",
-	"sref": "app.configuracion",
+	"text": "Profile",
+	"sref": "app.establecimientos",
 	"icon": "icon-user",
 	"label": "label label-info"
+  },
+  {
+	"text": "Mailbox",
+	"sref": "app.mailbox.folder",
+	"icon": "fa fa-gamepad",
+	"params": {"folder": "inbox"} ,
+	"translate": "sidebar.nav.extra.MAILBOX"
   }
 ]
