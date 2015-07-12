@@ -14,6 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora.
+ *
+ *Sprint 01 Descripción:Esta clase es la que contendrá cada uno de los servicios que
+ *serán necesarios para procesar la información de reservaciones de la aplicación
+ */
+
 @RestController
 @RequestMapping(value = "rest/reservaciones")
 
@@ -21,7 +31,11 @@ public class ReservacionController {
 	
 	@Autowired
 	ReservacionesServiceInterface reservacionesServices;
-	
+
+	/**
+	 *Este método obtiene cada una de las instancias de reservaciones
+	 *registradas en la base de datos
+	 */	
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public ReservacionesResponse getAll(){
 		

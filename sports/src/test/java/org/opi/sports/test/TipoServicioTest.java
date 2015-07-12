@@ -29,7 +29,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  *
  */
 
-//Se especifica con que correra el JUNIT
+//Se especifica con que correrá el JUNIT
 @RunWith(SpringJUnit4ClassRunner.class)
 //Se debe cargar la configuracion del servidor
 @SpringApplicationConfiguration(classes = OpiSportsApplication.class)
