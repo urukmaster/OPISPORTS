@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.opi.sports.pojo.ReservacionesPOJO;
 
-public class ReservacionesResponse {
+public class ReservacionesResponse extends BaseResponse{
 
 	private List<ReservacionesPOJO> reservacion;
 	private List<String> JSONCalendar;

@@ -749,8 +749,6 @@ App.controller('CalendarController', ['$scope', function($scope) {
     function initCalendar(calElement, events) {
 
         // check to remove elements from the list
-        var removeAfterDrop = $('#remove-after-drop');
-
         calElement.fullCalendar({
             isRTL: $scope.app.layout.isRTL,
             header: {
@@ -762,46 +760,10 @@ App.controller('CalendarController', ['$scope', function($scope) {
                 prev:    ' fa fa-caret-left',
                 next:    ' fa fa-caret-right'
             },
-            buttonText: {
-                today: 'today',
-                month: 'month',
-                week:  'week',
-                day:   'day'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar 
-            drop: function(date, allDay) { // this function is called when something is dropped
-
-                var $this = $(this),
-                // retrieve the dropped element's stored Event Object
-                    originalEventObject = $this.data('calendarEventObject');
-
-                // if something went wrong, abort
-                if(!originalEventObject) return;
-
-                // clone the object to avoid multiple events with reference to the same object
-                var clonedEventObject = $.extend({}, originalEventObject);
-
-                // assign the reported date
-                clonedEventObject.start = date;
-                clonedEventObject.allDay = allDay;
-                clonedEventObject.backgroundColor = $this.css('background-color');
-                clonedEventObject.borderColor = $this.css('border-color');
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" 
-                // (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                calElement.fullCalendar('renderEvent', clonedEventObject, true);
-
-                // if necessary remove the element from the list
-                if(removeAfterDrop.is(':checked')) {
-                    $this.remove();
-                }
-            },
-            eventDragStart: function (event, js, ui) {
-                draggingEvent = event;
-            },
-            // This array is the events sources
+            defaultView: 'agendaWeek',
+            allDaySlot: false,
+            firstHour: 8,
+            firstDay:1,
             events: events
         });
     }
@@ -891,58 +853,10 @@ App.controller('CalendarController', ['$scope', function($scope) {
      * @return Array The array with the events
      */
     function createDemoEvents() {
-        // Date for the calendar events (dummy data)
-        var date = new Date();
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
-
-        return  [
-            {
-                title: 'Cancha Futbol 7',
-                start: new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor: '#f56954' //red
-            },
-            {
-                title: 'Paint Ball Bosque',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                backgroundColor: '#f39c12', //yellow
-                borderColor: '#f39c12' //yellow
-            },
-            {
-                title: 'Basket Bajo Techo',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                backgroundColor: '#0073b7', //Blue
-                borderColor: '#0073b7' //Blue
-            },
-            {
-                title: 'Reservado por Campeonato BAC',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            },
-            {
-                title: 'Cancha futbol 5',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor: '#00a65a' //Success (green)
-            },
-            {
-                title: 'Paint Ball Trinchera',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: '//google.com/',
-                backgroundColor: '#3c8dbc', //Primary (light-blue)
-                borderColor: '#3c8dbc' //Primary (light-blue)
-            }
-        ];
+    	$http.get('rest/reservaciones/getAll')
+        .success(function(data) {
+            return data.jsoncalendar;
+        });
     }
 
     // When dom ready, init calendar and events

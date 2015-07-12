@@ -1,8 +1,8 @@
 package org.opi.sports.contracts;
 
-import org.opi.sports.pojo.ReservacionesPOJO;;
+import org.opi.sports.pojo.ReservacionesPOJO;
 
-public class ReservacionesRequest {
+public class ReservacionesRequest extends BasePagingRequest{
 
 	private ReservacionesPOJO reservacion;
 

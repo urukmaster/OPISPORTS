@@ -24,10 +24,6 @@ public class TipoServicioController {
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public TipoServicioResponse getAll(){
 		
-		System.out.println("ENTRO!!!!!!!!!!!");
-		System.out.println("ENTRO!!!!!!!!!!!");
-		System.out.println("ENTRO!!!!!!!!!!!");
-		
 		TipoServicioResponse tipoServicioResponse = new TipoServicioResponse();
 		
 		List<TipoServicio> tipoServicioList = tipoServicioService.getAllTipoServicio();
@@ -38,9 +34,8 @@ public class TipoServicioController {
 			PojoUtils.pojoMappingUtility(tipoServicioView, tipoServicio);
 			tipoServicioViewList.add(tipoServicioView);
 		}
-		System.out.println("SALIO!!!!!!!!!!!");
-		System.out.println("SALIO!!!!!!!!!!!");
-		System.out.println("SALIO!!!!!!!!!!!");
+		
+		tipoServicioResponse.setTipoServicio(tipoServicioViewList);
 		
 		return tipoServicioResponse;
 	}
