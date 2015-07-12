@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-[{
-    "id": 1,
-    "nombre": "La jaula",
-    "direccion": "La Uruca",
-    "telefono": "2222-2222"
-}, {
-    "id": 2,
-    "nombre": "La Frente",
-    "direccion": "La Uruca, San José",
-    "telefono": "2222-2222"
-}, {
-    "id": 3,
-    "nombre": "Puro futbol",
-    "direccion": "Heredia",
-    "telefono": "2222-2222"
-}, {
-    "id": 4,
-    "nombre": "Futbol 6",
-    "direccion": "Tibás",
-    "telefono": "2222-2222"
-}, {
-    "id": 5,
-    "nombre": "Extreme soccer",
-    "direccion": "Lagunilla",
-    "telefono": "2222-2222"
-}, {
-    "id": 6,
-    "nombre": "Puro futbol #2",
-    "direccion": "Desamparados",
-    "telefono": "2222-2222"
-}]
-=======
 [{
     "id": 1,
     "nombre": "La jaula",
@@ -79,4 +46,3 @@
       }
     }
   }]
->>>>>>> 991da1240ccdf0894161e6b8d231336ef9d80138
