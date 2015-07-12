@@ -2,19 +2,19 @@ package org.opi.sports.contracts;
 
 import org.opi.sports.pojo.ReservacionesPOJO;
 
-public class ReservacionesRequest {
+public class ReservacionesRequest extends BasePagingRequest{
 
-	private ReservacionesPOJO Reservaciones;
+	private ReservacionesPOJO reservacion;
 
-	public ReservacionesPOJO getReservaciones() {
-		return Reservaciones;
+	public ReservacionesPOJO getReservacion() {
+		return reservacion;
 	}
 
-	public void setReservaciones(ReservacionesPOJO Reservaciones) {
-		this.Reservaciones = Reservaciones;
+	public void setReservacion(ReservacionesPOJO reservacion) {
+		this.reservacion = reservacion;
 	}
 	
 	public String toString(){
-		return "TipoServiceRequest [Reservaciones=" + Reservaciones  + "]";
+		return "ReservacionesRequest [reservacion=" + reservacion  + "]";
 	}
 }

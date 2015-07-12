@@ -1,71 +1,63 @@
 package org.opi.sports.pojo;
 
+import java.sql.Time;
 import java.util.Date;
-
-import org.joda.time.DateTime;
 
 public class ReservacionesPOJO {
 
 	private int idCalendario;
-
 	private Date fecha;
-
-	private DateTime hora;
-
+	private Time hora;
 	private String ocurrencia;
-
-	private Integer idServicio;
-
-	private Integer idUsuario;
-
+	private int idServicio;
+	private int idUsuario;
+	
 	public int getIdCalendario() {
 		return idCalendario;
 	}
-
+	
 	public void setIdCalendario(int idCalendario) {
 		this.idCalendario = idCalendario;
 	}
-
+	
 	public Date getFecha() {
 		return fecha;
 	}
-
+	
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
-	public DateTime getHora() {
+	
+	public Time getHora() {
 		return hora;
 	}
-
-	public void setHora(DateTime hora) {
+	
+	public void setHora(Time hora) {
 		this.hora = hora;
 	}
-
+	
 	public String getOcurrencia() {
 		return ocurrencia;
 	}
-
+	
 	public void setOcurrencia(String ocurrencia) {
 		this.ocurrencia = ocurrencia;
 	}
-
-	public Integer getIdServicio() {
+	
+	public int getIdServicio() {
 		return idServicio;
 	}
-
-	public void setIdServicio(Integer idServicio) {
+	
+	public void setIdServicio(int idServicio) {
 		this.idServicio = idServicio;
 	}
-
-	public Integer getIdUsuario() {
+	
+	public int getIdUsuario() {
 		return idUsuario;
 	}
-
-	public void setIdUsuario(Integer idUsuario) {
+	
+	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-
-
 	
 }

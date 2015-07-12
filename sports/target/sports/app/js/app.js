@@ -119,24 +119,17 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('retos.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.establecimientos', {
-                url: '/establecimientos',
-                title: 'Establecimientos',
-                templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
-                templateUrl: helper.basepath('Eventos.html'),
+                templateUrl: helper.basepath('eventos.html'),
                 controller: 'EventosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.usuarios', {
                 url: '/usuarios',
                 title: 'Usuarios',
-                templateUrl: helper.basepath('usuarios.html'),
+                    templateUrl: helper.basepath('usuarios.html'),
                 controller: 'UsuariosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
@@ -153,11 +146,41 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
-            .state('app.profile',{
-                url: '/profile',
+            .state('app.establecimientos', {
+                url: '/establecimientos',
+                title: 'Establecimientos',
+                templateUrl: helper.basepath('establecimientos.html'),
+                controller: 'EstablecimientosController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.perfil',{
+                url: '/perfil/{mid:[0-9]{1,4}}',
                 title: 'Perfil',
-                templateUrl: helper.basepath('profile.html'),
+                templateUrl: helper.basepath('perfil.html')
+            })
+            .state('app.perfil.informacion',{
+                url: '/informacion',
+                title: 'Informacion',
+                templateUrl: helper.basepath('perfil-informacion.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfil.servicios',{
+                url: '/servicios',
+                title: 'Servicios',
+                templateUrl: helper.basepath('perfil-servicios.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfilEvento',{
+                url: '/perfilEvento',
+                title: 'Perfil de evento',
+                templateUrl: helper.basepath('perfilEvento.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.registrarEventoMasivo',{
+                url: '/registrarEventoMasivo',
+                title: 'Registrar Evento',
+                templateUrl: helper.basepath('registrarEventoMasivo.html'),
+                resolve: helper.resolveFor('parsley')
             })
             .state('app.registrarUsuario',{
                 url: '/registrarUsuario',
@@ -175,15 +198,46 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.servicio', {
                 url: '/servicio',
                 title: 'Servicios',
-                templateUrl: helper.basepath('servicio.html'),
                 controller: 'ServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.tipoServicio', {
                 url: '/tipoServicio',
+                templateUrl: helper.basepath('servicio.html'),
                 title: 'Tipos de Servicio',
                 templateUrl: helper.basepath('tipoServicios.html'),
                 controller: 'TipoServicioController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.mailbox', {
+                url: '/mailbox',
+                title: 'Mailbox',
+                abstract: true,
+                templateUrl: helper.basepath('mailbox.html'),
+                controller: 'MailboxController'
+            })
+            .state('app.mailbox.folder', {
+                url: '/folder/:folder',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-inbox.html')
+            })
+            .state('app.mailbox.view', {
+                url : "/{mid:[0-9]{1,4}}",
+                title: 'View mail',
+                templateUrl: helper.basepath('mailbox-view.html'),
+                resolve: helper.resolveFor('ngWig')
+            })
+            .state('app.mailbox.compose', {
+                url: '/compose',
+                title: 'Mailbox',
+                templateUrl: helper.basepath('mailbox-compose.html'),
+                resolve: helper.resolveFor('ngWig')
+             })
+            .state('app.centroDistribucion', {
+                url: '/centroDistribucion',
+                title: 'Centro de Distribucion',
+                templateUrl: helper.basepath('centroDeDistribucion.html'),
+                controller: 'CentroDistribucionController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
 
@@ -417,6 +471,11 @@ App
         ]
     })
 ;
+
+//Prueba
+
+
+//
 /**=========================================================
  * Module: access-login.js
  * Demo for login api
@@ -690,59 +749,21 @@ App.controller('CalendarController', ['$scope', function($scope) {
     function initCalendar(calElement, events) {
 
         // check to remove elements from the list
-        var removeAfterDrop = $('#remove-after-drop');
-
         calElement.fullCalendar({
             isRTL: $scope.app.layout.isRTL,
             header: {
                 left:   'prev,next today',
                 center: 'title',
-                right:  'month,agendaWeek,agendaDay'
+                right:  'agendaWeek'
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
                 next:    ' fa fa-caret-right'
             },
-            buttonText: {
-                today: 'today',
-                month: 'month',
-                week:  'week',
-                day:   'day'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar 
-            drop: function(date, allDay) { // this function is called when something is dropped
-
-                var $this = $(this),
-                // retrieve the dropped element's stored Event Object
-                    originalEventObject = $this.data('calendarEventObject');
-
-                // if something went wrong, abort
-                if(!originalEventObject) return;
-
-                // clone the object to avoid multiple events with reference to the same object
-                var clonedEventObject = $.extend({}, originalEventObject);
-
-                // assign the reported date
-                clonedEventObject.start = date;
-                clonedEventObject.allDay = allDay;
-                clonedEventObject.backgroundColor = $this.css('background-color');
-                clonedEventObject.borderColor = $this.css('border-color');
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" 
-                // (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                calElement.fullCalendar('renderEvent', clonedEventObject, true);
-
-                // if necessary remove the element from the list
-                if(removeAfterDrop.is(':checked')) {
-                    $this.remove();
-                }
-            },
-            eventDragStart: function (event, js, ui) {
-                draggingEvent = event;
-            },
-            // This array is the events sources
+            defaultView: 'agendaWeek',
+            allDaySlot: false,
+            firstHour: 8,
+            firstDay:1,
             events: events
         });
     }
@@ -832,58 +853,10 @@ App.controller('CalendarController', ['$scope', function($scope) {
      * @return Array The array with the events
      */
     function createDemoEvents() {
-        // Date for the calendar events (dummy data)
-        var date = new Date();
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
-
-        return  [
-            {
-                title: 'Cancha Futbol 7',
-                start: new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor: '#f56954' //red
-            },
-            {
-                title: 'Paint Ball Bosque',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                backgroundColor: '#f39c12', //yellow
-                borderColor: '#f39c12' //yellow
-            },
-            {
-                title: 'Basket Bajo Techo',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                backgroundColor: '#0073b7', //Blue
-                borderColor: '#0073b7' //Blue
-            },
-            {
-                title: 'Reservado por Campeonato BAC',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            },
-            {
-                title: 'Cancha futbol 5',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor: '#00a65a' //Success (green)
-            },
-            {
-                title: 'Paint Ball Trinchera',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: '//google.com/',
-                backgroundColor: '#3c8dbc', //Primary (light-blue)
-                borderColor: '#3c8dbc' //Primary (light-blue)
-            }
-        ];
+    	$http.get('rest/reservaciones/getAll')
+        .success(function(data) {
+            return data.jsoncalendar;
+        });
     }
 
     // When dom ready, init calendar and events
@@ -897,6 +870,7 @@ App.controller('CalendarController', ['$scope', function($scope) {
         initExternalEvents(calendar);
 
         initCalendar(calendar, demoEvents);
+        
 
     });
 

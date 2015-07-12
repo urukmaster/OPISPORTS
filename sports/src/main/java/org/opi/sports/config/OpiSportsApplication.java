@@ -12,10 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.opi.sports.config.PassthroughFilter;
-import org.opi.sports.config.WSFilter;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.opi.sports"})

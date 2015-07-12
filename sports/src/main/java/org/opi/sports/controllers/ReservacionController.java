@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -13,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping(value = "rest/reservaciones")
-public class ReservacionesController {
+
+public class ReservacionController {
 	
 	@Autowired
-	ReservacionesServiceInterface reservacionesService;
-
+	ReservacionesServiceInterface reservacionesServices;
+	
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public ReservacionesResponse getAll(){
 		
 		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
 		
-		List<Reservaciones> reservacionesList = reservacionesService.getAllReservaciones();
+		List<Reservaciones> reservacionesList = reservacionesServices.getAllReservaciones();
 		List<ReservacionesPOJO> reservacionesViewList = new ArrayList<ReservacionesPOJO>();
 		
 		for(Reservaciones reservaciones : reservacionesList){
@@ -35,9 +36,11 @@ public class ReservacionesController {
 			reservacionesViewList.add(reservacionesView);
 		}
 		
-		reservacionesResponse.setReservaciones(reservacionesViewList);
+		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setJSONCalendar(ReservacionesHelper.getInstance().calendarioSerializer(reservacionesViewList));
 		
-		return reservacionesResponse;
+		return reservacionesResponse;		
+		
 	}
-	
+
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.opi.sports.pojo.TipoServicioPOJO;
 
-public class TipoServicioResponse {
+public class TipoServicioResponse extends BaseResponse{
 
 	private List<TipoServicioPOJO> tipoServicio;
 
@@ -15,7 +15,4 @@ public class TipoServicioResponse {
 	public void setTipoServicio(List<TipoServicioPOJO> tipoServicio) {
 		this.tipoServicio = tipoServicio;
 	}
-	
-	
-	
 }
