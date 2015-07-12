@@ -8,5 +8,5 @@ import org.springframework.data.domain.Page;
 
 public interface EstablecimientoDeportivoServiceInterface {
 
-	Page<EstablecimientoDeportivo> findAll(EstablecimientoDeportivoRequest er);
+	public List<EstablecimientoDeportivo> getAllEstablecimientos();
 }

@@ -29,33 +29,23 @@ public class EstablecimientoDeportivoController {
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
-	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
-	@Transactional
-	public EstablecimientoDeportivoResponse getAll(@RequestBody EstablecimientoDeportivoRequest establecimientoRequest){	
+	@RequestMapping(value ="getAll", method = RequestMethod.GET)
+	public EstablecimientoDeportivoResponse getAll(){	
 		
-		establecimientoRequest.setPageNumber(establecimientoRequest.getPageNumber() - 1);
-		Page<EstablecimientoDeportivo> establecimientos = establecimientoDeportivoService.findAll(establecimientoRequest);
 		
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
 		
-		establecimientoResponse.setCode(200);
-		establecimientoResponse.setCodeMessage("establecimientos fetch success");
-		establecimientoResponse.setTotalElements(establecimientos.getTotalElements());
-		establecimientoResponse.setTotalPages(establecimientos.getTotalPages());
-
-		List<EstablecimientoDeportivoPOJO> viewEstablecimientos = new ArrayList<EstablecimientoDeportivoPOJO>();
+		List<EstablecimientoDeportivo> establecimientoList = establecimientoDeportivoService.getAllEstablecimientos();
+		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
-		establecimientos.getContent().forEach(e->{
-			EstablecimientoDeportivoPOJO nestablecimiento = new EstablecimientoDeportivoPOJO();
-			nestablecimiento.setNombre(e.getNombre());
-			nestablecimiento.setCorreo(e.getCorreo());
-			nestablecimiento.setIdEstablecimientoDeportivo(e.getIdEstablecimientoDeportivo());
-			nestablecimiento.setTelefono(e.getTelefono());
-			nestablecimiento.setDireccion(e.getDireccion());
-			viewEstablecimientos.add(nestablecimiento);
-		});
+		for(EstablecimientoDeportivo establecimiento : establecimientoList){
+			EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
+			PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
+			establecimientoViewList.add(establecimientoView);
+		}
 		
-		establecimientoResponse.setEstablecimientoDeportivo(viewEstablecimientos);
-		return establecimientoResponse;		
+		establecimientoResponse.setEstablecimientoDeportivo(establecimientoViewList);
+		
+		return establecimientoResponse;
 	}
 }
