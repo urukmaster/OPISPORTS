@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservacionesController {
 	
 	@Autowired
-	ReservacionesServiceInterface ReservacionesService;
+	ReservacionesServiceInterface reservacionesService;
 
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public ReservacionesResponse getAll(){
@@ -35,7 +35,7 @@ public class ReservacionesController {
 			reservacionesViewList.add(reservacionesView);
 		}
 		
-		ReservacionesResponse.setReservaciones(reservacionesViewList);
+		reservacionesResponse.setReservaciones(reservacionesViewList);
 		
 		return reservacionesResponse;
 	}
