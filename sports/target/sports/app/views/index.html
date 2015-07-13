@@ -2,7 +2,7 @@
     Bienvenido a la aplicacion que te ayuda a disfrutar del deporte
 </h3>
 <!-- START widgets box-->
-<div class="row">
+<div class="row" ng-controller="IndexController" >
     <div class="col-lg-3 col-sm-6">
         <div class="panel bg-info-light pt b0 widget">
             <div class="ph">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="col-lg-3 col-md-6 col-sm-12" ng-click="ConsultarEventos()">
         <!-- START widget-->
         <div class="panel widget bg-purple-light pt b0 widget">
             <div class="ph">
@@ -240,3 +240,5 @@
     <!-- END dashboard sidebar-->
 </div>
 <!-- END Widgets-->
+
+<script src="app/js/Modules/Controllers/IndexController.js"></script>
