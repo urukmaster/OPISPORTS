@@ -30,7 +30,6 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Mensajeria.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Establecimiento_Evento.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/config/OpiSportsApplication.java
-/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Reservacione.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/services/TipoServicioServiceInterface.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/contracts/BaseResponse.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/repositories/ReservacionesRepository.java

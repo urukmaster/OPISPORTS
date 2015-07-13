@@ -11,32 +11,12 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','
 		.success(function(response) {
 			$scope.Establecimientos = response.establecimientoDeportivo;
 		});
+
     };
     $scope.init();
+
+}]);
        
-App.controller('InformacionPerfilController', [ '$scope', '$http',
-		'$stateParams', '$state',
-		function($scope, $http, $stateParams, $state) {
-			var path = 'server/establecimientos.json';
-			$scope.init = function() {
-				$scope.mostrarCalendario = false;
-				console.log("entrarndo")
-				$http.get(path).then(function(resp) {
-					console.log("ressssp", resp)
-					var establecimientos = resp.data;
-					for (var i = 0; i < establecimientos.length; i++) {
-						if (establecimientos[i].id == $stateParams.mid) {
-							$scope.establecimiento = establecimientos[i];
-						}
-					}
-				});
-			}
-
-			$scope.init();
-
-
-		} ]);
-
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
 	
 	$scope.init = function(){
@@ -57,6 +37,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     
     $scope.mostrarReservaciones = function() {
 			$scope.mostrarCalendario = true;
+			$('#calendar').fullCalendar('render');
 	}
 			
 	$scope.mostrarInformacion = function(){

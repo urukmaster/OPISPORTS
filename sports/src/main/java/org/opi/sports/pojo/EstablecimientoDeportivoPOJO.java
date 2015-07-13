@@ -6,7 +6,6 @@ public class EstablecimientoDeportivoPOJO {
 	
 	private int idEstablecimientoDeportivo;
 	private String nombre;
-	private String correo;
 	private String telefono;
 	private String direccion;
 	
@@ -21,12 +20,6 @@ public class EstablecimientoDeportivoPOJO {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
 	}
 	public String getTelefono() {
 		return telefono;
