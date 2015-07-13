@@ -5,7 +5,7 @@
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarController', ['$scope', function($scope) {
+App.controller('CalendarControllerEventos', ['$scope', function($scope) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
