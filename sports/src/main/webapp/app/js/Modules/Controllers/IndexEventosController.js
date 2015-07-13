@@ -200,13 +200,15 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
 
         return  [
             {
-                title: 'Corre por mi 2015', allDay: true,
+                title: 'Corre por mi 2015',
+                allDay: true,
                 start: new Date(y, m, 1),
                 backgroundColor: '#f56954', //red
                 borderColor: '#f56954' //red
             },
             {
-                title: 'Recreativa a Monteverde', allDay: true,
+                title: 'Recreativa a Monteverde',
+                allDay: true,
                 start: new Date(y, m, d - 5),
                 backgroundColor: '#f39c12', //yellow
                 borderColor: '#f39c12' //yellow
@@ -214,7 +216,7 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
             {
                 title: 'Evento de aguas abiertas',
                 start: new Date(y, m, d, 10, 30),
-                allDay: false,
+                allDay: true,
                 backgroundColor: '#0073b7', //Blue
                 borderColor: '#0073b7' //Blue
             },
@@ -222,7 +224,7 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
                 title: 'Vuelta al Arenal',
                 start: new Date(y, m, d, 12, 0),
                 end: new Date(y, m, d, 14, 0),
-                allDay: false,
+                allDay: true,
                 backgroundColor: '#00c0ef', //Info (aqua)
                 borderColor: '#00c0ef' //Info (aqua)
             },
@@ -230,7 +232,7 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
                 title: 'Clásica San Miguel',
                 start: new Date(y, m, d + 1, 19, 0),
                 end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
+                allDay: true,
                 backgroundColor: '#00a65a', //Success (green)
                 borderColor: '#00a65a' //Success (green)
             }
