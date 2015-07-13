@@ -146,6 +146,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.eventosIndex', {
+                url: '/eventosIndex',
+                title: 'Eventos deportivos',
+                templateUrl: helper.basepath('eventosIndex.html'),
+                resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
             .state('app.establecimientos', {
                 url: '/establecimientos',
                 title: 'Establecimientos',
