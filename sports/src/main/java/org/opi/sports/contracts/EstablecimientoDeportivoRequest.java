@@ -8,6 +8,7 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest{
 	
 	private EstablecimientoDeportivoPOJO EstablecimientoDeportivo;
 
+
 	public EstablecimientoDeportivoPOJO getEstablecimientoDeportivo() {
 		return EstablecimientoDeportivo;
 	}
@@ -16,6 +17,10 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest{
 		EstablecimientoDeportivo = establecimientoDeportivo;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "EstablecimientoDeportivoRequest [EstablecimientoDeportivo="
+				+ EstablecimientoDeportivo + "]";
+	}
+	
 }
