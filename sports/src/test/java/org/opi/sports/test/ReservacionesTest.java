@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -77,6 +78,7 @@ public class ReservacionesTest {
 		}
 		
 		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setJSONCalendar(ReservacionesHelper.getInstance().calendarioSerializer(reservacionesViewList));
 		
 		assertNotNull(reservacionesResponse);
 	}
