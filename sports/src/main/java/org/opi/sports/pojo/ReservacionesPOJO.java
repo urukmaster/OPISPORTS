@@ -3,6 +3,14 @@ package org.opi.sports.pojo;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora
+ *
+ *Sprint 01 Descripción: Esta clase es la representación de un objeto "Reservacion"
+ *
+ */
 public class ReservacionesPOJO {
 
 	private int idCalendario;

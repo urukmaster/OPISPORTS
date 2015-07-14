@@ -1,8 +1,16 @@
 package org.opi.sports.contracts;
 
 import java.util.List;
-
 import org.opi.sports.pojo.ReservacionesPOJO;
+
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora.
+ *
+ *Sprint 01 Descripción:Esta clase simula un httpservlet, 
+ *simula las respuestas al front end.
+ */
 
 public class ReservacionesResponse extends BaseResponse{
 

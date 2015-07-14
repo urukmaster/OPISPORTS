@@ -1,0 +1,41 @@
+<h3>Eventos deportivos
+   <small>Obtenga sus suscripciones a eventos deportivos</small>
+</h3>
+<!-- START row-->
+<div ng-controller="CalendarControllerEventos" class="calendar-app">
+   <div class="row">
+      <div class="col-lg-3 col-md-4">
+         <div class="row">
+            <div class="col-md-12 col-sm-6 col-xs-12 co-xs-pull-12">
+               <!-- START panel-->
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h4 class="panel-title">Proximos eventos</h4>
+                  </div>
+                  <!-- Default external events list-->
+                  <div>
+<!--                   acá se listaran los eventos de este mes -->
+                  </div>
+               </div>
+               <!-- END panel-->
+            </div>
+            <div class="col-md-12 col-sm-6 col-xs-12 co-xs-push-12">
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-9 col-md-8">
+         <!-- START panel-->
+         <div class="panel panel-default">
+            <div class="panel-body">
+               <!-- START calendar-->
+               <div id="calendar"></div>
+               <!-- END calendar-->
+            </div>
+         </div>
+         <!-- END panel-->
+      </div>
+   </div>
+   <!-- END row-->
+</div>
+
+<script src="app/js/Modules/Controllers/IndexEventosController.js"></script>

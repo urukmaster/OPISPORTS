@@ -2,6 +2,15 @@ package org.opi.sports.contracts;
 
 import org.opi.sports.pojo.ReservacionesPOJO;
 
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora.
+ *
+ *Sprint 01 Descripción:Esta clase simula un httpservlet, 
+ *simula las solicitudes del front end.
+ */
+
 public class ReservacionesRequest extends BasePagingRequest{
 
 	private ReservacionesPOJO reservacion;

@@ -22,40 +22,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import scala.annotation.meta.setter;
 
+/**
+ * Fecha: 13-07-2015 version 1.0
+ * 
+ * @author Mauricio Araica Hernández
+ *
+ *Sprint 01 Descripción: Controllador rest de establecimeintos deportivos encargada
+ *de serializar los objetos y devolverlos al front end como recibir json y convertirlos en 
+ *objetos java
+ *
+ */
 @RestController
 @RequestMapping(value = "rest/establecimientoDeportivo")
 public class EstablecimientoDeportivoController {
 	
+	//Variable de tipo EstablecimientoDeportivoServiceInterface
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
-	@RequestMapping(value ="/getAll", method = RequestMethod.GET)
-	@Transactional
-	public EstablecimientoDeportivoResponse getAll(@RequestBody EstablecimientoDeportivoRequest establecimientoRequest){	
+	/**
+	 * Metodo encargado de solicitar todos los establecimientos deportivos 
+	 * 
+	 */
+	@RequestMapping(value ="getAll", method = RequestMethod.GET)
+	public EstablecimientoDeportivoResponse getAll(){	
 		
-		establecimientoRequest.setPageNumber(establecimientoRequest.getPageNumber() - 1);
-		Page<EstablecimientoDeportivo> establecimientos = establecimientoDeportivoService.findAll(establecimientoRequest);
-		
+		//Variable de tipo EstablecimientoDeportivoResponse
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+		//Lista de tipo EstablecimientoDeportivo
+		List<EstablecimientoDeportivo> establecimientoList = establecimientoDeportivoService.getAllEstablecimientos();
+		//Lista de EstablecimientoDeportivoPOJO
+		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
-		establecimientoResponse.setCode(200);
-		establecimientoResponse.setCodeMessage("establecimientos fetch success");
-		establecimientoResponse.setTotalElements(establecimientos.getTotalElements());
-		establecimientoResponse.setTotalPages(establecimientos.getTotalPages());
-
-		List<EstablecimientoDeportivoPOJO> viewEstablecimientos = new ArrayList<EstablecimientoDeportivoPOJO>();
+		for(EstablecimientoDeportivo establecimiento : establecimientoList){
+			EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
+			PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
+			establecimientoViewList.add(establecimientoView);
+		}
 		
-		establecimientos.getContent().forEach(e->{
-			EstablecimientoDeportivoPOJO nestablecimiento = new EstablecimientoDeportivoPOJO();
-			nestablecimiento.setNombre(e.getNombre());
-			nestablecimiento.setCorreo(e.getCorreo());
-			nestablecimiento.setIdEstablecimientoDeportivo(e.getIdEstablecimientoDeportivo());
-			nestablecimiento.setTelefono(e.getTelefono());
-			nestablecimiento.setDireccion(e.getDireccion());
-			viewEstablecimientos.add(nestablecimiento);
-		});
+		establecimientoResponse.setEstablecimientoDeportivo(establecimientoViewList);
 		
-		establecimientoResponse.setEstablecimientoDeportivo(viewEstablecimientos);
-		return establecimientoResponse;		
+		return establecimientoResponse;
 	}
 }

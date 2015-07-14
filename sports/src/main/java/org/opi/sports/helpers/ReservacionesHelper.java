@@ -6,6 +6,17 @@ import java.util.List;
 
 import org.opi.sports.pojo.ReservacionesPOJO;
 
+
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora.
+ *
+ *Sprint 01 Descripción:Esta clase sirve de apoyo a la clase de ReservacionesController
+ *y contiene la lógica necesaria para serializar las reservaciones y poder mostrarlas en el front end
+ *Esta clase se implementa como "Singleton" para asegurarnos que sea instanciada una sola vez.
+ */
+
 public class ReservacionesHelper {
 
 	private static ReservacionesHelper instance;
@@ -26,6 +37,12 @@ public class ReservacionesHelper {
 		return instance;
 	}
 
+
+
+	/**
+	 *Este método serializa cada uno de los atributos de "Reservaciones" 
+	 *para poder utilizarlos en el front end como un JSON
+	 */
 	public List<String> calendarioSerializer(
 			List<ReservacionesPOJO> listaReservacionesView) {
 
