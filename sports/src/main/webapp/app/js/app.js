@@ -710,7 +710,7 @@ App.filter('propsFilter', function() {
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarController', ['$scope', function($scope) {
+App.controller('CalendarController', ['$scope', '$http', function($scope, $http) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -756,20 +756,20 @@ App.controller('CalendarController', ['$scope', function($scope) {
 
         // check to remove elements from the list
         calElement.fullCalendar({
-            isRTL: $scope.app.layout.isRTL,
+        	isRTL: $scope.app.layout.isRTL,
             header: {
-                left:   'prev,next today',
-                center: 'title',
-                right:  'agendaWeek'
+                left:   'prev,next',
+                center: 'title'
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
                 next:    ' fa fa-caret-right'
             },
-            defaultView: 'agendaWeek',
             allDaySlot: false,
-            firstHour: 8,
-            firstDay:1,
+            defaultView:'agendaWeek',
+            firstDayOfWeek : 2,
+            businessHours :{start: 8, end: 23},
+            height: 700,
             events: events
         });
     }
@@ -858,27 +858,29 @@ App.controller('CalendarController', ['$scope', function($scope) {
      * Wrap into this function a request to a source to get via ajax the stored events
      * @return Array The array with the events
      */
-    function createDemoEvents() {
+    function cargarReservaciones() {
     	$http.get('rest/reservaciones/getAll')
         .success(function(data) {
             return data.jsoncalendar;
         });
     }
 
-    // When dom ready, init calendar and events
-    $(function() {
+    
+    $scope.init = function(){
+    	
+    	var calendar = $('#calendar');
 
-        // The element that will display the calendar
-        var calendar = $('#calendar');
-
-        var demoEvents = createDemoEvents();
+        var demoEvents = cargarReservaciones();
 
         initExternalEvents(calendar);
 
         initCalendar(calendar, demoEvents);
-        
 
-    });
+    	$('#calendar').fullCalendar('render');
+    	$('.fc-view fc-agendaWeek-view fc-agenda-view').css("width:800px");
+    }
+    
+    $scope.init();
 
 }]);
 App.controller('AngularCarouselController', ["$scope", function($scope) {
