@@ -2,9 +2,12 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/config/WebMvcConfig.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Rol.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Usuario_Rol.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/services/ServicioServiceInterface.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/ActividadDeportiva.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Evento.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/helpers/EstablecimientoHelper.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Review.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/repositories/ServicioRepository.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/contracts/TipoServicioRequest.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/utils/PojoUtils.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/CalendarioPOJO.java
@@ -39,6 +42,7 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/contracts/EstablecimientoDeportivoRequest.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Distribucion.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/EstablecimientoDeportivoPOJO.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/ServicioPOJO.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Inscripcion.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/config/PassthroughFilter.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Supscripcion.java
@@ -48,6 +52,7 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Foto.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/services/TipoServicioService.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/ReservacionesPOJO.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/services/ServicioService.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/contracts/BasePagingRequest.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/repositories/EstablecimientoRepository.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Reservaciones.java

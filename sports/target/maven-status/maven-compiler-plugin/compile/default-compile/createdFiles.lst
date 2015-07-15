@@ -2,6 +2,7 @@ org/opi/sports/contracts/BasePagingRequest.class
 org/opi/sports/controllers/ReservacionController.class
 org/opi/sports/ejb/Supscripcion.class
 org/opi/sports/controllers/HomeController.class
+org/opi/sports/helpers/EstablecimientoHelper.class
 org/opi/sports/config/PassthroughFilter.class
 org/opi/sports/services/ReservacionesService.class
 org/opi/sports/ejb/CentroDistribucion.class
@@ -14,6 +15,7 @@ org/opi/sports/contracts/ReservacionesResponse.class
 org/opi/sports/ejb/Evento.class
 org/opi/sports/pojo/CalendarioPOJO.class
 org/opi/sports/ejb/Reto.class
+org/opi/sports/pojo/ServicioPOJO.class
 org/opi/sports/contracts/BaseResponse.class
 org/opi/sports/controllers/EstablecimientoDeportivoController.class
 org/opi/sports/contracts/TipoServicioRequest.class
@@ -23,6 +25,7 @@ org/opi/sports/ejb/TiipoEvento.class
 org/opi/sports/services/EstablecimientoDeportivoServiceInterface.class
 org/opi/sports/utils/Utils.class
 org/opi/sports/ejb/Tiquete.class
+org/opi/sports/repositories/ServicioRepository.class
 org/opi/sports/contracts/EstablecimientoDeportivoResponse.class
 org/opi/sports/ejb/Permisos_Rol.class
 org/opi/sports/config/SwaggerConfig.class
@@ -43,6 +46,8 @@ org/opi/sports/ejb/Establecimiento_Evento.class
 org/opi/sports/ejb/Usuario_Rol.class
 org/opi/sports/pojo/EstablecimientoDeportivoPOJO.class
 org/opi/sports/pojo/ReservacionesPOJO.class
+org/opi/sports/services/ServicioService.class
+org/opi/sports/services/ServicioServiceInterface.class
 org/opi/sports/config/WSFilter.class
 org/opi/sports/services/ReservacionesServiceInterface.class
 org/opi/sports/config/ServletInitializer.class
