@@ -15,7 +15,7 @@ public class Tiquete implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String idTIquete;
+	private int idTIquete;
 
 	private String estado;
 
@@ -36,11 +36,11 @@ public class Tiquete implements Serializable {
 	public Tiquete() {
 	}
 
-	public String getIdTIquete() {
+	public int getIdTIquete() {
 		return this.idTIquete;
 	}
 
-	public void setIdTIquete(String idTIquete) {
+	public void setIdTIquete(int idTIquete) {
 		this.idTIquete = idTIquete;
 	}
 

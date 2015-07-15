@@ -15,7 +15,7 @@ public class Distribucion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String idDistribucion;
+	private int idDistribucion;
 
 	//bi-directional many-to-one association to CentroDistribucion
 	@ManyToOne
@@ -30,11 +30,11 @@ public class Distribucion implements Serializable {
 	public Distribucion() {
 	}
 
-	public String getIdDistribucion() {
+	public int getIdDistribucion() {
 		return this.idDistribucion;
 	}
 
-	public void setIdDistribucion(String idDistribucion) {
+	public void setIdDistribucion(int idDistribucion) {
 		this.idDistribucion = idDistribucion;
 	}
 

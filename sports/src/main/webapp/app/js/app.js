@@ -710,7 +710,7 @@ App.filter('propsFilter', function() {
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarController', ['$scope', '$http', function($scope, $http) {
+App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -767,14 +767,34 @@ App.controller('CalendarController', ['$scope', '$http', function($scope, $http)
             },
             allDaySlot: false,
             defaultView:'agendaWeek',
-            firstDayOfWeek : 2,
-            businessHours :{start: 8, end: 23},
-            height: 700,
-            events: events
-        });
+            firstDayOfWeek : 1,
+            height: 500,
+            events: events,
+            minTime: "06:00:00",
+            maxTime: "23:00:00",
+            timeFormat: 'H(:mm)'
+            });
     }
+    
 
-    /**
+    function initReservaciones(reservacionesJSON){
+    
+    var reservaciones = [];
+    
+    angular.forEach(reservacionesJSON, function(reservacionJSON, index){
+    	var reservacion = {};
+    	reservacion.title = reservacionJSON.title;
+    	reservacion.start = new Date(reservacionJSON.start.millis);
+    	reservacion.end = new Date(reservacionJSON.end.millis);
+    	reservacion.backgroundColor = reservacionJSON.backgroundColor;
+    	reservacion.borderColor = reservacionJSON.borderColor;
+    	
+    	reservaciones.push(reservacion);
+    })
+    
+    return reservaciones;
+    }
+     /**
      * Inits the external events panel
      * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
      */
@@ -858,26 +878,23 @@ App.controller('CalendarController', ['$scope', '$http', function($scope, $http)
      * Wrap into this function a request to a source to get via ajax the stored events
      * @return Array The array with the events
      */
-    function cargarReservaciones() {
-    	$http.get('rest/reservaciones/getAll')
-        .success(function(data) {
-            return data.jsoncalendar;
-        });
-    }
-
-    
+        
     $scope.init = function(){
     	
-    	var calendar = $('#calendar');
+    	$http.get('rest/reservaciones/getAll')
+        .success(function(data) {
+        	var calendar = $('#calendar');
+        	
+        	var reservaciones = initReservaciones(data.jsoncalendar);
+        	
+        	initExternalEvents(calendar);
 
-        var demoEvents = cargarReservaciones();
+        	initCalendar(calendar, reservaciones);
 
-        initExternalEvents(calendar);
-
-        initCalendar(calendar, demoEvents);
-
-    	$('#calendar').fullCalendar('render');
-    	$('.fc-view fc-agendaWeek-view fc-agenda-view').css("width:800px");
+        });
+    	
+    	$timeout(function(){$('#calendar').fullCalendar('render')}, 1000);
+    	
     }
     
     $scope.init();
