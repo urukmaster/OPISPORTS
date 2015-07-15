@@ -22,20 +22,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import scala.annotation.meta.setter;
 
+/**
+ * Fecha: 13-07-2015 version 1.0
+ * 
+ * @author Mauricio Araica Hernández
+ *
+ *Sprint 01 Descripción: Controllador rest de establecimeintos deportivos encargada
+ *de serializar los objetos y devolverlos al front end como recibir json y convertirlos en 
+ *objetos java
+ *
+ */
 @RestController
 @RequestMapping(value = "rest/establecimientoDeportivo")
 public class EstablecimientoDeportivoController {
 	
+	//Variable de tipo EstablecimientoDeportivoServiceInterface
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
+	/**
+	 * Metodo encargado de solicitar todos los establecimientos deportivos 
+	 * 
+	 */
 	@RequestMapping(value ="getAll", method = RequestMethod.GET)
 	public EstablecimientoDeportivoResponse getAll(){	
 		
-		
+		//Variable de tipo EstablecimientoDeportivoResponse
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
-		
+		//Lista de tipo EstablecimientoDeportivo
 		List<EstablecimientoDeportivo> establecimientoList = establecimientoDeportivoService.getAllEstablecimientos();
+		//Lista de EstablecimientoDeportivoPOJO
 		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
 		for(EstablecimientoDeportivo establecimiento : establecimientoList){

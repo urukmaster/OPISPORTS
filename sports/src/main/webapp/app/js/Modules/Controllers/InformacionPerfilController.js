@@ -2,9 +2,9 @@
  * Created by JuanManuel on 09/07/2015.
  */
 var gridEstablecimientos = {};
-
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','uiGridConstants', function($scope,$http, $stateParams,uiGridConstants) {
     // no filter for inbox
+
 	
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
@@ -50,4 +50,5 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		$state.go("app.perfil.servicios");
 	}
 
+    $scope.init();
 }]);

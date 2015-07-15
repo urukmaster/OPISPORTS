@@ -156,7 +156,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/establecimientos',
                 title: 'Establecimientos',
                 templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil',{
