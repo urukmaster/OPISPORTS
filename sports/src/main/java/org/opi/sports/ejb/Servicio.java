@@ -2,7 +2,6 @@ package org.opi.sports.ejb;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 
@@ -21,12 +20,9 @@ public class Servicio implements Serializable {
 
 	private byte arbitro;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaApertura;
+	private String horaApertura;
 
 	private String horaCierre;
-
-	private byte parqueo;
 
 	private int precio;
 
@@ -78,11 +74,11 @@ public class Servicio implements Serializable {
 		this.arbitro = arbitro;
 	}
 
-	public Date getHoraApertura() {
+	public String getHoraApertura() {
 		return this.horaApertura;
 	}
 
-	public void setHoraApertura(Date horaApertura) {
+	public void setHoraApertura(String horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 
@@ -92,14 +88,6 @@ public class Servicio implements Serializable {
 
 	public void setHoraCierre(String horaCierre) {
 		this.horaCierre = horaCierre;
-	}
-
-	public byte getParqueo() {
-		return this.parqueo;
-	}
-
-	public void setParqueo(byte parqueo) {
-		this.parqueo = parqueo;
 	}
 
 	public int getPrecio() {

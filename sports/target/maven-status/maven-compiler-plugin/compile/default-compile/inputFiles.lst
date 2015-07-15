@@ -14,6 +14,7 @@ C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\reposi
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioRequest.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Tiquete.java
+C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\CalendarioPOJO.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\ServletInitializer.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\CentroDistribucion.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Permiso.java
@@ -22,7 +23,6 @@ C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Se
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\BaseResponse.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\PassthroughFilter.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\HomeController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reservacione.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesService.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoRequest.java
 C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reservaciones.java

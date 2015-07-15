@@ -16,9 +16,7 @@ public class EstablecimientoDeportivoPOJO {
 	private int idEstablecimientoDeportivo;
 	//Nombre del establecimiento deportivo
 	private String nombre;
-	//Correo del establecimiento deportivo
-	private String correo;
-	// Telefono del establecimiento deportivo
+
 	private String telefono;
 	//Direccion del establecimeinto deportivo
 	private String direccion;
@@ -51,24 +49,7 @@ public class EstablecimientoDeportivoPOJO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/**
-	 * Metodo get que devuelve el correo del establecimiento deportivo 
-	 * 
-	 */
-	public String getCorreo() {
-		return correo;
-	}
-	/**
-	 * Metodo set que modifica el correo del establecimiento deportivo 
-	 * 
-	 */
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	/**
-	 * Metodo get que devuelve el telefono del establecimiento deportivo 
-	 * 
-	 */
+
 	public String getTelefono() {
 		return telefono;
 	}

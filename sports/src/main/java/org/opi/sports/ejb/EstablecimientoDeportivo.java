@@ -18,11 +18,11 @@ public class EstablecimientoDeportivo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEstablecimientoDeportivo;
 
-	private String correo;
-
 	private String direccion;
 
 	private String nombre;
+
+	private String paginaWeb;
 
 	private String telefono;
 
@@ -54,14 +54,6 @@ public class EstablecimientoDeportivo implements Serializable {
 		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
 	}
 
-	public String getCorreo() {
-		return this.correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
 	public String getDireccion() {
 		return this.direccion;
 	}
@@ -76,6 +68,14 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getPaginaWeb() {
+		return this.paginaWeb;
+	}
+
+	public void setPaginaWeb(String paginaWeb) {
+		this.paginaWeb = paginaWeb;
 	}
 
 	public String getTelefono() {
