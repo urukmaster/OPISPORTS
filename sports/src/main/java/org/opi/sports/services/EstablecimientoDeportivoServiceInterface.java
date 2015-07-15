@@ -21,4 +21,9 @@ public interface EstablecimientoDeportivoServiceInterface {
 	 * 
 	 */
 	public List<EstablecimientoDeportivo> getAllEstablecimientos();
+	/**
+	 * Metodo que brinda la funcion de registrar un establecimiento deportivo 
+	 * 
+	 */
+	Boolean saveEstablecimiento(EstablecimientoDeportivo establecimientoDeportivo); 
 }

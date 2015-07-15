@@ -84,7 +84,23 @@ public class EstablecimientoDeportivoTest {
 		
 		assertNotNull(establecimientoDeportivoResponse);
 	}
-	
-
+	/**
+	 * Prueba que permite registrar una establecimiento deportivo
+	 */
+    @Test
+    public void saveEstablecimientoDeportivo()
+    {
+        EstablecimientoDeportivo establecimiento = new EstablecimientoDeportivo();
+        establecimiento.setNombre("Prueba");
+        establecimiento.setDireccion("Prueba");
+        establecimiento.setPaginaWeb("Prueba");
+        establecimiento.setTelefono("Prueba");
+      
+        Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimiento);
+        
+		if(state){
+			System.out.println("Registrado");
+		}
+    }
 }
 
