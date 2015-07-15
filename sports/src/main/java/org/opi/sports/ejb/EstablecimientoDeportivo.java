@@ -22,6 +22,8 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	private String nombre;
 
+	private String paginaWeb;
+
 	private String telefono;
 
 	//bi-directional many-to-one association to Usuario
@@ -66,6 +68,14 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getPaginaWeb() {
+		return this.paginaWeb;
+	}
+
+	public void setPaginaWeb(String paginaWeb) {
+		this.paginaWeb = paginaWeb;
 	}
 
 	public String getTelefono() {

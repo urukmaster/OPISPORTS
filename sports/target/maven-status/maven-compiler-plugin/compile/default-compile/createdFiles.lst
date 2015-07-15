@@ -12,6 +12,7 @@ org/opi/sports/repositories/TipoServicioRepository.class
 org/opi/sports/ejb/ActividadDeportiva.class
 org/opi/sports/contracts/ReservacionesResponse.class
 org/opi/sports/ejb/Evento.class
+org/opi/sports/pojo/CalendarioPOJO.class
 org/opi/sports/ejb/Reto.class
 org/opi/sports/contracts/BaseResponse.class
 org/opi/sports/controllers/EstablecimientoDeportivoController.class
