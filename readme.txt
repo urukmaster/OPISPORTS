@@ -1,0 +1,1 @@
+Ejecutar script de pruebas en MySQL Workbench para guardar datos de ejemplo.
