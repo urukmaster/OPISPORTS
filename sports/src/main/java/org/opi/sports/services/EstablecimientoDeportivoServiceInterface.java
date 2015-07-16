@@ -26,4 +26,6 @@ public interface EstablecimientoDeportivoServiceInterface {
 	 * 
 	 */
 	Boolean saveEstablecimiento(EstablecimientoDeportivo establecimientoDeportivo); 
+	
+	public EstablecimientoDeportivo findByName(String pnombre);
 }

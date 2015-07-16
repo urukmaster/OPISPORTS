@@ -91,13 +91,17 @@ public class EstablecimientoDeportivoTest {
     public void saveEstablecimientoDeportivo()
     {
         EstablecimientoDeportivo establecimiento = new EstablecimientoDeportivo();
-        establecimiento.setNombre("Prueba");
+        establecimiento.setNombre("Particular");
         establecimiento.setDireccion("Prueba");
         establecimiento.setPaginaWeb("Prueba");
         establecimiento.setTelefono("Prueba");
-      
+        
         Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimiento);
         
+        EstablecimientoDeportivo establecimientoresponse = establecimientoDeportivoService.findByName("Particular");
+        
+        System.out.println(establecimientoresponse.getNombre());
+ 
 		if(state){
 			System.out.println("Registrado");
 		}

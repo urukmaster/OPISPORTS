@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.repositories.EstablecimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,10 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 			result = false;
 		}
 		return result;
+	}
+	@Override
+	public EstablecimientoDeportivo findByName(String pnombre) {
+		
+		return establecimientoDeportivoRepository.findByNombre(pnombre);
 	}
 }
