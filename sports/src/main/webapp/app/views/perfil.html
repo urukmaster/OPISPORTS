@@ -27,10 +27,10 @@
          <div class="col-lg-9">
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
-						<ul class="nav nav-pills">
-							<li><button ng-click="mostrarInformacion()">Informacion</button></li>
-							<li><button ng-click="mostrarServicios()">Servicios</button></li>
-							<li><button ng-click="mostrarReservaciones()">Calendario</button></li>
+						<ul class="nav nav-tabs nav-justified">
+							<li><a ng-click="mostrarInformacion()">Informacion</a></li>
+							<li><a ng-click="mostrarServicios()">Servicios</a></li>
+							<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
 						</ul>
 					</div>
 					<div ng-show="mostrarCalendario">
@@ -54,7 +54,7 @@
                <div class="panel-body">
                   <div class="text-center">
                      <h3 class="mt0">{{establecimiento.nombre}}</h3>
-                     <p>Establecimiento Deportivo</p>
+                     <p>Contacto</p>
                   </div>
                   <hr/>
                   <ul class="list-unstyled ph-xl">
