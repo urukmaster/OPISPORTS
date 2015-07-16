@@ -1,0 +1,48 @@
+[{
+    "id": 1,
+    "nombre": "La jaula",
+    "direccion": "La Uruca",
+    "telefono": "2222-2222",
+    "descripcion" : "Canchas de Futbol 5 y 7",
+    "Servicios":
+         {
+            "id": 1,
+            "nombre" : "Cancha",
+            "precio" : 10000,
+            "imagen" : "app/img/bg2.jpg",
+            "tipoServicio":
+         	{
+         		"id" : 1,
+         		"nombre" : "Futbol 5"
+         	},
+         	"actividadDeportiva":
+         	{
+         		"id" : 1,
+         		"nombre" : "Futbol"
+         	}
+        }
+},
+ {
+   "id": 2,
+   "nombre": "Soccer Center",
+   "direccion": "Liberia,Guanacaste",
+   "telefono": "2222-2222",
+   "descripcion" : "Canchas de Futbol 5 y 7",
+   "Servicios":
+    {
+      "id": 1,
+      "nombre" : "Cancha",
+      "precio" : 10000,
+      "imagen" : "app/img/bg2.jpg",
+      "tipoServicio":
+      {
+        "id" : 1,
+        "nombre" : "Futbol 5"
+      },
+      "actividadDeportiva":
+      {
+        "id" : 1,
+        "nombre" : "Futbol"
+      }
+    }
+  }]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nombre": "Futbol"
+  },
+  {
+    "id": 2,
+    "nombre": "Paintball"
+  },
+  {
+    "id": 3,
+    "nombre": "Ciclismo"
+  },
+  {
+    "id": 4,
+    "nombre": "Aguas"
+  },
+  {
+    "id": 5,
+    "nombre": "Triatlon"
+  },
+  {
+    "id": 6,
+    "nombre": "Mountain Bike"
+  }
+]
