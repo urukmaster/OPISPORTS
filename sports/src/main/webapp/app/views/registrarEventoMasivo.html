@@ -1,0 +1,174 @@
+<div class="panel panel-default">
+   <div class="panel-heading">Formulario de registro</div>
+   <div class="panel-body">
+      <form action="/" method="POST" form-wizard="" validate-steps="true" validate-form="" steps="4">
+         <div class="form-wizard wizard-horizontal">
+            <!-- START wizard steps indicator-->
+            <ol class="row">
+               <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)" class="col-md-3">
+                  <h4>Informacion general</h4>
+                  <small class="text-muted"></small>
+               </li>
+               <li ng-class="{'active':wizard.active(2)}" ng-click="wizard.go(2)" class="col-md-3">
+                  <h4>Puntos de retiro</h4>
+                  <small class="text-muted"></small>
+               </li>
+               <li ng-class="{'active':wizard.active(3)}" ng-click="wizard.go(4)" class="col-md-3">
+                  <h4>¡Casi listo!</h4>
+                  <small class="text-muted"></small>
+               </li>
+            </ol>
+            <!-- END wizard steps indicator-->
+            <!-- START Wizard Step inputs -->
+            <div id="step1" ng-show="wizard.active(1)">
+               <fieldset>
+                  <legend>Información general</legend>
+                  <!-- START row -->
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>Nombre del evento</label>
+                           <div class="controls">
+                              <input type="text" name="nombre" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label>Descripción</label>
+                           <div class="controls">
+                              <textarea rows="6" style="resize:none" name="descripcion" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label>Inicio del recorrido</label>
+                           <div class="controls">
+                              <input type="text" name="inicioRecorrido" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label>Final del recorrido</label>
+                           <div class="controls">
+                              <input type="text" name="finalRecorrido" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label>Teléfono de contacto</label>
+                           <div class="controls">
+                              <input type="text" name="finalRecorrido" data-parsley-group="step1" placeholder="" required="required" class="form-control" />
+                           </div>
+                        </div>
+                        <div  ng-controller="DatepickerDemoCtrl" class="form-group">
+                           <label>Fecha del evento</label>
+                           <p class="input-group">
+                              <input type="text" name="date" required="" datepicker-popup="{{format}}" ng-model="date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"
+                              class="form-control" />
+                              <span class="input-group-btn">
+                                 <button type="button" ng-click="open($event)" class="btn btn-default">
+                                    <em class="fa fa-calendar"></em>
+                                 </button>
+                              </span>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END row -->
+               </fieldset>
+               <ul class="pager">
+                  <li class="next"><a href="#" ng-click="wizard.go(2)">Siguiente <span>&rarr;</span></a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+            <!-- START Wizard Step inputs -->
+            <div id="step2" ng-show="wizard.active(2)" ng-controller = "TodoController">
+               <fieldset>
+<!--                  <legend>Puntos de retiro</legend>-->
+                   <h3>Puntos de retiro
+                       <button ng-click="clearAll()" class="pull-right btn btn-danger">Remover puntos de retiro</button>
+                    </h3>
+                    <div class="table-grid todo">
+                       <div class="col col-lg">
+                          <div class="pr-lg">
+                             <form ng-submit="addTodo(todo)" class="mb-xl">
+                                <div class="form-group">
+                                     <!-- START button group-->
+                                     <div dropdown="dropdown" class="btn-group">
+                                        <button dropdown-toggle="" class="btn btn-default">Puntos de retiro <b class="caret"></b>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu animated bounce">
+                                           <li><a href="#">Action</a>
+                                           </li>
+                                           <li><a href="#">Another action</a>
+                                           </li>
+                                           <li><a href="#">Something else here</a>
+                                           </li>
+                                           <li><a href="#">Separated link</a>
+                                           </li>
+                                        </ul>
+                                     </div>
+                                     <!-- END button group-->
+                                </div>
+                                <div class="form-group">
+                                   <textarea ng-trim="true" ng-model="todo.description" placeholder="Dirección" rows="8" class="form-control"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">{{editingTodo ? 'Edit Todo' : 'Agregar'}}</button>
+                             </form>
+                          </div>
+                       </div>
+                       <div class="col todo-item-list">
+                          <accordion close-others="true">
+                             <accordion-group ng-repeat="item in items" ng-class="{'todo-complete': item.complete}" is-disabled="item.complete" class="todo-item">
+                                <accordion-heading>
+                                   <span ng-click="removeTodo($index, $event)" class="close">×</span>
+                                   <div class="inline checkbox c-checkbox">
+                                      <label ng-click="$event.stopPropagation()">
+                                         <input type="checkbox" ng-model="item.complete" id="{{'todo-item-'+$index}}" ng-disabled="editingTodo" />
+                                         <span class="fa fa-check"></span>
+                                      </label>
+                                   </div>
+                                   <span ng-bind="item.todo.title" class="todo-title">Task title</span>
+                                   <span ng-click="editTodo($index, $event)" class="todo-edit fa fa-pencil"></span>
+                                </accordion-heading>
+                                <p>
+                                   <span ng-bind="item.todo.description"></span>
+                                   <span ng-if="item.todo.description === ''" class="text-muted">No item description</span>
+                                </p>
+                             </accordion-group>
+                          </accordion>
+                       </div>
+                    </div>
+               </fieldset>
+               <ul class="pager">
+                  <li class="previous">
+                     <a href="#" ng-click="wizard.go(1)">
+                        <span>&larr; Anterior</span>
+                     </a>
+                  </li>
+                  <li class="next"><a href="#" ng-click="wizard.go(3)">Siguiente <span>&rarr;</span></a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+            <!-- START Wizard Step inputs -->
+            <div id="step4" ng-show="wizard.active(3)">
+               <div class="jumbotron">
+                  <h1>¡Listo!</h1>
+                  <p>Para terminar por favor presiona el boton de "Registrar" y el evento será agregado.</p>
+                  <p>
+                     <button type="button" class="btn btn-info btn-lg">Registrar</button>
+                  </p>
+               </div>
+               <ul class="pager">
+                  <li class="previous">
+                     <a href="#" ng-click="wizard.go(3)">
+                        <span>&larr; Anterior</span>
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <!-- END Wizard Step inputs -->
+         </div>
+      </form>
+   </div>
+</div>

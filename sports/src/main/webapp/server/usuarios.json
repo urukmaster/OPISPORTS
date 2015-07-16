@@ -1,0 +1,50 @@
+[
+    {
+        "id": 0,
+        "correo": "jvialesc@ucenfotec.ac.cr",
+        "nombre": "Juan Manuel",
+        "apellido": "Viales",
+        "fechaNacimiento": "22/02/1995",
+        "genero": "Masculino",
+        "credencial":
+         {
+            "contraseña": "Abcd12345/"
+        }
+    },
+    {
+        "id": 1,
+        "correo": "maraicah@ucenfotec.ac.cr",
+        "nombre": "Mauricio",
+        "apellido": "Araica",
+        "fechaNacimiento": "12/04/1994",
+        "genero": "Masculino",
+        "credencial":
+        {
+            "contrasenna": "Abcd12345/"
+        }
+    },
+    {
+        "id": 2,
+        "correo": "mfernandezm@ucenfotec.ac.cr",
+        "nombre": "Mauricio",
+        "apellido": "Fernandez",
+        "fechaNacimiento": "19/01/1980",
+        "genero": "Masculino",
+        "credencial":
+        {
+            "contrasenna": "Abcd12345/"
+        }
+    },
+    {
+        "id": 3,
+        "correo": "llopez@ucenfotec.ac.cr",
+        "nombre": "Luis Esteban",
+        "apellido": "Lopez",
+        "fechaNacimiento": "00/00/0000",
+        "genero": "Otro",
+        "credencial":
+        {
+            "contrasenna": "Abcd12345/"
+        }
+    }
+]
