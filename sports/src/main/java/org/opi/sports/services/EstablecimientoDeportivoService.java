@@ -3,11 +3,15 @@ package org.opi.sports.services;
 import java.util.List;
 
 
+
+
+
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.repositories.EstablecimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 /**
@@ -33,5 +37,29 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 	@Transactional
 	public List<EstablecimientoDeportivo> getAllEstablecimientos() {
 		return establecimientoDeportivoRepository.findAll();
+	}
+	/**
+	 * Metodo encargado de realizar la funcion de registrar el repositorio
+	 * 
+	 */
+	@Override
+	@Transactional
+	public Boolean saveEstablecimiento(EstablecimientoDeportivo pestablecimientoDeportivo) {
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoRepository.save(pestablecimientoDeportivo);
+		Boolean result = true;
+		if(establecimientoDeportivo == null){
+			result = false;
+		}
+		return result;
+	}
+	/**
+	 * Metodo encargado de realizar la funcion de buscar por nombre
+	 * 
+	 */
+	@Override
+	@Transactional
+	public EstablecimientoDeportivo findByName(String pnombre) {
+		
+		return establecimientoDeportivoRepository.findByNombre(pnombre);
 	}
 }

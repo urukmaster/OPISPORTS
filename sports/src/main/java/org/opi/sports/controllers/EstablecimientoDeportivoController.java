@@ -3,6 +3,8 @@ package org.opi.sports.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.TipoServicioResponse;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+
+
 import scala.annotation.meta.setter;
 
 /**
@@ -63,5 +68,32 @@ public class EstablecimientoDeportivoController {
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoViewList);
 		
 		return establecimientoResponse;
+	}
+	/**
+	 * Metodo de registrar el establecimiento deportivo
+	 * 
+	 */
+	@RequestMapping(value ="/create", method = RequestMethod.POST)
+	public EstablecimientoDeportivoResponse create(@RequestBody EstablecimientoDeportivoRequest establecimientoRequest){//ur	
+		
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();//us
+		
+		//HttpSession currentSession = request.getSession();
+		//int idUser = (int) currentSession.getAttribute("idUser");
+		
+		EstablecimientoDeportivo establecimientoDeportivo = new EstablecimientoDeportivo();
+		establecimientoDeportivo.setNombre(establecimientoRequest.getEstablecimientoDeportivo().getNombre());
+		establecimientoDeportivo.setDireccion(establecimientoRequest.getEstablecimientoDeportivo().getDireccion());
+		establecimientoDeportivo.setPaginaWeb(establecimientoRequest.getEstablecimientoDeportivo().getPaginaWeb());
+		establecimientoDeportivo.setTelefono(establecimientoRequest.getEstablecimientoDeportivo().getTelefono());
+		//establecimientoDeportivo.setIdUsuario();
+		
+		Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimientoDeportivo);
+		if(state){
+			establecimientoResponse.setCode(200);
+			establecimientoResponse.setCodeMessage("Establecimiento creado sastifactoriamente");
+		}
+		return establecimientoResponse;
+		
 	}
 }

@@ -21,4 +21,15 @@ public interface EstablecimientoDeportivoServiceInterface {
 	 * 
 	 */
 	public List<EstablecimientoDeportivo> getAllEstablecimientos();
+	/**
+	 * Metodo que brinda la funcion de registrar un establecimiento deportivo 
+	 * 
+	 */
+	Boolean saveEstablecimiento(EstablecimientoDeportivo establecimientoDeportivo); 
+	
+	/**
+	 * Metodo que brinda la funcion de buscar por nombre un establecimiento deportivo 
+	 * 
+	 */
+	public EstablecimientoDeportivo findByName(String pnombre);
 }
