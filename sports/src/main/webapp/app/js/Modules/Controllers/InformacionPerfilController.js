@@ -20,13 +20,13 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
 	
 	$scope.init = function(){
-		$scope.mostrarCalendario = false; 	
-	    $http.get('rest/establecimientoDeportivo/getAll')
+		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			var establecimientos = response.establecimientoDeportivo;
 			for (var i = 0; i < establecimientos.length; i++) {
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
+                    establecimientoCalendario = establecimientos[i];
                 }
             }
 		});
@@ -39,8 +39,8 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     		$scope.mostrarCalendario = true;
 			$('#calendar').fullCalendar('render');
 	}
-			
-	$scope.mostrarInformacion = function(){
+
+    $scope.mostrarInformacion = function(){
 		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.informacion");
 	}

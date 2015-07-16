@@ -1,6 +1,9 @@
 package org.opi.sports.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.opi.sports.helpers.ReservacionesHelper;
 
 public class EstablecimientoDeportivoPOJO {
 	
@@ -8,6 +11,9 @@ public class EstablecimientoDeportivoPOJO {
 	private String nombre;
 	private String telefono;
 	private String direccion;
+	private List<ServicioPOJO> servicios;
+	private List<CalendarioPOJO> calendario;
+
 	
 	public int getIdEstablecimientoDeportivo() {
 		return idEstablecimientoDeportivo;
@@ -33,4 +39,17 @@ public class EstablecimientoDeportivoPOJO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	public List<ServicioPOJO> getServicios() {
+		return servicios;
+	}
+	public void setServicios(List<ServicioPOJO> servicios) {
+		this.servicios = servicios;
+	}
+	public List<CalendarioPOJO> getCalendario() {
+		return calendario;
+	}
+	public void setCalendario() {
+		this.calendario = ReservacionesHelper.getInstance().calendarioSerializer(getServicios());
+	}
+	
 }

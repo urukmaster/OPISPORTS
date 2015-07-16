@@ -78,7 +78,6 @@ public class ReservacionesTest {
 		}
 		
 		reservacionesResponse.setReservacion(reservacionesViewList);
-		reservacionesResponse.setJSONCalendar(ReservacionesHelper.getInstance().calendarioSerializer(reservacionesViewList));
 		
 		assertNotNull(reservacionesResponse);
 	}

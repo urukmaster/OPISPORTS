@@ -14,9 +14,13 @@ public class TipoServicioService implements TipoServicioServiceInterface{
 	@Autowired
 	public TipoServicioRepository tipoServicioRepositorio;
 	
-	@Override
 	@Transactional
 	public List<TipoServicio> getAllTipoServicio(){
 		return tipoServicioRepositorio.findAll();
+	}
+
+	@Transactional
+	public TipoServicio findOne(Integer idTipoServicio) {
+		return tipoServicioRepositorio.findOne(idTipoServicio);
 	}
 }
