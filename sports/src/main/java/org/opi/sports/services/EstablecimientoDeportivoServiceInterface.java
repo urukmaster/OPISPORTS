@@ -27,5 +27,9 @@ public interface EstablecimientoDeportivoServiceInterface {
 	 */
 	Boolean saveEstablecimiento(EstablecimientoDeportivo establecimientoDeportivo); 
 	
+	/**
+	 * Metodo que brinda la funcion de buscar por nombre un establecimiento deportivo 
+	 * 
+	 */
 	public EstablecimientoDeportivo findByName(String pnombre);
 }

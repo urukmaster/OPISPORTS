@@ -52,7 +52,12 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 		}
 		return result;
 	}
+	/**
+	 * Metodo encargado de realizar la funcion de buscar por nombre
+	 * 
+	 */
 	@Override
+	@Transactional
 	public EstablecimientoDeportivo findByName(String pnombre) {
 		
 		return establecimientoDeportivoRepository.findByNombre(pnombre);

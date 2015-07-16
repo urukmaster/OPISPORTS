@@ -22,5 +22,9 @@ public interface EstablecimientoRepository extends CrudRepository<Establecimient
 	 */
 	public List<EstablecimientoDeportivo> findAll();
 	
+	/**
+	 * Metodo que busca por nombre un establecimiento deportivo
+	 * 
+	 */
 	public EstablecimientoDeportivo findByNombre(String nombre);
 }
