@@ -1,10 +1,11 @@
 /**
  * Created by JuanManuel on 09/07/2015.
  */
-var gridEstablecimientos = {};
+
 
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
     // no filter for inbox
+
 	
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
@@ -49,6 +50,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		$state.go("app.perfil.servicios");
 	}
 
+    $scope.init();
 }]);
 
 App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state', function($scope,$http, $stateParams,$state) {
