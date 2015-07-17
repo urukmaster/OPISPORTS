@@ -35,11 +35,11 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$storage = $window.localStorage;
 
     // Uncomment this to disable template cache
-    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
      if (typeof(toState) !== 'undefined'){
      $templateCache.remove(toState.templateUrl);
      }
-     });*/
+    });
 
     // Scope Globals
     // ----------------------------------- 
@@ -63,7 +63,7 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     };
     $rootScope.user = {
         name:     'Juan Manuel',
-        job:      'Viales',
+        job:      'Programador',
         picture:  'app/img/user/02.jpg'
     };
     $rootScope.user = {};
@@ -198,6 +198,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/registrarUsuario',
                 title: 'Registrar Usuario',
                 templateUrl: helper.basepath('registrarUsuario.html'),
+                resolve: helper.resolveFor('parsley')
+            })
+            .state('app.registrarEstablecimiento',{
+                url: '/registrarEstablecimiento',
+                title: 'Registrar Establecimiento',
+                templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
             .state('app.actividades', {

@@ -3,7 +3,7 @@
  */
 var gridEstablecimientos = {};
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','uiGridConstants', function($scope,$http, $stateParams,uiGridConstants) {
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
     // no filter for inbox
 	
     $scope.init = function(){  	
@@ -36,8 +36,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     
     
     $scope.mostrarReservaciones = function() {
-    		$scope.mostrarCalendario = true;
-			$('#calendar').fullCalendar('render');
+    	$state.go("app.perfil.reservaciones");
 	}
 
     $scope.mostrarInformacion = function(){
@@ -51,3 +50,24 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 	}
 
 }]);
+
+App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state', function($scope,$http, $stateParams,$state) {
+    // no filter for inbox
+	$scope.establecimientoForm = {};
+    $scope.establecimientoForm.registrar = function () {
+
+        var data = {
+            "nombre": $scope.establecimientoForm.nombre,
+            "telefono": $scope.establecimientoForm.telefono,
+            "direccion": $scope.establecimientoForm.direccion,
+            "pagina": $scope.establecimientoForm.pagina,
+            "idUsuario": 1
+        };
+        $state.go('app.index');
+    };
+    
+   
+
+}]);
+
+
