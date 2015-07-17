@@ -16,5 +16,9 @@ import org.springframework.data.repository.CrudRepository;
 public interface ReservacionesRepository extends CrudRepository<Reservaciones, Integer> {
 	
 	public List<Reservaciones> findAll();	
+	
+	public <S extends Reservaciones> S save(S reservacion);
+	
+	public boolean exists(Integer idReservacion);
 
 }
