@@ -2,30 +2,47 @@
     "id": 1,
     "nombre": "La jaula",
     "direccion": "La Uruca",
-    "telefono": "2222-2222"
-}, {
-    "id": 2,
-    "nombre": "La Frente",
-    "direccion": "La Uruca, San José",
-    "telefono": "2222-2222"
-}, {
-    "id": 3,
-    "nombre": "Puro futbol",
-    "direccion": "Heredia",
-    "telefono": "2222-2222"
-}, {
-    "id": 4,
-    "nombre": "Futbol 6",
-    "direccion": "Tibás",
-    "telefono": "2222-2222"
-}, {
-    "id": 5,
-    "nombre": "Extreme soccer",
-    "direccion": "Lagunilla",
-    "telefono": "2222-2222"
-}, {
-    "id": 6,
-    "nombre": "Puro futbol #2",
-    "direccion": "Desamparados",
-    "telefono": "2222-2222"
-}]
+    "telefono": "2222-2222",
+    "descripcion" : "Canchas de Futbol 5 y 7",
+    "Servicios":
+         {
+            "id": 1,
+            "nombre" : "Cancha",
+            "precio" : 10000,
+            "imagen" : "app/img/bg2.jpg",
+            "tipoServicio":
+         	{
+         		"id" : 1,
+         		"nombre" : "Futbol 5"
+         	},
+         	"actividadDeportiva":
+         	{
+         		"id" : 1,
+         		"nombre" : "Futbol"
+         	}
+        }
+},
+ {
+   "id": 2,
+   "nombre": "Soccer Center",
+   "direccion": "Liberia,Guanacaste",
+   "telefono": "2222-2222",
+   "descripcion" : "Canchas de Futbol 5 y 7",
+   "Servicios":
+    {
+      "id": 1,
+      "nombre" : "Cancha",
+      "precio" : 10000,
+      "imagen" : "app/img/bg2.jpg",
+      "tipoServicio":
+      {
+        "id" : 1,
+        "nombre" : "Futbol 5"
+      },
+      "actividadDeportiva":
+      {
+        "id" : 1,
+        "nombre" : "Futbol"
+      }
+    }
+  }]

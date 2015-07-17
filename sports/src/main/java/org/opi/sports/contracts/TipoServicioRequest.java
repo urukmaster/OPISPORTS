@@ -2,7 +2,7 @@ package org.opi.sports.contracts;
 
 import org.opi.sports.pojo.TipoServicioPOJO;
 
-public class TipoServicioRequest {
+public class TipoServicioRequest extends BasePagingRequest{
 
 	private TipoServicioPOJO tipoServicio;
 

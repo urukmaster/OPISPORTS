@@ -20,13 +20,13 @@ public class Rol implements Serializable {
 
 	private String rol;
 
-	//bi-directional many-to-many association to Permiso
-	@ManyToMany(mappedBy="rols")
-	private List<Permiso> permisos;
+	//bi-directional many-to-one association to Permisos_Rol
+	@OneToMany(mappedBy="rol")
+	private List<Permisos_Rol> permisosRols;
 
-	//bi-directional many-to-many association to Usuario
-	@ManyToMany(mappedBy="rols")
-	private List<Usuario> usuarios;
+	//bi-directional many-to-one association to Usuario_Rol
+	@OneToMany(mappedBy="rol")
+	private List<Usuario_Rol> usuarioRols;
 
 	public Rol() {
 	}
@@ -47,20 +47,48 @@ public class Rol implements Serializable {
 		this.rol = rol;
 	}
 
-	public List<Permiso> getPermisos() {
-		return this.permisos;
+	public List<Permisos_Rol> getPermisosRols() {
+		return this.permisosRols;
 	}
 
-	public void setPermisos(List<Permiso> permisos) {
-		this.permisos = permisos;
+	public void setPermisosRols(List<Permisos_Rol> permisosRols) {
+		this.permisosRols = permisosRols;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
+	public Permisos_Rol addPermisosRol(Permisos_Rol permisosRol) {
+		getPermisosRols().add(permisosRol);
+		permisosRol.setRol(this);
+
+		return permisosRol;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public Permisos_Rol removePermisosRol(Permisos_Rol permisosRol) {
+		getPermisosRols().remove(permisosRol);
+		permisosRol.setRol(null);
+
+		return permisosRol;
+	}
+
+	public List<Usuario_Rol> getUsuarioRols() {
+		return this.usuarioRols;
+	}
+
+	public void setUsuarioRols(List<Usuario_Rol> usuarioRols) {
+		this.usuarioRols = usuarioRols;
+	}
+
+	public Usuario_Rol addUsuarioRol(Usuario_Rol usuarioRol) {
+		getUsuarioRols().add(usuarioRol);
+		usuarioRol.setRol(this);
+
+		return usuarioRol;
+	}
+
+	public Usuario_Rol removeUsuarioRol(Usuario_Rol usuarioRol) {
+		getUsuarioRols().remove(usuarioRol);
+		usuarioRol.setRol(null);
+
+		return usuarioRol;
 	}
 
 }

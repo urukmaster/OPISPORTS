@@ -1,0 +1,25 @@
+[{
+  "id": 1,
+  "nombre": "La corrida de cartago",
+  "direccion":"De la iglesia de los angeles 200 sur",
+  "telefono" : "07/07/2015",
+  "correo" : "7:00 a.m"
+}, {
+  "id": 2,  
+  "nombre": "La corrida de cartago",
+  "direccion":"De la iglesia de los angeles 200 sur",
+  "telefono" : "07/07/2015",
+  "correo" : "7:00 a.m"
+}, {
+  "id": 3,
+  "nombre": "La corrida de cartago",
+  "direccion":"De la iglesia de los angeles 200 sur",
+  "telefono" : "07/07/2015",
+  "correo" : "7:00 a.m"
+}, {
+  "id": 4,
+  "nombre": "La corrida de cartago",
+  "direccion":"De la iglesia de los angeles 200 sur",
+  "telefono" : "07/07/2015",
+  "correo" : "7:00 a.m"
+}]
