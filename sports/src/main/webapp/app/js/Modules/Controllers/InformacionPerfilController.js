@@ -1,13 +1,9 @@
 /**
  * Created by JuanManuel on 09/07/2015.
  */
-var gridEstablecimientos = {};
-<<<<<<< HEAD
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','uiGridConstants', function($scope,$http, $stateParams,uiGridConstants) {
-=======
+
 
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
->>>>>>> 19783e85b008cbec1dfa7c43d40905374a4e6eb5
     // no filter for inbox
 
 	
