@@ -17,8 +17,7 @@ public class ReservacionesPOJO {
 	private Date fecha;
 	private Time hora;
 	private String ocurrencia;
-	private int idServicio;
-	private int idUsuario;
+	
 	
 	public int getIdCalendario() {
 		return idCalendario;
@@ -51,21 +50,5 @@ public class ReservacionesPOJO {
 	public void setOcurrencia(String ocurrencia) {
 		this.ocurrencia = ocurrencia;
 	}
-	
-	public int getIdServicio() {
-		return idServicio;
-	}
-	
-	public void setIdServicio(int idServicio) {
-		this.idServicio = idServicio;
-	}
-	
-	public int getIdUsuario() {
-		return idUsuario;
-	}
-	
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	
+			
 }

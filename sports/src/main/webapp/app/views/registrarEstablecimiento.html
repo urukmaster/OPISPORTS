@@ -1,0 +1,39 @@
+<h3>Establecimiento Deportivo</h3>
+<div class="row" ng-controller="EstablecimientosFormController">
+   <div class="panel panel-default">
+	   <div class="panel-heading">Registrar</div>
+	   <div class="panel-body">
+	   		<form class="form-horizontal" name="establecimiento">
+               <div class="form-group">
+                  <label class="col-lg-2 control-label">Nombre</label>
+                  <div class="col-lg-10">
+                     <input ng-class="establecimientoForm.nombre" type="text" class="form-control" />
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label">Direccion</label>
+                  <div class="col-lg-10">
+                     <input ng-class="establecimientoForm.direccion" type="text"  class="form-control" />
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label">Telefono</label>
+                  <div class="col-lg-10">
+                     <input ng-class="establecimientoForm.telefono" type="text" class="form-control" />
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label">Pagina Web</label>
+                  <div class="col-lg-10">
+                     <input ng-class="establecimientoForm.pagina" type="text" class="form-control" />
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-lg-offset-2 col-lg-10">
+                     <button ng-click="establecimientoForm.registrar()" type="submit" class="btn btn-sm btn-default">Registrar</button>
+                  </div>
+               </div>
+            </form>
+	   </div>
+   </div>
+</div>

@@ -12,8 +12,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
     gridServicio = $scope.gridServicio = {
         columnDefs: [
             { field: 'id',visible:false},
-            { field: 'nombre', name:"Servicio"},
-            { field: 'actividadDeportiva' , name:'Actividad deportiva'},
+            { field: 'servicio', name:"Servicio"},
             { field: 'precio' , name:'Precio'},
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
@@ -24,18 +23,8 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
             '</button>'+
             '</div>'}
         ],
-        data: data,
-        onRegisterApi: function(gridApi) {
-            $scope.gridApi = gridApi;
-        }
+        data: establecimientoCalendario.servicios
     }
-    $http.get('server/servicio.json')
-        .success(function(data) {
-            data.forEach( function(row) {
-                row.registered = Date.parse(row.registered);
-            });
-            $scope.gridServicio.data = data;
-        });
 }]);
 
 /**=========================================================
@@ -72,7 +61,7 @@ App.controller('ServicioModalController', ['$scope', '$modal', function ($scope,
 
             var data = {
                 "id": gridServicio.excessColumns    ,
-                "nombre": $scope.servicioForm.nombre,
+                "nombre": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
                 "horaApertura": $scope.servicioForm.horaApertura,
                 "horaCierre": $scope.servicioForm.horaCierre,
