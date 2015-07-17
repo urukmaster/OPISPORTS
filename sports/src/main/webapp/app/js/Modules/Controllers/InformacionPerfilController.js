@@ -1,10 +1,11 @@
 /**
  * Created by JuanManuel on 09/07/2015.
  */
-var gridEstablecimientos = {};
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','uiGridConstants', function($scope,$http, $stateParams,uiGridConstants) {
+
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
     // no filter for inbox
+
 	
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
@@ -20,13 +21,13 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
 	
 	$scope.init = function(){
-		$scope.mostrarCalendario = false; 	
-	    $http.get('rest/establecimientoDeportivo/getAll')
+		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			var establecimientos = response.establecimientoDeportivo;
 			for (var i = 0; i < establecimientos.length; i++) {
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
+                    establecimientoCalendario = establecimientos[i];
                 }
             }
 		});
@@ -37,10 +38,11 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     
     
     $scope.mostrarReservaciones = function() {
-			$scope.mostrarCalendario = true;
+
+    	$state.go("app.perfil.reservaciones");
 	}
-			
-	$scope.mostrarInformacion = function(){
+
+    $scope.mostrarInformacion = function(){
 		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.informacion");
 	}
@@ -50,4 +52,26 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		$state.go("app.perfil.servicios");
 	}
 
+    $scope.init();
 }]);
+
+App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state', function($scope,$http, $stateParams,$state) {
+    // no filter for inbox
+	$scope.establecimientoForm = {};
+    $scope.establecimientoForm.registrar = function () {
+
+        var data = {
+            "nombre": $scope.establecimientoForm.nombre,
+            "telefono": $scope.establecimientoForm.telefono,
+            "direccion": $scope.establecimientoForm.direccion,
+            "pagina": $scope.establecimientoForm.pagina,
+            "idUsuario": 1
+        };
+        $state.go('app.index');
+    };
+    
+   
+
+}]);
+
+

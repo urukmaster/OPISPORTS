@@ -9,6 +9,10 @@ org\opi\sports\ejb\Distribucion.class
 org\opi\sports\ejb\Inscripcion.class
 org\opi\sports\ejb\Permiso.class
 org\opi\sports\ejb\Evento.class
+<<<<<<< HEAD
+=======
+org\opi\sports\pojo\UsuarioPOJO.class
+>>>>>>> 2e065369f882d9066df4ecfc75bd77db1eb29508
 org\opi\sports\pojo\CalendarioPOJO.class
 org\opi\sports\config\ServletInitializer.class
 org\opi\sports\ejb\Permisos_Rol.class
@@ -22,6 +26,10 @@ org\opi\sports\services\ReservacionesServiceInterface.class
 org\opi\sports\config\WSFilter.class
 org\opi\sports\ejb\Tiquete.class
 org\opi\sports\pojo\EstablecimientoDeportivoPOJO.class
+<<<<<<< HEAD
+=======
+org\opi\sports\repositories\IniciarSesionRepository.class
+>>>>>>> 2e065369f882d9066df4ecfc75bd77db1eb29508
 org\opi\sports\controllers\EstablecimientoDeportivoController.class
 org\opi\sports\ejb\TipoServicio.class
 org\opi\sports\repositories\ReservacionesRepository.class
@@ -31,8 +39,16 @@ org\opi\sports\ejb\Usuario_Rol.class
 org\opi\sports\ejb\CentroDistribucion.class
 org\opi\sports\ejb\Foto.class
 org\opi\sports\ejb\Reservaciones.class
+<<<<<<< HEAD
 org\opi\sports\utils\Utils.class
 org\opi\sports\contracts\BasePagingRequest.class
+=======
+org\opi\sports\repositories\ServicioRepository.class
+org\opi\sports\utils\Utils.class
+org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
+org\opi\sports\contracts\BasePagingRequest.class
+org\opi\sports\services\ServicioServiceInterface.class
+>>>>>>> 2e065369f882d9066df4ecfc75bd77db1eb29508
 org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\ejb\Servicio.class
 org\opi\sports\config\OpiSportsApplication.class
@@ -44,6 +60,10 @@ org\opi\sports\services\EstablecimientoDeportivoServiceInterface.class
 org\opi\sports\contracts\ReservacionesResponse.class
 org\opi\sports\utils\PojoUtils.class
 org\opi\sports\contracts\TipoServicioRequest.class
+<<<<<<< HEAD
+=======
+org\opi\sports\services\ServicioService.class
+>>>>>>> 2e065369f882d9066df4ecfc75bd77db1eb29508
 org\opi\sports\ejb\Reto.class
 org\opi\sports\ejb\EstablecimientoDeportivo.class
 org\opi\sports\ejb\Supscripcion.class
@@ -54,3 +74,7 @@ org\opi\sports\pojo\ReservacionesPOJO.class
 org\opi\sports\repositories\TipoServicioRepository.class
 org\opi\sports\ejb\ActividadDeportiva.class
 org\opi\sports\ejb\Rol.class
+<<<<<<< HEAD
+=======
+org\opi\sports\pojo\ServicioPOJO.class
+>>>>>>> 2e065369f882d9066df4ecfc75bd77db1eb29508

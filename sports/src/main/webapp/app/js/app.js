@@ -35,11 +35,11 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$storage = $window.localStorage;
 
     // Uncomment this to disable template cache
-    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
      if (typeof(toState) !== 'undefined'){
      $templateCache.remove(toState.templateUrl);
      }
-     });*/
+    });
 
     // Scope Globals
     // ----------------------------------- 
@@ -63,7 +63,7 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     };
     $rootScope.user = {
         name:     'Juan Manuel',
-        job:      'Viales',
+        job:      'Programador',
         picture:  'app/img/user/02.jpg'
     };
     $rootScope.user = {};
@@ -156,7 +156,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/establecimientos',
                 title: 'Establecimientos',
                 templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil',{
@@ -168,13 +167,19 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/informacion',
                 title: 'Informacion',
                 templateUrl: helper.basepath('perfil-informacion.html'),
-                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets')
             })
             .state('app.perfil.servicios',{
                 url: '/servicios',
                 title: 'Servicios',
                 templateUrl: helper.basepath('perfil-servicios.html'),
-                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.perfil.reservaciones',{
+                url: '/reservaciones',
+                title: 'Reservaciones',
+                templateUrl: helper.basepath('perfil-calendario.html'),
+                resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
                 url: '/perfilEvento',
@@ -192,6 +197,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/registrarUsuario',
                 title: 'Registrar Usuario',
                 templateUrl: helper.basepath('registrarUsuario.html'),
+                resolve: helper.resolveFor('parsley')
+            })
+            .state('app.registrarEstablecimiento',{
+                url: '/registrarEstablecimiento',
+                title: 'Registrar Establecimiento',
+                templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
             .state('app.actividades', {
@@ -710,12 +721,7 @@ App.filter('propsFilter', function() {
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
-    'use strict';
-    if(!$.fn.fullCalendar) return;
-
-    // global shared var to know what we are dragging
-    var draggingEvent = null;
+var establecimientoCalendario;
 
 
     /**
@@ -777,129 +783,6 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     }
     
 
-    function initReservaciones(reservacionesJSON){
-    
-    var reservaciones = [];
-    
-    angular.forEach(reservacionesJSON, function(reservacionJSON, index){
-    	var reservacion = {};
-    	reservacion.title = reservacionJSON.title;
-    	reservacion.start = new Date(reservacionJSON.start.millis);
-    	reservacion.end = new Date(reservacionJSON.end.millis);
-    	reservacion.backgroundColor = reservacionJSON.backgroundColor;
-    	reservacion.borderColor = reservacionJSON.borderColor;
-    	
-    	reservaciones.push(reservacion);
-    })
-    
-    return reservaciones;
-    }
-     /**
-     * Inits the external events panel
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     */
-    function initExternalEvents(calElement){
-        // Panel with the external events list
-        var externalEvents = $('.external-events');
-
-        // init the external events in the panel
-        new ExternalEvent(externalEvents.children('div'));
-
-        // External event color is danger-red by default
-        var currColor = '#f6504d';
-        // Color selector button
-        var eventAddBtn = $('.external-event-add-btn');
-        // New external event name input
-        var eventNameInput = $('.external-event-name');
-        // Color switchers
-        var eventColorSelector = $('.external-event-color-selector .circle');
-
-        // Trash events Droparea 
-        $('.external-events-trash').droppable({
-            accept:       '.fc-event',
-            activeClass:  'active',
-            hoverClass:   'hovered',
-            tolerance:    'touch',
-            drop: function(event, ui) {
-
-                // You can use this function to send an ajax request
-                // to remove the event from the repository
-
-                if(draggingEvent) {
-                    var eid = draggingEvent.id || draggingEvent._id;
-                    // Remove the event
-                    calElement.fullCalendar('removeEvents', eid);
-                    // Remove the dom element
-                    ui.draggable.remove();
-                    // clear
-                    draggingEvent = null;
-                }
-            }
-        });
-
-        eventColorSelector.click(function(e) {
-            e.preventDefault();
-            var $this = $(this);
-
-            // Save color
-            currColor = $this.css('background-color');
-            // De-select all and select the current one
-            eventColorSelector.removeClass('selected');
-            $this.addClass('selected');
-        });
-
-        eventAddBtn.click(function(e) {
-            e.preventDefault();
-
-            // Get event name from input
-            var val = eventNameInput.val();
-            // Dont allow empty values
-            if ($.trim(val) === '') return;
-
-            // Create new event element
-            var newEvent = $('<div/>').css({
-                'background-color': currColor,
-                'border-color':     currColor,
-                'color':            '#fff'
-            })
-                .html(val);
-
-            // Prepends to the external events list
-            externalEvents.prepend(newEvent);
-            // Initialize the new event element
-            new ExternalEvent(newEvent);
-            // Clear input
-            eventNameInput.val('');
-        });
-    }
-
-    /**
-     * Creates an array of events to display in the first load of the calendar
-     * Wrap into this function a request to a source to get via ajax the stored events
-     * @return Array The array with the events
-     */
-        
-    $scope.init = function(){
-    	
-    	$http.get('rest/reservaciones/getAll')
-        .success(function(data) {
-        	var calendar = $('#calendar');
-        	
-        	var reservaciones = initReservaciones(data.jsoncalendar);
-        	
-        	initExternalEvents(calendar);
-
-        	initCalendar(calendar, reservaciones);
-
-        });
-    	
-    	$timeout(function(){$('#calendar').fullCalendar('render')}, 1000);
-    	
-    }
-    
-    $scope.init();
-
-}]);
 App.controller('AngularCarouselController', ["$scope", function($scope) {
 
     $scope.colors = ["#fc0003", "#f70008", "#f2000d", "#ed0012", "#e80017", "#e3001c", "#de0021", "#d90026", "#d4002b", "#cf0030", "#c90036", "#c4003b", "#bf0040", "#ba0045", "#b5004a", "#b0004f", "#ab0054", "#a60059", "#a1005e", "#9c0063", "#960069", "#91006e", "#8c0073", "#870078", "#82007d", "#7d0082", "#780087", "#73008c", "#6e0091", "#690096", "#63009c", "#5e00a1", "#5900a6", "#5400ab", "#4f00b0", "#4a00b5", "#4500ba", "#4000bf", "#3b00c4", "#3600c9", "#3000cf", "#2b00d4", "#2600d9", "#2100de", "#1c00e3", "#1700e8", "#1200ed", "#0d00f2", "#0800f7", "#0300fc"];
