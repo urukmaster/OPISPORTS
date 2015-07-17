@@ -9,10 +9,16 @@ import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.TipoServicioResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.TipoServicio;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+import org.opi.sports.pojo.ReservacionesPOJO;
+import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.pojo.TipoServicioPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.services.TipoServicioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 import scala.annotation.meta.setter;
@@ -59,10 +64,10 @@ public class EstablecimientoDeportivoController {
 		//Lista de EstablecimientoDeportivoPOJO
 		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
+		
+		
 		for(EstablecimientoDeportivo establecimiento : establecimientoList){
-			EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
-			PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
-			establecimientoViewList.add(establecimientoView);
+			establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
 		}
 		
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoViewList);
@@ -82,10 +87,10 @@ public class EstablecimientoDeportivoController {
 		//int idUser = (int) currentSession.getAttribute("idUser");
 		
 		EstablecimientoDeportivo establecimientoDeportivo = new EstablecimientoDeportivo();
-		establecimientoDeportivo.setNombre(establecimientoRequest.getEstablecimientoDeportivo().getNombre());
-		establecimientoDeportivo.setDireccion(establecimientoRequest.getEstablecimientoDeportivo().getDireccion());
-		establecimientoDeportivo.setPaginaWeb(establecimientoRequest.getEstablecimientoDeportivo().getPaginaWeb());
-		establecimientoDeportivo.setTelefono(establecimientoRequest.getEstablecimientoDeportivo().getTelefono());
+		establecimientoDeportivo.setNombre(establecimientoRequest.getEstablecimiento().getNombre());
+		establecimientoDeportivo.setDireccion(establecimientoRequest.getEstablecimiento().getDireccion());
+		establecimientoDeportivo.setPaginaWeb(establecimientoRequest.getEstablecimiento().getPaginaWeb());
+		establecimientoDeportivo.setTelefono(establecimientoRequest.getEstablecimiento().getTelefono());
 		//establecimientoDeportivo.setIdUsuario();
 		
 		Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimientoDeportivo);
