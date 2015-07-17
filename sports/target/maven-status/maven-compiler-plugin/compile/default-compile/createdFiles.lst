@@ -33,6 +33,7 @@ org\opi\sports\ejb\Foto.class
 org\opi\sports\ejb\Reservaciones.class
 org\opi\sports\repositories\ServicioRepository.class
 org\opi\sports\utils\Utils.class
+org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
 org\opi\sports\contracts\BasePagingRequest.class
 org\opi\sports\services\ServicioServiceInterface.class
 org\opi\sports\repositories\EstablecimientoRepository.class
