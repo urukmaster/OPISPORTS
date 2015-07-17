@@ -23,6 +23,14 @@ public class ReservacionesService implements ReservacionesServiceInterface{
 
 	public List<Reservaciones> getAllReservaciones() {
 		return reservacionesRepositorio.findAll();
+	}
+
+	public <S extends Reservaciones> S save(S reservacion) {
+		return reservacionesRepositorio.save(reservacion);
+	}
+
+	public boolean exists(Integer idReservacion) {
+		return reservacionesRepositorio.exists(idReservacion);
 	}	
 
 }
