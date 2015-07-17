@@ -54,21 +54,30 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 }]);
 
 App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state', function($scope,$http, $stateParams,$state) {
-    // no filter for inbox
-	$scope.establecimientoForm = {};
-    $scope.establecimientoForm.registrar = function () {
-
-        var data = {
-            "nombre": $scope.establecimientoForm.nombre,
-            "telefono": $scope.establecimientoForm.telefono,
-            "direccion": $scope.establecimientoForm.direccion,
-            "pagina": $scope.establecimientoForm.pagina,
-            "idUsuario": 1
-        };
-        $state.go('app.index');
+	'use strict'; 
+	//validación
+    $scope.submitted = false;
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formEstablecimiento[name];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
     };
-    
-   
+    // Submit form
+    $scope.submitForm = function() {
+        $scope.submitted = true;
+        if ($scope.formEstablecimiento.$valid) {
+        	var data = {
+        		"nombre" : $scope.establecimiento.nombre,
+        		"direccion" : $scope.establecimiento.direccion,
+        		"telefono" : $scope.establecimiento.telefono,
+        		"pagina" : $scope.establecimiento.pagina,
+        		"idUsuario" : 1
+        	};
+        	alert("Lo lograste");            
+        } else {
+            alert('No lo lograste! :(');
+            return false;
+        }
+    };
 
 }]);
 

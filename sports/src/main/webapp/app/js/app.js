@@ -2532,11 +2532,9 @@ App.controller('FormValidationController', ["$scope", function ($scope) {
         var blacklist = ['some@mail.com','another@email.com'];
         return blacklist.indexOf(value) === -1;
     };
-
     $scope.words = function(value) {
         return value && value.split(' ').length;
     };
-
     $scope.submitted = false;
     $scope.validateInput = function(name, type) {
         var input = $scope.formValidate[name];

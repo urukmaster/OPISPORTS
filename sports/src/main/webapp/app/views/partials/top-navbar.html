@@ -60,13 +60,15 @@
             <ul class="dropdown-menu animated flipInX" ng-controller="EstablecimientosController">
                <li >
                   <!-- START list group-->
-                  <div class="list-group">
+                  <div class="list-group" ng-controller="InfiniteScrollController">
+                  	<scrollable height="125" class="list-group">
                   	<div ng-repeat="establecimiento in Establecimientos">
-	                     <!-- list item-->
+                  		 
+	                     <!-- list item-->	                  
 	                     <a ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})" class="list-group-item">
 	                        <div class="media-box">
 	                           <div class="pull-left">
-	                              <em class="fa fa-twitter fa-2x text-info"></em>
+	                              <em class="fa fa-home fa-2x text-info"></em>
 	                           </div>
 	                           <div class="media-box-body clearfix">
 	                              <p class="m0">{{establecimiento.nombre}}</p>
@@ -75,40 +77,15 @@
 	                              </p>
 	                           </div>
 	                        </div>
-	                     </a>
+	                     </a> 
+	                                          
 	                </div>
-                     <!-- list item-->
-                     <a href="#" class="list-group-item">
-                        <div class="media-box">
-                           <div class="pull-left">
-                              <em class="fa fa-envelope fa-2x text-warning"></em>
-                           </div>
-                           <div class="media-box-body clearfix">
-                              <p class="m0">New e-mails</p>
-                              <p class="m0 text-muted">
-                                 <small>You have 10 new emails</small>
-                              </p>
-                           </div>
-                        </div>
-                     </a>
-                     <!-- list item-->
-                     <a href="#" class="list-group-item">
-                        <div class="media-box">
-                           <div class="pull-left">
-                              <em class="fa fa-tasks fa-2x text-success"></em>
-                           </div>
-                           <div class="media-box-body clearfix">
-                              <p class="m0">Pending Tasks</p>
-                              <p class="m0 text-muted">
-                                 <small>11 pending task</small>
-                              </p>
-                           </div>
-                        </div>
-                     </a>
+	                </scrollable> 	
                      <!-- last list item -->
                      <a ui-sref="app.registrarEstablecimiento" class="list-group-item">
                         <small>Agregar Establecimiento</small>
                      </a>
+                     
                   </div>
                   <!-- END list group-->
                </li>
