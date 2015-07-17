@@ -17,10 +17,10 @@ public class Supscripcion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSupscripcion;
 
-	//bi-directional many-to-one association to TiipoEvento
+	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
 	@JoinColumn(name="idTipoEvento")
-	private TiipoEvento tiipoEvento;
+	private TipoEvento tipoEvento;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -38,12 +38,12 @@ public class Supscripcion implements Serializable {
 		this.idSupscripcion = idSupscripcion;
 	}
 
-	public TiipoEvento getTiipoEvento() {
-		return this.tiipoEvento;
+	public TipoEvento getTipoEvento() {
+		return this.tipoEvento;
 	}
 
-	public void setTiipoEvento(TiipoEvento tiipoEvento) {
-		this.tiipoEvento = tiipoEvento;
+	public void setTipoEvento(TipoEvento tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 	public Usuario getUsuario() {

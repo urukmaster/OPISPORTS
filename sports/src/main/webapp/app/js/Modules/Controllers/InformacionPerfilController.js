@@ -38,7 +38,6 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     
     $scope.mostrarReservaciones = function() {
 			$scope.mostrarCalendario = true;
-			$('#calendar').fullCalendar('render');
 	}
 			
 	$scope.mostrarInformacion = function(){
