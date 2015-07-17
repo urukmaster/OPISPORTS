@@ -1,62 +1,63 @@
 <div class="unwrap" ng-controller="InformacionPerfilController">
+   <div style="background-image: url(app/img/cancha2.jpg)" class="bg-cover">
+      <div class="p-xl text-center text-white">
+         <h3 class="m0">{{establecimiento.nombre}}</h3>
+         <p>Establecimiento Deportivo</p>
+         <p>{{establecimiento.descripcion}}</p>
+      </div>
+   </div>
+   <div class="text-center bg-gray-dark p-lg mb-xl">
+      <div class="row row-table">
+         <div class="col-xs-6 br">
+            <h3 class="m0">400</h3>
+            <p class="m0">
+               <span class="hidden-xs">Visitas de</span>
+               <span>perfil</span>
+            </p>
+         </div>
+         <div class="col-xs-6 br">
+            <h3 class="m0">2000</h3>
+            <p class="m0">Me gusta</p>
+         </div>
+      </div>
+   </div>
+   <div class="p-lg">
+      <div class="row">
+         <div class="col-lg-9">
+            <div id="panelDemo15" class="panel panel-default">
+               <div class="panel-body">
+                 <ul class="nav nav-tabs nav-justified">
+					<li><a ng-click="mostrarInformacion()">Informacion</a></li>	
+					<li><a ng-click="mostrarServicios()">Servicios</a></li>
+					<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
+				</ul>
+               </div>
+               <div ui-view="" class="col"> </div>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <div class="text-center">
+                     <h3 class="mt0">{{establecimiento.nombre}}</h3>
+                     <p>Establecimiento Deportivo</p>
+                  </div>
+                  <hr/>
+                  <ul class="list-unstyled ph-xl">
+                     <li>
+                        <em class="fa fa-home fa-fw mr-lg"></em>{{establecimiento.direccion}}</li>
+                     <li>
+                        <em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">www.ej.com</a>
+                     </li>
+                     <li>
+                        <em class="fa fa-phone fa-fw mr-lg"></em><a href="#">{{establecimiento.telefono}}</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
 
-	<div style="background-image: url(app/img/cancha2.jpg)"
-		class="bg-cover">
-		<div class="p-xl text-center text-white">
-			<h3 class="m0">{{establecimiento.nombre}}</h3>
-			<p>Establecimiento Deportivo</p>
-			<p>{{establecimiento.descripcion}}</p>
-		</div>
-	</div>
-	<div class="text-center bg-gray-dark p-lg mb-xl">
-		<div class="row row-table">
-			<div class="col-xs-6 br">
-				<h3 class="m0">400</h3>
-				<p class="m0">
-					<span class="hidden-xs">Visitas de</span> <span>perfil</span>
-				</p>
-			</div>
-			<div class="col-xs-6 br">
-				<h3 class="m0">2000</h3>
-				<p class="m0">Me gusta</p>
-			</div>
-		</div>
-	</div>
-	<div class="p-lg">
-		<div class="row">
-			<div class="col-lg-9">
-				<div id="panelDemo15" class="panel panel-default">
-					<div class="panel-body">
-						<ul class="nav nav-pills">
-							<li><button ng-click="mostrarInformacion()">Informacion</button></li>
-							<li><button ng-click="mostrarServicios()">Servicios</button></li>
-							<li><button ng-click="mostrarReservaciones()">Calendario</button></li>
-						</ul>
-					</div>
-					<div ui-view="" class="col"></div>
-
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="text-center">
-							<h3 class="mt0">{{establecimiento.nombre}}</h3>
-							<p>Establecimiento Deportivo</p>
-						</div>
-						<hr />
-						<ul class="list-unstyled ph-xl">
-							<li><em class="fa fa-home fa-fw mr-lg"></em>{{establecimiento.direccion}}</li>
-							<li><em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">www.ej.com</a>
-							</li>
-							<li><em class="fa fa-phone fa-fw mr-lg"></em><a href="#">{{establecimiento.telefono}}</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+         </div>
+      </div>
+   </div>
 </div>
 <script src="app/js/Modules/Controllers/InformacionPerfilController.js"></script>

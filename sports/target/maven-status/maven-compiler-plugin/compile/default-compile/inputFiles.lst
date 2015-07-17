@@ -2,6 +2,7 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/config/WebMvcConfig.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Rol.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Usuario_Rol.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/repositories/IniciarSesionRepository.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/services/ServicioServiceInterface.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/ActividadDeportiva.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Evento.java
@@ -12,6 +13,7 @@
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/CalendarioPOJO.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/Servicio.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/config/WSFilter.java
+/Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/UsuarioPOJO.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/pojo/TipoServicioPOJO.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/ejb/CentroDistribucion.java
 /Users/lopez/Documents/Git/MiRepositorio/sports/src/main/java/org/opi/sports/contracts/EstablecimientoDeportivoResponse.java

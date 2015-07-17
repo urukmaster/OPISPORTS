@@ -52,6 +52,7 @@ org/opi/sports/services/ServicioService.class
 org/opi/sports/helpers/EstablecimientoDeportivoHelper.class
 org/opi/sports/services/ServicioServiceInterface.class
 org/opi/sports/config/WSFilter.class
+org/opi/sports/repositories/IniciarSesionRepository.class
 org/opi/sports/services/ReservacionesServiceInterface.class
 org/opi/sports/config/ServletInitializer.class
 org/opi/sports/ejb/Rol.class
@@ -60,5 +61,6 @@ org/opi/sports/config/OpiSportsApplication.class
 org/opi/sports/ejb/EstablecimientoDeportivo.class
 org/opi/sports/services/TipoServicioService.class
 org/opi/sports/ejb/Foto.class
+org/opi/sports/pojo/UsuarioPOJO.class
 org/opi/sports/config/WebMvcConfig.class
 org/opi/sports/contracts/EstablecimientoDeportivoRequest.class
