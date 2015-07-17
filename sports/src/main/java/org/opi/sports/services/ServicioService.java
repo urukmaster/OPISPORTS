@@ -21,8 +21,8 @@ public class ServicioService implements ServicioServiceInterface{
 	}
 
 	@Transactional
-	public Servicio findOne(Integer idTipoServicio) {
-		return servicioRepository.findOne(idTipoServicio);
+	public Servicio findOne(Integer idServicio) {
+		return servicioRepository.findOne(idServicio);
 	}
 
 	@Transactional

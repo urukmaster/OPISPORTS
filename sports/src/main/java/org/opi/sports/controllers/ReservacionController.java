@@ -3,14 +3,14 @@ package org.opi.sports.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.helpers.ReservacionesHelper;
-import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
+import org.opi.sports.services.ServicioServiceInterface;
+import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +36,12 @@ public class ReservacionController {
 	@Autowired
 	ReservacionesServiceInterface reservacionesServices;
 
+	@Autowired
+	UsuarioServiceInterface usuarioServices;
+
+	@Autowired
+	ServicioServiceInterface servicioServices;
+	
 	/**
 	 *Este método obtiene cada una de las instancias de reservaciones
 	 *registradas en la base de datos
@@ -59,6 +65,27 @@ public class ReservacionController {
 		
 		return reservacionesResponse;		
 		
+	}
+	
+	@RequestMapping(value="save" , method = RequestMethod.POST)
+	public ReservacionesResponse save(@RequestBody ReservacionesRequest reservacion){
+		
+		ReservacionesResponse reservacionResponse = new ReservacionesResponse();
+		
+		
+		
+		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance().saveReservacion(reservacion, reservacionesServices,
+				usuarioServices.findOne(reservacion.getUsuario()), servicioServices.findOne(reservacion.getServicio()));
+		
+		if(reservacionesServices.exists(reservacionView.getIdCalendario())){
+			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+			reservaciones.add(reservacionView);
+			reservacionResponse.setReservacion(reservaciones);
+			reservacionResponse.setCode(200);
+			reservacionResponse.setCodeMessage("Se registró la reservación correctamente");
+		}
+		
+		return reservacionResponse;
 	}
 
 }
