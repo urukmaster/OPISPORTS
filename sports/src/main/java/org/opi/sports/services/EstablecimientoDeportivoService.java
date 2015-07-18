@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.repositories.EstablecimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +40,14 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 		return establecimientoDeportivoRepository.findAll();
 	}
 	/**
-	 * Metodo encargado de realizar la funcion de registrar el repositorio
+	 * Metodo encargado de realizar la funcion de registrar el establecimiento repositorio
 	 * 
 	 */
 	@Override
 	@Transactional
-	public Boolean saveEstablecimiento(EstablecimientoDeportivo pestablecimientoDeportivo) {
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoRepository.save(pestablecimientoDeportivo);
-		Boolean result = true;
-		if(establecimientoDeportivo == null){
-			result = false;
-		}
-		return result;
+	public <Estableciminto extends EstablecimientoDeportivo> Estableciminto save(Estableciminto establecimiento) {
+		// TODO Auto-generated method stub
+		return establecimientoDeportivoRepository.save(establecimiento);
 	}
 	/**
 	 * Metodo encargado de realizar la funcion de buscar por nombre
@@ -62,4 +59,15 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 		
 		return establecimientoDeportivoRepository.findByNombre(pnombre);
 	}
+	/**
+	 * Metodo encargado dvalidar si existe el establecimiento
+	 * 
+	 */
+	@Transactional
+	@Override
+	public boolean exists(Integer idEstablecimiento) {
+		// TODO Auto-generated method stub
+		return establecimientoDeportivoRepository.exists(idEstablecimiento);
+	}
+
 }
