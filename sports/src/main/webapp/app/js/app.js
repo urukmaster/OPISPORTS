@@ -33,13 +33,13 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$storage = $window.localStorage;
-
+    	
     // Uncomment this to disable template cache
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-     if (typeof(toState) !== 'undefined'){
-     $templateCache.remove(toState.templateUrl);
-     }
-    });
+    //$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+     //if (typeof(toState) !== 'undefined'){
+     //$templateCache.remove(toState.templateUrl);
+     //}
+    //});
 
     // Scope Globals
     // ----------------------------------- 
@@ -151,6 +151,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Eventos deportivos',
                 templateUrl: helper.basepath('eventosIndex.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
             .state('app.establecimientos', {
                 url: '/establecimientos',
                 title: 'Establecimientos',
@@ -723,64 +724,6 @@ App.filter('propsFilter', function() {
 var establecimientoCalendario;
 
 
-    /**
-     * ExternalEvent object
-     * @param jQuery Object elements Set of element as jQuery objects
-     */
-    var ExternalEvent = function (elements) {
-
-        if (!elements) return;
-
-        elements.each(function() {
-            var $this = $(this);
-            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-            // it doesn't need to have a start or end
-            var calendarEventObject = {
-                title: $.trim($this.text()) // use the element's text as the event title
-            };
-
-            // store the Event Object in the DOM element so we can get to it later
-            $this.data('calendarEventObject', calendarEventObject);
-
-            // make the event draggable using jQuery UI
-            $this.draggable({
-                zIndex: 1070,
-                revert: true, // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
-            });
-
-        });
-    };
-
-    /**
-     * Invoke full calendar plugin and attach behavior
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     * @param  EventObject [events] An object with the event list to load when the calendar displays
-     */
-    function initCalendar(calElement, events) {
-
-        // check to remove elements from the list
-        calElement.fullCalendar({
-        	isRTL: $scope.app.layout.isRTL,
-            header: {
-                left:   'prev,next',
-                center: 'title'
-            },
-            buttonIcons: { // note the space at the beginning
-                prev:    ' fa fa-caret-left',
-                next:    ' fa fa-caret-right'
-            },
-            allDaySlot: false,
-            defaultView:'agendaWeek',
-            firstDayOfWeek : 1,
-            height: 500,
-            events: events,
-            minTime: "06:00:00",
-            maxTime: "23:00:00",
-            timeFormat: 'H(:mm)'
-            });
-    }
-    
 
 App.controller('AngularCarouselController', ["$scope", function($scope) {
 
@@ -2111,7 +2054,7 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     $scope.mytime = new Date();
 
     $scope.hstep = 1;
-    $scope.mstep = 0;
+    $scope.mstep = 15;
 
     $scope.options = {
         hstep: [1, 2, 3],
@@ -2589,11 +2532,9 @@ App.controller('FormValidationController', ["$scope", function ($scope) {
         var blacklist = ['some@mail.com','another@email.com'];
         return blacklist.indexOf(value) === -1;
     };
-
     $scope.words = function(value) {
         return value && value.split(' ').length;
     };
-
     $scope.submitted = false;
     $scope.validateInput = function(name, type) {
         var input = $scope.formValidate[name];
@@ -5533,6 +5474,7 @@ App.directive('masked', function() {
     }
 
 })();
+
 /**=========================================================
  * Module: navbar-search.js
  * Navbar search toggler * Auto dismiss on ESC key
