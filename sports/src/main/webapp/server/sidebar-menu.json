@@ -1,25 +1,32 @@
 [
   {
-	"text": "Main Navigation",
-	"heading": "true",
-	"translate": "sidebar.heading.HEADER"
-  },
-  {
-	"text": "Registrar",
-	"sref": "app.usuarios",
-	"icon": "icon-user",
-	"label": "label label-info"
-  },
-  {
-	"text": "Profile",
+	"text": "Establecimientos",
 	"sref": "app.establecimientos",
-	"icon": "icon-user",
+	"icon": "icon-home",
 	"label": "label label-info"
   },
   {
-	"text": "Centros de distribucion",
-	"sref": "app.centroDistribucion",
-	"icon": "icon-user",
+	"text": "Eventos",
+	"sref": "#",
+	"icon": "icon-flag",
 	"label": "label label-info"
+  },
+    {
+	"text": "Retos",
+	"sref": "#",
+	"icon": "icon-fire",
+	"label": "label label-info"
+  },
+  {
+	"text": "Configuracion",
+	"sref": "#",
+	"icon": "icon-settings",
+	"label": "label label-info",
+	"submenu": [
+      {"text": "Usuarios", "sref": "#"},
+      {"text": "Tipos de servicios", "sref": "#" },
+      {"text": "Tipos de eventos", "sref": "#" },
+      {"text": "Tipos de actividades deportivas", "sref": "#" }
+      ]
   }
 ]
