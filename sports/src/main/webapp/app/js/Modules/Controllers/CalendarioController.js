@@ -179,6 +179,7 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
       }
     
     $scope.init();
+
     
 }]);
 

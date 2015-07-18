@@ -11,9 +11,12 @@ org\opi\sports\ejb\Permiso.class
 org\opi\sports\ejb\Evento.class
 org\opi\sports\pojo\UsuarioPOJO.class
 org\opi\sports\pojo\CalendarioPOJO.class
+org\opi\sports\config\ServletInitializer.class
 org\opi\sports\ejb\Permisos_Rol.class
 org\opi\sports\helpers\ReservacionesHelper.class
 org\opi\sports\contracts\EstablecimientoDeportivoResponse.class
+org\opi\sports\controllers\HomeController.class
+>>>>>>> 62fbe999462d5542e5144df94e3e4102bc119be0
 org\opi\sports\ejb\Establecimiento_Evento.class
 org\opi\sports\contracts\ReservacionesRequest.class
 org\opi\sports\ejb\Review.class
