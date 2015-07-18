@@ -5,10 +5,16 @@ import java.util.List;
 
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
+import org.opi.sports.contracts.ReservacionesRequest;
+import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Usuario;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
+import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.UsuarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +39,9 @@ public class EstablecimientoDeportivoController {
 	//Variable de tipo EstablecimientoDeportivoServiceInterface
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
+	
+	@Autowired
+	UsuarioServiceInterface usuarioServices;
 	
 	/**
 	 * Metodo encargado de solicitar todos los establecimientos deportivos 
@@ -60,27 +69,24 @@ public class EstablecimientoDeportivoController {
 	 * Metodo de registrar el establecimiento deportivo
 	 * 
 	 */
-	@RequestMapping(value ="/create", method = RequestMethod.POST)
-	public EstablecimientoDeportivoResponse create(@RequestBody EstablecimientoDeportivoRequest establecimientoRequest){//ur	
+	@RequestMapping(value="save" , method = RequestMethod.POST)
+	public EstablecimientoDeportivoResponse save(@RequestBody EstablecimientoDeportivoRequest establecimientoRequest){
+		//Esatblecimiento response
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+		//Establecimiento POJO
+		EstablecimientoDeportivoPOJO establecimientoView = EstablecimientoDeportivoHelper.getInstance().saveEstablecimiento(establecimientoRequest, establecimientoDeportivoService);
 		
-		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();//us
-		
-		//HttpSession currentSession = request.getSession();
-		//int idUser = (int) currentSession.getAttribute("idUser");
-		
-		EstablecimientoDeportivo establecimientoDeportivo = new EstablecimientoDeportivo();
-		establecimientoDeportivo.setNombre(establecimientoRequest.getEstablecimiento().getNombre());
-		establecimientoDeportivo.setDireccion(establecimientoRequest.getEstablecimiento().getDireccion());
-		establecimientoDeportivo.setPaginaWeb(establecimientoRequest.getEstablecimiento().getPaginaWeb());
-		establecimientoDeportivo.setTelefono(establecimientoRequest.getEstablecimiento().getTelefono());
-		//establecimientoDeportivo.setIdUsuario();
-		
-		Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimientoDeportivo);
-		if(state){
+		if(establecimientoDeportivoService.exists(establecimientoView.getIdEstablecimientoDeportivo())){
+			List<EstablecimientoDeportivoPOJO> establecimientos = new ArrayList<EstablecimientoDeportivoPOJO>();
+			establecimientos.add(establecimientoView);
+			establecimientoResponse.setEstablecimientoDeportivo(establecimientos);
 			establecimientoResponse.setCode(200);
-			establecimientoResponse.setCodeMessage("Establecimiento creado sastifactoriamente");
+			establecimientoResponse.setCodeMessage("El establecimiento deportivo se registro correctamente");
+		}else{
+			establecimientoResponse.setCode(401);
+			establecimientoResponse.setCodeMessage("El establecimiento deportivo no se registro");
 		}
 		return establecimientoResponse;
-		
 	}
+
 }

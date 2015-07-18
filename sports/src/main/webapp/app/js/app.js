@@ -33,13 +33,13 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$storage = $window.localStorage;
-
+    	
     // Uncomment this to disable template cache
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-     if (typeof(toState) !== 'undefined'){
-     $templateCache.remove(toState.templateUrl);
-     }
-    });
+    //$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+     //if (typeof(toState) !== 'undefined'){
+     //$templateCache.remove(toState.templateUrl);
+     //}
+    //});
 
     // Scope Globals
     // ----------------------------------- 
@@ -2532,11 +2532,9 @@ App.controller('FormValidationController', ["$scope", function ($scope) {
         var blacklist = ['some@mail.com','another@email.com'];
         return blacklist.indexOf(value) === -1;
     };
-
     $scope.words = function(value) {
         return value && value.split(' ').length;
     };
-
     $scope.submitted = false;
     $scope.validateInput = function(name, type) {
         var input = $scope.formValidate[name];

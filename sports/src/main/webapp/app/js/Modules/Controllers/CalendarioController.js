@@ -180,17 +180,100 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     
     $scope.init();
 
-    $scope.probar = function(){
-    	$http.post('rest/reservaciones/save', {
-			fecha: new Date().getTime(),
-			hora: new Date().getTime(),
-			ocurrencia : 'Normal',
-			servicio : + establecimientoCalendario.servicios[0].idServicio,
-			usuario : 1
-		 	})
-		.success(function(data){
-			alert(data.codeMessage);
-		});
+    
+}]);
+
+App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
+	$scope.Servicios = establecimientoCalendario.servicios;
+
+}]);
+
+
+/**=========================================================
+ * Module: modals.js
+ * Provides a simple way to implement bootstrap modals from templates
+ =========================================================*/
+
+App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', function ($scope, $modal, $http) {
+	var servicioActual;
+    $scope.open = function (size, idServicioActual) {
+    	servicioActual = idServicioActual;
+
+        var modalInstance = $modal.open({
+            templateUrl: '/modalReservaciones.html',
+            controller: ModalInstanceCtrl,
+            size: size
+        });
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+            state.text('Modal dismissed with OK status');
+        }, function () {
+            state.text('Modal dismissed with Cancel status');
+        });
+    };
+
+    function initReservaciones(reservacionesJSON){
+        
+        var reservaciones = [];
+        
+        angular.forEach(reservacionesJSON, function(reservacionJSON, index){
+        	var reservacion = {};
+        	reservacion.title = reservacionJSON.title;
+        	reservacion.start = new Date(reservacionJSON.start.millis);
+        	reservacion.end = new Date(reservacionJSON.end.millis);
+        	reservacion.backgroundColor = reservacionJSON.backgroundColor;
+        	reservacion.borderColor = reservacionJSON.borderColor;
+        	
+        	reservaciones.push(reservacion);
+        });
+        
     }
     
+    // Please note that $modalInstance represents a modal window (instance) dependency.
+    // It is not the same as the $modal service used above.
+
+    var ModalInstanceCtrl = function ($scope, $modalInstance) {
+    	$scope.reservacion = {};
+    	
+        $scope.ok = function () {
+        	
+        	/*alert(servicioActual);
+        	
+        	alert($scope.reservacion.fecha);
+        	
+        	alert(new Date().getTime());
+        	
+        	alert($scope.reservacion.hora);
+        	
+        	alert(new Date().getTime());*/
+        	
+        	$scope.registrarReservacion();
+            
+            $modalInstance.close('closed');
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        
+/*HAY QUE CAMBIAR EL FORMATO PARA QE SE REGISTRE*/
+        
+        
+        $scope.registrarReservacion = function(){
+        	$http.post('rest/reservaciones/save', {
+    			fecha: new Date().getTime(),
+    			hora: new Date().getTime(),
+    			ocurrencia : 'Normal',
+    			servicio : + servicioActual,
+    			usuario : 1
+    		 	})
+    		.success(function(data){
+    			$('calendar').fullCalendar('renderEvent', initReservaciones(data.jsoncalendar));
+    			$('calendar').fullCalendar('render');
+    		});
+        }
+    };
+    ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+
 }]);
