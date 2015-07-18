@@ -1,6 +1,8 @@
 package org.opi.sports.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Fecha: 13-07-2015 version 1.0
@@ -10,6 +12,10 @@ import java.util.List;
  *Sprint 01 Descripción: Clase de los establecimientos deportivos POJO
  *
  */
+
+import org.opi.sports.helpers.ReservacionesHelper;
+
+
 public class EstablecimientoDeportivoPOJO {
 	
 	//Id del estabecimiento deportivo
@@ -22,12 +28,17 @@ public class EstablecimientoDeportivoPOJO {
 	private String telefono;
 	//Direccion del establecimeinto deportivo
 	private String direccion;
+
 	//Id del usuario que pertece el establecimiento
 	private int idUsuario;
 	/**
 	 * Metodo get que devuelve el id del establecimiento deportivo 
 	 * 
 	 */
+
+	private List<ServicioPOJO> servicios;
+	private List<CalendarioPOJO> calendario;
+
 	public int getIdEstablecimientoDeportivo() {
 		return idEstablecimientoDeportivo;
 	}
@@ -77,6 +88,7 @@ public class EstablecimientoDeportivoPOJO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
 	/**
 	 * Metodo get que devuelve la pagina web del establecimiento deportivo 
 	 * 
@@ -104,5 +116,17 @@ public class EstablecimientoDeportivoPOJO {
 	 */
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+	public List<ServicioPOJO> getServicios() {
+		return servicios;
+	}
+	public void setServicios(List<ServicioPOJO> servicios) {
+		this.servicios = servicios;
+	}
+	public List<CalendarioPOJO> getCalendario() {
+		return calendario;
+	}
+	public void setCalendario() {
+		this.calendario = ReservacionesHelper.getInstance().calendarioSerializer(getServicios());
 	}
 }
