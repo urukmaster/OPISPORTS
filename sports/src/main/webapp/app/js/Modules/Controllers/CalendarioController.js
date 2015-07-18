@@ -184,7 +184,7 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     	$http.post('rest/reservaciones/save', {
 			fecha: new Date().getTime(),
 			hora: new Date().getTime(),
-			ocurrencia : 'Normal',
+			ocurrencia : 'Intenso',
 			servicio : + establecimientoCalendario.servicios[0].idServicio,
 			usuario : 1
 		 	})

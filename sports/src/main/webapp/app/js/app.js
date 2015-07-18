@@ -33,13 +33,13 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$storage = $window.localStorage;
-
+    	
     // Uncomment this to disable template cache
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-     if (typeof(toState) !== 'undefined'){
-     $templateCache.remove(toState.templateUrl);
-     }
-    });
+    //$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+     //if (typeof(toState) !== 'undefined'){
+     //$templateCache.remove(toState.templateUrl);
+     //}
+    //});
 
     // Scope Globals
     // ----------------------------------- 
