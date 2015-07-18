@@ -21,18 +21,9 @@ public class Permiso implements Serializable {
 
 	private String permiso;
 
-	//bi-directional many-to-many association to Rol
-	@ManyToMany
-	@JoinTable(
-		name="Permisos_Rol"
-		, joinColumns={
-			@JoinColumn(name="idPermisos")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idRol")
-			}
-		)
-	private List<Rol> rols;
+	//bi-directional many-to-one association to Permisos_Rol
+	@OneToMany(mappedBy="permiso")
+	private List<Permisos_Rol> permisosRols;
 
 	public Permiso() {
 	}
@@ -53,12 +44,26 @@ public class Permiso implements Serializable {
 		this.permiso = permiso;
 	}
 
-	public List<Rol> getRols() {
-		return this.rols;
+	public List<Permisos_Rol> getPermisosRols() {
+		return this.permisosRols;
 	}
 
-	public void setRols(List<Rol> rols) {
-		this.rols = rols;
+	public void setPermisosRols(List<Permisos_Rol> permisosRols) {
+		this.permisosRols = permisosRols;
+	}
+
+	public Permisos_Rol addPermisosRol(Permisos_Rol permisosRol) {
+		getPermisosRols().add(permisosRol);
+		permisosRol.setPermiso(this);
+
+		return permisosRol;
+	}
+
+	public Permisos_Rol removePermisosRol(Permisos_Rol permisosRol) {
+		getPermisosRols().remove(permisosRol);
+		permisosRol.setPermiso(null);
+
+		return permisosRol;
 	}
 
 }

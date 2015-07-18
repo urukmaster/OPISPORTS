@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 
 	private String nombre;
 
-	private String nombreUsuario;
+	//private String nombreUsuario;
 
 	private String telefono;
 
@@ -54,22 +54,17 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Reto> retos;
 
+	//bi-directional many-to-one association to Review
+	@OneToMany(mappedBy="usuario")
+	private List<Review> reviews;
+
 	//bi-directional many-to-one association to Supscripcion
 	@OneToMany(mappedBy="usuario")
 	private List<Supscripcion> supscripcions;
 
-	//bi-directional many-to-many association to Rol
-	@ManyToMany
-	@JoinTable(
-		name="Usuario_Rol"
-		, joinColumns={
-			@JoinColumn(name="idUsuario")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idRol")
-			}
-		)
-	private List<Rol> rols;
+	//bi-directional many-to-one association to Usuario_Rol
+	@OneToMany(mappedBy="usuario")
+	private List<Usuario_Rol> usuarioRols;
 
 	public Usuario() {
 	}
@@ -113,15 +108,13 @@ public class Usuario implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getNombreUsuario() {
-		return this.nombreUsuario;
-	}
-
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
-	}
-
+//	public String getNombreUsuario() {
+//		return this.nombreUsuario;
+//	}
+//
+//	public void setNombreUsuario(String nombreUsuario) {
+//		this.nombreUsuario = nombreUsuario;
+//	}
 	public String getTelefono() {
 		return this.telefono;
 	}
@@ -262,6 +255,28 @@ public class Usuario implements Serializable {
 		return reto;
 	}
 
+	public List<Review> getReviews() {
+		return this.reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public Review addReview(Review review) {
+		getReviews().add(review);
+		review.setUsuario(this);
+
+		return review;
+	}
+
+	public Review removeReview(Review review) {
+		getReviews().remove(review);
+		review.setUsuario(null);
+
+		return review;
+	}
+
 	public List<Supscripcion> getSupscripcions() {
 		return this.supscripcions;
 	}
@@ -284,12 +299,26 @@ public class Usuario implements Serializable {
 		return supscripcion;
 	}
 
-	public List<Rol> getRols() {
-		return this.rols;
+	public List<Usuario_Rol> getUsuarioRols() {
+		return this.usuarioRols;
 	}
 
-	public void setRols(List<Rol> rols) {
-		this.rols = rols;
+	public void setUsuarioRols(List<Usuario_Rol> usuarioRols) {
+		this.usuarioRols = usuarioRols;
+	}
+
+	public Usuario_Rol addUsuarioRol(Usuario_Rol usuarioRol) {
+		getUsuarioRols().add(usuarioRol);
+		usuarioRol.setUsuario(this);
+
+		return usuarioRol;
+	}
+
+	public Usuario_Rol removeUsuarioRol(Usuario_Rol usuarioRol) {
+		getUsuarioRols().remove(usuarioRol);
+		usuarioRol.setUsuario(null);
+
+		return usuarioRol;
 	}
 
 }

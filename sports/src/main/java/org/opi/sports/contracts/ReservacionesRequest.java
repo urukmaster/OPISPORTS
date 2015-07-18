@@ -1,20 +1,74 @@
 package org.opi.sports.contracts;
 
-import org.opi.sports.pojo.ReservacionesPOJO;;
+import java.sql.Time;
+import java.util.Date;
 
-public class ReservacionesRequest {
 
-	private ReservacionesPOJO reservacion;
+/**
+ * Fecha: 12-07-2015 version 1.0
+ * 
+ * @author Mauricio Fernández Mora.
+ *
+ *Sprint 01 Descripción:Esta clase simula un httpservlet, 
+ *simula las solicitudes del front end.
+ */
 
-	public ReservacionesPOJO getReservacion() {
-		return reservacion;
-	}
-
-	public void setReservacion(ReservacionesPOJO reservacion) {
-		this.reservacion = reservacion;
+public class ReservacionesRequest extends BasePagingRequest{
+	
+	private int idCalendario;
+	private Date fecha;
+	private Time hora;
+	private String ocurrencia;
+	private Integer servicio;
+	private Integer usuario;
+	
+	public int getIdCalendario() {
+		return idCalendario;
 	}
 	
-	public String toString(){
-		return "ReservacionesRequest [reservacion=" + reservacion  + "]";
+	public void setIdCalendario(int idCalendario) {
+		this.idCalendario = idCalendario;
 	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+	
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
+	public Time getHora() {
+		return hora;
+	}
+	
+	public void setHora(Time hora) {
+		this.hora = hora;
+	}
+	
+	public String getOcurrencia() {
+		return ocurrencia;
+	}
+	
+	public void setOcurrencia(String ocurrencia) {
+		this.ocurrencia = ocurrencia;
+	}
+
+	public Integer getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Integer servicio) {
+		this.servicio = servicio;
+	}
+
+	public Integer getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 }

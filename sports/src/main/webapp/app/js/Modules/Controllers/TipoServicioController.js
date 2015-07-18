@@ -24,7 +24,7 @@ App.controller('TipoServicioController', ['$scope', 'uiGridConstants', '$http', 
             $scope.gridApi = gridApi;
         }
     }
-    $http.get('server/TipoServicio.json')
+    $http.get('rest/tipoServicio/getAll')
         .success(function(data) {
             data.forEach( function(row) {
                 row.registered = Date.parse(row.registered);

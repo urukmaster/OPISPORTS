@@ -1,33 +1,75 @@
 /**
  * Created by JuanManuel on 09/07/2015.
  */
-var gridEstablecimientos = {};
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams','uiGridConstants', function($scope,$http, $stateParams,uiGridConstants) {
+
+
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
     // no filter for inbox
-    var path = 'server/establecimientos.json';
 
-        $http.get(path).then(function (resp) {
-            $scope.Establecimientos = resp.data;
-        });
+	
+    $scope.init = function(){  	
+	    $http.get('rest/establecimientoDeportivo/getAll')
+		.success(function(response) {
+			$scope.Establecimientos = response.establecimientoDeportivo;
+		});
 
-
-
+    };
+    $scope.init();
+    
 }]);
-
-App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
-    var path = 'server/establecimientos.json';
-    $scope.init = function(){
-        console.log("entrarndo")
-        $http.get(path).then(function (resp) {
-            console.log("ressssp",resp)
-            var establecimientos = resp.data;
-            for (var i = 0; i < establecimientos.length; i++) {
-                if (establecimientos[i].id == $stateParams.mid){
+       
+App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
+	
+	$scope.init = function(){
+		$http.get('rest/establecimientoDeportivo/getAll')
+		.success(function(response) {
+			var establecimientos = response.establecimientoDeportivo;
+			for (var i = 0; i < establecimientos.length; i++) {
+                if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
+                    establecimientoCalendario = establecimientos[i];
                 }
             }
-        });
-    }
+		});
+    };
+    
+    $scope.init();
+    $state.go("app.perfil.informacion");
+    
+    
+    $scope.mostrarReservaciones = function() {
+
+    	$state.go("app.perfil.reservaciones");
+	}
+
+    $scope.mostrarInformacion = function(){
+		$state.go("app.perfil.informacion");
+	}
+			
+	$scope.mostrarServicios = function(){
+		$state.go("app.perfil.servicios");
+	}
 
     $scope.init();
 }]);
+
+App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state', function($scope,$http, $stateParams,$state) {
+    // no filter for inbox
+	$scope.establecimientoForm = {};
+    $scope.establecimientoForm.registrar = function () {
+
+        var data = {
+            "nombre": $scope.establecimientoForm.nombre,
+            "telefono": $scope.establecimientoForm.telefono,
+            "direccion": $scope.establecimientoForm.direccion,
+            "pagina": $scope.establecimientoForm.pagina,
+            "idUsuario": 1
+        };
+        $state.go('app.index');
+    };
+    
+   
+
+}]);
+
+
