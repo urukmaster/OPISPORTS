@@ -180,4 +180,17 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     
     $scope.init();
 
+    $scope.probar = function(){
+    	$http.post('rest/reservaciones/save', {
+			fecha: new Date().getTime(),
+			hora: new Date().getTime(),
+			ocurrencia : 'Normal',
+			servicio : + establecimientoCalendario.servicios[0].idServicio,
+			usuario : 1
+		 	})
+		.success(function(data){
+			alert(data.codeMessage);
+		});
+    }
+    
 }]);
