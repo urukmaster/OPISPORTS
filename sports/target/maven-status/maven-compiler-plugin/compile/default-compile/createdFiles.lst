@@ -4,7 +4,6 @@ org\opi\sports\contracts\TipoServicioResponse.class
 org\opi\sports\services\EstablecimientoDeportivoService.class
 org\opi\sports\services\TipoServicioService.class
 org\opi\sports\contracts\EstablecimientoDeportivoRequest.class
-org\opi\sports\ejb\TiipoEvento.class
 org\opi\sports\ejb\Distribucion.class
 org\opi\sports\repositories\UsuarioRepository.class
 org\opi\sports\ejb\Inscripcion.class
@@ -21,7 +20,6 @@ org\opi\sports\ejb\Establecimiento_Evento.class
 org\opi\sports\contracts\ReservacionesRequest.class
 org\opi\sports\ejb\Review.class
 org\opi\sports\services\ReservacionesServiceInterface.class
-org\opi\sports\config\WSFilter.class
 org\opi\sports\ejb\Tiquete.class
 org\opi\sports\pojo\EstablecimientoDeportivoPOJO.class
 org\opi\sports\repositories\IniciarSesionRepository.class
@@ -41,7 +39,6 @@ org\opi\sports\contracts\BasePagingRequest.class
 org\opi\sports\services\ServicioServiceInterface.class
 org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\ejb\Servicio.class
-org\opi\sports\config\OpiSportsApplication.class
 org\opi\sports\services\TipoServicioServiceInterface.class
 org\opi\sports\ejb\Usuario.class
 org\opi\sports\services\UsuarioService.class

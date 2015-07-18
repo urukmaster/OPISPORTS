@@ -13,7 +13,7 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 
     };
     $scope.init();
-
+    
 }]);
        
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
@@ -30,21 +30,21 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
             }
 		});
     };
+    
     $scope.init();
     $state.go("app.perfil.informacion");
     
     
     $scope.mostrarReservaciones = function() {
+
     	$state.go("app.perfil.reservaciones");
 	}
 
     $scope.mostrarInformacion = function(){
-		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.informacion");
 	}
 			
 	$scope.mostrarServicios = function(){
-		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.servicios");
 	}
 
