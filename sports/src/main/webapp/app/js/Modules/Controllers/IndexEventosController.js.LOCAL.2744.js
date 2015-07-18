@@ -185,6 +185,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
 
         })
     	
+    	
     }
     
     $scope.init();

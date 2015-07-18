@@ -213,6 +213,23 @@ App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', fun
         });
     };
 
+    function initReservaciones(reservacionesJSON){
+        
+        var reservaciones = [];
+        
+        angular.forEach(reservacionesJSON, function(reservacionJSON, index){
+        	var reservacion = {};
+        	reservacion.title = reservacionJSON.title;
+        	reservacion.start = new Date(reservacionJSON.start.millis);
+        	reservacion.end = new Date(reservacionJSON.end.millis);
+        	reservacion.backgroundColor = reservacionJSON.backgroundColor;
+        	reservacion.borderColor = reservacionJSON.borderColor;
+        	
+        	reservaciones.push(reservacion);
+        });
+        
+    }
+    
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
@@ -242,6 +259,7 @@ App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', fun
         
 /*HAY QUE CAMBIAR EL FORMATO PARA QE SE REGISTRE*/
         
+        
         $scope.registrarReservacion = function(){
         	$http.post('rest/reservaciones/save', {
     			fecha: new Date().getTime(),
@@ -251,7 +269,8 @@ App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', fun
     			usuario : 1
     		 	})
     		.success(function(data){
-    			alert(data.codeMessage);
+    			$('calendar').fullCalendar('renderEvent', initReservaciones(data.jsoncalendar));
+    			$('calendar').fullCalendar('render');
     		});
         }
     };

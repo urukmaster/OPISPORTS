@@ -15,7 +15,7 @@ import org.opi.sports.pojo.EventoPOJO;
  */
 
 public class EventoResponse extends BaseResponse{
-/*
+
 	private List<EventoPOJO> evento;
 	private List<CalendarioPOJO> JSONCalendar;
 
@@ -33,5 +33,5 @@ public class EventoResponse extends BaseResponse{
 
 	public void setJSONCalendar(List<CalendarioPOJO> jSONCalendar) {
 		JSONCalendar = jSONCalendar;
-	}*/
+	}
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  *
  */
 public class EventoPOJO {
-/*
+
 	private int idEvento;
 	private int cupo;
 	private String direccion;
@@ -20,7 +20,7 @@ public class EventoPOJO {
 	private Time hora;
 	private String informacion;
 	private String nombre;
-	private int idTipoEvento;
+	private TipoServicioPOJO idTipoEvento;
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -78,12 +78,12 @@ public class EventoPOJO {
 		this.nombre = nombre;
 	}
 	
-	public int getIdTipoEvento() {
+	public TipoServicioPOJO getIdTipoEvento() {
 		return idTipoEvento;
 	}
 	
-	public void setIdTipoEvento(int idTipoEvento) {
+	public void setIdTipoEvento(TipoServicioPOJO idTipoEvento) {
 		this.idTipoEvento = idTipoEvento;
-	}*/
+	}
 	
 }

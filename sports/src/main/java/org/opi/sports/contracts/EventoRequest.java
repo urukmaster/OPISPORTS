@@ -13,7 +13,7 @@ import org.opi.sports.pojo.ReservacionesPOJO;
  */
 
 public class EventoRequest extends BasePagingRequest{
-/*
+
 	private EventoPOJO evento;
 	
 	public EventoPOJO getEvento() {
@@ -26,5 +26,5 @@ public class EventoRequest extends BasePagingRequest{
 
 	public String toString(){
 		return "EventoRequest [evento=" + evento  + "]";
-	}*/
+	}
 }
