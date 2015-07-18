@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EventoService implements EventoServiceInterface{
-	
+	/*
 	@Autowired
 	public EventoRepository eventoRepositorio;
 
 	public List<Evento> getAllEventos() {
 		return eventoRepositorio.findAll();
-	}	
+	}	*/
 
 }

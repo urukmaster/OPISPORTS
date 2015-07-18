@@ -15,7 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface EventoRepository extends CrudRepository<Evento, Integer> {
-	
-	public List<Evento> findAll();	
+	/*
+	public List<Evento> findAll();	*/
 
 }

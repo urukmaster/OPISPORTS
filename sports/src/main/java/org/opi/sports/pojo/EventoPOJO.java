@@ -12,7 +12,7 @@ import java.util.Date;
  *
  */
 public class EventoPOJO {
-
+/*
 	private int idEvento;
 	private int cupo;
 	private String direccion;
@@ -84,6 +84,6 @@ public class EventoPOJO {
 	
 	public void setIdTipoEvento(int idTipoEvento) {
 		this.idTipoEvento = idTipoEvento;
-	}
+	}*/
 	
 }

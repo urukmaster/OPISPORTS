@@ -24,7 +24,7 @@ import org.opi.sports.pojo.EventoPOJO;
 
 public class EventosHelper {
 
-	private static EventosHelper instance;
+	/*private static EventosHelper instance;
 
 	private EventosHelper() {
 	}
@@ -44,10 +44,10 @@ public class EventosHelper {
 
 
 
-	/**
+	*//**
 	 *Este método serializa cada uno de los atributos de "Eventos" 
 	 *para poder utilizarlos en el front end como un JSON
-	 */
+	 *//*
 	public List<CalendarioPOJO> calendarioSerializer(
 			List<EventoPOJO> listaEventosView) {
 
@@ -81,6 +81,6 @@ public class EventosHelper {
 		}
 
 		return listaEventos;
-	}
+	}*/
 
 }
