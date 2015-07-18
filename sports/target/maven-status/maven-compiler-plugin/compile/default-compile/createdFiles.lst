@@ -16,7 +16,6 @@ org\opi\sports\ejb\Permisos_Rol.class
 org\opi\sports\helpers\ReservacionesHelper.class
 org\opi\sports\contracts\EstablecimientoDeportivoResponse.class
 org\opi\sports\controllers\HomeController.class
->>>>>>> 62fbe999462d5542e5144df94e3e4102bc119be0
 org\opi\sports\ejb\Establecimiento_Evento.class
 org\opi\sports\contracts\ReservacionesRequest.class
 org\opi\sports\ejb\Review.class
