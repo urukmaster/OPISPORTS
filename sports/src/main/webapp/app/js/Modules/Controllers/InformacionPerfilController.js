@@ -43,12 +43,10 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 	}
 
     $scope.mostrarInformacion = function(){
-		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.informacion");
 	}
 			
 	$scope.mostrarServicios = function(){
-		$scope.mostrarCalendario = false;
 		$state.go("app.perfil.servicios");
 	}
 
