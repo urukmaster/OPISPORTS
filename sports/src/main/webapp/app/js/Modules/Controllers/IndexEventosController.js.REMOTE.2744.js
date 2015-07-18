@@ -50,7 +50,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
      */
     function initCalendar(calElement, events) {
 
-    	calElement.fullCalendar({
+        // check to remove elements from the list
+        var removeAfterDrop = $('#remove-after-drop');
+
+        calElement.fullCalendar({
             isRTL: $scope.app.layout.isRTL,
             header: {
                 left:   'prev,next today',
@@ -66,8 +69,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
                 month: 'month',
                 week:  'week',
                 day:   'day'
-            },
-            events: events
+            }
         });
     }   
 
@@ -183,7 +185,9 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
 
         	initCalendar(calendar, eventos);
 
-        })
+        });
+    	
+    	$timeout(function(){$('#calendar').fullCalendar('render')}, 1000);
     	
     }
     

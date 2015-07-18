@@ -42,14 +42,14 @@ public class Evento implements Serializable {
 	@OneToMany(mappedBy="evento")
 	private List<Establecimiento_Evento> establecimientoEventos;
 
-	//bi-directional many-to-one association to TiipoEvento
-	@ManyToOne
-	@JoinColumn(name="idTipoEvento")
-	private TiipoEvento tiipoEvento;
-
 	//bi-directional many-to-one association to Tiquete
 	@OneToMany(mappedBy="evento")
 	private List<Tiquete> tiquetes;
+
+	//bi-directional many-to-one association to TipoEvento
+	@ManyToOne
+	@JoinColumn(name="idTipoEvento")
+	private TipoEvento tipoEvento;
 
 	public Evento() {
 	}
@@ -154,14 +154,6 @@ public class Evento implements Serializable {
 		return establecimientoEvento;
 	}
 
-	public TiipoEvento getTiipoEvento() {
-		return this.tiipoEvento;
-	}
-
-	public void setTiipoEvento(TiipoEvento tiipoEvento) {
-		this.tiipoEvento = tiipoEvento;
-	}
-
 	public List<Tiquete> getTiquetes() {
 		return this.tiquetes;
 	}
@@ -182,6 +174,14 @@ public class Evento implements Serializable {
 		tiquete.setEvento(null);
 
 		return tiquete;
+	}
+
+	public TipoEvento getTipoEvento() {
+		return this.tipoEvento;
+	}
+
+	public void setTipoEvento(TipoEvento tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 }

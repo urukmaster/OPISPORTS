@@ -66,8 +66,12 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
                 month: 'month',
                 week:  'week',
                 day:   'day'
+<<<<<<< HEAD
             },
             events: events
+=======
+            }
+>>>>>>> ecd8c30aac0b978e30a792d574fc92c98e3719b5
         });
     }   
 
@@ -183,7 +187,14 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
 
         	initCalendar(calendar, eventos);
 
+<<<<<<< HEAD
         })
+    	
+=======
+        });
+    	
+    	$timeout(function(){$('#calendar').fullCalendar('render')}, 1000);
+>>>>>>> ecd8c30aac0b978e30a792d574fc92c98e3719b5
     	
     }
     

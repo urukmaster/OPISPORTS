@@ -28,36 +28,35 @@ public class EstablecimientoDeportivoPOJO {
 	private String telefono;
 	//Direccion del establecimeinto deportivo
 	private String direccion;
-
+	//Lista de servicios
+	private List<ServicioPOJO> servicios;
+	//Lista de calendarios
+	private List<CalendarioPOJO> calendario;
 	//Id del usuario que pertece el establecimiento
 	private int idUsuario;
 	/**
-	 * Metodo get que devuelve el id del establecimiento deportivo 
+	 * Metodo get 
 	 * 
 	 */
-
-	private List<ServicioPOJO> servicios;
-	private List<CalendarioPOJO> calendario;
-
 	public int getIdEstablecimientoDeportivo() {
 		return idEstablecimientoDeportivo;
 	}
 	/**
-	 * Metodo set que modifica el id del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setIdEstablecimientoDeportivo(int idEstablecimientoDeportivo) {
 		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
 	}
 	/**
-	 * Metodo get que devuelve el nombre del establecimiento deportivo 
+	 * Metodo get 
 	 * 
 	 */
 	public String getNombre() {
 		return nombre;
 	}
 	/**
-	 * Metodo set que modifica el nombre del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setNombre(String nombre) {
@@ -68,21 +67,21 @@ public class EstablecimientoDeportivoPOJO {
 		return telefono;
 	}
 	/**
-	 * Metodo set que modifica el telefono del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	/**
-	 * Metodo get que devuelve la direccion del establecimiento deportivo 
+	 * Metodo get 
 	 * 
 	 */
 	public String getDireccion() {
 		return direccion;
 	}
 	/**
-	 * Metodo set que modifica la direccion del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setDireccion(String direccion) {
@@ -90,42 +89,58 @@ public class EstablecimientoDeportivoPOJO {
 	}
 
 	/**
-	 * Metodo get que devuelve la pagina web del establecimiento deportivo 
+	 * Metodo get 
 	 * 
 	 */
 	public String getPaginaWeb() {
 		return paginaWeb;
 	}
 	/**
-	 * Metodo set que modifica la pagina web del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setPaginaWeb(String paginaWeb) {
 		this.paginaWeb = paginaWeb;
 	}
 	/**
-	 * Metodo get que devuelve el id  del usuario del establecimiento deportivo 
+	 * Metodo get 
 	 * 
 	 */
 	public int getIdUsuario() {
 		return idUsuario;
 	}
 	/**
-	 * Metodo set que modifica el id del usuario del establecimiento deportivo 
+	 * Metodo set 
 	 * 
 	 */
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+	/**
+	 * Metodo get 
+	 * 
+	 */
 	public List<ServicioPOJO> getServicios() {
 		return servicios;
 	}
+	/**
+	 * Metodo set 
+	 * 
+	 */
 	public void setServicios(List<ServicioPOJO> servicios) {
 		this.servicios = servicios;
 	}
+	/**
+	 * Metodo get 
+	 * 
+	 */
 	public List<CalendarioPOJO> getCalendario() {
 		return calendario;
 	}
+	/**
+	 * Metodo set 
+	 * 
+	 */
 	public void setCalendario() {
 		this.calendario = ReservacionesHelper.getInstance().calendarioSerializer(getServicios());
 	}
