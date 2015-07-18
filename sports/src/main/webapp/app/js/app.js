@@ -35,11 +35,11 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     $rootScope.$storage = $window.localStorage;
 
     // Uncomment this to disable template cache
-    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
      if (typeof(toState) !== 'undefined'){
      $templateCache.remove(toState.templateUrl);
      }
-     });*/
+    });
 
     // Scope Globals
     // ----------------------------------- 
@@ -63,7 +63,7 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     };
     $rootScope.user = {
         name:     'Juan Manuel',
-        job:      'Viales',
+        job:      'Programador',
         picture:  'app/img/user/02.jpg'
     };
     $rootScope.user = {};
@@ -146,11 +146,15 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('agendaReservaciones.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.eventosIndex', {
+                url: '/eventosIndex',
+                title: 'Eventos deportivos',
+                templateUrl: helper.basepath('eventosIndex.html'),
+                resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             .state('app.establecimientos', {
                 url: '/establecimientos',
                 title: 'Establecimientos',
                 templateUrl: helper.basepath('establecimientos.html'),
-                controller: 'EstablecimientosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil',{
@@ -162,13 +166,19 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/informacion',
                 title: 'Informacion',
                 templateUrl: helper.basepath('perfil-informacion.html'),
-                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets')
             })
             .state('app.perfil.servicios',{
                 url: '/servicios',
                 title: 'Servicios',
                 templateUrl: helper.basepath('perfil-servicios.html'),
-                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
+            .state('app.perfil.reservaciones',{
+                url: '/reservaciones',
+                title: 'Reservaciones',
+                templateUrl: helper.basepath('perfil-calendario.html'),
+                resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
                 url: '/perfilEvento',
@@ -186,6 +196,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/registrarUsuario',
                 title: 'Registrar Usuario',
                 templateUrl: helper.basepath('registrarUsuario.html'),
+                resolve: helper.resolveFor('parsley')
+            })
+            .state('app.registrarEstablecimiento',{
+                url: '/registrarEstablecimiento',
+                title: 'Registrar Establecimiento',
+                templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
             .state('app.actividades', {
@@ -704,12 +720,7 @@ App.filter('propsFilter', function() {
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarController', ['$scope', function($scope) {
-    'use strict';
-    if(!$.fn.fullCalendar) return;
-
-    // global shared var to know what we are dragging
-    var draggingEvent = null;
+var establecimientoCalendario;
 
 
     /**
@@ -749,218 +760,28 @@ App.controller('CalendarController', ['$scope', function($scope) {
     function initCalendar(calElement, events) {
 
         // check to remove elements from the list
-        var removeAfterDrop = $('#remove-after-drop');
-
         calElement.fullCalendar({
-            isRTL: $scope.app.layout.isRTL,
+        	isRTL: $scope.app.layout.isRTL,
             header: {
-                left:   'prev,next today',
-                center: 'title',
-                right:  'agendaWeek'
+                left:   'prev,next',
+                center: 'title'
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
                 next:    ' fa fa-caret-right'
             },
-            buttonText: {
-                today: 'today',
-                month: 'month',
-                week:  'week',
-                day:   'day'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar 
-            drop: function(date, allDay) { // this function is called when something is dropped
-
-                var $this = $(this),
-                // retrieve the dropped element's stored Event Object
-                    originalEventObject = $this.data('calendarEventObject');
-
-                // if something went wrong, abort
-                if(!originalEventObject) return;
-
-                // clone the object to avoid multiple events with reference to the same object
-                var clonedEventObject = $.extend({}, originalEventObject);
-
-                // assign the reported date
-                clonedEventObject.start = date;
-                clonedEventObject.allDay = allDay;
-                clonedEventObject.backgroundColor = $this.css('background-color');
-                clonedEventObject.borderColor = $this.css('border-color');
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" 
-                // (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                calElement.fullCalendar('renderEvent', clonedEventObject, true);
-
-                // if necessary remove the element from the list
-                if(removeAfterDrop.is(':checked')) {
-                    $this.remove();
-                }
-            },
-            eventDragStart: function (event, js, ui) {
-                draggingEvent = event;
-            },
-            // This array is the events sources
-            events: events
-        });
+            allDaySlot: false,
+            defaultView:'agendaWeek',
+            firstDayOfWeek : 1,
+            height: 500,
+            events: events,
+            minTime: "06:00:00",
+            maxTime: "23:00:00",
+            timeFormat: 'H(:mm)'
+            });
     }
+    
 
-    /**
-     * Inits the external events panel
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     */
-    function initExternalEvents(calElement){
-        // Panel with the external events list
-        var externalEvents = $('.external-events');
-
-        // init the external events in the panel
-        new ExternalEvent(externalEvents.children('div'));
-
-        // External event color is danger-red by default
-        var currColor = '#f6504d';
-        // Color selector button
-        var eventAddBtn = $('.external-event-add-btn');
-        // New external event name input
-        var eventNameInput = $('.external-event-name');
-        // Color switchers
-        var eventColorSelector = $('.external-event-color-selector .circle');
-
-        // Trash events Droparea 
-        $('.external-events-trash').droppable({
-            accept:       '.fc-event',
-            activeClass:  'active',
-            hoverClass:   'hovered',
-            tolerance:    'touch',
-            drop: function(event, ui) {
-
-                // You can use this function to send an ajax request
-                // to remove the event from the repository
-
-                if(draggingEvent) {
-                    var eid = draggingEvent.id || draggingEvent._id;
-                    // Remove the event
-                    calElement.fullCalendar('removeEvents', eid);
-                    // Remove the dom element
-                    ui.draggable.remove();
-                    // clear
-                    draggingEvent = null;
-                }
-            }
-        });
-
-        eventColorSelector.click(function(e) {
-            e.preventDefault();
-            var $this = $(this);
-
-            // Save color
-            currColor = $this.css('background-color');
-            // De-select all and select the current one
-            eventColorSelector.removeClass('selected');
-            $this.addClass('selected');
-        });
-
-        eventAddBtn.click(function(e) {
-            e.preventDefault();
-
-            // Get event name from input
-            var val = eventNameInput.val();
-            // Dont allow empty values
-            if ($.trim(val) === '') return;
-
-            // Create new event element
-            var newEvent = $('<div/>').css({
-                'background-color': currColor,
-                'border-color':     currColor,
-                'color':            '#fff'
-            })
-                .html(val);
-
-            // Prepends to the external events list
-            externalEvents.prepend(newEvent);
-            // Initialize the new event element
-            new ExternalEvent(newEvent);
-            // Clear input
-            eventNameInput.val('');
-        });
-    }
-
-    /**
-     * Creates an array of events to display in the first load of the calendar
-     * Wrap into this function a request to a source to get via ajax the stored events
-     * @return Array The array with the events
-     */
-    function createDemoEvents() {
-        // Date for the calendar events (dummy data)
-        var date = new Date();
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
-
-        return  [
-            {
-                title: 'Cancha Futbol 7',
-                start: new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor: '#f56954' //red
-            },
-            {
-                title: 'Paint Ball Bosque',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                backgroundColor: '#f39c12', //yellow
-                borderColor: '#f39c12' //yellow
-            },
-            {
-                title: 'Basket Bajo Techo',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                backgroundColor: '#0073b7', //Blue
-                borderColor: '#0073b7' //Blue
-            },
-            {
-                title: 'Reservado por Campeonato BAC',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            },
-            {
-                title: 'Cancha futbol 5',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor: '#00a65a' //Success (green)
-            },
-            {
-                title: 'Paint Ball Trinchera',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: '//google.com/',
-                backgroundColor: '#3c8dbc', //Primary (light-blue)
-                borderColor: '#3c8dbc' //Primary (light-blue)
-            }
-        ];
-    }
-
-    // When dom ready, init calendar and events
-    $(function() {
-
-        // The element that will display the calendar
-        var calendar = $('#calendar');
-
-        var demoEvents = createDemoEvents();
-
-        initExternalEvents(calendar);
-
-        initCalendar(calendar, demoEvents);
-        
-
-    });
-
-}]);
 App.controller('AngularCarouselController', ["$scope", function($scope) {
 
     $scope.colors = ["#fc0003", "#f70008", "#f2000d", "#ed0012", "#e80017", "#e3001c", "#de0021", "#d90026", "#d4002b", "#cf0030", "#c90036", "#c4003b", "#bf0040", "#ba0045", "#b5004a", "#b0004f", "#ab0054", "#a60059", "#a1005e", "#9c0063", "#960069", "#91006e", "#8c0073", "#870078", "#82007d", "#7d0082", "#780087", "#73008c", "#6e0091", "#690096", "#63009c", "#5e00a1", "#5900a6", "#5400ab", "#4f00b0", "#4a00b5", "#4500ba", "#4000bf", "#3b00c4", "#3600c9", "#3000cf", "#2b00d4", "#2600d9", "#2100de", "#1c00e3", "#1700e8", "#1200ed", "#0d00f2", "#0800f7", "#0300fc"];
@@ -2290,7 +2111,7 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     $scope.mytime = new Date();
 
     $scope.hstep = 1;
-    $scope.mstep = 15;
+    $scope.mstep = 0;
 
     $scope.options = {
         hstep: [1, 2, 3],
@@ -5712,7 +5533,6 @@ App.directive('masked', function() {
     }
 
 })();
-
 /**=========================================================
  * Module: navbar-search.js
  * Navbar search toggler * Auto dismiss on ESC key

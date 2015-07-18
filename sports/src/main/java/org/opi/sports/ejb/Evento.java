@@ -42,10 +42,10 @@ public class Evento implements Serializable {
 	@OneToMany(mappedBy="evento")
 	private List<Establecimiento_Evento> establecimientoEventos;
 
-	//bi-directional many-to-one association to TiipoEvento
+	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
 	@JoinColumn(name="idTipoEvento")
-	private TiipoEvento tiipoEvento;
+	private TipoEvento tipoEvento;
 
 	//bi-directional many-to-one association to Tiquete
 	@OneToMany(mappedBy="evento")
@@ -154,12 +154,12 @@ public class Evento implements Serializable {
 		return establecimientoEvento;
 	}
 
-	public TiipoEvento getTiipoEvento() {
-		return this.tiipoEvento;
+	public TipoEvento getTipoEvento() {
+		return this.tipoEvento;
 	}
 
-	public void setTiipoEvento(TiipoEvento tiipoEvento) {
-		this.tiipoEvento = tiipoEvento;
+	public void setTipoEvento(TipoEvento tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 	public List<Tiquete> getTiquetes() {

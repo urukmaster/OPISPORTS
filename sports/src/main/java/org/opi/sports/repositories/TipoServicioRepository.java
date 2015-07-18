@@ -9,5 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface TipoServicioRepository extends CrudRepository<TipoServicio, Integer>{
 	
 	public List<TipoServicio> findAll();	
+	public TipoServicio findOne(Integer idTipoServicio);
 
 }

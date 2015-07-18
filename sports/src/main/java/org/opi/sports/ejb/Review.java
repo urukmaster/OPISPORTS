@@ -26,6 +26,11 @@ public class Review implements Serializable {
 	@JoinColumn(name="idEstablecimiento")
 	private EstablecimientoDeportivo establecimientoDeportivo;
 
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario usuario;
+
 	public Review() {
 	}
 
@@ -59,6 +64,14 @@ public class Review implements Serializable {
 
 	public void setEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
 		this.establecimientoDeportivo = establecimientoDeportivo;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

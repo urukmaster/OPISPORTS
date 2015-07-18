@@ -26,11 +26,11 @@
          <div class="col-lg-9">
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
-                  <ul class="nav nav-pills">
-                     <li><a ui-sref="app.perfil.informacion">Informacion</a></li>
-                     <li><a  ui-sref="app.perfil.servicios">Servicios</a></li>
-                     <li><a  ui-sref="app.perfil.informacion">Calendario</a></li>
-                  </ul>
+                 <ul class="nav nav-tabs nav-justified">
+					<li><a ng-click="mostrarInformacion()">Informacion</a></li>	
+					<li><a ng-click="mostrarServicios()">Servicios</a></li>
+					<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
+				</ul>
                </div>
                <div ui-view="" class="col"> </div>
             </div>
