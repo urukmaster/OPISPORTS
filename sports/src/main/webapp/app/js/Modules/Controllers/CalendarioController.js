@@ -1,3 +1,15 @@
+/**
+ * Moduilo Controlador para calendario
+ * author: Luis Esteban López Ramírez
+ * Fecha: 8/07/2015
+ * Revision: 1.0
+ * 
+ * Moduilo Controlador para calendario
+ * author: Mauricio Fernandez
+ * Fecha: 16/07/2015
+ * Revision: 1.1 
+ */
+
 App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     'use strict';
     if(!$.fn.fullCalendar) return;
@@ -183,6 +195,13 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     
 }]);
 
+/**
+ * Moduilo Controlador reservar los servicios
+ * author: Mauricio Fernandez
+ * Fecha: 15/07/2015
+ * Revision: 1.0
+ */
+
 App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
 	$scope.Servicios = establecimientoCalendario.servicios;
 
@@ -194,7 +213,7 @@ App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
  * Provides a simple way to implement bootstrap modals from templates
  =========================================================*/
 
-App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', function ($scope, $modal, $http) {
+App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', '$state', function ($scope, $modal, $http, $state, moment) {
 	var servicioActual;
     $scope.open = function (size, idServicioActual) {
     	servicioActual = idServicioActual;
@@ -213,22 +232,6 @@ App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', fun
         });
     };
 
-    function initReservaciones(reservacionesJSON){
-        
-        var reservaciones = [];
-        
-        angular.forEach(reservacionesJSON, function(reservacionJSON, index){
-        	var reservacion = {};
-        	reservacion.title = reservacionJSON.title;
-        	reservacion.start = new Date(reservacionJSON.start.millis);
-        	reservacion.end = new Date(reservacionJSON.end.millis);
-        	reservacion.backgroundColor = reservacionJSON.backgroundColor;
-        	reservacion.borderColor = reservacionJSON.borderColor;
-        	
-        	reservaciones.push(reservacion);
-        });
-        
-    }
     
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
@@ -238,42 +241,81 @@ App.controller('ModalReservacionesController', ['$scope', '$modal', '$http', fun
     	
         $scope.ok = function () {
         	
-        	/*alert(servicioActual);
+        	var fecha = $scope.reservacion.fecha;
+        	var hora = $scope.reservacion.hora;
         	
-        	alert($scope.reservacion.fecha);
+        	var registrar = true;
         	
-        	alert(new Date().getTime());
+        	angular.forEach(establecimientoCalendario.calendario, function(reservacion, index){
+        		if(validarCalendario(servicioActual, hora)){
+        			registrar = false;
+        		}
+        	})
         	
-        	alert($scope.reservacion.hora);
-        	
-        	alert(new Date().getTime());*/
-        	
-        	$scope.registrarReservacion();
+        	if(registrar == true){
+        	$scope.registrarReservacion(fecha, hora);
+        	$modalInstance.close('closed');
+        	}else{
+        		//aqui va el mensaje que le dice al usuario que no puede reservar
+        	}
             
-            $modalInstance.close('closed');
         };
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
         
+        function validarCalendario(servicio, hora){
+        	var valido = false;
+        	angular.forEach(establecimientoCalendario.servicios, function(servicioEstablecimiento, index){
+        		alert(servicioEstablecimiento.idServicio + ' ' + servicio);
+        		if(servicioEstablecimiento.idServicio == servicio){
+        			angular.forEach(servicioEstablecimiento.reservaciones, function(reservacion, index){
+        				var horaReservacion = hora.toTimeString();
+        				horaReservacion = horaReservacion.split(' ')[0];
+        				if(reservacion.hora == horaReservacion){
+        					valido = true;
+        				}
+        			});
+        		}
+        	});
+        	return valido;
+        }
+        
 /*HAY QUE CAMBIAR EL FORMATO PARA QE SE REGISTRE*/
+        function initReservaciones(reservacionesJSON){
+            
+            var reservaciones = [];
+            
+            angular.forEach(reservacionesJSON, function(reservacionJSON, index){
+            	var reservacion = {};
+            	reservacion.title = reservacionJSON.title;
+            	reservacion.start = new Date(reservacionJSON.start.millis);
+            	reservacion.end = new Date(reservacionJSON.end.millis);
+            	reservacion.backgroundColor = reservacionJSON.backgroundColor;
+            	reservacion.borderColor = reservacionJSON.borderColor;
+            	
+            	reservaciones.push(reservacion);
+            });
+            
+        }
         
-        
-        $scope.registrarReservacion = function(){
+        $scope.registrarReservacion = function(fecha, hora){
         	$http.post('rest/reservaciones/save', {
-    			fecha: new Date().getTime(),
-    			hora: new Date().getTime(),
+    			fecha: fecha,
+    			hora: hora.getTime(),
     			ocurrencia : 'Normal',
     			servicio : + servicioActual,
     			usuario : 1
     		 	})
     		.success(function(data){
-    			$('calendar').fullCalendar('renderEvent', initReservaciones(data.jsoncalendar));
-    			$('calendar').fullCalendar('render');
+    			establecimientoCalendario.calendario.push(data.jsoncalendar);
     		});
         }
     };
+    
+    
+    
     ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 
 }]);

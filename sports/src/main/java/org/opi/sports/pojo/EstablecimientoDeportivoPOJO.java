@@ -33,7 +33,7 @@ public class EstablecimientoDeportivoPOJO {
 	//Lista de calendarios
 	private List<CalendarioPOJO> calendario;
 	//Id del usuario que pertece el establecimiento
-	private int idUsuario;
+	private UsuarioPOJO idUsuario;
 	/**
 	 * Metodo get 
 	 * 
@@ -106,14 +106,14 @@ public class EstablecimientoDeportivoPOJO {
 	 * Metodo get 
 	 * 
 	 */
-	public int getIdUsuario() {
+	public UsuarioPOJO getIdUsuario() {
 		return idUsuario;
 	}
 	/**
 	 * Metodo set 
 	 * 
 	 */
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(UsuarioPOJO idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 	/**
