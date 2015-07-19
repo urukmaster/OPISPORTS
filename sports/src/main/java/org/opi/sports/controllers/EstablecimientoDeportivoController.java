@@ -14,6 +14,7 @@ import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.UsuarioServiceInterface;
 //import org.opi.sports.services.UsuarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class EstablecimientoDeportivoController {
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
 	@Autowired
-	//UsuarioServiceInterface usuarioServices;
+	UsuarioServiceInterface usuarioServices;
 	
 	/**
 	 * Metodo encargado de solicitar todos los establecimientos deportivos 
