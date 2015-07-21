@@ -26,7 +26,7 @@ public class UsuarioPOJO {
 	//Telefono del usuario
 	private String telefono;
 	//Lista de roles del usuario
-	private List<Usuario_Rol> usuarioRols;
+	private List<RolPOJO> roles;
 	
 	/**
 	 * Metodo get que devuelve el id del usuario 
@@ -116,16 +116,13 @@ public class UsuarioPOJO {
 	 * Metodo get que devuelve los roles del usuario 
 	 * 
 	 */
-	public List<Usuario_Rol> getUsuarioRols() {
-		return usuarioRols;
+	public List<RolPOJO> getRoles() {
+		return roles;
 	}
-	/**
-	 * Metodo set que modifica los roles del usuario 
-	 *
-	 */
-	public void setUsuarioRols(List<Usuario_Rol> usuarioRols) {
-		this.usuarioRols = usuarioRols;
+	public void setRoles(List<RolPOJO> roles) {
+		this.roles = roles;
 	}
+
 	
 	
 
