@@ -111,7 +111,6 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 		establecimientoDeportivo.setDireccion(direccion);
 		establecimientoDeportivo.setTelefono(telefono);
 		establecimientoDeportivo.setPaginaWeb(paginaWeb);
-		establecimientoDeportivo.setIdUsuario(idUsuario);
 		return "EstablecimientoDeportivoRequest [EstablecimientoDeportivo="
 				+ establecimientoDeportivo + "]";
 	}

@@ -1,6 +1,5 @@
-<h4 class="page-header">Calendario</h4>
-
 <div ng-controller="CalendarController" class="calendar-app">
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
 	<div class="col-lg-9 col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -64,6 +63,8 @@
 				</div>
 				</div>
 				<div class="modal-footer">
+
+					<button ng-click="test()" class="btn btn-primary">TEST</button>
 					<button ng-click="ok()" class="btn btn-primary">OK</button>
 					<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
 				</div>

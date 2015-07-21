@@ -11,17 +11,17 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 
     gridServicio = $scope.gridServicio = {
         columnDefs: [
-            { field: 'id',visible:false},
-            { field: 'servicio', name:"Servicio"},
-            { field: 'precio' , name:'Precio'},
-            { field: 'horaApertura' , name:'Hora de apertura'},
-            { field: 'horaCierre' , name:'Hora de cierre'},
-            { field: 'arbitro' , name:'Arbitro'},
+            { field: 'id',visible:false, width : 100},
+            { field: 'servicio', name:"Servicio", width : 100},
+            { field: 'precio' , name:'Precio', width : 100},
+            { field: 'horaApertura' , name:'Hora de apertura', width : 100},
+            { field: 'horaCierre' , name:'Hora de cierre', width : 100},
+            { field: 'arbitro' , name:'Arbitro', width : 100},
             {name: 'acciones', cellTemplate:'<div ng-controller="ServicioModalController" >' +
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
-            '</div>'}
+            '</div>', width : 100}
         ],
         data: establecimientoCalendario.servicios
     }

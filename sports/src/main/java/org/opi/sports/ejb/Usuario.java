@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 
 	private String nombre;
 
-	//private String nombreUsuario;
+	private String nombreUsuario;
 
 	private String telefono;
 
@@ -108,13 +108,15 @@ public class Usuario implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-//	public String getNombreUsuario() {
-//		return this.nombreUsuario;
-//	}
-//
-//	public void setNombreUsuario(String nombreUsuario) {
-//		this.nombreUsuario = nombreUsuario;
-//	}
+
+	public String getNombreUsuario() {
+		return this.nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
 	public String getTelefono() {
 		return this.telefono;
 	}

@@ -7,7 +7,7 @@
   },
   {
     "text": "Eventos",
-    "sref": "#",
+    "sref": "app.eventosIndex",
     "icon": "icon-flag",
     "label": "label label-info"
   },

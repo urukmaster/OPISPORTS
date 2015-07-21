@@ -91,6 +91,40 @@ public class ReservacionesHelper {
 		return calendario;
 	}
 
+	public List<CalendarioPOJO> reservacionSerializer(
+			List<ReservacionesPOJO> listaReservacionesView) {
+
+		List<CalendarioPOJO> calendario = new ArrayList<CalendarioPOJO>();
+
+			for (ReservacionesPOJO reservacionView : listaReservacionesView) {
+				CalendarioPOJO reservacion = new CalendarioPOJO();
+
+				SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
+				SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
+
+				Calendar sumarHora = Calendar.getInstance();
+				sumarHora.setTime(reservacionView.getHora());
+				sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+
+				reservacion.setTitle("Cancha");
+				reservacion.setStart(convertirFecha(convertirFecha
+						.format(reservacionView.getFecha())
+						+ " "
+						+ convertirHora.format(reservacionView.getHora()
+								.getTime())));
+				reservacion.setEnd(convertirFecha(convertirFecha
+						.format(reservacionView.getFecha())
+						+ " "
+						+ convertirHora.format(sumarHora.getTime())));
+				reservacion.setBackgroundColor("#f56954");
+				reservacion.setBorderColor("#f56954");
+
+				calendario.add(reservacion);
+		}
+
+		return calendario;
+	}
+	
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
 				.forPattern("dd-MM-yyyy HH:mm");

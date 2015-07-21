@@ -30,14 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "rest/evento")
 
 public class EventoController {
-/*	
+	
 	@Autowired
 	EventoServiceInterface eventoServices;
 
-	*//**
+	/**
 	 *Este método obtiene cada una de las instancias de eventos deportivos
 	 *registrados en la base de datos
-	 *//*	
+	 */	
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public EventoResponse getAll(){
 		
@@ -57,6 +57,7 @@ public class EventoController {
 		
 		return eventoResponse;		
 		
-	}*/
+	}
 
 }
+

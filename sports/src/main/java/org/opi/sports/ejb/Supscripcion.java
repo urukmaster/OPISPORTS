@@ -17,15 +17,15 @@ public class Supscripcion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSupscripcion;
 
-	//bi-directional many-to-one association to TipoEvento
-	@ManyToOne
-	@JoinColumn(name="idTipoEvento")
-	private TipoEvento tipoEvento;
-
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to TipoEvento
+	@ManyToOne
+	@JoinColumn(name="idTipoEvento")
+	private TipoEvento tipoEvento;
 
 	public Supscripcion() {
 	}
@@ -38,20 +38,20 @@ public class Supscripcion implements Serializable {
 		this.idSupscripcion = idSupscripcion;
 	}
 
-	public TipoEvento getTipoEvento() {
-		return this.tipoEvento;
-	}
-
-	public void setTipoEvento(TipoEvento tipoEvento) {
-		this.tipoEvento = tipoEvento;
-	}
-
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public TipoEvento getTipoEvento() {
+		return this.tipoEvento;
+	}
+
+	public void setTipoEvento(TipoEvento tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 }

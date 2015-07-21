@@ -50,26 +50,28 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
      */
     function initCalendar(calElement, events) {
 
-        // check to remove elements from the list
-        var removeAfterDrop = $('#remove-after-drop');
-
-        calElement.fullCalendar({
+    	calElement.fullCalendar({
             isRTL: $scope.app.layout.isRTL,
+            monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
             header: {
                 left:   'prev,next today',
                 center: 'title',
-                right:  'month'
+                right:  ''
             },
             buttonIcons: { // note the space at the beginning
                 prev:    ' fa fa-caret-left',
                 next:    ' fa fa-caret-right'
             },
             buttonText: {
-                today: 'today',
-                month: 'month',
-                week:  'week',
-                day:   'day'
-            }
+                today: 'hoy',
+                month: 'mes',
+                week:  'semana',
+                day:   'dia'
+            },
+            events: events
         });
     }   
 
@@ -185,9 +187,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
 
         	initCalendar(calendar, eventos);
 
-        });
-    	
-    	$timeout(function(){$('#calendar').fullCalendar('render')}, 1000);
+        })
     	
     }
     
