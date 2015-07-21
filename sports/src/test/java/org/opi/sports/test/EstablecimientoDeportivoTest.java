@@ -30,7 +30,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * @author Mauricio Araica Hernandez
  *
  *Sprint 01 Descripción: Permite probar la funcionalidad al consultar
- *los tipos de servicios, desde el controller hasta el repositorio de
+ *los establecimientos deportivo, desde el controller hasta el repositorio de
  *datos. La funcionalidad de estar a prueba, segun distintos escenarios
  *
  */
