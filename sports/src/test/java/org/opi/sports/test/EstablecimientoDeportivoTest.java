@@ -68,7 +68,7 @@ public class EstablecimientoDeportivoTest {
 	/**
 	 * Prueba la implementación del controller
 	 */
-	@Test
+	/*@Test
 	public void getEstablecimientoDeportivoGetAll(){
 		
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
@@ -83,7 +83,7 @@ public class EstablecimientoDeportivoTest {
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
 		
 		assertNotNull(establecimientoResponse);
-	}
+	}*/
 	/**
 	 * Prueba la implementación del controller
 	 */
