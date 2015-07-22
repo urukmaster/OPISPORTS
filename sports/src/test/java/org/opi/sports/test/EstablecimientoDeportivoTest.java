@@ -68,23 +68,16 @@ public class EstablecimientoDeportivoTest {
 	/**
 	 * Prueba la implementación del controller
 	 */
+
 	//@Test
 	//public void getEstablecimientoDeportivoGetAll(){
 
 	/*@Test
 	public void getEstablecimientoDeportivoGetAll(){
 
+
+		establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
 		
-		//EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
-		
-		//List<EstablecimientoDeportivo> establecimientoDeportivoList = establecimientoService.getAllEstablecimientos();
-		//List<EstablecimientoDeportivoPOJO> establecimientoDeportivoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
-		
-		//for(EstablecimientoDeportivo establecimiento : establecimientoDeportivoList){
-			//establecimientoDeportivoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
-		//}
-		
-		//establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
 		assertNotNull(establecimientoResponse);
 	}*/
 	/**
