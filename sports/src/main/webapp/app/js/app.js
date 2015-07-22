@@ -490,19 +490,13 @@ App
  * Demo for login api
  =========================================================*/
 
-App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state', function($rootScope, $scope, $http, $state) {
-
-    // bind here all data from the form
-    $scope.account = {};
-    // place the message if something goes wrong
-    $scope.authMsg = '';
-    $scope.data = {};
-
-    $scope.login = function() {
+App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state','toaster','$timeout', function($rootScope, $scope, $http, $state,toaster,$timeout) {
+	$scope.account = {};
+	
+	$scope.login = function() {
         $scope.authMsg = '';
 
         if ($scope.loginForm.$valid) {
-
         	$http.post('rest/iniciarSesion/validarUsuario', {
         		correo : $scope.account.email,
         		contrasenna : $scope.account.password
@@ -510,25 +504,44 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     		.success(function(data){
     			if(data.code == 200){
     				$rootScope.usuario = {
-    						nombre: data.nombre,
-    						apellido: data.apellido
+    						nombre: data.usuario.nombre,
+    						apellido: data.usuario.apellido,
+    						correo: data.usuario.contrasenna,
+    						telefono: data.usuario.telefono,
+    						roles: data.usuario.roles
     				};
-    				$state.go('app.index');
-    				
-    			}else{
-    				alert(data.code);
-    				alert(data.errorMessage);
-    			}
-
-    			
-    		});
-    
+    				var toasterdata = {
+    			            type:  'success',
+    			            title: 'Login',
+    			            text:  data.codeMessage
+    			        	};
+    				$scope.pop(toasterdata);
+    				$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			}else{  
+    				var toasterdata = {
+    			            type:  'error',
+    			            title: 'Login',
+    			            text:  data.errorMessage
+    			        	};
+    				$scope.pop(toasterdata);     				
+    			}		
+    		});    
         }
-    }
+    };
     
-    $scope.register = function(){
-        $state.go('app.registrarUsuarioForm');
+    //notificacion
+       
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.index");
     }
+ 
+
+ 
+ 
 }]);
 
 /**=========================================================
@@ -538,23 +551,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
 
 App.controller('RegistrarFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
-    // bind here all data from the form
-    $scope.account = {};
-    // place the message if something goes wrong
-    $scope.authMsg = '';
-
-    $scope.register = function() {
-        $scope.authMsg = '';
-
-        if($scope.registerForm.$valid) {
-
-            alert('valido la verga');
-
-            }
-            else{
-                alert('va a validar una verga')
-            }
-    };
+    
 
 }]);
 /**=========================================================
@@ -4793,7 +4790,7 @@ App.controller('FileUploadController', ['$scope', 'FileUploader', function($scop
 
     console.info('uploader', uploader);
 }]);
-App.controller('UserBlockController', ['$scope', function($scope) {
+App.controller('UserBlockController', ['$scope','$state','$rootScope', function($scope,$state,$rootScope) {
 
     $scope.userBlockVisible = true;
 
@@ -4802,6 +4799,14 @@ App.controller('UserBlockController', ['$scope', function($scope) {
         $scope.userBlockVisible = ! $scope.userBlockVisible;
 
     });
+    
+    $scope.login = function(){
+    	$state.go('app.login');
+    }
+    
+    $scope.logout = function(){
+    	$rootScope.usuario = null;
+    }
 
 }]);
 /**=========================================================
