@@ -17,7 +17,7 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 }]);
        
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
-	
+       
 	$scope.init = function(){
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
@@ -101,7 +101,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     
     $scope.callAtTimeout = function(){
     	$route.reload();
-    	$state.go("app.index");
+    	$state.go("app.perfil.reservaciones");
     }
 
 }]);

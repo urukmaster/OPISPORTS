@@ -1,3 +1,4 @@
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RolPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\EstablecimientoDeportivo.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Permiso.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\CalendarioPOJO.java
@@ -42,6 +43,7 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario_Rol.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\OpiSportsApplication.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Evento.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\PermisoPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Distribucion.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\ServicioService.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\utils\PojoUtils.java
@@ -63,6 +65,7 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\EstablecimientoDeportivoController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Foto.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\IniciarSesionHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\ServicioServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\TipoServicioController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\EstablecimientoDeportivoHelper.java
