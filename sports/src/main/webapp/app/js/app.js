@@ -722,7 +722,7 @@ App.filter('propsFilter', function() {
  * events and events creations
  =========================================================*/
 
-var establecimientoCalendario;
+//var establecimientoCalendario;
 
 
 
