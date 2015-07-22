@@ -4,8 +4,10 @@ org\opi\sports\contracts\TipoServicioResponse.class
 org\opi\sports\services\EstablecimientoDeportivoService.class
 org\opi\sports\services\TipoServicioService.class
 org\opi\sports\contracts\EstablecimientoDeportivoRequest.class
+org\opi\sports\controllers\IniciarSesionController.class
 org\opi\sports\ejb\Distribucion.class
 org\opi\sports\pojo\EventoPOJO.class
+org\opi\sports\contracts\IniciarSesionResponse.class
 org\opi\sports\services\EventoServiceInterface.class
 org\opi\sports\repositories\UsuarioRepository.class
 org\opi\sports\ejb\Inscripcion.class
@@ -41,6 +43,7 @@ org\opi\sports\utils\Utils.class
 org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
 org\opi\sports\contracts\BasePagingRequest.class
 org\opi\sports\services\ServicioServiceInterface.class
+org\opi\sports\services\IniciarSesionServiceInterface.class
 org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\ejb\Servicio.class
 org\opi\sports\config\OpiSportsApplication.class
@@ -54,6 +57,7 @@ org\opi\sports\services\ReservacionesService.class
 org\opi\sports\services\EstablecimientoDeportivoServiceInterface.class
 org\opi\sports\helpers\EventosHelper.class
 org\opi\sports\contracts\EventoResponse.class
+org\opi\sports\contracts\IniciarSesionRequest.class
 org\opi\sports\contracts\ReservacionesResponse.class
 org\opi\sports\utils\PojoUtils.class
 org\opi\sports\contracts\TipoServicioRequest.class
@@ -66,6 +70,7 @@ org\opi\sports\ejb\TipoEvento.class
 org\opi\sports\controllers\ReservacionController.class
 org\opi\sports\config\SwaggerConfig.class
 org\opi\sports\pojo\ReservacionesPOJO.class
+org\opi\sports\services\IniciarSesionService.class
 org\opi\sports\repositories\TipoServicioRepository.class
 org\opi\sports\ejb\ActividadDeportiva.class
 org\opi\sports\repositories\EventoRepository.class

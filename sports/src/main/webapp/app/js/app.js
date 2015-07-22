@@ -45,7 +45,7 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     // ----------------------------------- 
     $rootScope.app = {
         name: 'Op-i-Sports',
-        description: 'Angular Bootstrap Admin Template',
+        description: 'Uruk',
         year: ((new Date()).getFullYear()),
         layout: {
             isFixed: true,
@@ -60,11 +60,6 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
         useFullLayout: false,
         hiddenFooter: false,
         viewAnimation: 'ng-fadeInUp'
-    };
-    $rootScope.user = {
-        name:     'Juan Manuel',
-        job:      'Programador',
-        picture:  'app/img/user/02.jpg'
     };
     $rootScope.user = {};
 }]);
@@ -489,16 +484,13 @@ App
     })
 ;
 
-//Prueba
 
-
-//
 /**=========================================================
  * Module: access-login.js
  * Demo for login api
  =========================================================*/
 
-App.controller('LoginFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
+App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state', function($rootScope, $scope, $http, $state) {
 
     // bind here all data from the form
     $scope.account = {};
@@ -511,21 +503,30 @@ App.controller('LoginFormController', ['$scope', '$http', '$state', function($sc
 
         if ($scope.loginForm.$valid) {
 
-            if($scope.account.email === "jvialesc@ucenfotec.ac.cr" && $scope.account.password === "Abcd12345/"){
-                $state.go('app.home');
-            }else{
-                $scope.authMsg = ' Datos incorrectos ';
-            }
-        } else {
-            // set as dirty if the user click directly to login so we show the validation messages
-            $scope.loginForm.account_email.$dirty = true;
-            $scope.loginForm.account_password.$dirty = true;
-        }
-    
-    }
+        	$http.post('rest/iniciarSesion/validarUsuario', {
+        		correo : $scope.account.email,
+        		contrasenna : $scope.account.password
+    		 	})
+    		.success(function(data){
+    			if(data.code == 200){
+    				$rootScope.usuario = {
+    						nombre: data.nombre,
+    						apellido: data.apellido
+    				};
+    				$state.go('app.index');
+    				
+    			}else{
+    				alert(data.code);
+    				alert(data.errorMessage);
+    			}
 
+    			
+    		});
+    
+        }
+    }
+    
     $scope.register = function(){
-        alert('ya va a llamar al malparido');
         $state.go('app.registrarUsuarioForm');
     }
 }]);

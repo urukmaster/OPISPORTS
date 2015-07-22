@@ -1,6 +1,5 @@
 [
   {
-<<<<<<< HEAD
 	"text": "Establecimientos",
 	"sref": "app.establecimientos",
 	"icon": "icon-home",
@@ -8,11 +7,11 @@
   },
   {
 	"text": "Eventos",
-	"sref": "#",
+	"sref": "app.eventosIndex",
 	"icon": "icon-flag",
 	"label": "label label-info"
   },
-    {
+  {
 	"text": "Retos",
 	"sref": "#",
 	"icon": "icon-fire",
@@ -24,31 +23,6 @@
 	"icon": "icon-settings",
 	"label": "label label-info",
 	"submenu": [
-=======
-    "text": "Establecimientos",
-    "sref": "app.establecimientos",
-    "icon": "icon-home",
-    "label": "label label-info"
-  },
-  {
-    "text": "Eventos",
-    "sref": "app.eventosIndex",
-    "icon": "icon-flag",
-    "label": "label label-info"
-  },
-  {
-    "text": "Retos",
-    "sref": "#",
-    "icon": "icon-fire",
-    "label": "label label-info"
-  },
-  {
-    "text": "Configuracion",
-    "sref": "#",
-    "icon": "icon-settings",
-    "label": "label label-info",
-    "submenu": [
->>>>>>> cc2bc23d0ab00ecfe9a1ea30a95a50aa97c33879
       {"text": "Usuarios", "sref": "#"},
       {"text": "Tipos de servicios", "sref": "#" },
       {"text": "Tipos de eventos", "sref": "#" },
