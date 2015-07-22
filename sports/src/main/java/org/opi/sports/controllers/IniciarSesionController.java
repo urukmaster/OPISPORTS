@@ -3,6 +3,7 @@ package org.opi.sports.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.activemq.filter.function.inListFunction;
 import org.opi.sports.contracts.IniciarSesionRequest;
 import org.opi.sports.contracts.IniciarSesionResponse;
 import org.opi.sports.ejb.Usuario;
@@ -42,11 +43,10 @@ public class IniciarSesionController {
 	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
 	@Transactional
 	public IniciarSesionResponse validarUsuario(@RequestBody IniciarSesionRequest iniciarSesionRequest){	
-
+	
 		Usuario usuarioLogeado = iniciarSesionService.ValidarUsuario(iniciarSesionRequest);
-		
 		IniciarSesionResponse iniciarSesionresponse = new IniciarSesionResponse();
-		HttpSession sesionActual = request.getSession();
+		
 		
 		if(usuarioLogeado == null){
 			
@@ -62,8 +62,16 @@ public class IniciarSesionController {
 			UsuarioPOJO usuario = new UsuarioPOJO();
 			usuario = IniciarSesionHelper.getInstance().convertirUsuario(usuarioLogeado);	
 			iniciarSesionresponse.setUsuario(usuario);
-			sesionActual.setAttribute("idUsusario", usuarioLogeado.getIdUsuario());
+			request.getSession().setAttribute("idUsusario", usuarioLogeado.getIdUsuario());
 		}	
 		return iniciarSesionresponse;	
+	}
+	/**
+	 * Metodo que invalida la sesion al cerrarla 
+	 * 
+	 */
+	@RequestMapping(value = "cerrarSesion", method = RequestMethod.GET)
+	public void cerrarSesion(){	
+		request.getSession().invalidate();
 	}
 }
