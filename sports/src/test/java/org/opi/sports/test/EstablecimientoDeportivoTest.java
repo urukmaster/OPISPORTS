@@ -68,18 +68,14 @@ public class EstablecimientoDeportivoTest {
 	/**
 	 * Prueba la implementación del controller
 	 */
+
+	//@Test
+	//public void getEstablecimientoDeportivoGetAll(){
+
 	/*@Test
 	public void getEstablecimientoDeportivoGetAll(){
-		
-		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
-		
-		List<EstablecimientoDeportivo> establecimientoDeportivoList = establecimientoService.getAllEstablecimientos();
-		List<EstablecimientoDeportivoPOJO> establecimientoDeportivoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
-		
-		for(EstablecimientoDeportivo establecimiento : establecimientoDeportivoList){
-			establecimientoDeportivoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
-		}
-		
+
+
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
 		
 		assertNotNull(establecimientoResponse);
@@ -87,7 +83,7 @@ public class EstablecimientoDeportivoTest {
 	/**
 	 * Prueba la implementación del controller
 	 */
-	@Test
+	//@Test
 	public void getEstablecimientoDeportivofindOne(){
 		//EstablecimientoDeportivo establecimientoDeportivo = establecimientoService.findOne(1);
 		//assertNotNull(establecimientoDeportivo);
@@ -95,7 +91,7 @@ public class EstablecimientoDeportivoTest {
 	/**
 	 * Prueba la implementación del controller
 	 */
-	@Test
+	//@Test
 	public void getEstablecimientoDeportivofindByUsuario(){
 
 		Usuario usuario = new Usuario();

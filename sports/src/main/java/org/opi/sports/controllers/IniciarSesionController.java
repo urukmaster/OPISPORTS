@@ -39,7 +39,7 @@ public class IniciarSesionController {
 	 * Metodo que valida el usuario por correo y contraseña
 	 * 
 	 */
-	@RequestMapping(value = "validarUsuario", method = RequestMethod.GET)
+	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
 	@Transactional
 	public IniciarSesionResponse validarUsuario(@RequestBody IniciarSesionRequest iniciarSesionRequest){	
 
