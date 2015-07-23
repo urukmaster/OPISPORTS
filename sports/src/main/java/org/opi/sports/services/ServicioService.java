@@ -9,6 +9,14 @@ import org.opi.sports.repositories.ServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ *Sprint #4 Descripción: Servicio que se encarga de comuicarse con el repositorio para
+ * las consulta a la base de datos.
+ */
 @Service
 public class ServicioService implements ServicioServiceInterface{
 
@@ -26,7 +34,7 @@ public class ServicioService implements ServicioServiceInterface{
 	}
 
 	@Transactional
-	public <S extends Servicio> S save(S servicio) {
+	public <Servicios extends Servicio> Servicios save(Servicios servicio) {
 		return servicioRepository.save(servicio);
 	}
 

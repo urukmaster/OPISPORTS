@@ -91,6 +91,12 @@ public class ReservacionesHelper {
 		return calendario;
 	}
 
+	/**
+	 * Se encarga de serializar las reservaciones compatibles con el calendario
+	 * en el front end
+	 * @param listaReservacionesView
+	 * @return Lista para el calendario
+	 */
 	public List<CalendarioPOJO> reservacionSerializer(
 			List<ReservacionesPOJO> listaReservacionesView) {
 

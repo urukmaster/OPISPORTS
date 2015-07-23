@@ -78,7 +78,11 @@ public class EventosHelper {
 
 		return listaEventos;
 	}
-
+	/**
+	 * Método que se encarga de gestionar las fechas
+	 * @param fecha
+	 * @return
+	 */
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
 				.forPattern("dd-MM-yyyy HH:mm");
