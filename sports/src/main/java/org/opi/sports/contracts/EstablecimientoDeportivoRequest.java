@@ -2,46 +2,118 @@ package org.opi.sports.contracts;
 
 import java.util.List;
 
+import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+
 
 /**
  * Fecha: 13-07-2015 version 1.0
  * 
  * @author Mauricio Araica Hernández
  *
- *Sprint 01 Descripción: Clase request para la solicitud de infromación
+ *Sprint 01 Descripción: Clase request para la solicitud de información
  *
  */
-public class EstablecimientoDeportivoRequest extends BasePagingRequest{
+public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 	
-	//Variable de tipo EstablecimientoDeportivoPOJO
-	private EstablecimientoDeportivoPOJO EstablecimientoDeportivo;
-
+	//Id del establecimiento
+	private int idEstablecimientoDeportivo;
+	//Nombre del estableciminto
+	private String nombre;
+	//Telefono del establecimiento
+	private String telefono;
+	//Direccion del establecimiento
+	private String direccion;
+	//Pgina web del establecimiento
+	private String paginaWeb;
+	//Id del usuario relacionado al establecimiento
+	private int idUsuario;
 	
 	/**
-	 * Metodo get que devuelve el establecimiento deportivo request
-	 * 
+	 * Metodo get
 	 */
-	public EstablecimientoDeportivoPOJO getEstablecimientoDeportivo() {
-		return EstablecimientoDeportivo;
+	public int getIdEstablecimientoDeportivo() {
+		return idEstablecimientoDeportivo;
 	}
-	
 	/**
-	 * Metodo set que devumodifica elve el establecimiento deportivo request
-	 * 
+	 * Metodo set
 	 */
-	public void setEstablecimientoDeportivo(EstablecimientoDeportivoPOJO establecimientoDeportivo) {
-		EstablecimientoDeportivo = establecimientoDeportivo;
+	public void setIdEstablecimientoDeportivo(int idEstablecimientoDeportivo) {
+		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
 	}
-	
 	/**
-	 * Metodo toString que devuelve una cadena de Strings
-	 * 
+	 * Metodo get
 	 */
-	@Override
+	public String getNombre() {
+		return nombre;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	/**
+	 * Metodo get
+	 */
+	public String getTelefono() {
+		return telefono;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	/**
+	 * Metodo get
+	 */
+	public String getDireccion() {
+		return direccion;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	/**
+	 * Metodo get
+	 */
+	public String getPaginaWeb() {
+		return paginaWeb;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setPaginaWeb(String paginaWeb) {
+		this.paginaWeb = paginaWeb;
+	}
+	/**
+	 * Metodo get
+	 */
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	/**
+	 * Metodo toString
+	 */
 	public String toString() {
+		EstablecimientoDeportivoPOJO establecimientoDeportivo = new EstablecimientoDeportivoPOJO();
+		establecimientoDeportivo.setIdEstablecimientoDeportivo(idEstablecimientoDeportivo);
+		establecimientoDeportivo.setNombre(nombre);
+		establecimientoDeportivo.setDireccion(direccion);
+		establecimientoDeportivo.setTelefono(telefono);
+		establecimientoDeportivo.setPaginaWeb(paginaWeb);
 		return "EstablecimientoDeportivoRequest [EstablecimientoDeportivo="
-				+ EstablecimientoDeportivo + "]";
+				+ establecimientoDeportivo + "]";
 	}
-	
+
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Reservaciones;
 import org.springframework.data.domain.Page;
 
 /**
@@ -25,11 +26,13 @@ public interface EstablecimientoDeportivoServiceInterface {
 	 * Metodo que brinda la funcion de registrar un establecimiento deportivo 
 	 * 
 	 */
-	Boolean saveEstablecimiento(EstablecimientoDeportivo establecimientoDeportivo); 
+	public <Establecimiento extends EstablecimientoDeportivo> Establecimiento save(Establecimiento establecimiento);
 	
 	/**
 	 * Metodo que brinda la funcion de buscar por nombre un establecimiento deportivo 
 	 * 
 	 */
 	public EstablecimientoDeportivo findByName(String pnombre);
+	
+	public boolean exists(Integer idEstablecimiento);
 }

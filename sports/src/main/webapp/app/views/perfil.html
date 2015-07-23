@@ -1,5 +1,4 @@
 <div class="unwrap" ng-controller="InformacionPerfilController">
-
    <div style="background-image: url(app/img/cancha2.jpg)" class="bg-cover">
       <div class="p-xl text-center text-white">
          <h3 class="m0">{{establecimiento.nombre}}</h3>
@@ -27,26 +26,13 @@
          <div class="col-lg-9">
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
-						<ul class="nav nav-pills">
-							<li><button ng-click="mostrarInformacion()">Informacion</button></li>
-							<li><button ng-click="mostrarServicios()">Servicios</button></li>
-							<li><button ng-click="mostrarReservaciones()">Calendario</button></li>
-						</ul>
-					</div>
-					<div ng-show="mostrarCalendario">
-						<div ng-controller="CalendarController" class="calendar-app">
-							<div class="col-lg-9 col-md-8">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<div id="calendar"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div ng-show="!mostrarCalendario">
-						<div ui-view="" class="col"></div>
-					</div>
+                 <ul class="nav nav-tabs nav-justified">
+					<li><a ng-click="mostrarInformacion()">Información</a></li>	
+					<li><a ng-click="mostrarServicios()">Servicios</a></li>
+					<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
+				</ul>
+               </div>
+               <div ui-view="" class="col"> </div>
             </div>
          </div>
          <div class="col-lg-3">
@@ -59,9 +45,9 @@
                   <hr/>
                   <ul class="list-unstyled ph-xl">
                      <li>
-                        <em class="fa fa-home fa-fw mr-lg"></em>{{establecimiento.direccion}}</li>
+                        <em class="fa fa-home fa-fw mr-lg"></em>{{establecimiento.nombre}}</li>
                      <li>
-                        <em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">www.ej.com</a>
+                        <em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">{{establecimiento.paginaWeb}}</a>
                      </li>
                      <li>
                         <em class="fa fa-phone fa-fw mr-lg"></em><a href="#">{{establecimiento.telefono}}</a>
@@ -70,8 +56,8 @@
                </div>
             </div>
 
-			</div>
-		</div>
-	</div>
+         </div>
+      </div>
+   </div>
 </div>
 <script src="app/js/Modules/Controllers/InformacionPerfilController.js"></script>

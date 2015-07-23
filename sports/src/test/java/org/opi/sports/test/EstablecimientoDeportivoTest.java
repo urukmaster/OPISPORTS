@@ -12,6 +12,8 @@ import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.TipoServicioResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.TipoServicio;
+import org.opi.sports.ejb.Usuario;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.TipoServicioPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
@@ -23,12 +25,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- * Fecha: 13-07-2015 version 1.0
+ * Fecha: 12-07-2015 version 1.0
  * 
- * @author Mauricio Araica Hernández
+ * @author Mauricio Araica Hernandez
  *
  *Sprint 01 Descripción: Permite probar la funcionalidad al consultar
- *los estalecimientos deportivos, desde el controller hasta el repositorio de
+ *los establecimientos deportivo, desde el controller hasta el repositorio de
  *datos. La funcionalidad de estar a prueba, segun distintos escenarios
  *
  */
@@ -41,71 +43,62 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class EstablecimientoDeportivoTest {
 
 	@Autowired
-	private EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
+	private EstablecimientoDeportivoServiceInterface establecimientoService;
 	
 	
 	/**
-	 * Esta prueba permite saber si el servicio del establecimiento deportivo se inyecta al
+	 * Esta prueba permite saber si el servicio del Tipo Servicio se inyecta al
 	 * ejecutar la prueba, esto para probar la funcionalidad del Spring al hacer
 	 * "Autowired"
 	 */
 	@Test
-	public void getEstablecimientoDeportivoServiceTest(){
-		assertNotNull(establecimientoDeportivoService);
+	public void getEstablecimientoDeportivoTest(){
+		assertNotNull(establecimientoService);
 	}
 	
 	/**
 	 * Esta prueba permite realizar la consulta a la base de datos mediante el servicio
-	 * el cual va a traer una lista de establecimientos deportivos
+	 * el cual va a traer una lista de Tipos de Servicios
 	 */
 	@Test
 	public void getLisEstablecimientoDeportivoTest(){
-		assertNotNull(establecimientoDeportivoService.getAllEstablecimientos());
+		assertNotNull(establecimientoService.getAllEstablecimientos());
 	}
 	
 	/**
 	 * Prueba la implementación del controller
 	 */
-	@Test
-	public void getEstablecimientoControllerGetAll(){
+
+	//@Test
+	//public void getEstablecimientoDeportivoGetAll(){
+
+	/*@Test
+	public void getEstablecimientoDeportivoGetAll(){
+
+
+		establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
 		
-		EstablecimientoDeportivoResponse establecimientoDeportivoResponse = new EstablecimientoDeportivoResponse();
-		
-		List<EstablecimientoDeportivo> establecimientoDeportivoList = establecimientoDeportivoService.getAllEstablecimientos();
-		List<EstablecimientoDeportivoPOJO> establecimientoDeportivoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
-		
-		for(EstablecimientoDeportivo establecimientoDeportivo : establecimientoDeportivoList){
-			EstablecimientoDeportivoPOJO estblecimientoDeportivoView = new EstablecimientoDeportivoPOJO();
-			PojoUtils.pojoMappingUtility(estblecimientoDeportivoView, establecimientoDeportivo);
-			establecimientoDeportivoViewList.add(estblecimientoDeportivoView);
-		}
-		
-		establecimientoDeportivoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
-		
-		assertNotNull(establecimientoDeportivoResponse);
+		assertNotNull(establecimientoResponse);
+	}*/
+	/**
+	 * Prueba la implementación del controller
+	 */
+	//@Test
+	public void getEstablecimientoDeportivofindOne(){
+		//EstablecimientoDeportivo establecimientoDeportivo = establecimientoService.findOne(1);
+		//assertNotNull(establecimientoDeportivo);
 	}
 	/**
-	 * Prueba que permite registrar una establecimiento deportivo
+	 * Prueba la implementación del controller
 	 */
-    @Test
-    public void saveEstablecimientoDeportivo()
-    {
-        EstablecimientoDeportivo establecimiento = new EstablecimientoDeportivo();
-        
-        establecimiento.setNombre("General");
-        establecimiento.setDireccion("Prueba");
-        establecimiento.setPaginaWeb("Prueba");
-        establecimiento.setTelefono("Prueba");
-        
-        Boolean state = establecimientoDeportivoService.saveEstablecimiento(establecimiento);
-        
-        EstablecimientoDeportivo establecimientoresponse = establecimientoDeportivoService.findByName("General");
-        
-        System.out.println(establecimientoresponse.getNombre());
- 
-		if(state){
-			System.out.println("Registrado");
-		}
-    }
-}
+	//@Test
+	public void getEstablecimientoDeportivofindByUsuario(){
 
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(1);
+		//EstablecimientoDeportivo establecimientoDeportivo = establecimientoService.findByUusario(usuario);
+		//System.out.println(establecimientoDeportivo.getNombre());
+		//assertNotNull(establecimientoDeportivo);
+	}
+	
+}
