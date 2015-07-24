@@ -10,15 +10,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+/**
+ * Fecha: 4/07/2015 version 1.0
+ * 
+ * @author Opi-Sports
+ *
+ *Sprint 01: COnfiguración para cargar el front end de la aplicación
+ */
 @Controller
 public class HomeController {
 	@RequestMapping(value = "app", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
-		return mav;
+		ModelAndView modeloVista = new ModelAndView();
+		modeloVista.setViewName("home");
+		return modeloVista;
 	}
 	
 }

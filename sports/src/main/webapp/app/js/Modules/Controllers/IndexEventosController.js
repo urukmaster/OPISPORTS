@@ -5,7 +5,8 @@
  * events and events creations
  =========================================================*/
 
-App.controller('CalendarControllerEventos', ['$scope', function($scope) {
+
+App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -49,11 +50,12 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
      */
     function initCalendar(calElement, events) {
 
-        // check to remove elements from the list
-        var removeAfterDrop = $('#remove-after-drop');
-
-        calElement.fullCalendar({
+    	calElement.fullCalendar({
             isRTL: $scope.app.layout.isRTL,
+            monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
             header: {
                 left:   'prev,next today',
                 center: 'title',
@@ -64,47 +66,34 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
                 next:    ' fa fa-caret-right'
             },
             buttonText: {
-                today: 'today',
-                month: 'month',
-                week:  'week',
-                day:   'day'
+                today: 'hoy',
+                month: 'mes',
+                week:  'semana',
+                day:   'dia'
             },
-            editable: false,
-            droppable: false, // this allows things to be dropped onto the calendar 
-            drop: function(date, allDay) { // this function is called when something is dropped
-
-                var $this = $(this),
-                // retrieve the dropped element's stored Event Object
-                    originalEventObject = $this.data('calendarEventObject');
-
-                // if something went wrong, abort
-                if(!originalEventObject) return;
-
-                // clone the object to avoid multiple events with reference to the same object
-                var clonedEventObject = $.extend({}, originalEventObject);
-
-                // assign the reported date
-                clonedEventObject.start = date;
-                clonedEventObject.allDay = allDay;
-                clonedEventObject.backgroundColor = $this.css('background-color');
-                clonedEventObject.borderColor = $this.css('border-color');
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" 
-                // (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                calElement.fullCalendar('renderEvent', clonedEventObject, true);
-
-                // if necessary remove the element from the list
-                if(removeAfterDrop.is(':checked')) {
-                    $this.remove();
-                }
-            },
-            eventDragStart: function (event, js, ui) {
-                draggingEvent = event;
-            },
-            // This array is the events sources
             events: events
         });
+    }   
+
+    
+
+    function initEventos(eventosJSON){
+    
+    var eventos = [];
+    
+    angular.forEach(eventosJSON, function(eventoJSON, index){
+    	var evento = {};
+    	evento.title = eventoJSON.title;
+    	evento.start = new Date(eventoJSON.start.millis);
+    	evento.end = new Date(eventoJSON.end.millis);
+    	evento.backgroundColor = eventoJSON.backgroundColor;
+    	evento.borderColor = eventoJSON.borderColor;
+    	
+    	eventos.push(evento);
+    })
+    
+    return eventos;
+    
     }
 
     /**
@@ -185,70 +174,23 @@ App.controller('CalendarControllerEventos', ['$scope', function($scope) {
             eventNameInput.val('');
         });
     }
+    
+    $scope.init = function(){
+    	
+    	$http.get('rest/evento/getAll')
+        .success(function(data) {
+        	var calendar = $('#calendar');
+        	
+        	var eventos = initEventos(data.jsoncalendar);
+        	
+        	initExternalEvents(calendar);
 
-    /**
-     * Creates an array of events to display in the first load of the calendar
-     * Wrap into this function a request to a source to get via ajax the stored events
-     * @return Array The array with the events
-     */
-    function createDemoEvents() {
-        // Date for the calendar events (dummy data)
-        var date = new Date();
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
+        	initCalendar(calendar, eventos);
 
-        return  [
-            {
-                title: 'Corre por mi 2015', allDay: true,
-                start: new Date(y, m, 1),
-                backgroundColor: '#f56954', //red
-                borderColor: '#f56954' //red
-            },
-            {
-                title: 'Recreativa a Monteverde', allDay: true,
-                start: new Date(y, m, d - 5),
-                backgroundColor: '#f39c12', //yellow
-                borderColor: '#f39c12' //yellow
-            },
-            {
-                title: 'Evento de aguas abiertas',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                backgroundColor: '#0073b7', //Blue
-                borderColor: '#0073b7' //Blue
-            },
-            {
-                title: 'Vuelta al Arenal',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                backgroundColor: '#00c0ef', //Info (aqua)
-                borderColor: '#00c0ef' //Info (aqua)
-            },
-            {
-                title: 'Clásica San Miguel',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: '#00a65a', //Success (green)
-                borderColor: '#00a65a' //Success (green)
-            }
-        ];
+        })
+    	
     }
-
-    // When dom ready, init calendar and events
-    $(function() {
-
-        // The element that will display the calendar
-        var calendar = $('#calendar');
-
-        var demoEvents = createDemoEvents();
-
-        initExternalEvents(calendar);
-
-        initCalendar(calendar, demoEvents);
-
-    });
+    
+    $scope.init();
 
 }]);

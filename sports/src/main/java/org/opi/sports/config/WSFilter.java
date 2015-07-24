@@ -36,7 +36,6 @@ public class WSFilter implements Filter {
 	    HttpSession currentSession = servletRequest.getSession();
 			chain.doFilter(servletRequest, servletResponse);
 	}
-
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext (this);

@@ -2,17 +2,22 @@ package org.opi.sports.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
+import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
+import org.opi.sports.services.ServicioServiceInterface;
+import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -28,6 +33,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
  *las reservaciones, desde el controller hasta el repositorio de
  *datos. La funcionalidad debe estar a prueba, segun distintos escenarios
  *
+ *
+ *Fecha: 14-07-2015 version 1.1
+ *
+ *@author Luis Esteban López Ramírez
+ *
+ *Sprint #3 Descripción: Permite probar que las reservaciones se guarden correctamente
  */
 
 //Se especifica con que correrá el JUNIT
@@ -40,6 +51,11 @@ public class ReservacionesTest {
 	@Autowired
 	private ReservacionesServiceInterface reservacionesService;
 	
+	@Autowired
+	UsuarioServiceInterface usuarioServices;
+
+	@Autowired
+	ServicioServiceInterface servicioServices;
 	
 	/**
 	 * Esta prueba permite saber si el servicio de Reservaciones se inyecta al
@@ -78,9 +94,25 @@ public class ReservacionesTest {
 		}
 		
 		reservacionesResponse.setReservacion(reservacionesViewList);
-		reservacionesResponse.setJSONCalendar(ReservacionesHelper.getInstance().calendarioSerializer(reservacionesViewList));
 		
 		assertNotNull(reservacionesResponse);
+	}
+	/**
+	 * Prueba para guardar reservaciones
+	 */
+	@Test
+	public void saveReservaciones(){
+		ReservacionesRequest reservacion = new ReservacionesRequest();
+		reservacion.setFecha(new Date());
+		reservacion.setHora(new Time(new Date().getTime()));
+		reservacion.setOcurrencia("Siempre");
+		reservacion.setUsuario(1);
+		reservacion.setServicio(1);
+		
+		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance().saveReservacion(reservacion, reservacionesService,
+				usuarioServices.findOne(reservacion.getUsuario()), servicioServices.findOne(reservacion.getServicio()));
+		
+		assertNotNull(reservacionView);
 	}
 	
 }

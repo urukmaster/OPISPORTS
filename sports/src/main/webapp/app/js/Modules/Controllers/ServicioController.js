@@ -1,6 +1,10 @@
-/**=========================================================
- * Module: Servicio
- =========================================================*/
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ *Sprint #4 Descripción: Controlador para gestionar los servicios
+ */
 
 
 var gridServicio = {};
@@ -11,31 +15,20 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 
     gridServicio = $scope.gridServicio = {
         columnDefs: [
-            { field: 'id',visible:false},
-            { field: 'nombre', name:"Servicio"},
-            { field: 'actividadDeportiva' , name:'Actividad deportiva'},
-            { field: 'precio' , name:'Precio'},
-            { field: 'horaApertura' , name:'Hora de apertura'},
-            { field: 'horaCierre' , name:'Hora de cierre'},
-            { field: 'arbitro' , name:'Arbitro'},
+            { field: 'id',visible:false, width : 100},
+            { field: 'servicio', name:"Servicio", width : 100},
+            { field: 'precio' , name:'Precio', width : 100},
+            { field: 'horaApertura' , name:'Hora de apertura', width : 100},
+            { field: 'horaCierre' , name:'Hora de cierre', width : 100},
+            { field: 'arbitro' , name:'Arbitro', width : 100},
             {name: 'acciones', cellTemplate:'<div ng-controller="ServicioModalController" >' +
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
-            '</div>'}
+            '</div>', width : 100}
         ],
-        data: data,
-        onRegisterApi: function(gridApi) {
-            $scope.gridApi = gridApi;
-        }
+        data: establecimientoCalendario.servicios
     }
-    $http.get('server/servicio.json')
-        .success(function(data) {
-            data.forEach( function(row) {
-                row.registered = Date.parse(row.registered);
-            });
-            $scope.gridServicio.data = data;
-        });
 }]);
 
 /**=========================================================
@@ -72,7 +65,7 @@ App.controller('ServicioModalController', ['$scope', '$modal', function ($scope,
 
             var data = {
                 "id": gridServicio.excessColumns    ,
-                "nombre": $scope.servicioForm.nombre,
+                "nombre": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
                 "horaApertura": $scope.servicioForm.horaApertura,
                 "horaCierre": $scope.servicioForm.horaCierre,
