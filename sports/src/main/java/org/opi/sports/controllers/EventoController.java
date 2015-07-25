@@ -12,10 +12,8 @@ import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
-
 
 /**
  * Fecha: 14-07-2015 version 1.0
@@ -52,8 +50,25 @@ public class EventoController {
 			eventoViewList.add(eventoView);
 		}
 		
-		eventoResponse.setEvento(eventoViewList);
+		eventoResponse.setEventos(eventoViewList);
 		eventoResponse.setJSONCalendar(EventosHelper.getInstance().calendarioSerializer(eventoViewList));
+		
+		return eventoResponse;		
+		
+	}
+
+	/**
+	 *Este método obtiene una de eventos deportivos
+	 *registrados en la base de datos por medio de su id
+	 */	
+	@RequestMapping(value="getEvento", method = RequestMethod.GET)
+	public EventoResponse getEvento(@RequestParam("id") int idEvento){
+		
+		EventoResponse eventoResponse = new EventoResponse();
+		
+		Evento evento = eventoServices.getEvento(idEvento);
+		
+		eventoResponse.setEvento(evento);
 		
 		return eventoResponse;		
 		

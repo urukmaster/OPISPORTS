@@ -11,14 +11,17 @@ C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioService.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionResponse.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\ReservacionesPOJO.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\EventoCalendarioPOJO.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Reservaciones.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoService.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\TipoServicioRepository.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Inscripcion.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteResponse.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\HomeController.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Permiso.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoServiceInterface.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoRequest.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\TiqueteController.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\EventosHelper.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\OpiSportsApplication.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\SwaggerConfig.java
@@ -54,7 +57,10 @@ C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioResponse.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Reto.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\PassthroughFilter.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\TiquetePOJO.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Tiquete.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TiqueteServiceInterface.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteRequest.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\ServicioPOJO.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\EstablecimientoDeportivoHelper.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Permisos_Rol.java
@@ -63,6 +69,7 @@ C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\IniciarSesionRepository.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionRequest.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Foto.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\TiqueteRepository.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EventoRequest.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioRequest.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Establecimiento_Evento.java
@@ -77,3 +84,4 @@ C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\ActividadDeportiva.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesRequest.java
 C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioServiceInterface.java
+C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TiqueteService.java

@@ -182,10 +182,21 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfilEvento',{
-                url: '/perfilEvento',
+                url: '/perfilEvento/{id:[0-9]{1,4}}',
                 title: 'Perfil de evento',
                 templateUrl: helper.basepath('perfilEvento.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfilEvento.informacion',{
+                url: '/informacionEvento',
+                title: 'Informacion',
+                templateUrl: helper.basepath('perfilEvento-informacion.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets')
+            })
+            .state('app.perfilEvento.puntosRetiro',{
+                url: '/puntosRetiro',
+                title: 'Puntos de retiro',
+                templateUrl: helper.basepath('perfilEvento-puntosRetiro.html'),
             })
             .state('app.registrarEventoMasivo',{
                 url: '/registrarEventoMasivo',

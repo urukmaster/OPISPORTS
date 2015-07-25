@@ -8,7 +8,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.opi.sports.pojo.CalendarioPOJO;
+import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 
 /**
@@ -46,13 +46,13 @@ public class EventosHelper {
 	 * Este método serializa cada uno de los atributos de "Eventos" para poder
 	 * utilizarlos en el front end como un JSON
 	 */
-	public List<CalendarioPOJO> calendarioSerializer(
+	public List<EventoCalendarioPOJO> calendarioSerializer(
 			List<EventoPOJO> listaEventosView) {
 
-		List<CalendarioPOJO> listaEventos = new ArrayList<CalendarioPOJO>();
+		List<EventoCalendarioPOJO> listaEventos = new ArrayList<EventoCalendarioPOJO>();
 
 		for (EventoPOJO eventoView : listaEventosView) {
-			CalendarioPOJO eventos = new CalendarioPOJO();
+			EventoCalendarioPOJO eventos = new EventoCalendarioPOJO();
 
 			SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
 			SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
@@ -61,7 +61,7 @@ public class EventosHelper {
 			sumarHora.setTime(eventoView.getHora());
 			sumarHora.add(Calendar.HOUR_OF_DAY, 1);
 
-			eventos.setTitle("Carrera");
+			eventos.setTitle(eventoView.getNombre());
 			eventos.setStart(convertirFecha(convertirFecha.format(eventoView
 					.getFecha())
 					+ " "
@@ -71,7 +71,9 @@ public class EventosHelper {
 					+ " "
 					+ convertirHora.format(sumarHora.getTime())));
 			eventos.setBackgroundColor("#f56954");
-			eventos.setBorderColor("#f56954");
+			eventos.setBorderColor("#f56954"); 	
+			
+			eventos.setIdEvento(eventoView.getIdEvento());
 
 			listaEventos.add(eventos);
 		}
