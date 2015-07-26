@@ -19,7 +19,10 @@ org\opi\sports\pojo\UsuarioPOJO.class
 org\opi\sports\pojo\CalendarioPOJO.class
 org\opi\sports\config\ServletInitializer.class
 org\opi\sports\ejb\Permisos_Rol.class
+org\opi\sports\contracts\UsuarioResponse.class
 org\opi\sports\helpers\ReservacionesHelper.class
+org\opi\sports\helpers\UsuarioHelper.class
+org\opi\sports\controllers\UsuarioController.class
 org\opi\sports\contracts\EstablecimientoDeportivoResponse.class
 org\opi\sports\controllers\HomeController.class
 org\opi\sports\ejb\Establecimiento_Evento.class
@@ -48,6 +51,7 @@ org\opi\sports\services\ServicioServiceInterface.class
 org\opi\sports\services\IniciarSesionServiceInterface.class
 org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\ejb\Servicio.class
+org\opi\sports\contracts\UsuarioRequest.class
 org\opi\sports\config\OpiSportsApplication.class
 org\opi\sports\services\TipoServicioServiceInterface.class
 org\opi\sports\ejb\Usuario.class

@@ -3,43 +3,54 @@ package org.opi.sports.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
+import org.opi.sports.contracts.UsuarioRequest;
+import org.opi.sports.contracts.UsuarioResponse;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Permiso;
 import org.opi.sports.ejb.Permisos_Rol;
 import org.opi.sports.ejb.Rol;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.ejb.Usuario_Rol;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.PermisoPOJO;
 import org.opi.sports.pojo.RolPOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.utils.PojoUtils;
+import org.opi.sports.services.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Fecha: 21-07-2015 version 1.0
+ * Fecha: 26-07-2015 version 1.0
  * 
- * @author Mauricio Araica Hernández
+ * @author Juan Manuel Viales Chavarría
  *
- *Sprint 02 Descripción: Helper de iniciar sesión 
+ *Sprint 03 Descripción: Helper de usuarios
  *
  */
-public class IniciarSesionHelper {
+public class UsuarioHelper {
+
+	private static UsuarioHelper instance;
+	private EstablecimientoDeportivoServiceInterface UsuarioService;
 	
-	private static IniciarSesionHelper instance;
-
-	private IniciarSesionHelper() {
+	private UsuarioHelper(){
 	}
-
+	
 	private synchronized static void createInstance() {
 		if (instance == null) {
-			instance = new IniciarSesionHelper();
+			instance = new UsuarioHelper();
 		}
 	}
-
-	public static IniciarSesionHelper getInstance() {
+	
+	public static UsuarioHelper getInstance() {
 		if (instance == null) {
 			createInstance();
 		}
 		return instance;
-	}	
+	}
+	
 	/**
 	 * Metodo encargado de covertir Usuario ejb a Usuario POJO
 	 * 
@@ -81,5 +92,28 @@ public class IniciarSesionHelper {
 		PermisoPOJO permisoPOJO = new PermisoPOJO();
 		PojoUtils.pojoMappingUtility(permisoPOJO, permiso);
 		return permisoPOJO;
+	}
+	
+	
+	/**
+	 * Metodo encargado de registrar el usuario
+	 * 
+	 */
+	public UsuarioPOJO saveUsuario(UsuarioRequest usuario,
+			UsuarioServiceInterface usuarioService) {
+
+		Usuario usuarioEJB = new Usuario();
+		usuarioEJB.setCorreo(usuario.getUsuario().getCorreo());
+		usuarioEJB.setNombre(usuario.getUsuario().getNombre());
+		usuarioEJB.setApellido(usuario.getUsuario().getApellido());
+		usuarioEJB.setTelefono(usuario.getUsuario().getTelefono());
+		
+		
+		UsuarioPOJO usuarioPOJO = new UsuarioPOJO();
+
+		PojoUtils.pojoMappingUtility(usuarioPOJO,
+				usuarioService.save(usuarioEJB));
+		
+		return usuarioPOJO;
 	}
 }
