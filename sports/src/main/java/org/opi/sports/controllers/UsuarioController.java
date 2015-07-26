@@ -59,5 +59,31 @@ public class UsuarioController {
 
 		return usuarioResponse;
 		
-	}	
+	}
+	
+	/**
+	 * Este método se encarga de actualizar los usuarios
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public UsuarioResponse update(@RequestBody UsuarioRequest usuarioRequest) {
+		
+		//Usuario Response
+		UsuarioResponse usuarioResponse = new UsuarioResponse();
+		//UsuarioPOJO
+		UsuarioPOJO usuarioView = UsuarioHelper.getInstance().updateUsuario(usuarioRequest, usuarioService);
+		
+		if(usuarioService.exists(usuarioView.getIdUsuario())){
+			List<UsuarioPOJO> usuarios = new ArrayList<UsuarioPOJO>();
+			usuarios.add(usuarioView);
+			usuarioResponse.setUsuarios(usuarios);
+			usuarioResponse.setCode(200);
+			usuarioResponse.setCodeMessage("El usuario se actualizo correctamente");
+		}else{
+			usuarioResponse.setCode(401);
+			usuarioResponse.setCodeMessage("El usuario no se actualizo");
+		}
+
+		return usuarioResponse;
+		
+	}
 }

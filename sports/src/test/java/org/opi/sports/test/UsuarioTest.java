@@ -58,7 +58,7 @@ public class UsuarioTest {
 	* Esta prueba permite saber si el usuario se registra.
 	*
 	*/
-	@Test
+	//@Test
 	public void saveUsuarioTest(){
 		Usuario usuarioEJB = new Usuario();
 		usuarioEJB.setCorreo("juanmanu24@gmail.com");
@@ -68,5 +68,20 @@ public class UsuarioTest {
 		usuarioEJB.setContrasenna("147852369");
 		assertNotNull(usuarioService.save(usuarioEJB));
 	}
-
+	
+	/**
+	* Esta prueba permite saber si el usuario se actualizo.
+	*
+	*/
+	@Test
+	public void updateUsuarioTest(){
+		Usuario usuarioEJB = new Usuario();
+		usuarioEJB.setIdUsuario(2);
+		usuarioEJB.setCorreo("juanmanu24@gmail.com");
+		usuarioEJB.setNombre("Juan Manuel");
+		usuarioEJB.setApellido("Viales");
+		usuarioEJB.setTelefono("84427024");
+		usuarioEJB.setContrasenna("147852369");
+		assertNotNull(usuarioService.save(usuarioEJB));
+	}
 }

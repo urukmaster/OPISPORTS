@@ -116,4 +116,27 @@ public class UsuarioHelper {
 		
 		return usuarioPOJO;
 	}
+	
+	/**
+	 * Metodo encargado de actualizar el usuario
+	 * 
+	 */
+	public UsuarioPOJO updateUsuario(UsuarioRequest usuario,
+			UsuarioServiceInterface usuarioService) {
+
+		Usuario usuarioEJB = new Usuario();
+		usuarioEJB.setIdUsuario(usuario.getUsuario().getIdUsuario());
+		usuarioEJB.setCorreo(usuario.getUsuario().getCorreo());
+		usuarioEJB.setNombre(usuario.getUsuario().getNombre());
+		usuarioEJB.setApellido(usuario.getUsuario().getApellido());
+		usuarioEJB.setTelefono(usuario.getUsuario().getTelefono());
+		
+		
+		UsuarioPOJO usuarioPOJO = new UsuarioPOJO();
+
+		PojoUtils.pojoMappingUtility(usuarioPOJO,
+				usuarioService.save(usuarioEJB));
+		
+		return usuarioPOJO;
+	}
 }
