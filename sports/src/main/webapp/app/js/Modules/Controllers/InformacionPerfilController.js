@@ -86,7 +86,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
         	var toasterdata = {
 		            type:  'error',
 		            title: 'Establecimiento',
-		            text:  data.codeMessage
+		            text:  data.errorMessage
 		        	};
         	$scope.pop(toasterdata);
             return false;
@@ -100,8 +100,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     };
     
     $scope.callAtTimeout = function(){
-    	$route.reload();
-    	$state.go("app.perfil.reservaciones");
+    	$state.go("app.index");
     }
 
 }]);

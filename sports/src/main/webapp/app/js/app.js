@@ -45,7 +45,7 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
     // ----------------------------------- 
     $rootScope.app = {
         name: 'Op-i-Sports',
-        description: 'Angular Bootstrap Admin Template',
+        description: 'Uruk',
         year: ((new Date()).getFullYear()),
         layout: {
             isFixed: true,
@@ -60,11 +60,6 @@ App.run(["$rootScope", "$state", "$stateParams",  '$window', '$templateCache', f
         useFullLayout: false,
         hiddenFooter: false,
         viewAnimation: 'ng-fadeInUp'
-    };
-    $rootScope.user = {
-        name:     'Juan Manuel',
-        job:      'Programador',
-        picture:  'app/img/user/02.jpg'
     };
     $rootScope.user = {};
 }]);
@@ -500,45 +495,64 @@ App
     })
 ;
 
-//Prueba
 
-
-//
 /**=========================================================
  * Module: access-login.js
  * Demo for login api
  =========================================================*/
 
-App.controller('LoginFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
-
-    // bind here all data from the form
-    $scope.account = {};
-    // place the message if something goes wrong
-    $scope.authMsg = '';
-    $scope.data = {};
-
-    $scope.login = function() {
+App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state','toaster','$timeout', function($rootScope, $scope, $http, $state,toaster,$timeout) {
+	$scope.account = {};
+	
+	$scope.login = function() {
         $scope.authMsg = '';
 
         if ($scope.loginForm.$valid) {
-
-            if($scope.account.email === "jvialesc@ucenfotec.ac.cr" && $scope.account.password === "Abcd12345/"){
-                $state.go('app.home');
-            }else{
-                $scope.authMsg = ' Datos incorrectos ';
-            }
-        } else {
-            // set as dirty if the user click directly to login so we show the validation messages
-            $scope.loginForm.account_email.$dirty = true;
-            $scope.loginForm.account_password.$dirty = true;
+        	$http.post('rest/iniciarSesion/validarUsuario', {
+        		correo : $scope.account.email,
+        		contrasenna : $scope.account.password
+    		 	})
+    		.success(function(data){
+    			if(data.code == 200){
+    				$rootScope.usuario = {
+    						nombre: data.usuario.nombre,
+    						apellido: data.usuario.apellido,
+    						correo: data.usuario.contrasenna,
+    						telefono: data.usuario.telefono,
+    						roles: data.usuario.roles
+    				};
+    				var toasterdata = {
+    			            type:  'success',
+    			            title: 'Login',
+    			            text:  data.codeMessage
+    			        	};
+    				$scope.pop(toasterdata);
+    				$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			}else{  
+    				var toasterdata = {
+    			            type:  'error',
+    			            title: 'Login',
+    			            text:  data.errorMessage
+    			        	};
+    				$scope.pop(toasterdata);     				
+    			}		
+    		});    
         }
+    };
     
+    //notificacion
+       
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.index");
     }
+ 
 
-    $scope.register = function(){
-        alert('ya va a llamar al malparido');
-        $state.go('app.registrarUsuarioForm');
-    }
+ 
+ 
 }]);
 
 /**=========================================================
@@ -548,23 +562,7 @@ App.controller('LoginFormController', ['$scope', '$http', '$state', function($sc
 
 App.controller('RegistrarFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
-    // bind here all data from the form
-    $scope.account = {};
-    // place the message if something goes wrong
-    $scope.authMsg = '';
-
-    $scope.register = function() {
-        $scope.authMsg = '';
-
-        if($scope.registerForm.$valid) {
-
-            alert('valido la verga');
-
-            }
-            else{
-                alert('va a validar una verga')
-            }
-    };
+    
 
 }]);
 /**=========================================================
@@ -4803,7 +4801,7 @@ App.controller('FileUploadController', ['$scope', 'FileUploader', function($scop
 
     console.info('uploader', uploader);
 }]);
-App.controller('UserBlockController', ['$scope', function($scope) {
+App.controller('UserBlockController', ['$scope','$state','$rootScope', function($scope,$state,$rootScope) {
 
     $scope.userBlockVisible = true;
 
@@ -4812,6 +4810,14 @@ App.controller('UserBlockController', ['$scope', function($scope) {
         $scope.userBlockVisible = ! $scope.userBlockVisible;
 
     });
+    
+    $scope.login = function(){
+    	$state.go('app.login');
+    }
+    
+    $scope.logout = function(){
+    	$rootScope.usuario = null;
+    }
 
 }]);
 /**=========================================================

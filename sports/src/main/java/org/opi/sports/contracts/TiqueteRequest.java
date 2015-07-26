@@ -14,17 +14,17 @@ import org.opi.sports.pojo.TiquetePOJO;
 
 public class TiqueteRequest extends BasePagingRequest{
 
-	private TiquetePOJO evento;
+	private TiquetePOJO tiquete;
 
 	public TiquetePOJO getEvento() {
-		return evento;
+		return tiquete;
 	}
 
 	public void setEvento(TiquetePOJO evento) {
-		this.evento = evento;
+		this.tiquete = evento;
 	}
 
 	public String toString(){
-		return "TiqueteRequest [evento=" + evento  + "]";
+		return "TiqueteRequest [tiquete=" + tiquete  + "]";
 	}
 }

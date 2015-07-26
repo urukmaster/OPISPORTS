@@ -3,9 +3,13 @@ package org.opi.sports.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.activemq.filter.function.inListFunction;
 import org.opi.sports.contracts.IniciarSesionRequest;
 import org.opi.sports.contracts.IniciarSesionResponse;
 import org.opi.sports.ejb.Usuario;
+import org.opi.sports.helpers.IniciarSesionHelper;
+import org.opi.sports.pojo.RolPOJO;
+import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.IniciarSesionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,33 +40,38 @@ public class IniciarSesionController {
 	 * Metodo que valida el usuario por correo y contraseña
 	 * 
 	 */
-	@RequestMapping(value = "/validarUsuario", method = RequestMethod.POST)
+	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
 	@Transactional
 	public IniciarSesionResponse validarUsuario(@RequestBody IniciarSesionRequest iniciarSesionRequest){	
-		
+	
 		Usuario usuarioLogeado = iniciarSesionService.ValidarUsuario(iniciarSesionRequest);
-		
 		IniciarSesionResponse iniciarSesionresponse = new IniciarSesionResponse();
-		HttpSession sesionActual = request.getSession();
+		
 		
 		if(usuarioLogeado == null){
+			
 			iniciarSesionresponse.setCode(401);
 			iniciarSesionresponse.setErrorMessage("Usuario no autorizado");
+			
 		}else{
 			//el codigo 200 significa que tuvo un acceso.correcto
 			iniciarSesionresponse.setCode(200);
 			iniciarSesionresponse.setCodeMessage("Usuario autorizado");
 			
 			//CREATE AND SET THE VALUES FOR THE CONTRACT OBJECT
-			iniciarSesionresponse.setIdUsuario(usuarioLogeado.getIdUsuario());
-			iniciarSesionresponse.setNombre(usuarioLogeado.getNombre());
-			iniciarSesionresponse.setApellido(usuarioLogeado.getApellido());
-			//
-			
-			sesionActual.setAttribute("idUsusario", usuarioLogeado.getIdUsuario());
-		}
-		
-		return iniciarSesionresponse;
-		
+			UsuarioPOJO usuario = new UsuarioPOJO();
+			usuario = IniciarSesionHelper.getInstance().convertirUsuario(usuarioLogeado);	
+			iniciarSesionresponse.setUsuario(usuario);
+			request.getSession().setAttribute("idUsusario", usuarioLogeado.getIdUsuario());
+		}	
+		return iniciarSesionresponse;	
+	}
+	/**
+	 * Metodo que invalida la sesion al cerrarla 
+	 * 
+	 */
+	@RequestMapping(value = "cerrarSesion", method = RequestMethod.GET)
+	public void cerrarSesion(){	
+		request.getSession().invalidate();
 	}
 }

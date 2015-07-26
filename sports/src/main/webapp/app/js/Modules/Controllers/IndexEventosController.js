@@ -72,7 +72,6 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
                 day:   'dia'
             },
             eventClick:  function(evento, jsEvent, view) {
-            	console.log(evento.idEvento);
                 $state.go('app.perfilEvento',{id: evento.idEvento});
                 
             },

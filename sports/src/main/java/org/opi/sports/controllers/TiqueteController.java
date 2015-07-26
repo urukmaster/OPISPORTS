@@ -3,8 +3,13 @@ package org.opi.sports.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.TiqueteResponse;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Tiquete;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
+import org.opi.sports.helpers.TiquetesHelper;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.TiqueteServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -35,24 +40,20 @@ public class TiqueteController {
 	 *Este método obtiene cada una de las instancias de tiquetes
 	 *registrados en la base de datos
 	 */	
-	@RequestMapping(value="getAll", method = RequestMethod.GET)
-	public TiqueteResponse getAll(){
+	@RequestMapping(value ="getAll", method = RequestMethod.GET)
+	public TiqueteResponse getAll(){	
 		
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
-		
 		List<Tiquete> tiqueteList = tiqueteServices.getAllTiquetes();
-		List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
+	      List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
 		
-		for(Tiquete tiquetes : tiqueteList){
-			TiquetePOJO tiqueteView = new TiquetePOJO();
-			PojoUtils.pojoMappingUtility(tiqueteView, tiquetes);
-			tiqueteViewList.add(tiqueteView);
+		for(Tiquete tiquete : tiqueteList){
+			tiqueteViewList.add(TiquetesHelper.getInstance().convertirTiquete(tiquete));
 		}
 		
 		tiqueteResponse.setTiquetes(tiqueteViewList);
 		
-		return tiqueteResponse;		
-		
+		return tiqueteResponse;
 	}
 
 	/**
