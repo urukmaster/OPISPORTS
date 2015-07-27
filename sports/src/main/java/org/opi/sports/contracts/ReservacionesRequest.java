@@ -21,6 +21,7 @@ public class ReservacionesRequest extends BasePagingRequest{
 	private String ocurrencia;
 	private Integer servicio;
 	private Integer usuario;
+	private Integer establecimiento;
 	
 	public int getIdCalendario() {
 		return idCalendario;
@@ -68,6 +69,14 @@ public class ReservacionesRequest extends BasePagingRequest{
 
 	public void setUsuario(Integer usuario) {
 		this.usuario = usuario;
+	}
+
+	public Integer getEstablecimiento() {
+		return establecimiento;
+	}
+
+	public void setEstablecimiento(Integer establecimiento) {
+		this.establecimiento = establecimiento;
 	}
 	
 	

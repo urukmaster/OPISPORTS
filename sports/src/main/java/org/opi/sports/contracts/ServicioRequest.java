@@ -1,12 +1,9 @@
-package org.opi.sports.pojo;
+package org.opi.sports.contracts;
 
 import java.sql.Time;
-import java.util.List;
 
-import org.joda.time.DateTime;
+public class ServicioRequest extends BasePagingRequest {
 
-public class ServicioPOJO {
-	
 	private int idServicio;
 
 	private byte arbitro;
@@ -21,13 +18,11 @@ public class ServicioPOJO {
 
 	private String servicio;
 	
-	private List<ReservacionesPOJO> reservaciones;
+	private Integer tipoServicio;
 	
-	private TipoServicioPOJO tipoServicio;
+	private Integer establecimiento;
 	
-	private DateTime horaInicial;
-	
-	private DateTime horaFinal;
+	private String accion;
 
 	public int getIdServicio() {
 		return idServicio;
@@ -85,38 +80,29 @@ public class ServicioPOJO {
 		this.servicio = servicio;
 	}
 
-	public List<ReservacionesPOJO> getReservaciones() {
-		return reservaciones;
-	}
-
-	public void setReservaciones(List<ReservacionesPOJO> reservaciones) {
-		this.reservaciones = reservaciones;
-	}
-
-	public TipoServicioPOJO getTipoServicio() {
+	public Integer getTipoServicio() {
 		return tipoServicio;
 	}
 
-	public void setTipoServicio(TipoServicioPOJO tipoServicio) {
+	public void setTipoServicio(Integer tipoServicio) {
 		this.tipoServicio = tipoServicio;
 	}
 
-	public DateTime getHoraInicial() {
-		return horaInicial;
+	public Integer getEstablecimiento() {
+		return establecimiento;
 	}
 
-	public void setHoraInicial(DateTime horaInicial) {
-		this.horaInicial = horaInicial;
+	public void setEstablecimiento(Integer establecimiento) {
+		this.establecimiento = establecimiento;
 	}
 
-	public DateTime getHoraFinal() {
-		return horaFinal;
+	public String getAccion() {
+		return accion;
 	}
 
-	public void setHoraFinal(DateTime horaFinal) {
-		this.horaFinal = horaFinal;
+	public void setAccion(String accion) {
+		this.accion = accion;
 	}
-
 	
-
+	
 }

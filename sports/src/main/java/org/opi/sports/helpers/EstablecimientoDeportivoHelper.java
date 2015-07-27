@@ -1,9 +1,10 @@
 package org.opi.sports.helpers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opi.sports.contracts.ReservacionesRequest;
+import org.joda.time.DateTime;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Reservaciones;
@@ -13,7 +14,6 @@ import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
-import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
 /**
@@ -74,6 +74,10 @@ public class EstablecimientoDeportivoHelper {
 		}
 		
 		servicioView.setReservaciones(reservaciones);
+		
+		
+		servicioView.setHoraInicial(new DateTime(servicio.getHoraApertura()));
+		servicioView.setHoraFinal(new DateTime(servicio.getHoraCierre()));
 		
 		return servicioView;
 	}

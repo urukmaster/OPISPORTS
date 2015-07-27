@@ -1,44 +1,49 @@
 <div ng-controller="CalendarController" class="calendar-app">
-<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+	<toaster-container
+		toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
 	<div class="col-lg-9 col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div id="calendar"></div>
+				<div id="calendario">
+					<div id="calendarioContent">
+						<div id="calendar"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- START messages and activity-->
-	<div class="panel panel-default col-lg-3 col-md-3" ng-controller ="ServiciosCalendarioController">
-	   <div class="panel-heading">
-	      <div class="panel-title">Servicios</div>
-	   </div>
-	   <!-- START list group-->
-	   <div class="list-group" ng-repeat="servicio in Servicios">
-	      <!-- START list group item-->
-	      <div class="list-group-item">
-	         <div class="media-box">
-	            <div class="pull-left" ng-controller ="ModalReservacionesController">
-	               <span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
-	                  <em class="fa fa-circle fa-stack-2x text-purple"></em>
-	                  <em class="fa fa-life-bouy fa-stack-1x fa-inverse text-white"></em>
-	               </span>
-	            </div>
-	            <div class="media-box-body clearfix">
-	               <div class="media-box-heading"><span class="text-purple m0">{{servicio.servicio}}</span>
-	               </div>
-	               <p class="m0">
-	                  </small>
-	                  <small><span>{{servicio.precio}}</a>
-	                  </small>
-	               </p>
-	            </div>
-	         </div>
-	      </div>
-	   </div>
-	   <!-- END list group-->
-	   
-               <!-- Modal inline template-->
-               <script type="text/ng-template" id="/modalReservaciones.html">
+	<div class="panel panel-default col-lg-3 col-md-3"
+		ng-controller="ServiciosCalendarioController">
+		<div class="panel-heading">
+			<div class="panel-title">Servicios</div>
+		</div>
+		<!-- START list group-->
+		<div class="list-group" ng-repeat="servicio in Servicios">
+			<!-- START list group item-->
+			<div class="list-group-item">
+				<div class="media-box">
+					<div class="pull-left" ng-controller="ModalReservacionesController">
+						<span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
+							<em class="fa fa-circle fa-stack-2x text-purple"></em> <em
+							class="fa fa-life-bouy fa-stack-1x fa-inverse text-white"></em>
+						</span>
+					</div>
+					<div class="media-box-body clearfix">
+						<div class="media-box-heading">
+							<span class="text-purple m0">{{servicio.servicio}}</span>
+						</div>
+						<p class="m0">
+							</small> <small><span>{{servicio.precio}}</a></small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END list group-->
+
+		<!-- Modal inline template-->
+		<script type="text/ng-template" id="/modalReservaciones.html">
 				<form>
                 <div class="modal-header">
 					<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>

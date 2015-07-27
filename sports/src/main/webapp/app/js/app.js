@@ -2089,8 +2089,9 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     };
     
     $scope.init = function(){
-    	$scope.mytime.setMinutes(00, 00, 00);
-    	$scope.reservacion.hora = $scope.mytime;
+    	if($scope.reservacion != null){
+    		$scope.reservacion.hora = $scope.mytime;
+    	}
     }
     
     $scope.init();

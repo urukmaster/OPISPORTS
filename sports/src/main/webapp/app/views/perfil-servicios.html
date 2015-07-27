@@ -19,7 +19,10 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Actividad deportiva</label>
                             <div class="col-lg-10">
-                                <input ng-model="servicioForm.actividadDeportiva" type="text"  class="form-control" />
+                                <select ng-model="servicioForm.actividadDeprotiva" type="text"  class="form-control">
+									<option value="1">Futbol</option>
+									<option value="2">Basket</option>
+								</select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -31,19 +34,26 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Hora de apertura</label>
                             <div class="col-lg-10">
-                                <input ng-model="servicioForm.horaApertura" type="text"  class="form-control" />
+                                <div ng-controller="TimepickerDemoCtrl">
+									<timepicker ng-model="servicioForm.horaApertura" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+								</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Hora de cierre</label>
                             <div class="col-lg-10">
-                                <input ng-model="servicioForm.horaCierre" type="text"  class="form-control" />
+                                <div ng-controller="TimepickerDemoCtrl">
+									<timepicker ng-model="servicioForm.horaCierre" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+								</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label">Arbitro</label>
                             <div class="col-lg-10">
-                                <input ng-model="servicioForm.arbitro" type="text"  class="form-control" />
+                                <select ng-model="servicioForm.arbitro" type="text"  class="form-control">
+									<option value="1">Sí</option>
+									<option value="0">No</option>
+								</select>
                             </div>
                         </div>
                     </form>
@@ -58,7 +68,7 @@
 		<button ng-click="registrar()" class="btn btn-primary">
 			<span class="fa fa-plus"></span>
 		</button>
-	</div>s
+	</div>
 </div>
 
 <div ng-controller="ServicioController">

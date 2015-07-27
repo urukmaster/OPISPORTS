@@ -1,6 +1,5 @@
 package org.opi.sports.pojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

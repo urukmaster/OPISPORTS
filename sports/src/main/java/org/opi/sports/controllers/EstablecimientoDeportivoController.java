@@ -5,14 +5,9 @@ import java.util.List;
 
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
-import org.opi.sports.contracts.ReservacionesRequest;
-import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
-import org.opi.sports.ejb.Usuario;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
-import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
-import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
 //import org.opi.sports.services.UsuarioServiceInterface;

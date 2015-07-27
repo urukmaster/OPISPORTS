@@ -1,7 +1,5 @@
 package org.opi.sports.pojo;
 
-import java.util.Date;
-
 import org.joda.time.DateTime;
 
 public class CalendarioPOJO {

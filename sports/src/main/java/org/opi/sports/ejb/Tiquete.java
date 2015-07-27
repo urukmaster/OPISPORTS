@@ -2,6 +2,7 @@ package org.opi.sports.ejb;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -19,7 +20,8 @@ public class Tiquete implements Serializable {
 
 	private String estado;
 
-	private String fechaCaducidad;
+	@Temporal(TemporalType.DATE)
+	private Date fechaCaducidad;
 
 	private String precio;
 
@@ -52,11 +54,11 @@ public class Tiquete implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getFechaCaducidad() {
+	public Date getFechaCaducidad() {
 		return this.fechaCaducidad;
 	}
 
-	public void setFechaCaducidad(String fechaCaducidad) {
+	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 

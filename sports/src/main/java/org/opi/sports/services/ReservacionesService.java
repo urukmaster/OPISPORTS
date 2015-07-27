@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class ReservacionesService implements ReservacionesServiceInterface{
 	
 	@Autowired
-	public ReservacionesRepository reservacionesRepositorio;
+	ReservacionesRepository reservacionesRepositorio;
 
 	public List<Reservaciones> getAllReservaciones() {
 		return reservacionesRepositorio.findAll();

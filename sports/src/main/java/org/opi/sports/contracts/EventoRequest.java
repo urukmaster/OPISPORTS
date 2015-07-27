@@ -1,7 +1,6 @@
 package org.opi.sports.contracts;
 
 import org.opi.sports.pojo.EventoPOJO;
-import org.opi.sports.pojo.ReservacionesPOJO;
 
 /**
  * Fecha: 14-07-2015 version 1.0
