@@ -24,5 +24,9 @@ public class EventoService implements EventoServiceInterface{
 	public List<Evento> getAllEventos() {
 		return eventoRepositorio.findAll();
 	}
+	
+	public Evento getEvento(int id) {
+		return eventoRepositorio.findOne(id);
+	}
 
 }

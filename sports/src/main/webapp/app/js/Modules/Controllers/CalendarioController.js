@@ -17,6 +17,25 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     // global shared var to know what we are dragging
     var draggingEvent = null;
     
+
+
+    // listen for the event in the relevant $scope
+       $scope.$on('myEvent', function (event, data) {
+    	   
+    	 
+         console.log(data); // 'Data to send'
+         
+
+   
+ 		var calendar = $('#calendar');
+     	
+     	console.log(data);
+     	
+     	initExternalEvents(calendar);
+
+     	initCalendar(calendar, data);
+       });
+
     /**
      * ExternalEvent object
      * @param jQuery Object elements Set of element as jQuery objects
@@ -198,6 +217,8 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         	
         	var reservaciones = initReservaciones(establecimientoCalendario.calendario);
         	
+        	console.log(reservaciones);
+        	
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, reservaciones);
@@ -219,6 +240,18 @@ App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
 	$scope.Servicios = establecimientoCalendario.servicios;
 
 }]);
+
+$(function() {
+	  var $container = $('.contenedorServicios');
+	  var $b = $('body');
+	  $.waypoints.settings.scrollThrottle = 0;
+	  $container.waypoint({
+	    handler: function(e, d) {
+	      $b.toggleClass('sticky', d === 'down');
+	      e.preventDefault();
+	    }
+	  });
+	});
 
 
 /**=========================================================
@@ -277,7 +310,12 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			$scope.pop(toasterdata);
         	}
         	
-        	$modalInstance.close('closed');
+        	$modalInstance.close('closed');  
+        	
+        /*	;lkjklhl*/
+        	console.log(establecimientoCalendario.id);
+        	console.log(initReservaciones(establecimientoCalendario.calendario));
+        	$rootScope.$broadcast("myEvent", initReservaciones(establecimientoCalendario.calendario));
             
         };
 

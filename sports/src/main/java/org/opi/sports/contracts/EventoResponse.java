@@ -2,7 +2,9 @@ package org.opi.sports.contracts;
 
 import java.util.List;
 
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.pojo.CalendarioPOJO;
+import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 
 /**
@@ -16,22 +18,26 @@ import org.opi.sports.pojo.EventoPOJO;
 
 public class EventoResponse extends BaseResponse{
 
-	private List<EventoPOJO> evento;
-	private List<CalendarioPOJO> JSONCalendar;
-
-	public List<EventoPOJO> getEvento() {
-		return evento;
+	private List<EventoPOJO> eventos;
+	private List<EventoCalendarioPOJO> JSONCalendar;
+	private Evento evento;
+	
+	public List<EventoPOJO> getEventos() {
+		return eventos;
 	}
-
-	public void setEvento(List<EventoPOJO> evento) {
-		this.evento = evento;
+	public void setEventos(List<EventoPOJO> eventos) {
+		this.eventos = eventos;
 	}
-
-	public List<CalendarioPOJO> getJSONCalendar() {
+	public List<EventoCalendarioPOJO> getJSONCalendar() {
 		return JSONCalendar;
 	}
-
-	public void setJSONCalendar(List<CalendarioPOJO> jSONCalendar) {
+	public void setJSONCalendar(List<EventoCalendarioPOJO> jSONCalendar) {
 		JSONCalendar = jSONCalendar;
+	}
+	public Evento getEvento() {
+		return evento;
+	}
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 }

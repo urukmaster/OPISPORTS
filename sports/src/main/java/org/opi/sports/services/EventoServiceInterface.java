@@ -16,5 +16,7 @@ import org.opi.sports.ejb.Evento;
 public interface EventoServiceInterface {
 
 	public List<Evento> getAllEventos();
+	
+	public Evento getEvento(int id);
 
 }
