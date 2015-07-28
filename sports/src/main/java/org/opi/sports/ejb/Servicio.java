@@ -137,18 +137,18 @@ public class Servicio implements Serializable {
 		this.reservaciones = reservaciones;
 	}
 
-	public Reservaciones addReservacione(Reservaciones reservaciones) {
-		getReservaciones().add(reservaciones);
-		reservaciones.setServicio(this);
+	public Reservaciones addReservacione(Reservaciones reservacione) {
+		getReservaciones().add(reservacione);
+		reservacione.setServicio(this);
 
-		return reservaciones;
+		return reservacione;
 	}
 
-	public Reservaciones removeReservacione(Reservaciones reservaciones) {
-		getReservaciones().remove(reservaciones);
-		reservaciones.setServicio(null);
+	public Reservaciones removeReservacione(Reservaciones reservacione) {
+		getReservaciones().remove(reservacione);
+		reservacione.setServicio(null);
 
-		return reservaciones;
+		return reservacione;
 	}
 
 	public List<Reto> getRetos() {

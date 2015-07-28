@@ -38,11 +38,11 @@ public class Tiquete implements Serializable {
 	public Tiquete() {
 	}
 
-	public int getidTiquete() {
+	public int getIdTiquete() {
 		return this.idTiquete;
 	}
 
-	public void setidTiquete(int idTiquete) {
+	public void setIdTiquete(int idTiquete) {
 		this.idTiquete = idTiquete;
 	}
 

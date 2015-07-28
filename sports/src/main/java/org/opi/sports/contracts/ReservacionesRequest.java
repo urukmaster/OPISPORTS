@@ -18,10 +18,11 @@ public class ReservacionesRequest extends BasePagingRequest{
 	private int idCalendario;
 	private Date fecha;
 	private Time hora;
-	private String ocurrencia;
+	private String estado;
 	private Integer servicio;
 	private Integer usuario;
 	private Integer establecimiento;
+	private String accion;
 	
 	public int getIdCalendario() {
 		return idCalendario;
@@ -47,12 +48,12 @@ public class ReservacionesRequest extends BasePagingRequest{
 		this.hora = hora;
 	}
 	
-	public String getOcurrencia() {
-		return ocurrencia;
+	public String getEstado() {
+		return estado;
 	}
 	
-	public void setOcurrencia(String ocurrencia) {
-		this.ocurrencia = ocurrencia;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public Integer getServicio() {
@@ -77,6 +78,14 @@ public class ReservacionesRequest extends BasePagingRequest{
 
 	public void setEstablecimiento(Integer establecimiento) {
 		this.establecimiento = establecimiento;
+	}
+
+	public String getAccion() {
+		return accion;
+	}
+
+	public void setAccion(String accion) {
+		this.accion = accion;
 	}
 	
 	

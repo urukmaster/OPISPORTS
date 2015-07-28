@@ -3,14 +3,18 @@ package org.opi.sports.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.id.uuid.Helper;
+import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.helpers.EventosHelper;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +36,9 @@ public class EventoController {
 	
 	@Autowired
 	EventoServiceInterface eventoServices;
+	
+	@Autowired
+	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
 
 	/**
 	 *Este método obtiene cada una de las instancias de eventos deportivos
@@ -62,7 +69,7 @@ public class EventoController {
 	 *Este método obtiene una de eventos deportivos
 	 *registrados en la base de datos por medio de su id
 	 */	
-	@RequestMapping(value="/getEvento", method = RequestMethod.GET)
+	@RequestMapping(value="getEvento", method = RequestMethod.GET)
 	@Transactional
 	public EventoResponse getEvento(@RequestParam("id") int idEvento){
 		
@@ -70,10 +77,22 @@ public class EventoController {
 		
 		Evento evento = eventoServices.getEvento(idEvento);
 		
-		eventoResponse.setEvento(evento);
+		//eventoResponse.setEvento(evento);
 		
 		return eventoResponse;		
 		
+	}
+	
+	@RequestMapping(value="save", method = RequestMethod.POST)
+	@Transactional
+	public EventoResponse save(@RequestBody EventoRequest eventoRequest){
+		EventoResponse eventoResponse = new EventoResponse();
+		
+		EventoPOJO evento = EventosHelper.getInstance().getEvento(eventoRequest, eventoServices, establecimientoDeporitvoService);
+		
+		eventoResponse.setEvento(evento);
+		
+		return eventoResponse;
 	}
 
 }

@@ -58,6 +58,7 @@ public class EstablecimientoDeportivoHelper {
 		}
 		establecimientoView.setServicios(servicios);
 		establecimientoView.setCalendario();
+		establecimientoView.setPendientes();
 		return establecimientoView;
 
 	}

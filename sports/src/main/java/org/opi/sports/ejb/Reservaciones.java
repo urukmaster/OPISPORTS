@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Reservaciones")
-@NamedQuery(name="Reservacione.findAll", query="SELECT r FROM Reservaciones r")
+@NamedQuery(name="Reservaciones.findAll", query="SELECT r FROM Reservaciones r")
 public class Reservaciones implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,12 +20,12 @@ public class Reservaciones implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCalendario;
 
+	private String estado;
+
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	private Time hora;
-
-	private String ocurrencia;
 
 	//bi-directional many-to-one association to Servicio
 	@ManyToOne
@@ -48,6 +48,14 @@ public class Reservaciones implements Serializable {
 		this.idCalendario = idCalendario;
 	}
 
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public Date getFecha() {
 		return this.fecha;
 	}
@@ -62,14 +70,6 @@ public class Reservaciones implements Serializable {
 
 	public void setHora(Time hora) {
 		this.hora = hora;
-	}
-
-	public String getOcurrencia() {
-		return this.ocurrencia;
-	}
-
-	public void setOcurrencia(String ocurrencia) {
-		this.ocurrencia = ocurrencia;
 	}
 
 	public Servicio getServicio() {

@@ -16,7 +16,7 @@ public class ReservacionesPOJO {
 	private int idCalendario;
 	private Date fecha;
 	private Time hora;
-	private String ocurrencia;
+	private String estado;
 	
 	
 	public int getIdCalendario() {
@@ -43,12 +43,12 @@ public class ReservacionesPOJO {
 		this.hora = hora;
 	}
 	
-	public String getOcurrencia() {
-		return ocurrencia;
+	public String getEstado() {
+		return estado;
 	}
 	
-	public void setOcurrencia(String ocurrencia) {
-		this.ocurrencia = ocurrencia;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 			
 }

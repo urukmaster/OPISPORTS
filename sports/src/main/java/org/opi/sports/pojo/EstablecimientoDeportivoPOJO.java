@@ -31,8 +31,10 @@ public class EstablecimientoDeportivoPOJO {
 	private List<ServicioPOJO> servicios;
 	//Lista de calendarios
 	private List<CalendarioPOJO> calendario;
-	//Id del usuario que pertece el establecimiento
-	private UsuarioPOJO idUsuario;
+	//Lista de reservaciones pendientes
+	private List<CalendarioPOJO> pendientes;
+	
+	
 	/**
 	 * Metodo get 
 	 * 
@@ -105,20 +107,6 @@ public class EstablecimientoDeportivoPOJO {
 	 * Metodo get 
 	 * 
 	 */
-	public UsuarioPOJO getIdUsuario() {
-		return idUsuario;
-	}
-	/**
-	 * Metodo set 
-	 * 
-	 */
-	public void setIdUsuario(UsuarioPOJO idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	/**
-	 * Metodo get 
-	 * 
-	 */
 	public List<ServicioPOJO> getServicios() {
 		return servicios;
 	}
@@ -142,5 +130,11 @@ public class EstablecimientoDeportivoPOJO {
 	 */
 	public void setCalendario() {
 		this.calendario = ReservacionesHelper.getInstance().calendarioSerializer(getServicios());
+	}
+	public List<CalendarioPOJO> getPendientes() {
+		return pendientes;
+	}
+	public void setPendientes() {
+		this.pendientes = ReservacionesHelper.getInstance().reservacionesPendientes(getServicios());
 	}
 }

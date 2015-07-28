@@ -4,11 +4,14 @@ import org.joda.time.DateTime;
 
 public class CalendarioPOJO {
 
+	private Integer idCalendario;
+	private Integer servicio;
 	private String title;
 	private DateTime start;
 	private DateTime end;
 	private String backgroundColor;
 	private String borderColor;
+	
 	public String getTitle() {
 		return title;
 	}
@@ -47,4 +50,17 @@ public class CalendarioPOJO {
                 "borderColor: '" + getBorderColor() + "'";
 		return calendario;
 	}
+	public Integer getIdCalendario() {
+		return idCalendario;
+	}
+	public void setIdCalendario(Integer idCalendario) {
+		this.idCalendario = idCalendario;
+	}
+	public Integer getServicio() {
+		return servicio;
+	}
+	public void setServicio(int servicio) {
+		this.servicio = servicio;
+	}
+	
 }

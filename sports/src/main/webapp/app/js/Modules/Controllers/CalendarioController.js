@@ -312,10 +312,6 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	
         	$modalInstance.close('closed');  
         	
-        /*	;lkjklhl*/
-        	console.log(establecimientoCalendario.id);
-        	console.log(initReservaciones(establecimientoCalendario.calendario));
-        	$rootScope.$broadcast("myEvent", initReservaciones(establecimientoCalendario.calendario));
             
         };
 
@@ -327,7 +323,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	$http.post('rest/reservaciones/save', {
     			fecha: fecha,
     			hora: hora.getTime(),
-    			ocurrencia : 'Normal',
+    			estado : 'Pendiente',
     			servicio : + servicioActual,
     			usuario : 1,
     			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
@@ -340,7 +336,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario.calendario = data;
+    			establecimientoCalendario = data;
     			$('#calendarioContent').remove();
     			$rootScope.$broadcast("actualizar");
     		});

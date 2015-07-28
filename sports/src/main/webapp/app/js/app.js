@@ -171,10 +171,21 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil.reservaciones',{
+            	url:'/reservaciones',
+            	title:'Reservaciones',
+            	templateUrl: helper.basepath('perfil-reservaciones.html')
+            })
+            .state('app.perfil.reservaciones.calendario',{
                 url: '/reservaciones',
                 title: 'Reservaciones',
                 templateUrl: helper.basepath('perfil-calendario.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfil.reservaciones.pendientes',{
+                url: '/reservaciones',
+                title: 'Reservaciones',
+                templateUrl: helper.basepath('perfil-pendientes.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfilEvento',{
                 url: '/perfilEvento/{id:[0-9]{1,4}}',

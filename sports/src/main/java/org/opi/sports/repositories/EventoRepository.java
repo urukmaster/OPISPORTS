@@ -19,5 +19,6 @@ public interface EventoRepository extends CrudRepository<Evento, Integer> {
 
 	public List<Evento> findAll();
 	public Evento findOne(Integer idEvento);
+	public <Eventos extends Evento> Eventos save(Eventos evento);
 
 }

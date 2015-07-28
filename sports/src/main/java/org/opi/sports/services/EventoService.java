@@ -29,4 +29,12 @@ public class EventoService implements EventoServiceInterface{
 		return eventoRepositorio.findOne(id);
 	}
 
+	public <Eventos extends Evento> Eventos save(Eventos evento) {
+		return eventoRepositorio.save(evento);
+	}
+
+	public Evento findOne(Integer idEvento) {
+		return eventoRepositorio.findOne(idEvento);
+	}
+
 }

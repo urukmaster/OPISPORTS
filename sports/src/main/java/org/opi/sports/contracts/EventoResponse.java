@@ -20,7 +20,7 @@ public class EventoResponse extends BaseResponse{
 
 	private List<EventoPOJO> eventos;
 	private List<EventoCalendarioPOJO> JSONCalendar;
-	private Evento evento;
+	private EventoPOJO evento;
 	
 	public List<EventoPOJO> getEventos() {
 		return eventos;
@@ -34,10 +34,10 @@ public class EventoResponse extends BaseResponse{
 	public void setJSONCalendar(List<EventoCalendarioPOJO> jSONCalendar) {
 		JSONCalendar = jSONCalendar;
 	}
-	public Evento getEvento() {
+	public EventoPOJO getEvento() {
 		return evento;
 	}
-	public void setEvento(Evento evento) {
+	public void setEvento(EventoPOJO evento) {
 		this.evento = evento;
 	}
 }

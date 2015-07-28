@@ -9,6 +9,7 @@ import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.CalendarioPOJO;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ReservacionesServiceInterface;
@@ -74,7 +75,28 @@ public class ReservacionController {
 	}
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public List<CalendarioPOJO> save(
+	public EstablecimientoDeportivoPOJO save(
+			@RequestBody ReservacionesRequest reservacion) {
+
+		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
+				.saveReservacion(reservacion, reservacionesServices,
+						usuarioServices.findOne(reservacion.getUsuario()),
+						servicioServices.findOne(reservacion.getServicio()));
+
+		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
+			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+			reservaciones.add(reservacionView);
+		}
+
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
+	}
+
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public List<CalendarioPOJO> update(
 			@RequestBody ReservacionesRequest reservacion) {
 
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
@@ -93,5 +115,4 @@ public class ReservacionController {
 						establecimientoDeportivoService.findOne(reservacion
 								.getEstablecimiento())).getCalendario();
 	}
-
 }
