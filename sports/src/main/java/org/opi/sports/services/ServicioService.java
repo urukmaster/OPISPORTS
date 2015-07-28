@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 public class ServicioService implements ServicioServiceInterface{
 
 	@Autowired
-	private ServicioRepository servicioRepository;
+	ServicioRepository servicioRepository;
+	
+	@Autowired
+	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
 	@Transactional
 	public List<Servicio> findAll() {
@@ -26,9 +29,10 @@ public class ServicioService implements ServicioServiceInterface{
 	}
 
 	@Transactional
-	public <S extends Servicio> S save(S servicio) {
+	public <Servicios extends Servicio> Servicios save(Servicios servicio) {
 		return servicioRepository.save(servicio);
 	}
 
+	
 	
 }

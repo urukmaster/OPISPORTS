@@ -1,0 +1,16 @@
+<div ng-controller="ReservacionesController">
+<div class="row">
+	<div class="col-lg-9">
+		<div id="panelDemo15" class="panel panel-default">
+			<div class="panel-body">
+				<ul class="nav nav-tabs nav-justified">
+					<li><a ng-click="calendario()">Calendario</a></li>
+					<li><a ng-click="pendientes()">Reservaciones pendientes</a></li>
+				</ul>
+			</div>
+			<div ui-view=""></div>
+		</div>
+	</div>
+</div>
+
+<script src="app/js/Modules/Controllers/ReservacionesController.js"></script>

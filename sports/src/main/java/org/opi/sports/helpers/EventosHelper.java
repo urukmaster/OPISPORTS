@@ -8,8 +8,14 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.opi.sports.contracts.EventoRequest;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.utils.PojoUtils;
 
 /**
  * Fecha: 15-07-2015 version 1.0
@@ -71,8 +77,8 @@ public class EventosHelper {
 					+ " "
 					+ convertirHora.format(sumarHora.getTime())));
 			eventos.setBackgroundColor("#f56954");
-			eventos.setBorderColor("#f56954"); 	
-			
+			eventos.setBorderColor("#f56954");
+
 			eventos.setIdEvento(eventoView.getIdEvento());
 
 			listaEventos.add(eventos);
@@ -88,4 +94,23 @@ public class EventosHelper {
 
 	}
 
+	public EventoPOJO getEvento(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
+		
+		Evento evento = eventoService.findOne(eventoRequest.getIdEvento());
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(eventoRequest.getEstablecimiento());
+		evento.setCupo(eventoRequest.getCupo());
+		evento.setDireccion(eventoRequest.getDireccion());
+		evento.setFecha(eventoRequest.getFecha());
+		evento.setHora(eventoRequest.getHora());
+		evento.setInformacion(eventoRequest.getInformacion());
+		evento.setNombre(eventoRequest.getNombre());
+		evento = eventoService.save(evento);
+		
+		EventoPOJO eventoPOJO = new EventoPOJO();
+		
+		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
+		
+		return eventoPOJO;
+		
+	}
 }
