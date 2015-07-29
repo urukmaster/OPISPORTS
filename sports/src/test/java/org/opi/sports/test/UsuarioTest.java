@@ -15,7 +15,6 @@ import org.opi.sports.ejb.Permisos_Rol;
 import org.opi.sports.ejb.Rol;
 import org.opi.sports.ejb.Usuario_Rol;
 import org.opi.sports.pojo.UsuarioPOJO;
-import org.opi.sports.services.TipoServicioServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;

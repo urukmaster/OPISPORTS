@@ -3970,7 +3970,22 @@ App.controller('ChartRickshawController', ['$scope', function($scope) {
 
 App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils',
     function($rootScope, $scope, $state, $http, $timeout, Utils){
-
+		$scope.validarUsuario = function(item){
+			
+			if(typeof $rootScope.usuario == 'undefined'){
+				return false;
+			}else{
+				for(i=0;i<$rootScope.usuario.roles.length;i++){
+					for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+						if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+							return true;
+						}
+					}
+				}
+							
+			}
+			
+		};
         var collapseList = [];
 
         // demo: when switch from collapse to hover, close all items
@@ -4805,7 +4820,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope', function(
     }
     
     $scope.logout = function(){
-    	$rootScope.usuario = null;
+    	$rootScope.usuario = undefined;
     }
 
 }]);
