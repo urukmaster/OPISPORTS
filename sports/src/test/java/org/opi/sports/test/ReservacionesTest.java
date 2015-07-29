@@ -97,7 +97,7 @@ public class ReservacionesTest {
 		ReservacionesRequest reservacion = new ReservacionesRequest();
 		reservacion.setFecha(new Date());
 		reservacion.setHora(new Time(new Date().getTime()));
-		reservacion.setOcurrencia("Siempre");
+		reservacion.setEstado("Pendiente");
 		reservacion.setUsuario(1);
 		reservacion.setServicio(1);
 		

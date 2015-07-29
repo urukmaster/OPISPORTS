@@ -1,8 +1,5 @@
 package org.opi.sports.contracts;
 
-import java.util.List;
-
-import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 
 

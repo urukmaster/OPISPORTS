@@ -2,10 +2,7 @@ package org.opi.sports.services;
 
 import java.util.List;
 
-import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
-import org.opi.sports.ejb.Reservaciones;
-import org.springframework.data.domain.Page;
 
 /**
  * Fecha: 13-07-2015 version 1.0
@@ -35,4 +32,6 @@ public interface EstablecimientoDeportivoServiceInterface {
 	public EstablecimientoDeportivo findByName(String pnombre);
 	
 	public boolean exists(Integer idEstablecimiento);
+	
+	public EstablecimientoDeportivo findOne(Integer idEstablecimiento);
 }

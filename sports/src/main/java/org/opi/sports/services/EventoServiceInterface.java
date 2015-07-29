@@ -18,5 +18,9 @@ public interface EventoServiceInterface {
 	public List<Evento> getAllEventos();
 	
 	public Evento getEvento(int id);
+	
+	public <Eventos extends Evento> Eventos save(Eventos evento);
+	
+	public Evento findOne(Integer idEvento);
 
 }

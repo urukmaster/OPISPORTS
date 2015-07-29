@@ -58,9 +58,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<Review> reviews;
 
-	//bi-directional many-to-one association to Supscripcion
+	//bi-directional many-to-one association to Subscripcion
 	@OneToMany(mappedBy="usuario")
-	private List<Supscripcion> supscripcions;
+	private List<Subscripcion> subscripcions;
 
 	//bi-directional many-to-one association to Usuario_Rol
 	@OneToMany(mappedBy="usuario")
@@ -279,26 +279,26 @@ public class Usuario implements Serializable {
 		return review;
 	}
 
-	public List<Supscripcion> getSupscripcions() {
-		return this.supscripcions;
+	public List<Subscripcion> getSubscripcions() {
+		return this.subscripcions;
 	}
 
-	public void setSupscripcions(List<Supscripcion> supscripcions) {
-		this.supscripcions = supscripcions;
+	public void setSubscripcions(List<Subscripcion> subscripcions) {
+		this.subscripcions = subscripcions;
 	}
 
-	public Supscripcion addSupscripcion(Supscripcion supscripcion) {
-		getSupscripcions().add(supscripcion);
-		supscripcion.setUsuario(this);
+	public Subscripcion addSubscripcion(Subscripcion subscripcion) {
+		getSubscripcions().add(subscripcion);
+		subscripcion.setUsuario(this);
 
-		return supscripcion;
+		return subscripcion;
 	}
 
-	public Supscripcion removeSupscripcion(Supscripcion supscripcion) {
-		getSupscripcions().remove(supscripcion);
-		supscripcion.setUsuario(null);
+	public Subscripcion removeSubscripcion(Subscripcion subscripcion) {
+		getSubscripcions().remove(subscripcion);
+		subscripcion.setUsuario(null);
 
-		return supscripcion;
+		return subscripcion;
 	}
 
 	public List<Usuario_Rol> getUsuarioRols() {
