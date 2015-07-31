@@ -6,12 +6,9 @@ import java.util.List;
 
 import org.opi.sports.contracts.UsuarioRequest;
 import org.opi.sports.contracts.UsuarioResponse;
-import org.opi.sports.ejb.Usuario;
 import org.opi.sports.helpers.UsuarioHelper;
-import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.UsuarioServiceInterface;
-import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -60,7 +60,7 @@ public class EstablecimientoDeportivoTest {
 	 * Esta prueba permite realizar la consulta a la base de datos mediante el servicio
 	 * el cual va a traer una lista de Tipos de Servicios
 	 */
-	@Test
+	//@Test
 	public void getLisEstablecimientoDeportivoTest(){
 		assertNotNull(establecimientoService.getAllEstablecimientos());
 	}

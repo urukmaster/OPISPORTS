@@ -49,7 +49,7 @@ public class UsuarioTest {
 	 * "Autowired"
 	 */
 	@Test
-	public void getTipoServicioServiceTest(){
+	public void getUsuarioServiceTest(){
 		assertNotNull(usuarioService);
 	}
 	
@@ -72,7 +72,7 @@ public class UsuarioTest {
 	* Esta prueba permite saber si el usuario se actualizo.
 	*
 	*/
-	@Test
+	//@Test
 	public void updateUsuarioTest(){
 		Usuario usuarioEJB = new Usuario();
 		usuarioEJB.setIdUsuario(2);

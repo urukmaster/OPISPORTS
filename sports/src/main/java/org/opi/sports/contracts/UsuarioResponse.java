@@ -8,7 +8,7 @@ import java.util.*;
 *
 * @author Juan Manuel Viales Chavarría
 *
-*Sprint #4 Se encarga de realizar los response de los usuarios, desde el fornt end.
+*Sprint #4 Se encarga de realizar los response de los usuarios, desde el front end.
 *
 */
 public class UsuarioResponse extends BaseResponse {
