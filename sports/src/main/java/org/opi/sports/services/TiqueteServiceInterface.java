@@ -1,6 +1,8 @@
 package org.opi.sports.services;
 
 import java.util.List;
+
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Tiquete;
 
 /**
@@ -16,6 +18,6 @@ public interface TiqueteServiceInterface {
 
 	public List<Tiquete> getAllTiquetes();
 	
-	public Tiquete getTiquete(int id);
+	public Tiquete findOne(Integer idTiquete);
 
 }

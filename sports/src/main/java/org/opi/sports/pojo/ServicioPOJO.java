@@ -8,23 +8,14 @@ import org.joda.time.DateTime;
 public class ServicioPOJO {
 	
 	private int idServicio;
-
 	private byte arbitro;
-
 	private Time horaApertura;
-
 	private Time horaCierre;
-
 	private String precio;
-
-	private String servicio;
-	
-	private List<ReservacionesPOJO> reservaciones;
-	
-	private TipoServicioPOJO tipoServicio;
-	
-	private DateTime horaInicial;
-	
+	private String servicio;	
+	private List<ReservacionesPOJO> reservaciones;	
+	private TipoServicioPOJO tipoServicio;	
+	private DateTime horaInicial;	
 	private DateTime horaFinal;
 
 	public int getIdServicio() {

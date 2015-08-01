@@ -9,15 +9,10 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
 
     
     $scope.init = function(){
-		$http.get('rest/evento/getAll')
+		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
-			var eventos = response.eventos;
-			for (var i = 0; i < eventos.length; i++) {
-                if (eventos[i].idEvento == $stateParams.id){
-                    $scope.evento = eventos[i];
-                }
-                
-            }
+
+            $scope.evento = response.evento;
 		});
 		
 
