@@ -171,16 +171,38 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil.reservaciones',{
+            	url:'/reservaciones',
+            	title:'Reservaciones',
+            	templateUrl: helper.basepath('perfil-reservaciones.html')
+            })
+            .state('app.perfil.reservaciones.calendario',{
                 url: '/reservaciones',
                 title: 'Reservaciones',
                 templateUrl: helper.basepath('perfil-calendario.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.perfil.reservaciones.pendientes',{
+                url: '/reservaciones',
+                title: 'Reservaciones',
+                templateUrl: helper.basepath('perfil-pendientes.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
             .state('app.perfilEvento',{
-                url: '/perfilEvento',
+                url: '/perfilEvento/{id:[0-9]{1,4}}',
                 title: 'Perfil de evento',
                 templateUrl: helper.basepath('perfilEvento.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfilEvento.informacion',{
+                url: '/informacionEvento',
+                title: 'Informacion',
+                templateUrl: helper.basepath('perfilEvento-informacion.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets')
+            })
+            .state('app.perfilEvento.puntosRetiro',{
+                url: '/puntosRetiro',
+                title: 'Puntos de retiro',
+                templateUrl: helper.basepath('perfilEvento-puntosRetiro.html'),
             })
             .state('app.registrarEventoMasivo',{
                 url: '/registrarEventoMasivo',
@@ -2087,8 +2109,9 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     };
     
     $scope.init = function(){
-    	$scope.mytime.setMinutes(00, 00, 00);
-    	$scope.reservacion.hora = $scope.mytime;
+    	if($scope.reservacion != null){
+    		$scope.reservacion.hora = $scope.mytime;
+    	}
     }
     
     $scope.init();

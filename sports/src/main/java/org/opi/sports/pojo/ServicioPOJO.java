@@ -1,29 +1,33 @@
 package org.opi.sports.pojo;
 
-import java.util.Date;
+import java.sql.Time;
 import java.util.List;
 
-import org.opi.sports.ejb.Reservaciones;
-import org.opi.sports.ejb.TipoServicio;
+import org.joda.time.DateTime;
 
 public class ServicioPOJO {
+	
 	private int idServicio;
 
 	private byte arbitro;
 
-	private Date horaApertura;
+	private Time horaApertura;
 
-	private String horaCierre;
+	private Time horaCierre;
 	
 	private byte parqueo;
 
-	private int precio;
+	private String precio;
 
 	private String servicio;
 	
 	private List<ReservacionesPOJO> reservaciones;
 	
 	private TipoServicioPOJO tipoServicio;
+	
+	private DateTime horaInicial;
+	
+	private DateTime horaFinal;
 
 	public int getIdServicio() {
 		return idServicio;
@@ -41,19 +45,19 @@ public class ServicioPOJO {
 		this.arbitro = arbitro;
 	}
 
-	public Date getHoraApertura() {
+	public Time getHoraApertura() {
 		return horaApertura;
 	}
 
-	public void setHoraApertura(Date horaApertura) {
+	public void setHoraApertura(Time horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 
-	public String getHoraCierre() {
+	public Time getHoraCierre() {
 		return horaCierre;
 	}
 
-	public void setHoraCierre(String horaCierre) {
+	public void setHoraCierre(Time horaCierre) {
 		this.horaCierre = horaCierre;
 	}
 
@@ -65,11 +69,11 @@ public class ServicioPOJO {
 		this.parqueo = parqueo;
 	}
 
-	public int getPrecio() {
+	public String getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
 
@@ -95,6 +99,22 @@ public class ServicioPOJO {
 
 	public void setTipoServicio(TipoServicioPOJO tipoServicio) {
 		this.tipoServicio = tipoServicio;
+	}
+
+	public DateTime getHoraInicial() {
+		return horaInicial;
+	}
+
+	public void setHoraInicial(DateTime horaInicial) {
+		this.horaInicial = horaInicial;
+	}
+
+	public DateTime getHoraFinal() {
+		return horaFinal;
+	}
+
+	public void setHoraFinal(DateTime horaFinal) {
+		this.horaFinal = horaFinal;
 	}
 
 	

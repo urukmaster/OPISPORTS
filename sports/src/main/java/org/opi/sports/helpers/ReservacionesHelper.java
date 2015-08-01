@@ -62,69 +62,122 @@ public class ReservacionesHelper {
 		for (ServicioPOJO servicioView : listaServiciosView) {
 			for (ReservacionesPOJO reservacionView : servicioView
 					.getReservaciones()) {
-				CalendarioPOJO reservacion = new CalendarioPOJO();
+				if (reservacionView.getEstado().equals("Reservado")) {
+					CalendarioPOJO reservacion = new CalendarioPOJO();
 
-				SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
-				SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat convertirHora = new SimpleDateFormat(
+							"HH:mm");
+					SimpleDateFormat convertirFecha = new SimpleDateFormat(
+							"dd-MM-yyyy");
 
-				Calendar sumarHora = Calendar.getInstance();
-				sumarHora.setTime(reservacionView.getHora());
-				sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+					Calendar sumarHora = Calendar.getInstance();
+					sumarHora.setTime(reservacionView.getHora());
+					sumarHora.add(Calendar.HOUR_OF_DAY, 1);
 
-				reservacion.setTitle(servicioView.getServicio());
-				reservacion.setStart(convertirFecha(convertirFecha
-						.format(reservacionView.getFecha())
-						+ " "
-						+ convertirHora.format(reservacionView.getHora()
-								.getTime())));
-				reservacion.setEnd(convertirFecha(convertirFecha
-						.format(reservacionView.getFecha())
-						+ " "
-						+ convertirHora.format(sumarHora.getTime())));
-				reservacion.setBackgroundColor("#f56954");
-				reservacion.setBorderColor("#f56954");
+					reservacion.setIdCalendario(reservacionView.getIdCalendario());
+					reservacion.setTitle(servicioView.getServicio());
+					reservacion.setStart(convertirFecha(convertirFecha
+							.format(reservacionView.getFecha())
+							+ " "
+							+ convertirHora.format(reservacionView.getHora()
+									.getTime())));
+					reservacion.setEnd(convertirFecha(convertirFecha
+							.format(reservacionView.getFecha())
+							+ " "
+							+ convertirHora.format(sumarHora.getTime())));
+					reservacion.setBackgroundColor("#f56954");
+					reservacion.setBorderColor("#f56954");
 
-				calendario.add(reservacion);
+					calendario.add(reservacion);
+				}
 			}
 		}
 
 		return calendario;
 	}
 
-	public List<CalendarioPOJO> reservacionSerializer(
-			List<ReservacionesPOJO> listaReservacionesView) {
+	/**
+	 * Este método serializa cada uno de los atributos de "Reservaciones" para
+	 * poder utilizarlos en el front end como un JSON
+	 */
+	public List<CalendarioPOJO> reservacionesPendientes(
+			List<ServicioPOJO> listaServiciosView) {
 
 		List<CalendarioPOJO> calendario = new ArrayList<CalendarioPOJO>();
 
-			for (ReservacionesPOJO reservacionView : listaReservacionesView) {
-				CalendarioPOJO reservacion = new CalendarioPOJO();
+		for (ServicioPOJO servicioView : listaServiciosView) {
+			for (ReservacionesPOJO reservacionView : servicioView
+					.getReservaciones()) {
+				if (reservacionView.getEstado().equals("Pendiente")) {
+					CalendarioPOJO reservacion = new CalendarioPOJO();
 
-				SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
-				SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat convertirHora = new SimpleDateFormat(
+							"HH:mm");
+					SimpleDateFormat convertirFecha = new SimpleDateFormat(
+							"dd-MM-yyyy");
 
-				Calendar sumarHora = Calendar.getInstance();
-				sumarHora.setTime(reservacionView.getHora());
-				sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+					Calendar sumarHora = Calendar.getInstance();
+					sumarHora.setTime(reservacionView.getHora());
+					sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+					
+					reservacion.setServicio(servicioView.getIdServicio());
+					reservacion.setIdCalendario(reservacionView.getIdCalendario());
+					reservacion.setTitle(servicioView.getServicio());
+					reservacion.setStart(convertirFecha(convertirFecha
+							.format(reservacionView.getFecha())
+							+ " "
+							+ convertirHora.format(reservacionView.getHora()
+									.getTime())));
+					reservacion.setEnd(convertirFecha(convertirFecha
+							.format(reservacionView.getFecha())
+							+ " "
+							+ convertirHora.format(sumarHora.getTime())));
+					reservacion.setBackgroundColor("#f56954");
+					reservacion.setBorderColor("#f56954");
 
-				reservacion.setTitle("Cancha");
-				reservacion.setStart(convertirFecha(convertirFecha
-						.format(reservacionView.getFecha())
-						+ " "
-						+ convertirHora.format(reservacionView.getHora()
-								.getTime())));
-				reservacion.setEnd(convertirFecha(convertirFecha
-						.format(reservacionView.getFecha())
-						+ " "
-						+ convertirHora.format(sumarHora.getTime())));
-				reservacion.setBackgroundColor("#f56954");
-				reservacion.setBorderColor("#f56954");
-
-				calendario.add(reservacion);
+					calendario.add(reservacion);
+				}
+			}
 		}
 
 		return calendario;
 	}
 	
+	public List<CalendarioPOJO> reservacionSerializer(
+			List<ReservacionesPOJO> listaReservacionesView) {
+
+		List<CalendarioPOJO> calendario = new ArrayList<CalendarioPOJO>();
+
+		for (ReservacionesPOJO reservacionView : listaReservacionesView) {
+			CalendarioPOJO reservacion = new CalendarioPOJO();
+
+			SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
+			SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
+
+			Calendar sumarHora = Calendar.getInstance();
+			sumarHora.setTime(reservacionView.getHora());
+			sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+			
+			reservacion.setTitle("Cancha");
+			reservacion
+					.setStart(convertirFecha(convertirFecha
+							.format(reservacionView.getFecha())
+							+ " "
+							+ convertirHora.format(reservacionView.getHora()
+									.getTime())));
+			reservacion.setEnd(convertirFecha(convertirFecha
+					.format(reservacionView.getFecha())
+					+ " "
+					+ convertirHora.format(sumarHora.getTime())));
+			reservacion.setBackgroundColor("#f56954");
+			reservacion.setBorderColor("#f56954");
+
+			calendario.add(reservacion);
+		}
+
+		return calendario;
+	}
+
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
 				.forPattern("dd-MM-yyyy HH:mm");
@@ -133,21 +186,27 @@ public class ReservacionesHelper {
 	}
 
 	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
-			ReservacionesServiceInterface reservacionService, Usuario usuario, Servicio servicio) {
-
+			ReservacionesServiceInterface reservacionService, Usuario usuario,
+			Servicio servicio) {
+		
+		
 		Reservaciones reservacionEJB = new Reservaciones();
 		reservacionEJB.setFecha(reservacion.getFecha());
 		reservacionEJB.setHora(reservacion.getHora());
-		reservacionEJB.setOcurrencia(reservacion.getOcurrencia());
-		
+		reservacionEJB.setEstado(reservacion.getEstado());
+
 		reservacionEJB.setServicio(servicio);
 		reservacionEJB.setUsuario(usuario);
 		
+		if(reservacion.getAccion().equals("Aceptar")){
+			reservacionEJB.setIdCalendario(reservacion.getIdCalendario());
+		}
+
 		ReservacionesPOJO reservacionPOJO = new ReservacionesPOJO();
 
 		PojoUtils.pojoMappingUtility(reservacionPOJO,
 				reservacionService.save(reservacionEJB));
-		
+
 		return reservacionPOJO;
 	}
 

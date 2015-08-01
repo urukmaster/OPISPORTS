@@ -6,7 +6,7 @@
  =========================================================*/
 
 
-App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$state', function($scope, $http, $timeout, $state) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -71,6 +71,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
                 week:  'semana',
                 day:   'dia'
             },
+            eventClick:  function(evento, jsEvent, view) {
+                $state.go('app.perfilEvento',{id: evento.idEvento});
+                
+            },
             events: events
         });
     }   
@@ -88,6 +92,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
     	evento.end = new Date(eventoJSON.end.millis);
     	evento.backgroundColor = eventoJSON.backgroundColor;
     	evento.borderColor = eventoJSON.borderColor;
+    	evento.idEvento = eventoJSON.idEvento;
     	
     	eventos.push(evento);
     })
@@ -180,14 +185,14 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
     	$http.get('rest/evento/getAll')
         .success(function(data) {
         	var calendar = $('#calendar');
-        	
+        	        	
         	var eventos = initEventos(data.jsoncalendar);
         	
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, eventos);
 
-        })
+        })	
     	
     }
     
