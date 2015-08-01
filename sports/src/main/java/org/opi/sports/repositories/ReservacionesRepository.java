@@ -20,5 +20,7 @@ public interface ReservacionesRepository extends CrudRepository<Reservaciones, I
 	public <S extends Reservaciones> S save(S reservacion);
 	
 	public boolean exists(Integer idReservacion);
+	
+	public Reservaciones findOne(Integer idReservacion);
 
 }
