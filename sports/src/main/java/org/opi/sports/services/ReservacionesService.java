@@ -31,6 +31,10 @@ public class ReservacionesService implements ReservacionesServiceInterface{
 
 	public boolean exists(Integer idReservacion) {
 		return reservacionesRepositorio.exists(idReservacion);
+	}
+
+	public Reservaciones findOne(Integer idReservacion) {
+		return reservacionesRepositorio.findOne(idReservacion);
 	}	
 
 }

@@ -194,7 +194,7 @@ public class ReservacionesHelper {
 		reservacionEJB.setFecha(reservacion.getFecha());
 		reservacionEJB.setHora(reservacion.getHora());
 		reservacionEJB.setEstado(reservacion.getEstado());
-
+		reservacionEJB.setActive((byte) 1);
 		reservacionEJB.setServicio(servicio);
 		reservacionEJB.setUsuario(usuario);
 		

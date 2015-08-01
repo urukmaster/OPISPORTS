@@ -4,7 +4,9 @@ import org.opi.sports.contracts.ServicioRequest;
 import org.opi.sports.contracts.ServicioResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.TipoServicio;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.ServicioHelper;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.services.TipoServicioServiceInterface;
@@ -28,21 +30,34 @@ public class ServicioController {
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public ServicioResponse save(@RequestBody ServicioRequest servicioRequest) {
+	public EstablecimientoDeportivoPOJO save(@RequestBody ServicioRequest servicioRequest) {
 
 		ServicioResponse servicioResponse = new ServicioResponse();
 
 		TipoServicio tipoServicioEJB = tipoServicioService
 				.findOne(servicioRequest.getTipoServicio());
 
-		EstablecimientoDeportivo establecimientoDeportivoEJB = establecimientoDeportivoService
-				.findOne(servicioRequest.getEstablecimiento());
 
 		servicioResponse.setServicio(ServicioHelper.getInstance().saveServicio(
-				servicioRequest, establecimientoDeportivoEJB, tipoServicioEJB,
+				servicioRequest, tipoServicioEJB,
 				servicioService));
 
-		return servicioResponse;
+		return EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimientoDeportivoService
+				.findOne(servicioRequest.getEstablecimiento()));
+
+
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO delete(@RequestBody ServicioRequest servicioRequest) {
+
+		ServicioResponse servicioResponse = new ServicioResponse();
+
+		servicioResponse.setServicio(ServicioHelper.getInstance().deleteServicio(
+				servicioRequest, servicioService));
+
+		return EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimientoDeportivoService
+				.findOne(servicioRequest.getEstablecimiento()));
 
 	}
 }
