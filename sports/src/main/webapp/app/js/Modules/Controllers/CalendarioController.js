@@ -326,7 +326,8 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			estado : 'Pendiente',
     			servicio : + servicioActual,
     			usuario : 1,
-    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
+    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
+    			accion:'Regsitrar'
     		 	})
     		.success(function(data){
     			var toasterdata = {

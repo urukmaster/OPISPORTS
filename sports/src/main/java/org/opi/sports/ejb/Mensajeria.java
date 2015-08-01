@@ -21,8 +21,7 @@ public class Mensajeria implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaEnvio;
 
-	@Lob
-	private String mensaje;
+	private Object mensaje;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -53,11 +52,11 @@ public class Mensajeria implements Serializable {
 		this.horaEnvio = horaEnvio;
 	}
 
-	public String getMensaje() {
+	public Object getMensaje() {
 		return this.mensaje;
 	}
 
-	public void setMensaje(String mensaje) {
+	public void setMensaje(Object mensaje) {
 		this.mensaje = mensaje;
 	}
 

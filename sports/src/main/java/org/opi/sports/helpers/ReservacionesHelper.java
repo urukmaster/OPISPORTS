@@ -108,7 +108,7 @@ public class ReservacionesHelper {
 		for (ServicioPOJO servicioView : listaServiciosView) {
 			for (ReservacionesPOJO reservacionView : servicioView
 					.getReservaciones()) {
-				if (!reservacionView.getEstado().equals("Pendiente")) {
+				if (reservacionView.getEstado().equals("Pendiente")) {
 					CalendarioPOJO reservacion = new CalendarioPOJO();
 
 					SimpleDateFormat convertirHora = new SimpleDateFormat(

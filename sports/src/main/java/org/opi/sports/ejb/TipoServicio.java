@@ -18,6 +18,8 @@ public class TipoServicio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idTipoServicio;
 
+	private Object active;
+
 	private String tipoServicio;
 
 	//bi-directional many-to-one association to Servicio
@@ -33,6 +35,14 @@ public class TipoServicio implements Serializable {
 
 	public void setIdTipoServicio(int idTipoServicio) {
 		this.idTipoServicio = idTipoServicio;
+	}
+
+	public Object getActive() {
+		return this.active;
+	}
+
+	public void setActive(Object active) {
+		this.active = active;
 	}
 
 	public String getTipoServicio() {
