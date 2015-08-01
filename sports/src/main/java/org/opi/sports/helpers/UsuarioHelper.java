@@ -7,7 +7,7 @@ import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Servicio;
-import org.opi.sports.ejb.Supscripcion;
+import org.opi.sports.ejb.Subscripcion;
 import org.opi.sports.ejb.TipoEvento;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.ejb.Usuario;
@@ -70,7 +70,7 @@ public class UsuarioHelper {
 	 */
 	private List<SubscripcionPOJO> subscripcion(Usuario pusuario) {
 		List<SubscripcionPOJO> subscripcionespojo= new ArrayList<SubscripcionPOJO>();
-		for(Supscripcion subscripcion : pusuario.getSupscripcions()){
+		for(Subscripcion subscripcion : pusuario.getSubscripcions()){
 			subscripcionespojo.add(convertirSubscripcion(subscripcion));
 		}
 		return subscripcionespojo;
@@ -78,7 +78,7 @@ public class UsuarioHelper {
 	/**
 	 * Metodo encargado de convertir una suscripcion ejb en una suscripciones pojo
 	 */
-	private SubscripcionPOJO convertirSubscripcion(Supscripcion subscripcion) {
+	private SubscripcionPOJO convertirSubscripcion(Subscripcion subscripcion) {
 		// TODO Auto-generated method stub
 		SubscripcionPOJO subscripcionpojo = new SubscripcionPOJO();
 		PojoUtils.pojoMappingUtility(subscripcionpojo, subscripcion);
@@ -126,7 +126,7 @@ public class UsuarioHelper {
 	private TiquetePOJO convertirTiquete(Tiquete tiquete) {
 		TiquetePOJO tiquetepojo = new TiquetePOJO();
 		PojoUtils.pojoMappingUtility(tiquetepojo, tiquete);
-		tiquetepojo.setEvento(convertirEvento(tiquete.getEvento()));
+		tiquetepojo.setIdEvento(convertirEvento(tiquete.getEvento()));
 		return tiquetepojo;
 	}
 	/**

@@ -73,23 +73,23 @@ public class RetoHelper {
 		return convertirHora.parseDateTime(hora);
 	}
 	
-	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
-			ReservacionesServiceInterface reservacionService, Usuario usuario, Servicio servicio) {
-
-		Reservaciones reservacionEJB = new Reservaciones();
-		reservacionEJB.setFecha(reservacion.getFecha());
-		reservacionEJB.setHora(reservacion.getHora());
-		reservacionEJB.setOcurrencia(reservacion.getOcurrencia());
-		
-		reservacionEJB.setServicio(servicio);
-		reservacionEJB.setUsuario(usuario);
-		
-		ReservacionesPOJO reservacionPOJO = new ReservacionesPOJO();
-
-		PojoUtils.pojoMappingUtility(reservacionPOJO,
-				reservacionService.save(reservacionEJB));
-		
-		return reservacionPOJO;
-	}
+//	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
+//			ReservacionesServiceInterface reservacionService, Usuario usuario, Servicio servicio) {
+//
+//		Reservaciones reservacionEJB = new Reservaciones();
+//		reservacionEJB.setFecha(reservacion.getFecha());
+//		reservacionEJB.setHora(reservacion.getHora());
+//		reservacionEJB.setOcurrencia(reservacion.getOcurrencia());
+//		
+//		reservacionEJB.setServicio(servicio);
+//		reservacionEJB.setUsuario(usuario);
+//		
+//		ReservacionesPOJO reservacionPOJO = new ReservacionesPOJO();
+//
+//		PojoUtils.pojoMappingUtility(reservacionPOJO,
+//				reservacionService.save(reservacionEJB));
+//		
+//		return reservacionPOJO;
+//	}
 
 }

@@ -3,7 +3,7 @@ package org.opi.sports.pojo;
 import java.util.List;
 
 import org.opi.sports.ejb.Inscripcion;
-import org.opi.sports.ejb.Supscripcion;
+import org.opi.sports.ejb.Subscripcion;
 import org.opi.sports.ejb.Usuario_Rol;
 
 /**

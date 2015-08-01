@@ -13,7 +13,7 @@ public class RetosPOJO {
 	private String nombreUsuario;
 	private String telefonoUsuario;
 	private String nombreServicio;
-	private int precioServicio;
+	private String precioServicio;
 	private String nombreEstablecimiento;
 	private String direccionEstablecimiento;
 	
@@ -65,11 +65,11 @@ public class RetosPOJO {
 	public void setNombreServicio(String nombreServicio) {
 		this.nombreServicio = nombreServicio;
 	}
-	public int getPrecioServicio() {
+	public String getPrecioServicio() {
 		return precioServicio;
 	}
-	public void setPrecioServicio(int precioServicio) {
-		this.precioServicio = precioServicio;
+	public void setPrecioServicio(String string) {
+		this.precioServicio = string;
 	}
 	public String getNombreEstablecimiento() {
 		return nombreEstablecimiento;
