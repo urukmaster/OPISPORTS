@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
 
-	private Object active;
+	private byte active;
 
 	private String apellido;
 
@@ -79,11 +79,11 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 

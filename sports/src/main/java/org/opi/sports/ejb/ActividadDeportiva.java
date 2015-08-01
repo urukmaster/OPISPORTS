@@ -18,7 +18,7 @@ public class ActividadDeportiva implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idActividadDeportiva;
 
-	private Object active;
+	private byte active;
 
 	private String actividadDeportiva;
 
@@ -37,11 +37,11 @@ public class ActividadDeportiva implements Serializable {
 		this.idActividadDeportiva = idActividadDeportiva;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 

@@ -18,7 +18,7 @@ public class EstablecimientoDeportivo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEstablecimientoDeportivo;
 
-	private Object active;
+	private byte active;
 
 	private String direccion;
 
@@ -27,6 +27,10 @@ public class EstablecimientoDeportivo implements Serializable {
 	private String paginaWeb;
 
 	private String telefono;
+
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
+	private Distrito distrito;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -60,11 +64,11 @@ public class EstablecimientoDeportivo implements Serializable {
 		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -98,6 +102,14 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public Distrito getDistrito() {
+		return this.distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	public Usuario getUsuario() {

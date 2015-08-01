@@ -18,7 +18,7 @@ public class TipoEvento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idTipoEvento;
 
-	private Object active;
+	private byte active;
 
 	private String tipo;
 
@@ -41,11 +41,11 @@ public class TipoEvento implements Serializable {
 		this.idTipoEvento = idTipoEvento;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
