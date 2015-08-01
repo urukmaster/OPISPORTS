@@ -64,41 +64,22 @@ public class EstablecimientoDeportivoTest {
 	public void getLisEstablecimientoDeportivoTest(){
 		assertNotNull(establecimientoService.getAllEstablecimientos());
 	}
-	
+
 	/**
 	 * Prueba la implementación del controller
 	 */
-
-	//@Test
-	//public void getEstablecimientoDeportivoGetAll(){
-
-	/*@Test
-	public void getEstablecimientoDeportivoGetAll(){
-
-
-		establecimientoResponse.setEstablecimientoDeportivo(establecimientoDeportivoViewList);
-		
-		assertNotNull(establecimientoResponse);
-	}*/
-	/**
-	 * Prueba la implementación del controller
-	 */
-	//@Test
+	@Test
 	public void getEstablecimientoDeportivofindOne(){
-		//EstablecimientoDeportivo establecimientoDeportivo = establecimientoService.findOne(1);
-		//assertNotNull(establecimientoDeportivo);
+		 
+		assertNotNull(establecimientoService.exists(1));
 	}
 	/**
 	 * Prueba la implementación del controller
 	 */
-	//@Test
-	public void getEstablecimientoDeportivofindByUsuario(){
+	@Test
+	public void getEstablecimientoDeportivofindByName(){
 
-		Usuario usuario = new Usuario();
-		usuario.setIdUsuario(1);
-		//EstablecimientoDeportivo establecimientoDeportivo = establecimientoService.findByUusario(usuario);
-		//System.out.println(establecimientoDeportivo.getNombre());
-		//assertNotNull(establecimientoDeportivo);
+		assertNotNull(establecimientoService.findByName("Soccer center"));
 	}
 	
 }

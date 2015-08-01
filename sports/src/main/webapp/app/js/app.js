@@ -111,7 +111,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.retos', {
                 url: '/retos',
                 title: 'Retos',
-                templateUrl: helper.basepath('retos.html'),
+                templateUrl: helper.basepath('reto.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.eventos', {

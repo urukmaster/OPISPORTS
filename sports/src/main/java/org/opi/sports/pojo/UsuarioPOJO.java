@@ -2,6 +2,8 @@ package org.opi.sports.pojo;
 
 import java.util.List;
 
+import org.opi.sports.ejb.Inscripcion;
+import org.opi.sports.ejb.Supscripcion;
 import org.opi.sports.ejb.Usuario_Rol;
 
 /**
@@ -27,6 +29,10 @@ public class UsuarioPOJO {
 	private String telefono;
 	//Lista de roles del usuario
 	private List<RolPOJO> roles;
+	
+	private List<InscripcionesPOJO> inscripciones;
+	
+	private List<SubscripcionPOJO> subscripciones;
 	
 	/**
 	 * Metodo get que devuelve el id del usuario 
@@ -122,8 +128,17 @@ public class UsuarioPOJO {
 	public void setRoles(List<RolPOJO> roles) {
 		this.roles = roles;
 	}
-
 	
-	
-
+	public List<InscripcionesPOJO> getInscripciones() {
+		return inscripciones;
+	}
+	public void setInscripciones(List<InscripcionesPOJO> inscripciones) {
+		this.inscripciones = inscripciones;
+	}
+	public List<SubscripcionPOJO> getSubscripciones() {
+		return subscripciones;
+	}
+	public void setSubscripciones(List<SubscripcionPOJO> subscripciones) {
+		this.subscripciones = subscripciones;
+	}
 }

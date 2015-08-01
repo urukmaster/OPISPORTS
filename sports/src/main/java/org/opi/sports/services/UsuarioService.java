@@ -1,5 +1,7 @@
 package org.opi.sports.services;
 
+import javax.transaction.Transactional;
+
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,12 @@ public class UsuarioService implements UsuarioServiceInterface{
 
 	public Usuario findOne(Integer idUsuario) {
 		return usuarioRepository.findOne(idUsuario);
+	}
+	@Transactional
+	@Override
+	public boolean exists(int idUsuario) {
+		// TODO Auto-generated method stub
+		return usuarioRepository.exists(idUsuario);
 	}
 	
 	
