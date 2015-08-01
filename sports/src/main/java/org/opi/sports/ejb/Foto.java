@@ -19,10 +19,10 @@ public class Foto implements Serializable {
 
 	private String imagen;
 
-	//bi-directional many-to-one association to Servicio
+	//bi-directional many-to-one association to EstablecimientoDeportivo
 	@ManyToOne
-	@JoinColumn(name="idServicio")
-	private Servicio servicio;
+	@JoinColumn(name="idEstablecimientoDeportivo")
+	private EstablecimientoDeportivo establecimientoDeportivo;
 
 	public Foto() {
 	}
@@ -43,12 +43,12 @@ public class Foto implements Serializable {
 		this.imagen = imagen;
 	}
 
-	public Servicio getServicio() {
-		return this.servicio;
+	public EstablecimientoDeportivo getEstablecimientoDeportivo() {
+		return this.establecimientoDeportivo;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
+		this.establecimientoDeportivo = establecimientoDeportivo;
 	}
 
 }

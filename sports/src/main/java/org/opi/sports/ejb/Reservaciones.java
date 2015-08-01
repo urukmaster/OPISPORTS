@@ -11,7 +11,6 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="Reservaciones")
 @NamedQuery(name="Reservaciones.findAll", query="SELECT r FROM Reservaciones r")
 public class Reservaciones implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,6 +18,8 @@ public class Reservaciones implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCalendario;
+
+	private byte active;
 
 	private String estado;
 
@@ -46,6 +47,14 @@ public class Reservaciones implements Serializable {
 
 	public void setIdCalendario(int idCalendario) {
 		this.idCalendario = idCalendario;
+	}
+
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 	public String getEstado() {

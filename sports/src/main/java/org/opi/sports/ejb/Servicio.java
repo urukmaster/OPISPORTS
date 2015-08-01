@@ -29,11 +29,7 @@ public class Servicio implements Serializable {
 
 	private String servicio;
 
-	//bi-directional many-to-one association to Foto
-	@OneToMany(mappedBy="servicio")
-	private List<Foto> fotos;
-
-	//bi-directional many-to-one association to Reservacione
+	//bi-directional many-to-one association to Reservaciones
 	@OneToMany(mappedBy="servicio")
 	private List<Reservaciones> reservaciones;
 
@@ -105,28 +101,6 @@ public class Servicio implements Serializable {
 
 	public void setServicio(String servicio) {
 		this.servicio = servicio;
-	}
-
-	public List<Foto> getFotos() {
-		return this.fotos;
-	}
-
-	public void setFotos(List<Foto> fotos) {
-		this.fotos = fotos;
-	}
-
-	public Foto addFoto(Foto foto) {
-		getFotos().add(foto);
-		foto.setServicio(this);
-
-		return foto;
-	}
-
-	public Foto removeFoto(Foto foto) {
-		getFotos().remove(foto);
-		foto.setServicio(null);
-
-		return foto;
 	}
 
 	public List<Reservaciones> getReservaciones() {

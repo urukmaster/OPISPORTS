@@ -18,6 +18,8 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
 
+	private byte active;
+
 	private String apellido;
 
 	private String contrasenna;
@@ -46,7 +48,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario2")
 	private List<Mensajeria> mensajerias2;
 
-	//bi-directional many-to-one association to Reservacione
+	//bi-directional many-to-one association to Reservaciones
 	@OneToMany(mappedBy="usuario")
 	private List<Reservaciones> reservaciones;
 
@@ -75,6 +77,14 @@ public class Usuario implements Serializable {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 	public String getApellido() {

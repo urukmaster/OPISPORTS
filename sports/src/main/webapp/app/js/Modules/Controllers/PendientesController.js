@@ -38,7 +38,6 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 		}else{
 			hora += '0'+ fechaHora.getMinutes();
 		}
-		console.log(fecha + ' ' + hora);
 		return fecha + ' ' + hora;
 	}
 	
@@ -99,7 +98,9 @@ App.controller('ReservacionModalController', ['$scope', '$http', '$state', funct
 						text:  'Se ha aceptado la reservacion correctamente'
 				};
 				//$scope.pop(toasterdata);
+				console.log(establecimientoCalendario);
 				establecimientoCalendario = data;
+				console.log(establecimientoCalendario);
 				gridPendientes = establecimientoCalendario.pendientes;
 				$state.reload();
 		});
