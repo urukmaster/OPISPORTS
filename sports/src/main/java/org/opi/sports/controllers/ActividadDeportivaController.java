@@ -5,12 +5,9 @@ import java.util.List;
 
 import org.opi.sports.contracts.ActividadDeportivaRequest;
 import org.opi.sports.contracts.ActividadDeportivaResponse;
-import org.opi.sports.contracts.UsuarioRequest;
-import org.opi.sports.contracts.UsuarioResponse;
+import org.opi.sports.ejb.ActividadDeportiva;
 import org.opi.sports.helpers.ActividadDeportivaHelper;
-import org.opi.sports.helpers.UsuarioHelper;
 import org.opi.sports.pojo.ActividadDeportivaPOJO;
-import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.ActividadDeportivaServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +54,55 @@ public class ActividadDeportivaController {
 
 		return actividadDeportivaResponse;
 		
+	}
+	
+	/**
+	 * Este método se encarga de guardar los usuarios
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ActividadDeportivaResponse update(@RequestBody ActividadDeportivaRequest actividadDeportivaRequest) {
+		
+		//Actividad Deportiva Response
+		ActividadDeportivaResponse actividadDeportivaResponse = new ActividadDeportivaResponse();
+		//Actividad Deportiva POJO
+		ActividadDeportivaPOJO actividadDeportivaView = ActividadDeportivaHelper.getInstance().updateActividadDeportiva(actividadDeportivaRequest, actividadDeportivaService);
+		
+		if(actividadDeportivaService.exists(actividadDeportivaView.getIdActividadDeportiva())){
+			List<ActividadDeportivaPOJO> actividadesDeportivas = new ArrayList<ActividadDeportivaPOJO>();
+			actividadesDeportivas.add(actividadDeportivaView);
+			actividadDeportivaResponse.setActividadesDeportivas(actividadesDeportivas);
+			actividadDeportivaResponse.setCode(200);
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se registro correctamente");
+		}else{
+			actividadDeportivaResponse.setCode(401);
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se registro");
+		}
+
+		return actividadDeportivaResponse;
+		
+	}
+	
+	/**
+	 * Metodo encargado de solicitar todos las actividades deportivas 
+	 * 
+	 */
+	@RequestMapping(value ="getAll", method = RequestMethod.GET)
+	public ActividadDeportivaResponse getAll(){	
+		
+		//Variable de tipo EstablecimientoDeportivoResponse
+		ActividadDeportivaResponse actividadDeportivaResponse = new ActividadDeportivaResponse();
+		//Lista de tipo EstablecimientoDeportivo
+		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();
+		//Lista de EstablecimientoDeportivoPOJO
+		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
+		
+		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
+			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
+		}
+		
+		actividadDeportivaResponse.setActividadesDeportivas(actividadDeportivaViewList);
+		
+		return actividadDeportivaResponse;
 	}
 		
 }

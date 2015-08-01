@@ -62,8 +62,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     // Submit form
     $scope.submitForm = function() {
         $scope.submitted = true;
-        if ($scope.formEstablecimiento.$valid) {
-        	
+        if ($scope.formEstablecimiento.$valid) {        	
         	$http.post('rest/establecimientoDeportivo/save', {
         		direccion : $scope.establecimiento.direccion,
         		nombre : $scope.establecimiento.nombre,

@@ -49,8 +49,17 @@ public class ActividadDeportivaTest {
 	@Test
 	public void saveUsuarioTest(){
 		ActividadDeportiva actividadDeportivaEJB = new ActividadDeportiva();
-		actividadDeportivaEJB.setActividadDeportiva("Tenis de Mesa");
+		actividadDeportivaEJB.setActividadDeportiva("Badminton");
 		
 		assertNotNull(actividadDeportivaService.save(actividadDeportivaEJB));
+	}
+	
+	/**
+	 * Esta prueba permite realizar la consulta a la base de datos mediante el servicio
+	 * el cual va a traer una lista de Actividades Deportivas
+	 */
+	@Test
+	public void getListActividadDeportivaTest(){
+		assertNotNull(actividadDeportivaService.getAllActividadDeportiva());
 	}
 }

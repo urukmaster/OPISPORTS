@@ -13,8 +13,13 @@ import org.opi.sports.pojo.ActividadDeportivaPOJO;
 public class ActividadDeportivaRequest extends BasePagingRequest {
 	
 	public int idActividadDeportiva;
+	
 	public String actividadDeportiva;
-
+	
+	public ActividadDeportivaRequest(){
+		super();
+	}
+	
 	public String getActividadDeportiva() {
 		return actividadDeportiva;
 	}

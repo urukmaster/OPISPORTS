@@ -133,7 +133,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Log in',
                 templateUrl: helper.basepath('login.html'),
                 controller: 'LoginFormController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley')
             })
             .state('app.agendaReservaciones', {
                 url: '/agendaReservaciones',
@@ -203,9 +203,9 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.actividades', {
                 url: '/actividades',
                 title: 'Actividades Deportivas',
-                templateUrl: helper.basepath('actividades.html'),
-                controller: 'ActividadesController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+                templateUrl: helper.basepath('actividadesDeportivas.html'),
+                controller: 'ActividadesDeportivasController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid','parsley')
             })
             .state('app.servicio', {
                 url: '/servicio',
