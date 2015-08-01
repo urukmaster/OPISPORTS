@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
+import org.opi.sports.contracts.EventoResponse;
 import org.opi.sports.contracts.TiqueteResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.TiquetesHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.TiqueteServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,17 +64,19 @@ public class TiqueteController {
 	 *Este método obtiene una de eventos deportivos
 	 *registrados en la base de datos por medio de su id
 	 */	
-	@RequestMapping(value="getTiquete", method = RequestMethod.GET)
-	public TiqueteResponse getTiquete(@RequestParam("id") int idTiquete){
+	@RequestMapping(value="getTiquete", method = RequestMethod.POST)
+	public TiqueteResponse getTiquete(@RequestBody int idTiquete){
 		
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
 		
-		Tiquete tiquete = tiqueteServices.getTiquete(idTiquete);
+		Tiquete tiquete = tiqueteServices.findOne(idTiquete);
+		
+		TiquetePOJO tiqueteView = new TiquetePOJO();
+		PojoUtils.pojoMappingUtility(tiqueteView, tiquete);
 		
 		tiqueteResponse.setTiquete(tiquete);
 		
-		return tiqueteResponse;		
-		
+		return tiqueteResponse;
 	}
 
 }

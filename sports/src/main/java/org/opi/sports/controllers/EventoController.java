@@ -69,15 +69,17 @@ public class EventoController {
 	 *Este método obtiene una de eventos deportivos
 	 *registrados en la base de datos por medio de su id
 	 */	
-	@RequestMapping(value="getEvento", method = RequestMethod.GET)
-	@Transactional
-	public EventoResponse getEvento(@RequestParam("id") int idEvento){
+	@RequestMapping(value="getEvento", method = RequestMethod.POST)
+	public EventoResponse getEvento(@RequestBody int idEvento){
 		
 		EventoResponse eventoResponse = new EventoResponse();
 		
-		Evento evento = eventoServices.getEvento(idEvento);
+		Evento evento = eventoServices.findOne(idEvento);
 		
-		//eventoResponse.setEvento(evento);
+		EventoPOJO eventoView = new EventoPOJO();
+		PojoUtils.pojoMappingUtility(eventoView, evento);
+		
+		eventoResponse.setEvento(eventoView);
 		
 		return eventoResponse;		
 		

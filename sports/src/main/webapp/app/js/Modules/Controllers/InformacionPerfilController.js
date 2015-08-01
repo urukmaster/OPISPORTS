@@ -2,16 +2,23 @@
  * Created by JuanManuel on 09/07/2015.
  */
 
-
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
 	
+<<<<<<< HEAD
+    $scope.opciones= [
+        {"id": 1, "name": "Nombre", "model": "nombre"},
+        {"id": 2, "name": "Localizacion", "model": "direccion"},
+    ];
+
+=======
 	
+>>>>>>> bef3db540bc5db2df245bf5e5d76e64da0055afa
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			$scope.Establecimientos = response.establecimientoDeportivo;
 		});
-
+	    
     };
     $scope.init();
     
@@ -32,6 +39,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		});
     };
     
+    
     $scope.init();
     $state.go("app.perfil.informacion");
     
@@ -50,6 +58,8 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 	}
 
     $scope.init();
+    
+
 }]);
 
 App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
