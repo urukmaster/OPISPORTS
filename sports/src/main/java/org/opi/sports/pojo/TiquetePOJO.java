@@ -20,7 +20,7 @@ public class TiquetePOJO {
 	private Date fechaCaducidad;
 	private double precio;
 	private EventoPOJO idEvento;
-	private Inscripcion idInscripcion;
+	private InscripcionesPOJO idInscripcion;
 	
 	public int getIdTiquete() {
 		return idTiquete;
@@ -52,10 +52,10 @@ public class TiquetePOJO {
 	public void setIdEvento(EventoPOJO idEvento) {
 		this.idEvento = idEvento;
 	}
-	public Inscripcion getIdInscripcion() {
+	public InscripcionesPOJO getIdInscripcion() {
 		return idInscripcion;
 	}
-	public void setIdInscripcion(Inscripcion idInscripcion) {
+	public void setIdInscripcion(InscripcionesPOJO idInscripcion) {
 		this.idInscripcion = idInscripcion;
 	}
 
