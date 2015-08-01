@@ -19,7 +19,7 @@ public class TiquetePOJO {
 	private String estado;
 	private Date fechaCaducidad;
 	private double precio;
-	private Evento idEvento;
+	private EventoPOJO idEvento;
 	private Inscripcion idInscripcion;
 	
 	public int getIdTiquete() {
@@ -46,10 +46,10 @@ public class TiquetePOJO {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	public Evento getIdEvento() {
+	public EventoPOJO getIdEvento() {
 		return idEvento;
 	}
-	public void setIdEvento(Evento idEvento) {
+	public void setIdEvento(EventoPOJO idEvento) {
 		this.idEvento = idEvento;
 	}
 	public Inscripcion getIdInscripcion() {
@@ -58,5 +58,5 @@ public class TiquetePOJO {
 	public void setIdInscripcion(Inscripcion idInscripcion) {
 		this.idInscripcion = idInscripcion;
 	}
-	
+
 }

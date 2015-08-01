@@ -23,6 +23,12 @@ public class UsuarioService implements UsuarioServiceInterface{
 	public Usuario findOne(Integer idUsuario) {
 		return usuarioRepository.findOne(idUsuario);
 	}
+	@Transactional
+	@Override
+	public boolean exists(int idUsuario) {
+		// TODO Auto-generated method stub
+		return usuarioRepository.exists(idUsuario);
+	}
 	
 	@Transactional
 	public <Usuarios extends Usuario> Usuarios save(Usuarios usuarios) {

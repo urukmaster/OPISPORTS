@@ -1,5 +1,13 @@
 package org.opi.sports.controllers;
 
+
+import javax.transaction.Transactional;
+
+import org.opi.sports.contracts.UsuarioRequest;
+import org.opi.sports.contracts.UsuarioResponse;
+import org.opi.sports.ejb.Usuario;
+import org.opi.sports.helpers.IniciarSesionHelper;
+
 	
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Fecha: 26-07-2015 version 1.0
+ * 
+ * @author Mauricio Araica Hernández
+ *
+ *Sprint 03 Descripción: Controlador rest del usuario
+ *
+**
  * Fecha: 23-07-2015
  * 
  * @author Juan Manuel Viales Chavarría
@@ -30,8 +45,24 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioServiceInterface usuarioService;
-	
-	
+
+	/**
+	 * Metodo que obtiene la informacion para el perfil del usuario
+	 * @return usuarioresponse
+	 */
+	@RequestMapping(value = "perfilUsuario", method =  RequestMethod.GET)
+	@Transactional
+	public UsuarioResponse perfilUsuario(/*@RequestBody UsuarioRequest usuarioRequest*/){
+		 //int idUsuario = usuarioRequest.getIdUsuario();
+		 Usuario usuario = usuarioService.findOne(2);
+		 UsuarioResponse usuarioresponse = new UsuarioResponse();
+		 if(usuarioService.exists(usuario.getIdUsuario())){
+			 UsuarioPOJO usuariopojo = new UsuarioPOJO();
+			 usuariopojo = UsuarioHelper.getInstance().perfilUsuario(usuario); 
+			 usuarioresponse.setUsuario(usuariopojo); 
+		 }
+		 return usuarioresponse;
+	}
 	/**
 	 * Este método se encarga de guardar los usuarios
 	 */
@@ -81,6 +112,5 @@ public class UsuarioController {
 		}
 
 		return usuarioResponse;
-		
 	}
 }

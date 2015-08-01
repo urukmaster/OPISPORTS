@@ -13,6 +13,10 @@ import org.opi.sports.ejb.Usuario;
 public interface UsuarioServiceInterface {
 
 	public Usuario findOne(Integer idUsuario);
+
+
+	public boolean exists(int idUsuario);
+
 	public <Usuarios extends Usuario> Usuarios save(Usuarios usuarios);
 	public boolean exists(Integer idUsuario);
 }

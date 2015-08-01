@@ -10,8 +10,27 @@ import java.util.*;
 *
 *Sprint #4 Se encarga de realizar los response de los usuarios, desde el front end.
 *
+* * Fecha: 26-07-2015 version 1.0
+ * 
+ * @author Mauricio Araica Hernández
+ *
+ *Sprint 03 Descripción: Clase response del usuario
 */
 public class UsuarioResponse extends BaseResponse {
+	// Objeto usuario
+	private UsuarioPOJO usuario;
+	/**
+	 * Metodo get
+	 */
+	public UsuarioPOJO getUsuario() {
+		return usuario;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setUsuario(UsuarioPOJO usuario) {
+		this.usuario = usuario;
+	}
 	
 	private List<UsuarioPOJO> usuarios;
 
@@ -27,6 +46,4 @@ public class UsuarioResponse extends BaseResponse {
 	public String toString() {
 		return "UsuarioResponse [usuarios=" + usuarios + "]";
 	}
-	
-	
 }
