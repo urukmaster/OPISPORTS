@@ -2,7 +2,17 @@ package org.opi.sports.services;
 
 import org.opi.sports.ejb.Usuario;
 
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Juan Manuel Viales Chavarría
+ * 
+ *Sprint #4 Descripción: Interface que brinda encapsular los metodos del servicio
+ */
+
 public interface UsuarioServiceInterface {
 
 	public Usuario findOne(Integer idUsuario);
+	public <Usuarios extends Usuario> Usuarios save(Usuarios usuarios);
+	public boolean exists(Integer idUsuario);
 }
