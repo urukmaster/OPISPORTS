@@ -67,11 +67,16 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 				field: 'fin',
 				name:'Hora final'
 			},
-			{name: 'acciones', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
+			{name: 'Reservar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
 	            '<button ng-click="reservar(row.entity)" class="btn btn-primary" >' +
 	            '<span class="fa fa-rocket"></span>' +
 	            '</button>'+
-	            '</div>'}
+	            '</div>'},
+	        {name: 'Eliminar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
+		            '<button ng-click="eliminar(row.entity)" class="btn btn-primary" >' +
+		            '<span class="fa fa-rocket"></span>' +
+		            '</button>'+
+		     '</div>'}
 			],
 		data : pendientes
 	}
@@ -79,6 +84,23 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 } ]);
 
 App.controller('ReservacionModalController', ['$scope', '$http', '$state', function($scope, $http, $state){
+	
+	$scope.eliminar = function(row){
+		$http.post('rest/reservaciones/delete', {
+			idCalendario : row.idCalendario,
+			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
+	 	}).success(function(data){
+	 		var toasterdata = {
+					type:  'success',
+					title: 'Establecimiento',
+					text:  'Se ha aceptado la reservacion correctamente'
+			};
+			//$scope.pop(toasterdata);
+			establecimientoCalendario = data;
+			gridPendientes = establecimientoCalendario.pendientes;
+			$state.reload();
+	 	})
+	}
 	
 	$scope.reservar = function(row){
 		$http.post('rest/reservaciones/update', {
@@ -98,9 +120,7 @@ App.controller('ReservacionModalController', ['$scope', '$http', '$state', funct
 						text:  'Se ha aceptado la reservacion correctamente'
 				};
 				//$scope.pop(toasterdata);
-				console.log(establecimientoCalendario);
 				establecimientoCalendario = data;
-				console.log(establecimientoCalendario);
 				gridPendientes = establecimientoCalendario.pendientes;
 				$state.reload();
 		});
