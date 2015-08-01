@@ -24,10 +24,6 @@ public class EventoService implements EventoServiceInterface{
 	public List<Evento> getAllEventos() {
 		return eventoRepositorio.findAll();
 	}
-	
-	public Evento getEvento(int id) {
-		return eventoRepositorio.findOne(id);
-	}
 
 	public <Eventos extends Evento> Eventos save(Eventos evento) {
 		return eventoRepositorio.save(evento);

@@ -1,42 +1,51 @@
 <h3>Establecimientos Deportivos
 </h3>
+<!-- START panel-->
+<div class="panel panel-default">
+   <div class="panel-heading">Búsqueda:</div>
+   <div class="panel-body" >
+      <form role="form" class="form-inline">
+         <div class="form-group">
+            <label for="busquedaNombre">Nombre del establecimiento</label>
+            <input id="busquedaNombre" type="text" class="form-control" ng-model="search.nombre"/>
+         </div>
+         <div class="form-group">
+            <label for="busquedaLocalizacion">Localización</label>
+            <input id="busquedaLocalizacion" type="text"class="form-control" ng-model="search.direccion"/>
+         </div>
+      </form>
+   </div>
+</div>
+<!-- END panel-->
 <div class="row">
-    <!-- <div class="col-lg-12">
-        <div class="container-fluid">
-            <div ng-controller="EstablecimientosController" class="panel panel-default">
-                <div ng-repeat="establecimiento in Establecimientos">
-                    <div class="panel-body">
-                        <div class="btn-group" >
-                        	
-                            <a class="btn btn-default" role="button" ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">{{establecimiento.nombre}}</a>
-                        </div>
-                    </div>
-                    </td>
-                </div>
-            </div>
-        </div>
-    </div> -->
-        <div class=" col-lg-12">
-        <div class="">
-            <div ng-controller="EstablecimientosController" class="">
-                <div ng-repeat="establecimiento in Establecimientos">
-                    <div class=" col-md-4 panel-body">
-                        	<div class="panel widget bg-success">
-         						<div class="row row-table">
-            						<div class="col-xs-4 text-center bg-success-dark pv-lg">
-               							<em class="icon-home fa-3x"></em>
-            						</div>
-            						<div class="col-xs-8 pv-lg">
-               							<a class="btn btn-success" role="button" ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">{{establecimiento.nombre}}</a>
-            						</div>
-         						</div>
-      						</div>
-                    	</div>
-                   </td>
-                </div>
-            </div>
+	<div class=" col-lg-12">
+    <div ng-controller="EstablecimientosController" class="">
+        <div ng-repeat="establecimiento in Establecimientos | filter:search:strict"">
+			<div class="col-lg-3">
+			   <!-- START widget-->
+			<div class="panel widget">
+			   <div class="half-float">
+			      <img src="app/img/soccerBanner2.jpg" alt="" class="img-responsive" />
+			      <div class="half-float-bottom">
+			         <img src="app/img/no_image.jpg" alt="Image" class="img-thumbnail img-circle thumb128" />
+			      </div>
+			   </div>
+			   <div class="panel-body text-center">
+			      <h3 class="m0">{{establecimiento.nombre}}</h3>
+			      <p class="text-muted">{{establecimiento.direccion}}</p>
+			      <p>{{establecimiento.paginaWeb}}</p>
+			   </div>
+			   <div class="panel-body text-center bg-gray-dark">
+			      <div class="row row-table">
+					<a class="btn btn-primary" role="button" ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">Consultar</a>
+			      </div>
+			   </div>
+			</div>
+			   <!-- END widget-->
+			 </div>
         </div>
     </div>
+	</div>
 
 <script src="app/js/Modules/Controllers/InformacionPerfilController.js"></script>
 

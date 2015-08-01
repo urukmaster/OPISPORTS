@@ -2,6 +2,7 @@ package org.opi.sports.services;
 
 import java.util.List;
 
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.repositories.TiqueteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class TiqueteService implements TiqueteServiceInterface{
 	public List<Tiquete> getAllTiquetes() {
 		return tiqueteRepositorio.findAll();
 	}
-	
-	public Tiquete getTiquete(int id) {
-		return tiqueteRepositorio.findOne(id);
+
+	public Tiquete findOne(Integer idTiquete) {
+		return tiqueteRepositorio.findOne(idTiquete);
 	}
 
 }
