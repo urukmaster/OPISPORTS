@@ -20,7 +20,7 @@ public class Evento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEvento;
 
-	private Object active;
+	private byte active;
 
 	private int cupo;
 
@@ -31,7 +31,8 @@ public class Evento implements Serializable {
 
 	private Time hora;
 
-	private Object informacion;
+	@Lob
+	private String informacion;
 
 	private String nombre;
 
@@ -71,11 +72,11 @@ public class Evento implements Serializable {
 		this.idEvento = idEvento;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -111,11 +112,11 @@ public class Evento implements Serializable {
 		this.hora = hora;
 	}
 
-	public Object getInformacion() {
+	public String getInformacion() {
 		return this.informacion;
 	}
 
-	public void setInformacion(Object informacion) {
+	public void setInformacion(String informacion) {
 		this.informacion = informacion;
 	}
 

@@ -19,7 +19,7 @@ public class Reservaciones implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCalendario;
 
-	private Object active;
+	private byte active;
 
 	private String estado;
 
@@ -49,11 +49,11 @@ public class Reservaciones implements Serializable {
 		this.idCalendario = idCalendario;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 

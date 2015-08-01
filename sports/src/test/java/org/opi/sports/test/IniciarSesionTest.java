@@ -40,7 +40,14 @@ public class IniciarSesionTest {
 	 * de el correo y la contraseña, esto para probar la funcionalidad del Spring al hacer
 	 * "Autowired"
 	 */
+	
+	
 	@Test
+	public void getActividadDeportivaServiceTest(){
+		assertNotNull(iniciarSesionService);
+	}
+	
+	//@Test
 	public void  iniciarSesion(){
 		HttpSession sesionActual = ht.getSession();
 		//------------------------------------------------------------------

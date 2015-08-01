@@ -19,7 +19,7 @@ public class Servicio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idServicio;
 
-	private Object arbitro;
+	private byte arbitro;
 
 	private Time horaApertura;
 
@@ -42,11 +42,6 @@ public class Servicio implements Serializable {
 	@JoinColumn(name="idActividadDeportiva")
 	private ActividadDeportiva actividadDeportiva;
 
-	//bi-directional many-to-one association to Distrito
-	@ManyToOne
-	@JoinColumn(name="idDistrito")
-	private Distrito distrito;
-
 	//bi-directional many-to-one association to EstablecimientoDeportivo
 	@ManyToOne
 	@JoinColumn(name="idEstablecimiento")
@@ -68,11 +63,11 @@ public class Servicio implements Serializable {
 		this.idServicio = idServicio;
 	}
 
-	public Object getArbitro() {
+	public byte getArbitro() {
 		return this.arbitro;
 	}
 
-	public void setArbitro(Object arbitro) {
+	public void setArbitro(byte arbitro) {
 		this.arbitro = arbitro;
 	}
 
@@ -158,14 +153,6 @@ public class Servicio implements Serializable {
 
 	public void setActividadDeportiva(ActividadDeportiva actividadDeportiva) {
 		this.actividadDeportiva = actividadDeportiva;
-	}
-
-	public Distrito getDistrito() {
-		return this.distrito;
-	}
-
-	public void setDistrito(Distrito distrito) {
-		this.distrito = distrito;
 	}
 
 	public EstablecimientoDeportivo getEstablecimientoDeportivo() {

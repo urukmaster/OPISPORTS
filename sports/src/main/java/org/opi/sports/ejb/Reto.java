@@ -19,7 +19,7 @@ public class Reto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReto;
 
-	private Object active;
+	private byte active;
 
 	private String estado;
 
@@ -28,7 +28,8 @@ public class Reto implements Serializable {
 
 	private Time hora;
 
-	private Object mensaje;
+	@Lob
+	private String mensaje;
 
 	//bi-directional many-to-one association to Servicio
 	@ManyToOne
@@ -51,11 +52,11 @@ public class Reto implements Serializable {
 		this.idReto = idReto;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -83,11 +84,11 @@ public class Reto implements Serializable {
 		this.hora = hora;
 	}
 
-	public Object getMensaje() {
+	public String getMensaje() {
 		return this.mensaje;
 	}
 
-	public void setMensaje(Object mensaje) {
+	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
