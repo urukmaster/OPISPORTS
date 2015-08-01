@@ -111,7 +111,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.retos', {
                 url: '/retos',
                 title: 'Retos',
-                templateUrl: helper.basepath('retos.html'),
+                templateUrl: helper.basepath('reto.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.eventos', {
@@ -133,7 +133,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Log in',
                 templateUrl: helper.basepath('login.html'),
                 controller: 'LoginFormController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley')
             })
             .state('app.agendaReservaciones', {
                 url: '/agendaReservaciones',
@@ -225,9 +225,9 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.actividades', {
                 url: '/actividades',
                 title: 'Actividades Deportivas',
-                templateUrl: helper.basepath('actividades.html'),
-                controller: 'ActividadesController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+                templateUrl: helper.basepath('actividadesDeportivas.html'),
+                controller: 'ActividadesDeportivasController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid','parsley')
             })
             .state('app.servicio', {
                 url: '/servicio',
@@ -3993,7 +3993,22 @@ App.controller('ChartRickshawController', ['$scope', function($scope) {
 
 App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils',
     function($rootScope, $scope, $state, $http, $timeout, Utils){
-
+		$scope.validarUsuario = function(item){
+			
+			if(typeof $rootScope.usuario == 'undefined'){
+				return false;
+			}else{
+				for(i=0;i<$rootScope.usuario.roles.length;i++){
+					for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+						if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+							return true;
+						}
+					}
+				}
+							
+			}
+			
+		};
         var collapseList = [];
 
         // demo: when switch from collapse to hover, close all items
@@ -4828,7 +4843,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope', function(
     }
     
     $scope.logout = function(){
-    	$rootScope.usuario = null;
+    	$rootScope.usuario = undefined;
     }
 
 }]);

@@ -4,11 +4,15 @@
 
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
 	
+<<<<<<< HEAD
     $scope.opciones= [
         {"id": 1, "name": "Nombre", "model": "nombre"},
         {"id": 2, "name": "Localizacion", "model": "direccion"},
     ];
 
+=======
+	
+>>>>>>> bef3db540bc5db2df245bf5e5d76e64da0055afa
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
@@ -69,8 +73,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     // Submit form
     $scope.submitForm = function() {
         $scope.submitted = true;
-        if ($scope.formEstablecimiento.$valid) {
-        	
+        if ($scope.formEstablecimiento.$valid) {        	
         	$http.post('rest/establecimientoDeportivo/save', {
         		direccion : $scope.establecimiento.direccion,
         		nombre : $scope.establecimiento.nombre,
