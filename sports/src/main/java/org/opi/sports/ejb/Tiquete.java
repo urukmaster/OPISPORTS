@@ -18,7 +18,7 @@ public class Tiquete implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idTiquete;
 
-	private Object active;
+	private byte active;
 
 	private String estado;
 
@@ -48,11 +48,11 @@ public class Tiquete implements Serializable {
 		this.idTiquete = idTiquete;
 	}
 
-	public Object getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 

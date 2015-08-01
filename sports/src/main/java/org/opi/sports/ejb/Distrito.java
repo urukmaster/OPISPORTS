@@ -29,13 +29,13 @@ public class Distrito implements Serializable {
 	@JoinColumn(name="idCanton")
 	private Canton canton;
 
+	//bi-directional many-to-one association to EstablecimientoDeportivo
+	@OneToMany(mappedBy="distrito")
+	private List<EstablecimientoDeportivo> establecimientoDeportivos;
+
 	//bi-directional many-to-one association to Evento
 	@OneToMany(mappedBy="distrito")
 	private List<Evento> eventos;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="distrito")
-	private List<Servicio> servicios;
 
 	public Distrito() {
 	}
@@ -80,6 +80,28 @@ public class Distrito implements Serializable {
 		this.canton = canton;
 	}
 
+	public List<EstablecimientoDeportivo> getEstablecimientoDeportivos() {
+		return this.establecimientoDeportivos;
+	}
+
+	public void setEstablecimientoDeportivos(List<EstablecimientoDeportivo> establecimientoDeportivos) {
+		this.establecimientoDeportivos = establecimientoDeportivos;
+	}
+
+	public EstablecimientoDeportivo addEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
+		getEstablecimientoDeportivos().add(establecimientoDeportivo);
+		establecimientoDeportivo.setDistrito(this);
+
+		return establecimientoDeportivo;
+	}
+
+	public EstablecimientoDeportivo removeEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
+		getEstablecimientoDeportivos().remove(establecimientoDeportivo);
+		establecimientoDeportivo.setDistrito(null);
+
+		return establecimientoDeportivo;
+	}
+
 	public List<Evento> getEventos() {
 		return this.eventos;
 	}
@@ -100,28 +122,6 @@ public class Distrito implements Serializable {
 		evento.setDistrito(null);
 
 		return evento;
-	}
-
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setDistrito(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setDistrito(null);
-
-		return servicio;
 	}
 
 }
