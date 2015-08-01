@@ -9,6 +9,6 @@ public interface ServicioRepository extends CrudRepository<Servicio, Integer>{
 	
 	public List<Servicio> findAll();
 	public Servicio findOne(Integer idServicio);
-	public <S extends Servicio> S save(S servicio);
+	public <Servicios extends Servicio> Servicios save(Servicios servicio);
 	
 }

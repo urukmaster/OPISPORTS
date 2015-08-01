@@ -2,10 +2,7 @@ package org.opi.sports.repositories;
 
 import java.util.List;
 
-
-
 import org.opi.sports.ejb.EstablecimientoDeportivo;
-import org.opi.sports.ejb.Reservaciones;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -34,4 +31,6 @@ public interface EstablecimientoRepository extends CrudRepository<Establecimient
 	 * 
 	 */
 	public <Establecimiento extends EstablecimientoDeportivo> Establecimiento save(Establecimiento establecimiento);
+	
+	public EstablecimientoDeportivo findOne(Integer idEstablecimiento);
 }

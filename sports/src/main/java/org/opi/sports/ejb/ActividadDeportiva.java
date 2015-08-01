@@ -18,6 +18,8 @@ public class ActividadDeportiva implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idActividadDeportiva;
 
+	private Object active;
+
 	private String actividadDeportiva;
 
 	//bi-directional many-to-one association to Servicio
@@ -33,6 +35,14 @@ public class ActividadDeportiva implements Serializable {
 
 	public void setIdActividadDeportiva(int idActividadDeportiva) {
 		this.idActividadDeportiva = idActividadDeportiva;
+	}
+
+	public Object getActive() {
+		return this.active;
+	}
+
+	public void setActive(Object active) {
+		this.active = active;
 	}
 
 	public String getActividadDeportiva() {

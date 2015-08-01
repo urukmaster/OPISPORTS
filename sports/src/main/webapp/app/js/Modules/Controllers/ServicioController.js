@@ -11,17 +11,19 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 
     gridServicio = $scope.gridServicio = {
         columnDefs: [
-            { field: 'id',visible:false, width : 100},
-            { field: 'servicio', name:"Servicio", width : 100},
-            { field: 'precio' , name:'Precio', width : 100},
-            { field: 'horaApertura' , name:'Hora de apertura', width : 100},
-            { field: 'horaCierre' , name:'Hora de cierre', width : 100},
-            { field: 'arbitro' , name:'Arbitro', width : 100},
+            { field: 'idServicio',visible:false},
+            {field:'horaInicial.millis', visible:false},
+            {field: 'horaFinal.millis', visible:false},
+            { field: 'servicio', name:"Servicio"},
+            { field: 'precio' , name:'Precio'},
+            { field: 'horaApertura' , name:'Hora de apertura'},
+            { field: 'horaCierre' , name:'Hora de cierre'},
+            { field: 'arbitro' , name:'Arbitro'},
             {name: 'acciones', cellTemplate:'<div ng-controller="ServicioModalController" >' +
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
-            '</div>', width : 100}
+            '</div>'}
         ],
         data: establecimientoCalendario.servicios
     }
@@ -32,7 +34,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var servicioModificar = {};
-App.controller('ServicioModalController', ['$scope', '$modal', function ($scope, $modal) {
+App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
 
     $scope.registrar = function () {
 
@@ -57,34 +59,79 @@ App.controller('ServicioModalController', ['$scope', '$modal', function ($scope,
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
         $scope.accion = "Registrar";
         $scope.servicioForm = {};
+        $scope.servicioForm.horaApertura = new Date();
+        $scope.servicioForm.horaCierre = new Date();
         $scope.servicioForm.registrar = function () {
-
+        	
             var data = {
-                "id": gridServicio.excessColumns    ,
-                "nombre": $scope.servicioForm.servicio,
+            	"servicio": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
-                "horaApertura": $scope.servicioForm.horaApertura,
+                "horaApertura": new Date(),
                 "horaCierre": $scope.servicioForm.horaCierre,
                 "arbitro": $scope.servicioForm.arbitro,
-                "parqueo": $scope.servicioForm.parqueo
-
+                "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
+                "tipoServicio" : 1,
+                "accion" : $scope.accion
             };
-            gridServicio.data.push(data);
-            $modalInstance.close('closed');
+            $http.post('rest/servicio/save', data).
+            success(function(data){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Servicio',
+			            text:  'Se registro el servicio correctamente.'
+			    };
+    			$scope.pop(toasterdata);
+            	gridServicio.data.push = data.servicio;
+            	
+            });
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
     };
 
-    RegistrarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+    RegistrarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
     var ModificarServicioInstanceCtrl = function ($scope, $modalInstance) {
         $scope.accion = "Modificar";
         $scope.servicioForm = {};
 
-        $scope.servicioForm.nombre = servicioModificar.nombre;
+        
+        $scope.servicioForm.idServicio = servicioModificar.idServicio;
+        $scope.servicioForm.servicio = servicioModificar.servicio;
+        $scope.servicioForm.precio = servicioModificar.precio;
+        $scope.servicioForm.arbitro = servicioModificar.arbitro;
+        $scope.servicioForm.tipoServicio = servicioModificar.tipoServicio;
+        
+        horaInicial = new Date(servicioModificar.horaInicial.millis);
+        horaFinal = new Date(servicioModificar.horaFinal.millis);
+        
+        $scope.servicioForm.horaApertura = horaInicial;
+        $scope.servicioForm.horaCierre = horaFinal;
+        
+        
         $scope.servicioForm.modificar = function () {
-            gridServicio.data[servicioModificar.id-1] = $scope.servicioForm;
+        	var data = {
+        			"idServicio": servicioModificar.idServicio,
+                	"servicio":$scope.servicioForm.servicio,
+                    "precio": $scope.servicioForm.precio,
+                    "horaApertura": $scope.servicioForm.horaApertura.getTime(),
+                    "horaCierre": $scope.servicioForm.horaCierre.getTime(),
+                    "arbitro": $scope.servicioForm.arbitro,
+                    "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
+                    "tipoServicio" : 1,
+                    "accion" : $scope.accion
+                };
+                $http.post('rest/servicio/save', data).
+                success(function(data){
+                	var toasterdata = {
+    			            type:  'success',
+    			            title: 'Servicio',
+    			            text:  'Se registro los cambios correctamente.'
+    			    };
+        			$scope.pop(toasterdata);
+        			gridServicio.data[data.servicio.idServicio-1] = data.servicio;
+                	
+                });
 
             $modalInstance.close('closed');
         };

@@ -2,6 +2,9 @@ package org.opi.sports.pojo;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
+
+import org.opi.sports.ejb.Tiquete;
 
 /**
  * Fecha: 14-07-2015 version 1.0
@@ -20,7 +23,7 @@ public class EventoPOJO {
 	private Time hora;
 	private String informacion;
 	private String nombre;
-	private TipoServicioPOJO idTipoEvento;
+	//private TipoServicioPOJO idTipoEvento;//Este nova seria tipo evento, no tipo servicio
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -78,12 +81,12 @@ public class EventoPOJO {
 		this.nombre = nombre;
 	}
 	
-	public TipoServicioPOJO getIdTipoEvento() {
+	/**public TipoServicioPOJO getIdTipoEvento() {
 		return idTipoEvento;
 	}
 	
 	public void setIdTipoEvento(TipoServicioPOJO idTipoEvento) {
 		this.idTipoEvento = idTipoEvento;
-	}
+	}*/
 	
 }

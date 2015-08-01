@@ -16,9 +16,9 @@ public class HomeController {
 	@RequestMapping(value = "app", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {				
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
-		return mav;
+		ModelAndView modeloVista = new ModelAndView();
+		modeloVista.setViewName("Op-i-Sports");
+		return modeloVista;
 	}
 	
 }

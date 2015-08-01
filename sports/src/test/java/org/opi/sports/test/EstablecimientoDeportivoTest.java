@@ -2,23 +2,11 @@ package org.opi.sports.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
-import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
-import org.opi.sports.contracts.TipoServicioResponse;
-import org.opi.sports.ejb.EstablecimientoDeportivo;
-import org.opi.sports.ejb.TipoServicio;
 import org.opi.sports.ejb.Usuario;
-import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
-import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
-import org.opi.sports.pojo.TipoServicioPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
-import org.opi.sports.services.TipoServicioServiceInterface;
-import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
