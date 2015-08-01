@@ -20,6 +20,8 @@ public class Evento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEvento;
 
+	private Object active;
+
 	private int cupo;
 
 	private String direccion;
@@ -29,18 +31,25 @@ public class Evento implements Serializable {
 
 	private Time hora;
 
-	@Lob
-	private String informacion;
+	private Object informacion;
 
 	private String nombre;
+
+	private String precio;
 
 	//bi-directional many-to-one association to Distribucion
 	@OneToMany(mappedBy="evento")
 	private List<Distribucion> distribucions;
 
-	//bi-directional many-to-one association to Establecimiento_Evento
-	@OneToMany(mappedBy="evento")
-	private List<Establecimiento_Evento> establecimientoEventos;
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
+	@JoinColumn(name="idDistrito")
+	private Distrito distrito;
+
+	//bi-directional many-to-one association to EstablecimientoDeportivo
+	@ManyToOne
+	@JoinColumn(name="idEstablecimiento")
+	private EstablecimientoDeportivo establecimientoDeportivo;
 
 	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
@@ -60,6 +69,14 @@ public class Evento implements Serializable {
 
 	public void setIdEvento(int idEvento) {
 		this.idEvento = idEvento;
+	}
+
+	public Object getActive() {
+		return this.active;
+	}
+
+	public void setActive(Object active) {
+		this.active = active;
 	}
 
 	public int getCupo() {
@@ -94,11 +111,11 @@ public class Evento implements Serializable {
 		this.hora = hora;
 	}
 
-	public String getInformacion() {
+	public Object getInformacion() {
 		return this.informacion;
 	}
 
-	public void setInformacion(String informacion) {
+	public void setInformacion(Object informacion) {
 		this.informacion = informacion;
 	}
 
@@ -108,6 +125,14 @@ public class Evento implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
 	}
 
 	public List<Distribucion> getDistribucions() {
@@ -132,26 +157,20 @@ public class Evento implements Serializable {
 		return distribucion;
 	}
 
-	public List<Establecimiento_Evento> getEstablecimientoEventos() {
-		return this.establecimientoEventos;
+	public Distrito getDistrito() {
+		return this.distrito;
 	}
 
-	public void setEstablecimientoEventos(List<Establecimiento_Evento> establecimientoEventos) {
-		this.establecimientoEventos = establecimientoEventos;
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
-	public Establecimiento_Evento addEstablecimientoEvento(Establecimiento_Evento establecimientoEvento) {
-		getEstablecimientoEventos().add(establecimientoEvento);
-		establecimientoEvento.setEvento(this);
-
-		return establecimientoEvento;
+	public EstablecimientoDeportivo getEstablecimientoDeportivo() {
+		return this.establecimientoDeportivo;
 	}
 
-	public Establecimiento_Evento removeEstablecimientoEvento(Establecimiento_Evento establecimientoEvento) {
-		getEstablecimientoEventos().remove(establecimientoEvento);
-		establecimientoEvento.setEvento(null);
-
-		return establecimientoEvento;
+	public void setEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
+		this.establecimientoDeportivo = establecimientoDeportivo;
 	}
 
 	public TipoEvento getTipoEvento() {

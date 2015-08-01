@@ -19,7 +19,7 @@ public class Servicio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idServicio;
 
-	private byte arbitro;
+	private Object arbitro;
 
 	private Time horaApertura;
 
@@ -29,11 +29,7 @@ public class Servicio implements Serializable {
 
 	private String servicio;
 
-	//bi-directional many-to-one association to Foto
-	@OneToMany(mappedBy="servicio")
-	private List<Foto> fotos;
-
-	//bi-directional many-to-one association to Reservacione
+	//bi-directional many-to-one association to Reservaciones
 	@OneToMany(mappedBy="servicio")
 	private List<Reservaciones> reservaciones;
 
@@ -45,6 +41,11 @@ public class Servicio implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idActividadDeportiva")
 	private ActividadDeportiva actividadDeportiva;
+
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
+	@JoinColumn(name="idDistrito")
+	private Distrito distrito;
 
 	//bi-directional many-to-one association to EstablecimientoDeportivo
 	@ManyToOne
@@ -67,11 +68,11 @@ public class Servicio implements Serializable {
 		this.idServicio = idServicio;
 	}
 
-	public byte getArbitro() {
+	public Object getArbitro() {
 		return this.arbitro;
 	}
 
-	public void setArbitro(byte arbitro) {
+	public void setArbitro(Object arbitro) {
 		this.arbitro = arbitro;
 	}
 
@@ -105,28 +106,6 @@ public class Servicio implements Serializable {
 
 	public void setServicio(String servicio) {
 		this.servicio = servicio;
-	}
-
-	public List<Foto> getFotos() {
-		return this.fotos;
-	}
-
-	public void setFotos(List<Foto> fotos) {
-		this.fotos = fotos;
-	}
-
-	public Foto addFoto(Foto foto) {
-		getFotos().add(foto);
-		foto.setServicio(this);
-
-		return foto;
-	}
-
-	public Foto removeFoto(Foto foto) {
-		getFotos().remove(foto);
-		foto.setServicio(null);
-
-		return foto;
 	}
 
 	public List<Reservaciones> getReservaciones() {
@@ -179,6 +158,14 @@ public class Servicio implements Serializable {
 
 	public void setActividadDeportiva(ActividadDeportiva actividadDeportiva) {
 		this.actividadDeportiva = actividadDeportiva;
+	}
+
+	public Distrito getDistrito() {
+		return this.distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	public EstablecimientoDeportivo getEstablecimientoDeportivo() {

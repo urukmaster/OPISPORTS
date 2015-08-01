@@ -96,7 +96,7 @@ public class ReservacionController {
 	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public List<CalendarioPOJO> update(
+	public EstablecimientoDeportivoPOJO update(
 			@RequestBody ReservacionesRequest reservacion) {
 
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
@@ -113,6 +113,6 @@ public class ReservacionController {
 				.getInstance()
 				.convertirEstablecimiento(
 						establecimientoDeportivoService.findOne(reservacion
-								.getEstablecimiento())).getCalendario();
+								.getEstablecimiento()));
 	}
 }
