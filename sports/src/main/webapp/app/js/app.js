@@ -1568,7 +1568,9 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     
     $scope.init = function(){
     	$scope.today();
-    	$scope.reservacion.fecha = $scope.dt;
+    	if($scope.reservacion != null){
+    		$scope.reservacion.fecha = $scope.dt;
+    	}
     }
     
     $scope.init();

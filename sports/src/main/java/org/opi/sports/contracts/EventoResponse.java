@@ -2,6 +2,7 @@ package org.opi.sports.contracts;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.pojo.CalendarioPOJO;
 import org.opi.sports.pojo.EventoCalendarioPOJO;
@@ -22,6 +23,9 @@ public class EventoResponse extends BaseResponse{
 	private List<EventoCalendarioPOJO> JSONCalendar;
 	private EventoPOJO evento;
 	
+	private DateTime fecha;
+	private DateTime hora;
+	
 	public List<EventoPOJO> getEventos() {
 		return eventos;
 	}
@@ -39,5 +43,19 @@ public class EventoResponse extends BaseResponse{
 	}
 	public void setEvento(EventoPOJO evento) {
 		this.evento = evento;
+	}
+	public DateTime getFecha() {
+		return fecha;
+	}
+	public void setFecha() {
+		DateTime fechaEvento = new DateTime(evento.getFecha());
+		this.fecha = fechaEvento;
+	}
+	public DateTime getHora() {
+		return hora;
+	}
+	public void setHora() {
+		DateTime horaEvento = new DateTime(evento.getHora());
+		this.hora = horaEvento;
 	}
 }

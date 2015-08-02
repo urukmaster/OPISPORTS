@@ -9,6 +9,8 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 
     var data = [];
 
+    
+	
     gridServicio = $scope.gridServicio = {
         columnDefs: [
             { field: 'idServicio',visible:false},
@@ -23,8 +25,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
-            '</div>'},
-            {name: 'eliminar', cellTemplate:'<div ng-controller="ServicioModalController" >' +
+            '</div> <div ng-controller="ServicioModalController" >' +
                 '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
                 '<span class="fa fa-rocket"></span>' +
                 '</button>'+
@@ -40,8 +41,9 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
  =========================================================*/
 var servicioModificar = {};
 App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
-
-    $scope.registrar = function () {
+	
+	$scope.tipoServicios = tipoServicios;
+	$scope.registrar = function () {
 
         var RegistrarModalInstance = $modal.open({
             templateUrl: '/myServicioModalContent.html',
@@ -163,3 +165,4 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     };
     ModificarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
+
