@@ -23,7 +23,7 @@ public class EventoPOJO {
 	private Time hora;
 	private String informacion;
 	private String nombre;
-	//private TipoServicioPOJO idTipoEvento;//Este nova seria tipo evento, no tipo servicio
+	private String precio;
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -80,13 +80,13 @@ public class EventoPOJO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	/**public TipoServicioPOJO getIdTipoEvento() {
-		return idTipoEvento;
+
+	public String getPrecio() {
+		return precio;
 	}
-	
-	public void setIdTipoEvento(TipoServicioPOJO idTipoEvento) {
-		this.idTipoEvento = idTipoEvento;
-	}*/
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
 	
 }
