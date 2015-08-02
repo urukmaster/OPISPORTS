@@ -222,6 +222,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
+            .state('app.modificarEstablecimiento',{
+                url: '/modificarEstablecimiento/{id:[0-9]{1,4}}',
+                title: 'Modificar Establecimiento',
+                templateUrl: helper.basepath('modificarEstablecimiento.html'),
+                resolve: helper.resolveFor('parsley')
+            })
             .state('app.actividades', {
                 url: '/actividades',
                 title: 'Actividades Deportivas',

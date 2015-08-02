@@ -1,4 +1,7 @@
 package org.opi.sports.pojo;
+
+import java.util.List;
+
 /**
  * Fecha: 01-08-2015 version 1.0
  * 
@@ -12,7 +15,14 @@ public class ProvinciaPOJO {
 
 	private int idProvincia;
 	private String provincia;
+	private List<CantonPOJO> listaCantones;
 	
+	public List<CantonPOJO> getListaCantones() {
+		return listaCantones;
+	}
+	public void setListaCantones(List<CantonPOJO> listaCantones) {
+		this.listaCantones = listaCantones;
+	}
 	public int getIdProvincia() {
 		return idProvincia;
 	}

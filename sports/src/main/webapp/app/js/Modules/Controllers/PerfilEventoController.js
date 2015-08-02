@@ -11,22 +11,10 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
+			
+			console.log(response)
 
             $scope.evento = response.evento;
-		});
-		
-
-		$http.get('rest/tiquete/getAll')
-		.success(function(response) {
-			var tiquetes = response.tiquetes;
-			console.log(tiquetes);
-			for (var i = 0; i < tiquetes.length; i++) {
-				
-                if (tiquetes[i].idEvento == $stateParams.id){
-                    $scope.tiquete = tiquetes[i];
-                }
-                
-            }
 		});
     };
     

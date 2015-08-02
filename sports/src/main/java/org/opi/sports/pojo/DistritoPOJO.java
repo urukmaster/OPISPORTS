@@ -13,9 +13,8 @@ public class DistritoPOJO {
 
 	private int idDistrito;
 	private String distrito;
-	private double latitud;
-	private double longitud;
-	private CantonPOJO idCanton;
+	private String latitud;
+	private String longitud;
 	
 	public int getIdDistrito() {
 		return idDistrito;
@@ -29,24 +28,17 @@ public class DistritoPOJO {
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
 	}
-	public double getLatitud() {
+	public String getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(double latitud) {
+	public void setLatitud(String latitud) {
 		this.latitud = latitud;
 	}
-	public double getLongitud() {
+	public String getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(double longitud) {
+	public void setLongitud(String longitud) {
 		this.longitud = longitud;
 	}
-	public CantonPOJO getIdCanton() {
-		return idCanton;
-	}
-	public void setIdCanton(CantonPOJO idCanton) {
-		this.idCanton = idCanton;
-	}
-	
 
 }

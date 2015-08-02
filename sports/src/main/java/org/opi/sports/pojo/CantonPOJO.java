@@ -1,4 +1,7 @@
 package org.opi.sports.pojo;
+
+import java.util.List;
+
 /**
  * Fecha: 01-08-2015 version 1.0
  * 
@@ -12,7 +15,7 @@ public class CantonPOJO {
 
 	private int idCanton;
 	private String canton;
-	private ProvinciaPOJO idProvincia;
+	private List<DistritoPOJO> listaDistritos;
 	
 	public int getIdCanton() {
 		return idCanton;
@@ -26,11 +29,11 @@ public class CantonPOJO {
 	public void setCanton(String canton) {
 		this.canton = canton;
 	}
-	public ProvinciaPOJO getIdProvincia() {
-		return idProvincia;
+	public List<DistritoPOJO> getListaDistritos() {
+		return listaDistritos;
 	}
-	public void setIdProvincia(ProvinciaPOJO idProvincia) {
-		this.idProvincia = idProvincia;
+	public void setListaDistritos(List<DistritoPOJO> listaDistritos) {
+		this.listaDistritos = listaDistritos;
 	}
 
 }
