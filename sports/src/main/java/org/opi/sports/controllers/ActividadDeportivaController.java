@@ -57,7 +57,7 @@ public class ActividadDeportivaController {
 	}
 	
 	/**
-	 * Este método se encarga de guardar los usuarios
+	 * Este método se encarga de modificar los usuarios
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ActividadDeportivaResponse update(@RequestBody ActividadDeportivaRequest actividadDeportivaRequest) {
@@ -72,10 +72,36 @@ public class ActividadDeportivaController {
 			actividadesDeportivas.add(actividadDeportivaView);
 			actividadDeportivaResponse.setActividadesDeportivas(actividadesDeportivas);
 			actividadDeportivaResponse.setCode(200);
-			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se registro correctamente");
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se actualizo correctamente");
 		}else{
 			actividadDeportivaResponse.setCode(401);
-			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se registro");
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se actualizo");
+		}
+
+		return actividadDeportivaResponse;
+		
+	}
+	
+	/**
+	 * Este método se encarga de modificar los usuarios
+	 */
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ActividadDeportivaResponse delete(@RequestBody ActividadDeportivaRequest actividadDeportivaRequest) {
+		
+		//Actividad Deportiva Response
+		ActividadDeportivaResponse actividadDeportivaResponse = new ActividadDeportivaResponse();
+		//Actividad Deportiva POJO
+		ActividadDeportivaPOJO actividadDeportivaView = ActividadDeportivaHelper.getInstance().deleteActividadDeportiva(actividadDeportivaRequest, actividadDeportivaService);
+		
+		if(actividadDeportivaService.exists(actividadDeportivaView.getIdActividadDeportiva())){
+			List<ActividadDeportivaPOJO> actividadesDeportivas = new ArrayList<ActividadDeportivaPOJO>();
+			actividadesDeportivas.add(actividadDeportivaView);
+			actividadDeportivaResponse.setActividadesDeportivas(actividadesDeportivas);
+			actividadDeportivaResponse.setCode(200);
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se elimino correctamente");
+		}else{
+			actividadDeportivaResponse.setCode(401);
+			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se elimino");
 		}
 
 		return actividadDeportivaResponse;

@@ -15,6 +15,8 @@ public class ActividadDeportivaPOJO {
 	// Nombre de la Actividad Deportiva
 	private String actividadDeportiva;
 	
+	private byte active;
+	
 	public int getIdActividadDeportiva() {
 		return idActividadDeportiva;
 	}
@@ -29,6 +31,14 @@ public class ActividadDeportivaPOJO {
 
 	public void setActividadDeportiva(String actividadDeportiva) {
 		this.actividadDeportiva = actividadDeportiva;
+	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 	
 	

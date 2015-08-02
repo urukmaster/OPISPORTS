@@ -16,6 +16,7 @@ public class ActividadDeportivaRequest extends BasePagingRequest {
 	
 	public String actividadDeportiva;
 	
+	
 	public ActividadDeportivaRequest(){
 		super();
 	}
