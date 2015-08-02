@@ -130,7 +130,7 @@ App.controller('ActividadDeportivaModalController', ['$scope', '$modal',function
         		});        	
             	
             } else {
-            	
+            	alert("No registro!! :O");
                 return false;
             }
         };
