@@ -27,11 +27,11 @@
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
                  <ul class="nav nav-tabs nav-justified">
-					<li><a ng-click="mostrarInformacion()">Informaci�n</a></li>	
+					<li><a ng-click="mostrarInformacion()">Informaci�n</a></li>	
 					<li><a ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</a></li>
 				</ul>
                </div>
-               <div ui-view="" class="col"> </div>
+               <div ui-view=""> </div>
             </div>
          </div>
          <div class="col-lg-3">
@@ -53,6 +53,69 @@
                   <button class="btn btn-success">Suscribase aqui!</button>
                </div>
             </div>
+            <div ng-controller="EventoModalController">
+            <script type="text/ng-template" id="/myEventoModalContent.html">
+            <div class="modal-header">
+                <h4 id="myModalLabel" class="modal-title">{{accion+" Eventos"}}</h4>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Evento</label>
+                            <div class="col-lg-10">
+                                <input ng-model="eventoForm.evento" type="text"  class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Dirección</label>
+                            <div class="col-lg-10">
+                                <input ng-model="eventoForm.direccion" type="text"  class="form-control" />
+                            </div>
+                        </div>
+                        <div ng-controller="DatepickerDemoCtrl">
+    						<h5>Fecha</h5>
+   							<div style="display:inline-block; min-height:290px;">
+      						<datepicker ng-model="eventoForm.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+    					</div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Hora</label>
+                            <div class="col-lg-10">
+                                <div ng-controller="TimepickerDemoCtrl">
+									<timepicker ng-model="eventoForm.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Información</label>
+                            <div class="col-lg-10">
+                                <textarea ng-model="eventoForm.informacion" class="form-control"></textarea>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-lg-2 control-label">Cupos</label>
+                            <div class="col-lg-10">
+                                <input ng-model="eventoForm.cupo" type="number"  class="form-control"/>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <label class="col-lg-2 control-label">Precio</label>
+                            <div class="col-lg-10">
+                                <input ng-model="eventoForm.precio" type="text"  class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="eventoForm.modificar()"type="submit" class="btn btn-primary">Modificar</button>
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+        </script>
+        <button ng-click="modificar()" class="btn btn-success">
+						<span>Modificar Evento</span>
+		</button>
+		</div>
          </div>
       </div>
    </div>

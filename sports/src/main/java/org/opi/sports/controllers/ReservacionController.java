@@ -95,6 +95,21 @@ public class ReservacionController {
 								.getEstablecimiento()));
 	}
 
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO delete(
+			@RequestBody ReservacionesRequest reservacion) {
+		
+		Reservaciones reservacionesEJB = reservacionesServices.findOne(reservacion.getIdCalendario());
+		reservacionesEJB.setActive((byte) 0);
+		reservacionesServices.save(reservacionesEJB);
+
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
+	}
+	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public EstablecimientoDeportivoPOJO update(
 			@RequestBody ReservacionesRequest reservacion) {

@@ -9,6 +9,8 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 
     var data = [];
 
+    
+	
     gridServicio = $scope.gridServicio = {
         columnDefs: [
             { field: 'idServicio',visible:false},
@@ -19,10 +21,14 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
             { field: 'arbitro' , name:'Arbitro'},
-            {name: 'acciones', cellTemplate:'<div ng-controller="ServicioModalController" >' +
+            {name: 'modificar', cellTemplate:'<div ng-controller="ServicioModalController" >' +
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
+            '</div> <div ng-controller="ServicioModalController" >' +
+                '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
+                '<span class="fa fa-rocket"></span>' +
+                '</button>'+
             '</div>'}
         ],
         data: establecimientoCalendario.servicios
@@ -35,8 +41,9 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
  =========================================================*/
 var servicioModificar = {};
 App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
-
-    $scope.registrar = function () {
+	
+	$scope.tipoServicios = tipoServicios;
+	$scope.registrar = function () {
 
         var RegistrarModalInstance = $modal.open({
             templateUrl: '/myServicioModalContent.html',
@@ -55,6 +62,23 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             size: 'lg'
         });
     };
+    
+    $scope.eliminar = function($row){
+    		servicioModificar = $row.entity;
+    		data = {'idServicio': servicioModificar.idServicio,
+    				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
+            $http.post('rest/servicio/delete', data).
+            success(function(data){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Servicio',
+			            text:  'Se eliminó el servicio.'
+			    };
+            	
+            	establecimientoCalendario = data;
+            	gridServicio.data = establecimientoCalendario.servicios;
+            });
+    }
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
         $scope.accion = "Registrar";
@@ -66,8 +90,8 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             var data = {
             	"servicio": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
-                "horaApertura": new Date(),
-                "horaCierre": $scope.servicioForm.horaCierre,
+                "horaApertura": $scope.servicioForm.horaApertura.getTime(),
+                "horaCierre": $scope.servicioForm.horaCierre.getTime(),
                 "arbitro": $scope.servicioForm.arbitro,
                 "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
                 "tipoServicio" : 1,
@@ -82,7 +106,7 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
 			    };
     			$scope.pop(toasterdata);
             	gridServicio.data.push = data.servicio;
-            	
+            	establecimientoCalendario.servicios.push(data.servicio);
             });
         };
         $scope.cancel = function () {
@@ -141,3 +165,4 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     };
     ModificarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
+

@@ -9,10 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
 import org.opi.sports.contracts.ServicioRequest;
-import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.TipoServicio;
 import org.opi.sports.helpers.ServicioHelper;
-import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.services.TipoServicioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +40,7 @@ public class ServicioTest {
 	@Autowired
 	TipoServicioServiceInterface tipoServicioService;
 
-	@Autowired
-	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
-
-	
-	
+		
 	/**
 	 * Esta prueba permite saber si se inyecta los servicios respectivos para
 	 * ejecutar la prueba, esto para probar la funcionalidad del Spring al hacer
@@ -56,7 +50,6 @@ public class ServicioTest {
 	public void getTipoServicioServiceTest(){
 		assertNotNull(servicioService);
 		assertNotNull(tipoServicioService);
-		assertNotNull(establecimientoDeportivoService);
 	}
 	
 	@Test
@@ -77,11 +70,9 @@ public class ServicioTest {
 		TipoServicio tipoServicioEJB = tipoServicioService
 				.findOne(servicioRequest.getTipoServicio());
 
-		EstablecimientoDeportivo establecimientoDeportivoEJB = establecimientoDeportivoService
-				.findOne(servicioRequest.getEstablecimiento());
-
+		
 		assertNotNull(ServicioHelper.getInstance().saveServicio(
-				servicioRequest, establecimientoDeportivoEJB, tipoServicioEJB,
+				servicioRequest,  tipoServicioEJB,
 				servicioService).getIdServicio());
 		
 	}
@@ -105,11 +96,8 @@ public class ServicioTest {
 		TipoServicio tipoServicioEJB = tipoServicioService
 				.findOne(servicioRequest.getTipoServicio());
 
-		EstablecimientoDeportivo establecimientoDeportivoEJB = establecimientoDeportivoService
-				.findOne(servicioRequest.getEstablecimiento());
-
 		assertNotNull(ServicioHelper.getInstance().saveServicio(
-				servicioRequest, establecimientoDeportivoEJB, tipoServicioEJB,
+				servicioRequest, tipoServicioEJB,
 				servicioService).getIdServicio());
 		
 	}

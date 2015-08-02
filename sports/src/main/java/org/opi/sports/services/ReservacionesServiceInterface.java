@@ -18,4 +18,5 @@ public interface ReservacionesServiceInterface {
 	public List<Reservaciones> getAllReservaciones();	
 	public <S extends Reservaciones> S save(S reservacion);
 	public boolean exists(Integer idReservacion);
+	public Reservaciones findOne(Integer idReservacion);
 }

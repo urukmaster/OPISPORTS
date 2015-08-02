@@ -15,10 +15,18 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     $scope.init();
     
 }]);
-       
+
+var tipoServicios = [];
+
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
 	$scope.init = function(){
+		
+		$http.get('rest/tipoServicio/getAll')
+	    .success(function(data) {
+	    	tipoServicios = data.tipoServicio;
+	    });
+		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			var establecimientos = response.establecimientoDeportivo;

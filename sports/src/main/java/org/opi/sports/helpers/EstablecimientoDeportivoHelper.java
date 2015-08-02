@@ -53,7 +53,9 @@ public class EstablecimientoDeportivoHelper {
 		List<ServicioPOJO> servicios = new ArrayList<ServicioPOJO>();
 		
 		for(Servicio servicio: establecimiento.getServicios()){
+			if(servicio.getActive() == 1){
 			servicios.add(convertirServicios(servicio));
+			}
 		}
 		establecimientoView.setServicios(servicios);
 		establecimientoView.setCalendario();
@@ -70,7 +72,9 @@ public class EstablecimientoDeportivoHelper {
 		List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
 		
 		for(Reservaciones reservacion : servicio.getReservaciones()){
+			if(reservacion.getActive() == (byte) 1){
 			reservaciones.add(convertirReservaciones(reservacion));
+			}
 		}
 		
 		servicioView.setReservaciones(reservaciones);
