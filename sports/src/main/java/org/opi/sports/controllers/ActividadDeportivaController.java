@@ -42,16 +42,26 @@ public class ActividadDeportivaController {
 		ActividadDeportivaPOJO actividadDeportivaView = ActividadDeportivaHelper.getInstance().saveActividadDeportiva(actividadDeportivaRequest, actividadDeportivaService);
 		
 		if(actividadDeportivaService.exists(actividadDeportivaView.getIdActividadDeportiva())){
-			List<ActividadDeportivaPOJO> actividadesDeportivas = new ArrayList<ActividadDeportivaPOJO>();
-			actividadesDeportivas.add(actividadDeportivaView);
-			actividadDeportivaResponse.setActividadesDeportivas(actividadesDeportivas);
 			actividadDeportivaResponse.setCode(200);
 			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se registro correctamente");
 		}else{
 			actividadDeportivaResponse.setCode(401);
 			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se registro");
 		}
-
+		
+		//Inicializacion de las actividades
+		
+		//Variable de tipo EstablecimientoDeportivoResponse
+		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();
+		//Lista de EstablecimientoDeportivoPOJO
+		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
+		System.out.println("Cantidad de Actividades:"+actividadDeportivaList.size());		
+		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
+			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
+		}
+				
+		actividadDeportivaResponse.setActividadesDeportivas(actividadDeportivaViewList);
+		
 		return actividadDeportivaResponse;
 		
 	}
@@ -61,23 +71,30 @@ public class ActividadDeportivaController {
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public ActividadDeportivaResponse update(@RequestBody ActividadDeportivaRequest actividadDeportivaRequest) {
+		//Inicializacion de las actividades
 		
+		//Lista de EstablecimientoDeportivoPOJO
+		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
 		//Actividad Deportiva Response
 		ActividadDeportivaResponse actividadDeportivaResponse = new ActividadDeportivaResponse();
 		//Actividad Deportiva POJO
 		ActividadDeportivaPOJO actividadDeportivaView = ActividadDeportivaHelper.getInstance().updateActividadDeportiva(actividadDeportivaRequest, actividadDeportivaService);
 		
 		if(actividadDeportivaService.exists(actividadDeportivaView.getIdActividadDeportiva())){
-			List<ActividadDeportivaPOJO> actividadesDeportivas = new ArrayList<ActividadDeportivaPOJO>();
-			actividadesDeportivas.add(actividadDeportivaView);
-			actividadDeportivaResponse.setActividadesDeportivas(actividadesDeportivas);
 			actividadDeportivaResponse.setCode(200);
 			actividadDeportivaResponse.setCodeMessage("La actividad deportiva se actualizo correctamente");
 		}else{
 			actividadDeportivaResponse.setCode(401);
 			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se actualizo");
 		}
-
+		//Variable de tipo EstablecimientoDeportivoResponse
+		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();	
+		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
+			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
+		}
+				
+		actividadDeportivaResponse.setActividadesDeportivas(actividadDeportivaViewList);
+		
 		return actividadDeportivaResponse;
 		
 	}
@@ -103,7 +120,20 @@ public class ActividadDeportivaController {
 			actividadDeportivaResponse.setCode(401);
 			actividadDeportivaResponse.setCodeMessage("La actividad deportiva no se elimino");
 		}
-
+		
+		//Inicializacion de las actividades
+		
+		//Variable de tipo EstablecimientoDeportivoResponse
+		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();
+		//Lista de EstablecimientoDeportivoPOJO
+		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
+				
+		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
+			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
+		}
+				
+		actividadDeportivaResponse.setActividadesDeportivas(actividadDeportivaViewList);
+		
 		return actividadDeportivaResponse;
 		
 	}
@@ -121,6 +151,7 @@ public class ActividadDeportivaController {
 		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();
 		//Lista de EstablecimientoDeportivoPOJO
 		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
+		
 		
 		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
 			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
