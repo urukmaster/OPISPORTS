@@ -59,8 +59,10 @@ public class ActividadDeportivaHelper {
 
 		ActividadDeportiva actividadDeportivaEJB = new ActividadDeportiva();
 		actividadDeportivaEJB.setActividadDeportiva(actividadDeportiva.getActividadDeportiva());
+		actividadDeportivaEJB.setActive((byte)1);
 		
 		ActividadDeportivaPOJO actividadDeportivaPOJO = new ActividadDeportivaPOJO();
+		
 
 		PojoUtils.pojoMappingUtility(actividadDeportivaPOJO,
 				actividadDeportivaService.save(actividadDeportivaEJB));
@@ -74,10 +76,31 @@ public class ActividadDeportivaHelper {
 	 */
 	public ActividadDeportivaPOJO updateActividadDeportiva(ActividadDeportivaRequest actividadDeportiva,
 			ActividadDeportivaServiceInterface actividadDeportivaService) {
+		
+		ActividadDeportiva actividadDeportivaEJB = new ActividadDeportiva();
+		actividadDeportivaEJB.setIdActividadDeportiva(actividadDeportiva.getIdActividadDeportiva());
+		actividadDeportivaEJB.setActividadDeportiva(actividadDeportiva.getActividadDeportiva());
+		actividadDeportivaEJB.setActive((byte)1);
+				
+		ActividadDeportivaPOJO actividadDeportivaPOJO = new ActividadDeportivaPOJO();
+
+		PojoUtils.pojoMappingUtility(actividadDeportivaPOJO,
+				actividadDeportivaService.save(actividadDeportivaEJB));
+		
+		return actividadDeportivaPOJO;
+	}
+	
+	/**
+	 * Metodo encargado de eliminar la actividad deportiva
+	 * 
+	 */
+	public ActividadDeportivaPOJO deleteActividadDeportiva(ActividadDeportivaRequest actividadDeportiva,
+			ActividadDeportivaServiceInterface actividadDeportivaService) {
 		System.out.println(actividadDeportiva.getActividadDeportiva());
 		ActividadDeportiva actividadDeportivaEJB = new ActividadDeportiva();
 		actividadDeportivaEJB.setIdActividadDeportiva(actividadDeportiva.getIdActividadDeportiva());
 		actividadDeportivaEJB.setActividadDeportiva(actividadDeportiva.getActividadDeportiva());
+		actividadDeportivaEJB.setActive((byte) 0);
 				
 		ActividadDeportivaPOJO actividadDeportivaPOJO = new ActividadDeportivaPOJO();
 

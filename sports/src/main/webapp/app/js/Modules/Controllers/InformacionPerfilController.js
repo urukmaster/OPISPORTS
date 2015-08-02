@@ -4,10 +4,6 @@
 
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
 	
-    $scope.opciones= [
-        {"id": 1, "name": "Nombre", "model": "nombre"},
-        {"id": 2, "name": "Localizacion", "model": "direccion"},
-    ];
 
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
