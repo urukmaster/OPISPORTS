@@ -29,7 +29,6 @@ public class EventoPOJO {
 	private DistritoPOJO idDistrito;
 	private EstablecimientoDeportivoPOJO idEstablecimiento;
 	private TipoEventoPOJO idTipoEvento;
-
 	public int getIdEvento() {
 		return idEvento;
 	}

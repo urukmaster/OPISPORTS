@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  *Sprint 03 Descripción: Controlador rest del usuario
  *
-**
+ *
  * Fecha: 23-07-2015
  * 
  * @author Juan Manuel Viales Chavarría
@@ -50,11 +50,11 @@ public class UsuarioController {
 	 * Metodo que obtiene la informacion para el perfil del usuario
 	 * @return usuarioresponse
 	 */
-	@RequestMapping(value = "perfilUsuario", method =  RequestMethod.GET)
+	@RequestMapping(value = "perfilUsuario", method =  RequestMethod.POST)
 	@Transactional
-	public UsuarioResponse perfilUsuario(/*@RequestBody UsuarioRequest usuarioRequest*/){
-		 //int idUsuario = usuarioRequest.getIdUsuario();
-		 Usuario usuario = usuarioService.findOne(2);
+	public UsuarioResponse perfilUsuario(@RequestBody UsuarioRequest usuarioRequest){
+		 int idUsuario = usuarioRequest.getIdUsuario();
+		 Usuario usuario = usuarioService.findOne(idUsuario);
 		 UsuarioResponse usuarioresponse = new UsuarioResponse();
 		 if(usuarioService.exists(usuario.getIdUsuario())){
 			 UsuarioPOJO usuariopojo = new UsuarioPOJO();

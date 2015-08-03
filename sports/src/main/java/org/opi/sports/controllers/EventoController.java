@@ -84,6 +84,9 @@ public class EventoController {
 		
 		eventoResponse.setEvento(eventoView);
 		
+		eventoResponse.setFecha();
+		eventoResponse.setHora();
+		
 		return eventoResponse;		
 		
 	}
@@ -91,9 +94,10 @@ public class EventoController {
 	@RequestMapping(value="save", method = RequestMethod.POST)
 	@Transactional
 	public EventoResponse save(@RequestBody EventoRequest eventoRequest){
+		
 		EventoResponse eventoResponse = new EventoResponse();
 		
-		EventoPOJO evento = EventosHelper.getInstance().getEvento(eventoRequest, eventoServices);
+		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices, establecimientoDeporitvoService);
 		
 		eventoResponse.setEvento(evento);
 		

@@ -2,23 +2,58 @@
  * Created by JuanManuel on 09/07/2015.
  */
 
+<<<<<<< HEAD
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$state', function($scope,$http, $stateParams, $state) {
 	
     $scope.init = function(){
+=======
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
+	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
+    $scope.init = function(){  	
+>>>>>>> fce712ee9c40557b0eda1ef148d6768ab469761c
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			$scope.Establecimientos = response.establecimientosDeportivos;
 			
 		});
-	    
     };
     $scope.init(); 
     
+<<<<<<< HEAD
+    $scope.buscarServicios = function(establecimiento){
+    	cambiarServicios(establecimiento);
+    };
+    
+    function cambiarServicios(establecimiento) {
+        $scope.serviciosEstablecimiento = establecimiento.servicios;
+    }
+    
+    $scope.obtenerServicio = function(servicio){
+    	$rootScope.$broadcast('enviarServicio',{
+    		  idServicio: servicio.idServicio
+    		 
+    		});
+    }
+}]);      
+=======
 }]);
-       
+
+var tipoServicios = [];
+
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
 	$scope.init = function(){
+		
+		$http.get('rest/tipoServicio/getAll')
+	    .success(function(data) {
+	    	tipoServicios = data.tipoServicio;
+	    });
+		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			var establecimientos = response.establecimientosDeportivos;

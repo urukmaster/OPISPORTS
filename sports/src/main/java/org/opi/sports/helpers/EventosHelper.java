@@ -94,17 +94,27 @@ public class EventosHelper {
 
 	}
 
-	public EventoPOJO getEvento(EventoRequest eventoRequest, EventoServiceInterface eventoService) {
+	
+	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
 		
-		Evento evento = eventoService.findOne(eventoRequest.getIdEvento());
-		evento.setActive(eventoRequest.isActive());
+		Evento evento = new Evento();
+		
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(eventoRequest.getEstablecimiento());
+		
 		evento.setCupo(eventoRequest.getCupo());
 		evento.setDireccion(eventoRequest.getDireccion());
 		evento.setFecha(eventoRequest.getFecha());
 		evento.setHora(eventoRequest.getHora());
 		evento.setInformacion(eventoRequest.getInformacion());
 		evento.setNombre(eventoRequest.getNombre());
+		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
+		evento.setActive(eventoRequest.isActive());
+		
+		if(eventoRequest.getAccion().equals("Modificar")){
+			evento.setIdEvento(eventoRequest.getIdEvento());
+		}
+		
 		evento = eventoService.save(evento);
 		
 		EventoPOJO eventoPOJO = new EventoPOJO();
