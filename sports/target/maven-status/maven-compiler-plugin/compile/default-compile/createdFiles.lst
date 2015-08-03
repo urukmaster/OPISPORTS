@@ -12,6 +12,7 @@ org\opi\sports\services\EventoServiceInterface.class
 org\opi\sports\contracts\RetoResponse.class
 org\opi\sports\ejb\Subscripcion.class
 org\opi\sports\pojo\UsuarioPOJO.class
+org\opi\sports\contracts\ProvinciaResponse.class
 org\opi\sports\config\ServletInitializer.class
 org\opi\sports\helpers\ServicioHelper.class
 org\opi\sports\contracts\RetoRequest.class
@@ -19,10 +20,12 @@ org\opi\sports\helpers\ReservacionesHelper.class
 org\opi\sports\controllers\RetoController.class
 org\opi\sports\controllers\HomeController.class
 org\opi\sports\ejb\Review.class
+org\opi\sports\pojo\DistritoPOJO.class
 org\opi\sports\config\WSFilter.class
 org\opi\sports\contracts\EventoRequest.class
 org\opi\sports\ejb\Mensajeria.class
 org\opi\sports\contracts\ServicioResponse.class
+org\opi\sports\contracts\ProvinciaRequest.class
 org\opi\sports\ejb\Distrito.class
 org\opi\sports\ejb\Foto.class
 org\opi\sports\ejb\Reservaciones.class
@@ -35,6 +38,7 @@ org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\contracts\TiqueteResponse.class
 org\opi\sports\ejb\Servicio.class
 org\opi\sports\contracts\UsuarioRequest.class
+org\opi\sports\controllers\ProvinciaController.class
 org\opi\sports\services\TipoServicioServiceInterface.class
 org\opi\sports\ejb\Usuario.class
 org\opi\sports\pojo\TiquetePOJO.class
@@ -42,6 +46,7 @@ org\opi\sports\repositories\ActividadDeportivaRepository.class
 org\opi\sports\controllers\TipoServicioController.class
 org\opi\sports\services\EventoService.class
 org\opi\sports\services\ReservacionesService.class
+org\opi\sports\repositories\ProvinciaRepository.class
 org\opi\sports\contracts\TiqueteRequest.class
 org\opi\sports\pojo\PermisoPOJO.class
 org\opi\sports\ejb\Provincia.class
@@ -55,6 +60,7 @@ org\opi\sports\ejb\TipoEvento.class
 org\opi\sports\pojo\EventoCalendarioPOJO.class
 org\opi\sports\pojo\ActividadDeportivaPOJO.class
 org\opi\sports\config\SwaggerConfig.class
+org\opi\sports\services\ProvinciaService.class
 org\opi\sports\config\PassthroughFilter.class
 org\opi\sports\contracts\BaseResponse.class
 org\opi\sports\contracts\TipoServicioResponse.class
@@ -62,6 +68,7 @@ org\opi\sports\pojo\InscripcionesPOJO.class
 org\opi\sports\services\EstablecimientoDeportivoService.class
 org\opi\sports\controllers\ActividadDeportivaController.class
 org\opi\sports\contracts\ServicioRequest.class
+org\opi\sports\helpers\ProvinciaHelper.class
 org\opi\sports\repositories\UsuarioRepository.class
 org\opi\sports\ejb\Inscripcion.class
 org\opi\sports\ejb\Permiso.class
@@ -69,8 +76,10 @@ org\opi\sports\ejb\Evento.class
 org\opi\sports\pojo\RetosPOJO.class
 org\opi\sports\pojo\CalendarioPOJO.class
 org\opi\sports\contracts\ActividadDeportivaResponse.class
+org\opi\sports\pojo\CantonPOJO.class
 org\opi\sports\ejb\Permisos_Rol.class
 org\opi\sports\repositories\RetoRepository.class
+org\opi\sports\services\ProvinciaServiceInterface.class
 org\opi\sports\contracts\UsuarioResponse.class
 org\opi\sports\helpers\UsuarioHelper.class
 org\opi\sports\controllers\UsuarioController.class
@@ -86,6 +95,7 @@ org\opi\sports\controllers\EstablecimientoDeportivoController.class
 org\opi\sports\ejb\TipoServicio.class
 org\opi\sports\repositories\ReservacionesRepository.class
 org\opi\sports\config\WebMvcConfig.class
+org\opi\sports\pojo\ProvinciaPOJO.class
 org\opi\sports\ejb\Usuario_Rol.class
 org\opi\sports\ejb\CentroDistribucion.class
 org\opi\sports\services\ActividadDeportivaServiceInterface.class

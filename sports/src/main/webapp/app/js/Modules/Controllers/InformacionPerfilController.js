@@ -2,21 +2,19 @@
  * Created by JuanManuel on 09/07/2015.
  */
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
-	
-<<<<<<< HEAD
-=======
 
->>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
+
+
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
-			$scope.Establecimientos = response.establecimientoDeportivo;
+			$scope.Establecimientos = response.establecimientosDeportivos;
+			
 		});
     };
-    $scope.init();
+    $scope.init(); 
     
-<<<<<<< HEAD
     $scope.buscarServicios = function(establecimiento){
     	cambiarServicios(establecimiento);
     };
@@ -31,13 +29,11 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     		 
     		});
     }
-}]);      
-=======
-}]);
+}]);   
 
 var tipoServicios = [];
 
->>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
+
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
 	$scope.init = function(){
@@ -49,7 +45,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
-			var establecimientos = response.establecimientoDeportivo;
+			var establecimientos = response.establecimientosDeportivos;
 			for (var i = 0; i < establecimientos.length; i++) {
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
