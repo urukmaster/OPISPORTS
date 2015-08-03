@@ -64,20 +64,20 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     };
     
     $scope.eliminar = function($row){
-    		servicioModificar = $row.entity;
-    		data = {'idServicio': servicioModificar.idServicio,
-    				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
-            $http.post('rest/servicio/delete', data).
-            success(function(data){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Servicio',
-			            text:  'Se eliminó el servicio.'
-			    };
-            	
-            	establecimientoCalendario = data;
-            	gridServicio.data = establecimientoCalendario.servicios;
-            });
+		servicioModificar = $row.entity;
+		data = {'idServicio': servicioModificar.idServicio,
+				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
+	    $http.post('rest/servicio/delete', data).
+	    success(function(data){
+	    	var toasterdata = {
+		            type:  'success',
+		            title: 'Servicio',
+		            text:  'Se eliminó el servicio.'
+		    };
+	    	
+	    	establecimientoCalendario = data;
+	    	gridServicio.data = establecimientoCalendario.servicios;
+	    });
     }
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
