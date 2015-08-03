@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  *Sprint 03 Descripción: Controlador rest del usuario
  *
-**
+ *
  * Fecha: 23-07-2015
  * 
  * @author Juan Manuel Viales Chavarría

@@ -20,6 +20,8 @@ public class Servicio implements Serializable {
 	private int idServicio;
 
 	private byte arbitro;
+	
+	private byte active;
 
 	private Time horaApertura;
 
@@ -71,6 +73,14 @@ public class Servicio implements Serializable {
 		this.arbitro = arbitro;
 	}
 
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
+	}
+	
 	public Time getHoraApertura() {
 		return this.horaApertura;
 	}

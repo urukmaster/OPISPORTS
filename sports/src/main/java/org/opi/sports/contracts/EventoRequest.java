@@ -24,6 +24,9 @@ public class EventoRequest extends BasePagingRequest{
 	private String informacion;
 	private String nombre;
 	private Integer establecimiento;
+	private Integer tipoEvento;
+	private String precio;
+	private String accion;
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -64,7 +67,7 @@ public class EventoRequest extends BasePagingRequest{
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
+	public void setEvento(String nombre) {
 		this.nombre = nombre;
 	}
 	public Integer getEstablecimiento() {
@@ -72,5 +75,24 @@ public class EventoRequest extends BasePagingRequest{
 	}
 	public void setEstablecimiento(Integer establecimiento) {
 		this.establecimiento = establecimiento;
+	}
+	public String getPrecio() {
+		return precio;
+	}
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
+	public String getAccion() {
+		return this.accion;
+	}
+	
+	public void setAccion(String accion){
+		this.accion = accion;
+	}
+	public Integer getTipoEvento() {
+		return tipoEvento;
+	}
+	public void setTipoEvento(Integer tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 }

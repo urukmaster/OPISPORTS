@@ -1570,7 +1570,8 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     $scope.init = function(){
     	$scope.today();
     	if($scope.reservacion != null){
-    	$scope.reservacion.fecha = $scope.dt;
+
+   		$scope.reservacion.fecha = $scope.dt;
     	}
     }
     
@@ -2112,7 +2113,10 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     };
     
     $scope.init = function(){
+    	
     	if($scope.reservacion != null){
+    		$scope.mytime.setMinutes(00, 00, 00);
+    		$scope.mytime.setSeconds(00, 00);
     		$scope.reservacion.hora = $scope.mytime;
     	}
     }

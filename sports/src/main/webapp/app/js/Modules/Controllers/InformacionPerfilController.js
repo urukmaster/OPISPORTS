@@ -4,6 +4,10 @@
 
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
@@ -12,6 +16,7 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     };
     $scope.init();
     
+<<<<<<< HEAD
     $scope.buscarServicios = function(establecimiento){
     	cambiarServicios(establecimiento);
     };
@@ -27,9 +32,21 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     		});
     }
 }]);      
+=======
+}]);
+
+var tipoServicios = [];
+
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
 	$scope.init = function(){
+		
+		$http.get('rest/tipoServicio/getAll')
+	    .success(function(data) {
+	    	tipoServicios = data.tipoServicio;
+	    });
+		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			var establecimientos = response.establecimientoDeportivo;
