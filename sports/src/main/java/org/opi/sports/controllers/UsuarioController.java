@@ -50,11 +50,11 @@ public class UsuarioController {
 	 * Metodo que obtiene la informacion para el perfil del usuario
 	 * @return usuarioresponse
 	 */
-	@RequestMapping(value = "perfilUsuario", method =  RequestMethod.GET)
+	@RequestMapping(value = "perfilUsuario", method =  RequestMethod.POST)
 	@Transactional
-	public UsuarioResponse perfilUsuario(/*@RequestBody UsuarioRequest usuarioRequest*/){
-		 //int idUsuario = usuarioRequest.getIdUsuario();
-		 Usuario usuario = usuarioService.findOne(2);
+	public UsuarioResponse perfilUsuario(@RequestBody UsuarioRequest usuarioRequest){
+		 int idUsuario = usuarioRequest.getIdUsuario();
+		 Usuario usuario = usuarioService.findOne(idUsuario);
 		 UsuarioResponse usuarioresponse = new UsuarioResponse();
 		 if(usuarioService.exists(usuario.getIdUsuario())){
 			 UsuarioPOJO usuariopojo = new UsuarioPOJO();

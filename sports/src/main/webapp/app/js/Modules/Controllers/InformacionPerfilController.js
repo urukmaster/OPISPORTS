@@ -2,22 +2,42 @@
  * Created by JuanManuel on 09/07/2015.
  */
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
 	
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			$scope.Establecimientos = response.establecimientoDeportivo;
 		});
-	    
     };
     $scope.init();
     
+<<<<<<< HEAD
+    $scope.buscarServicios = function(establecimiento){
+    	cambiarServicios(establecimiento);
+    };
+    
+    function cambiarServicios(establecimiento) {
+        $scope.serviciosEstablecimiento = establecimiento.servicios;
+    }
+    
+    $scope.obtenerServicio = function(servicio){
+    	$rootScope.$broadcast('enviarServicio',{
+    		  idServicio: servicio.idServicio
+    		 
+    		});
+    }
+}]);      
+=======
 }]);
 
 var tipoServicios = [];
 
+>>>>>>> 6c49edaf5f6854f00becb784794e2f2db2afe7ee
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
 	$scope.init = function(){

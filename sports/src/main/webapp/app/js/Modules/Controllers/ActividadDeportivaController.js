@@ -246,7 +246,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         		});        	
             	
             } else {
-            	
+            	alert("No registro!! :O");
                 return false;
             }
         };

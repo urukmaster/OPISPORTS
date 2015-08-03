@@ -526,6 +526,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     		.success(function(data){
     			if(data.code == 200){
     				$rootScope.usuario = {
+    						idUsuario: data.usuario.idUsuario,
     						nombre: data.usuario.nombre,
     						apellido: data.usuario.apellido,
     						correo: data.usuario.contrasenna,
@@ -1569,7 +1570,8 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     $scope.init = function(){
     	$scope.today();
     	if($scope.reservacion != null){
-    		$scope.reservacion.fecha = $scope.dt;
+
+   		$scope.reservacion.fecha = $scope.dt;
     	}
     }
     
