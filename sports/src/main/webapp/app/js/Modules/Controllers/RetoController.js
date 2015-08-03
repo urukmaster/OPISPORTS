@@ -15,6 +15,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 			{ field: 'horaGrid' , name:'Hora', width : 135},
 			{ field: 'hora' , visible:false, width : 135},
 			{ field: 'mensaje' , name:'Mensaje', width : 135},
+			{ field: 'idUsuario' , visible:false, width : 135},
 			{ field: 'nombreUsuario' , name:'Retador', width : 135},
 			{ field: 'telefonoUsuario' , name:'Telefono', width : 135},
 			{ field: 'idServicio', visible:false, width : 135},
@@ -54,6 +55,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						retosView.horaGrid = getHora(reto.hora.millis);
 						retosView.hora = reto.hora;
 						retosView.mensaje = reto.mensaje;
+						retosView.idUsuario = reto.idUsuario;
 						retosView.nombreUsuario = reto.nombreUsuario;
 						retosView.telefonoUsuario = reto.telefonoUsuario;
 						retosView.idServicio = reto.idServicio;
@@ -137,7 +139,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
 			hora : horaRow.getTime(),
 			active : 0,
 			servicio : retoEliminar.idServicio,
-			usuario : $rootScope.usuario.idUsuario
+			usuario : retoEliminar.idUsuario
 			
 			}).success(function(data) {
 				   var ARetos = [];
@@ -149,6 +151,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
 						retosView.horaGrid = getHora(reto.hora.millis);
 						retosView.hora = reto.hora;
 						retosView.mensaje = reto.mensaje;
+						retosView.idUsuario = reto.idUsuario;
 						retosView.nombreUsuario = reto.nombreUsuario;
 						retosView.telefonoUsuario = reto.telefonoUsuario;
 						retosView.idServicio = reto.idServicio;
@@ -243,6 +246,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
    						retosView.horaGrid = getHora(reto.hora.millis);
    						retosView.hora = reto.hora;
    						retosView.mensaje = reto.mensaje;
+   						retosView.idUsuario = reto.idUsuario;
    						retosView.nombreUsuario = reto.nombreUsuario;
    						retosView.telefonoUsuario = reto.telefonoUsuario;
    						retosView.idServicio = reto.idServicio;
@@ -302,7 +306,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
                 	hora:$scope.reto.hora.getTime(),
                     active: 1,
                     servicio : servicioActual,
-                    usuario : $rootScope.usuario.idUsuario
+                    usuario : retoModificar.idUsuario
                 })
                 .success(function(data){
                 	var ARetos = [];
@@ -314,6 +318,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
    						retosView.horaGrid = getHora(reto.hora.millis);
    						retosView.hora = reto.hora;
    						retosView.mensaje = reto.mensaje;
+   						retosView.idUsuario = reto.idUsuario;
    						retosView.nombreUsuario = reto.nombreUsuario;
    						retosView.telefonoUsuario = reto.telefonoUsuario;
    						retosView.idServicio = reto.idServicio;

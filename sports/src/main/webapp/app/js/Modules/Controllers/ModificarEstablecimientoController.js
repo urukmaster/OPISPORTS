@@ -1,12 +1,12 @@
 App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
 
-	
 	$scope.init = function(){
 		$http.post('rest/establecimientoDeportivo/getEstablecimiento', $stateParams.id)
 		.success(function(response) {
-			console.log(response);
-
+			
             $scope.Establecimiento = response.establecimientoDeportivo;
+            
+            
 		});		
 
 	    $http.get('rest/provincia/getAll')
