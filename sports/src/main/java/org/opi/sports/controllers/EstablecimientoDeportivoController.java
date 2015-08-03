@@ -6,11 +6,20 @@ import java.util.List;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.EventoResponse;
+import org.opi.sports.contracts.RetoRequest;
+import org.opi.sports.contracts.RetoResponse;
+import org.opi.sports.contracts.ServicioRequest;
+import org.opi.sports.contracts.ServicioResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Reto;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
+import org.opi.sports.helpers.RetoHelper;
+import org.opi.sports.helpers.ServicioHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.pojo.RetoPOJO;
+import org.opi.sports.pojo.RetosPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -59,7 +68,9 @@ public class EstablecimientoDeportivoController {
 		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
 		for(EstablecimientoDeportivo establecimiento : establecimientoList){
-			establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
+			if(establecimiento.getActive() == 1){
+				establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
+			}			
 		}
 		
 		establecimientoResponse.setEstablecimientosDeportivos(establecimientoViewList);
@@ -109,6 +120,23 @@ public class EstablecimientoDeportivoController {
 			establecimientoResponse.setCodeMessage("El establecimiento deportivo no se registro");
 		}
 		return establecimientoResponse;
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO delete(@RequestBody int idEstablecimiento) {
+
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+		
+		EstablecimientoDeportivo establecimiento = establecimientoDeportivoService.findOne(idEstablecimiento);
+		establecimiento.setActive((byte) 0);
+		
+		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
+
+		establecimientoDeportivoService.save(establecimiento);
+		
+		PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimiento);
+
+		return establecimientoPOJO;
 	}
 
 }

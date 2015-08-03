@@ -3,8 +3,7 @@
  */
 
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', function($scope,$http, $stateParams, $rootScope) {
-
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
@@ -25,10 +24,33 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     
     $scope.obtenerServicio = function(servicio){
     	$rootScope.$broadcast('enviarServicio',{
-    		  idServicio: servicio.idServicio
-    		 
-    		});
+    		  idServicio: servicio.idServicio    		 
+		});
     }
+    
+    $scope.eliminar = function(id){
+            $http.post('rest/establecimientoDeportivo/delete', id).
+            success(function(){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Establecimiento',
+			            text:  'Se eliminó el establecimiento.'
+			    };                
+            	$scope.pop(toasterdata);
+            	$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+            });
+    }
+    
+    //notificacion
+    
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.reload();
+    }
+	
 }]);   
 
 var tipoServicios = [];
@@ -130,3 +152,4 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
+
