@@ -75,8 +75,6 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
-			
-			console.log(response)
 
             $scope.evento = response.evento;
             eventoModificar = $scope.evento;
