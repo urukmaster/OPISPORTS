@@ -94,6 +94,7 @@ public class EventosHelper {
 
 	}
 
+	
 	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
 		
 		Evento evento = new Evento();
@@ -108,6 +109,7 @@ public class EventosHelper {
 		evento.setNombre(eventoRequest.getNombre());
 		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
+		evento.setActive(eventoRequest.isActive());
 		
 		if(eventoRequest.getAccion().equals("Modificar")){
 			evento.setIdEvento(eventoRequest.getIdEvento());

@@ -97,16 +97,21 @@ public class EstablecimientoDeportivoHelper {
 	 * Metodo encargado de registrar el establecimiento deportivo
 	 * 
 	 */
-	public EstablecimientoDeportivoPOJO saveEstablecimiento(EstablecimientoDeportivoRequest establecimiento,
+	public EstablecimientoDeportivoPOJO saveEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
 			EstablecimientoDeportivoServiceInterface establecimientoService) {
-
+		
 		EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
-		establecimientoEJB.setNombre(establecimiento.getNombre());
-		establecimientoEJB.setDireccion(establecimiento.getDireccion());
-		establecimientoEJB.setTelefono(establecimiento.getTelefono());
-		establecimientoEJB.setPaginaWeb(establecimiento.getPaginaWeb());
+
+		if(establecimientoRequest.getAccion().equals("Modificar")){
+			establecimientoEJB.setIdEstablecimientoDeportivo(establecimientoRequest.getIdEstablecimientoDeportivo());
+		}
+		
+		establecimientoEJB.setNombre(establecimientoRequest.getNombre());
+		establecimientoEJB.setDireccion(establecimientoRequest.getDireccion());
+		establecimientoEJB.setTelefono(establecimientoRequest.getTelefono());
+		establecimientoEJB.setPaginaWeb(establecimientoRequest.getPaginaWeb());
 		Usuario usuario = new Usuario();
-		usuario.setIdUsuario(establecimiento.getIdUsuario());
+		usuario.setIdUsuario(establecimientoRequest.getIdUsuario());
 		establecimientoEJB.setUsuario(usuario);
 		
 		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();

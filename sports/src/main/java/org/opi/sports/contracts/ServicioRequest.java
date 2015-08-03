@@ -104,5 +104,4 @@ public class ServicioRequest extends BasePagingRequest {
 		this.accion = accion;
 	}
 	
-	
 }
