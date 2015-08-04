@@ -21,6 +21,7 @@ public class Mensajeria implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horaEnvio;
 
+	@Lob
 	private String mensaje;
 
 	//bi-directional many-to-one association to Usuario

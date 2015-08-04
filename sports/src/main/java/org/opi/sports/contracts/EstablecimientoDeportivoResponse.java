@@ -12,23 +12,34 @@ import java.util.List;
  */
 public class EstablecimientoDeportivoResponse extends BaseResponse {
 	// Lista de Establecimientos deportivos POJO
-	private List<EstablecimientoDeportivoPOJO> establecimientoDeportivo;
-	
+	private List<EstablecimientoDeportivoPOJO> establecimientosDeportivos;
+	// Establecimiento deportivo POJO
+	private EstablecimientoDeportivoPOJO establecimientoDeportivo;
 	
 	/**
 	 * Metodo get que devuelve una lista de establecimientos deportivos POJO
 	 * 
 	 */
-	public List<EstablecimientoDeportivoPOJO> getEstablecimientoDeportivo() {
+	public List<EstablecimientoDeportivoPOJO> getEstablecimientosDeportivos() {
+		return establecimientosDeportivos;
+	}
+
+	/**
+	 * Metodo set que modifica una lista de establecimientos deportivos POJO
+	 */
+	
+	public void setEstablecimientosDeportivos(
+			List<EstablecimientoDeportivoPOJO> establecimientosDeportivos) {
+		this.establecimientosDeportivos = establecimientosDeportivos;
+	}
+	
+	public EstablecimientoDeportivoPOJO getEstablecimientoDeportivo() {
 		return establecimientoDeportivo;
 	}
 	
-	/**
-	 * Metodo set que modifica una lista de establecimientos deportivos POJO
-	 * 
-	 */
-	public void setEstablecimientoDeportivo(List<EstablecimientoDeportivoPOJO> establecimientoDeportivo) {
+	public void setEstablecimientoDeportivo(
+			EstablecimientoDeportivoPOJO establecimientoDeportivo) {
 		this.establecimientoDeportivo = establecimientoDeportivo;
-	}
+	}	
 
 }

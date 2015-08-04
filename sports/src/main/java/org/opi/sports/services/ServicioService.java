@@ -21,7 +21,10 @@ import org.springframework.stereotype.Service;
 public class ServicioService implements ServicioServiceInterface{
 
 	@Autowired
-	private ServicioRepository servicioRepository;
+	ServicioRepository servicioRepository;
+	
+	@Autowired
+	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 	
 	@Transactional
 	public List<Servicio> findAll() {
@@ -38,5 +41,6 @@ public class ServicioService implements ServicioServiceInterface{
 		return servicioRepository.save(servicio);
 	}
 
+	
 	
 }

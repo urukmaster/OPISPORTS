@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.repositories.EstablecimientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,10 @@ public class EstablecimientoDeportivoService implements EstablecimientoDeportivo
 	public boolean exists(Integer idEstablecimiento) {
 		// TODO Auto-generated method stub
 		return establecimientoDeportivoRepository.exists(idEstablecimiento);
+	}
+	@Transactional
+	public EstablecimientoDeportivo findOne(Integer idEstablecimiento) {
+		return establecimientoDeportivoRepository.findOne(idEstablecimiento);
 	}
 
 }

@@ -15,7 +15,7 @@
 	   <!-- START list group-->
 	   <div class="list-group" ng-repeat="servicio in Servicios">
 	      <!-- START list group item-->
-	      <div class="list-group-item">
+	      <div class="list-group-item contenedorServicios">
 	         <div class="media-box">
 	            <div class="pull-left" ng-controller ="ModalReservacionesController">
 	               <span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
@@ -52,6 +52,7 @@
    					<div style="display:inline-block; min-height:290px;">
       				<datepicker ng-model="reservacion.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
     			</div>
+
 				<h5>Hora</h5>
 				<div ng-controller="TimepickerDemoCtrl">
 
@@ -72,7 +73,5 @@
 	</div>
 	<!-- END messages and activity-->
 </div>
-
-
 
 <script src="app/js/Modules/Controllers/CalendarioController.js"></script>
