@@ -9,12 +9,15 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EventoRequest;
+import org.opi.sports.contracts.TorneoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
 /**
@@ -94,12 +97,16 @@ public class EventosHelper {
 
 	}
 
-	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
-		
+	public EventoPOJO save(
+			EventoRequest eventoRequest,
+			EventoServiceInterface eventoService,
+			EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
+
 		Evento evento = new Evento();
-		
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(eventoRequest.getEstablecimiento());
-		
+
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService
+				.findOne(eventoRequest.getEstablecimiento());
+
 		evento.setCupo(eventoRequest.getCupo());
 		evento.setDireccion(eventoRequest.getDireccion());
 		evento.setFecha(eventoRequest.getFecha());
@@ -108,18 +115,70 @@ public class EventosHelper {
 		evento.setNombre(eventoRequest.getNombre());
 		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
-		
-		if(eventoRequest.getAccion().equals("Modificar")){
+
+		if (eventoRequest.getAccion().equals("Modificar")) {
 			evento.setIdEvento(eventoRequest.getIdEvento());
 		}
-		
+
 		evento = eventoService.save(evento);
+
+		EventoPOJO eventoPOJO = new EventoPOJO();
+
+		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
+
+		return eventoPOJO;
+
+	}
+
+	public EventoPOJO saveTorneo(
+			TorneoRequest torneoRequest,
+			EventoServiceInterface eventoServices,
+			EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService,
+			ReservacionesServiceInterface reservacionesService) {
+
+		Evento evento = new Evento();
+
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeporitvoService
+				.findOne(torneoRequest.getEstablecimiento());
+
+		evento.setCupo(torneoRequest.getCupo());
+		evento.setFecha(torneoRequest.getFecha());
+		evento.setInformacion(torneoRequest.getInformacion());
+		evento.setNombre(torneoRequest.getNombre());
+		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
+		evento.setPrecio(torneoRequest.getPrecio());
+
+		if (torneoRequest.getAccion().equals("Modificar")) {
+			evento.setIdEvento(torneoRequest.getIdEvento());
+		}
+		
+		evento = eventoServices.save(evento);
+
+		reservarTorneo(evento, reservacionesService, torneoRequest);
 		
 		EventoPOJO eventoPOJO = new EventoPOJO();
-		
+
 		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
-		
+
 		return eventoPOJO;
+	}
+
+	private void reservarTorneo(Evento evento, ReservacionesServiceInterface reservacionesService, TorneoRequest torneoRequest) {
+		
+		Reservaciones reservacionTorneo = new Reservaciones();
+		
+		reservacionTorneo.setActive((byte)1);
+		reservacionTorneo.setEstado("Reservado");
+		reservacionTorneo.setFecha(evento.getFecha());
+		reservacionTorneo.setServicio(evento.getEstablecimientoDeportivo().getServicios().get(0));
+		reservacionTorneo.setUsuario(evento.getEstablecimientoDeportivo().getUsuario());
+		
+		if(torneoRequest.getAccion().equals("Modificar")){
+			reservacionTorneo.setIdCalendario(torneoRequest.getIdCalendario());
+		}
+		
+		reservacionesService.save(reservacionTorneo);
 		
 	}
+
 }

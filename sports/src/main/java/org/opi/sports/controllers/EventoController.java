@@ -6,11 +6,13 @@ import java.util.List;
 import org.hibernate.id.uuid.Helper;
 import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
+import org.opi.sports.contracts.TorneoRequest;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.helpers.EventosHelper;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,9 @@ public class EventoController {
 	
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
+	
+	@Autowired
+	ReservacionesServiceInterface reservacionesService;
 
 	/**
 	 *Este método obtiene cada una de las instancias de eventos deportivos
@@ -95,6 +100,19 @@ public class EventoController {
 		EventoResponse eventoResponse = new EventoResponse();
 		
 		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices, establecimientoDeporitvoService);
+		
+		eventoResponse.setEvento(evento);
+		
+		return eventoResponse;
+	}
+	
+	@RequestMapping(value="saveTorneo", method = RequestMethod.POST)
+	@Transactional
+	public EventoResponse saveTorneo(@RequestBody TorneoRequest torneoRequest){
+		
+		EventoResponse eventoResponse = new EventoResponse();
+		
+		EventoPOJO evento = EventosHelper.getInstance().saveTorneo(torneoRequest, eventoServices, establecimientoDeporitvoService, reservacionesService);
 		
 		eventoResponse.setEvento(evento);
 		

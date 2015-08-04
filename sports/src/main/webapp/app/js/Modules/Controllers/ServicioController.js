@@ -4,13 +4,26 @@
 
 
 var gridServicio = {};
+var servicios;
 
 App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
-
-    var data = [];
-
-    
 	
+	
+	
+	$scope.init = function(){
+		servicios ="<select ng-model='servicioForm.tipoServicio' type='text'  class='form-control'>"
+			
+		angular.forEach(tipoServicios, function(tipoServicio, index){
+			servicios += "<option value=" + tipoServicio.idTipoServicio + ">" + tipoServicio.tipoServicio +"</option>"
+		});
+		servicios += "</select>"
+		$('#servicios').append(servicios);
+	}
+	
+	$scope.init();
+	
+	var data = [];
+
     gridServicio = $scope.gridServicio = {
         columnDefs: [
             { field: 'idServicio',visible:false},
@@ -42,7 +55,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 var servicioModificar = {};
 App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
 	
-	$scope.tipoServicios = tipoServicios;
+	
 	$scope.registrar = function () {
 
         var RegistrarModalInstance = $modal.open({
@@ -50,7 +63,6 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             controller: RegistrarServicioInstanceCtrl,
             size: 'lg'
         });
-
 
     };
 
