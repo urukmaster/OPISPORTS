@@ -1,8 +1,10 @@
-/**=========================================================
- * Module: TipoServicio
- =========================================================*/
-
-
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ *Sprint #4 Descripción: Controlador para gestioanr los tipos de servicios
+ */
 var gridTipoServicio = {};
 
 App.controller('TipoServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {

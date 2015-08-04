@@ -22,12 +22,21 @@ import org.opi.sports.utils.PojoUtils;
  * Fecha: 12-07-2015 version 1.0
  * 
  * @author Mauricio Fernández Mora.
+ * Revision: 1.0 Sprint 01
  *
  *         Sprint 01 Descripción:Esta clase sirve de apoyo a la clase de
  *         ReservacionesController y contiene la lógica necesaria para
  *         serializar las reservaciones y poder mostrarlas en el front end Esta
  *         clase se implementa como "Singleton" para asegurarnos que sea
  *         instanciada una sola vez.
+ * 
+ * Fecha: 24-07-2015
+ * 
+ * @author: Luis Esteban López Ramírez
+ * Revision: 1.1 Sprint 02
+ * 
+ * 		  Sprint 02: Descripcion: Se realizar la implementación para realizar las reservaciones.
+ * 
  */
 
 public class ReservacionesHelper {
@@ -50,7 +59,7 @@ public class ReservacionesHelper {
 		return instance;
 	}
 
-	/**
+	/*
 	 * Este método serializa cada uno de los atributos de "Reservaciones" para
 	 * poder utilizarlos en el front end como un JSON
 	 */
@@ -96,7 +105,7 @@ public class ReservacionesHelper {
 		return calendario;
 	}
 
-	/**
+	/*
 	 * Este método serializa cada uno de los atributos de "Reservaciones" para
 	 * poder utilizarlos en el front end como un JSON
 	 */
@@ -143,6 +152,11 @@ public class ReservacionesHelper {
 		return calendario;
 	}
 	
+	/* Se encarga de serializar las reservaciones compatibles con el calendario
+	 * en el front end
+	 * @param listaReservacionesView
+	 * @return Lista para el calendario
+	 */
 	public List<CalendarioPOJO> reservacionSerializer(
 			List<ReservacionesPOJO> listaReservacionesView) {
 
@@ -177,14 +191,25 @@ public class ReservacionesHelper {
 
 		return calendario;
 	}
-
+	/*
+	 * Este metodo de convertir a fecha para manejo del sistema.
+	 * @param fecha
+	 * @return
+	 */
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
 				.forPattern("dd-MM-yyyy HH:mm");
 		return convertirFechaHora.parseDateTime(fecha);
 
 	}
-
+	/*
+	 * Meotod que sirve para reservar o modificar los servicios del establecimiento.
+	 * @param reservacion
+	 * @param reservacionService
+	 * @param usuario
+	 * @param servicio
+	 * @return
+	 */
 	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
 			ReservacionesServiceInterface reservacionService, Usuario usuario,
 			Servicio servicio) {

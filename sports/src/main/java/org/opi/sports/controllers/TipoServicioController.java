@@ -13,14 +13,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * Fecha: 20-07-2015
+ * 
+ * @author Luis Esteban López Ramírez
+ *
+ *Sprint #4 Descripción: Se encarga de gestionar los tipos de permisos desde le front
+ *end, segun las peticiones por parte de la aplicación.
+ */
 @RestController
 @RequestMapping(value = "rest/tipoServicio")
 public class TipoServicioController {
 	
 	@Autowired
 	TipoServicioServiceInterface tipoServicioService;
-
+	/**
+	 * Método que se encarga de solicitar todos los tipos de servicios existentes
+	 * @return TipoServicioResponse
+	 */
 	@RequestMapping(value="getAll", method = RequestMethod.GET)
 	public TipoServicioResponse getAll(){
 		
