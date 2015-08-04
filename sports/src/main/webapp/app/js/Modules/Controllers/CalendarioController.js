@@ -17,6 +17,25 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     // global shared var to know what we are dragging
     var draggingEvent = null;
     
+
+
+    // listen for the event in the relevant $scope
+       $scope.$on('myEvent', function (event, data) {
+    	   
+    	 
+         console.log(data); // 'Data to send'
+         
+
+   
+ 		var calendar = $('#calendar');
+     	
+     	console.log(data);
+     	
+     	initExternalEvents(calendar);
+
+     	initCalendar(calendar, data);
+       });
+
     /**
      * ExternalEvent object
      * @param jQuery Object elements Set of element as jQuery objects
@@ -183,12 +202,22 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
      * Wrap into this function a request to a source to get via ajax the stored events
      * @return Array The array with the events
      */
-        
+    
+    $scope.$on('actualizar', function(){
+    	$('#calendario').append('<div id="calendarioContent">' +
+						'<div id="calendar"></div>' +
+					'</div>');
+    	
+    	$scope.init();
+    })
+    
     $scope.init = function(){
     	
     		var calendar = $('#calendar');
         	
         	var reservaciones = initReservaciones(establecimientoCalendario.calendario);
+        	
+        	console.log(reservaciones);
         	
         	initExternalEvents(calendar);
 
@@ -211,6 +240,18 @@ App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
 	$scope.Servicios = establecimientoCalendario.servicios;
 
 }]);
+
+$(function() {
+	  var $container = $('.contenedorServicios');
+	  var $b = $('body');
+	  $.waypoints.settings.scrollThrottle = 0;
+	  $container.waypoint({
+	    handler: function(e, d) {
+	      $b.toggleClass('sticky', d === 'down');
+	      e.preventDefault();
+	    }
+	  });
+	});
 
 
 /**=========================================================
@@ -251,7 +292,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	var registrar = true;
         	
         	angular.forEach(establecimientoCalendario.calendario, function(reservacion, index){
-        		if(validarCalendario(servicioActual, hora)){
+        		if(validarCalendario(servicioActual, hora, fecha)){
         			registrar = false;
         		}
         	})
@@ -264,12 +305,13 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         		var toasterdata = {
 			            type:  'error',
 			            title: 'Reservación',
-			            text:  'Reservación Inválida'
+			            text:  'El servicio seleccionado se encuentra ocupado a la hora seleccionada. \n Intente nuevamente.'
 			    };
     			$scope.pop(toasterdata);
         	}
         	
-        	$modalInstance.close('closed');
+        	$modalInstance.close('closed');  
+        	
             
         };
 
@@ -281,20 +323,23 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	$http.post('rest/reservaciones/save', {
     			fecha: fecha,
     			hora: hora.getTime(),
-    			ocurrencia : 'Normal',
+    			estado : 'Pendiente',
     			servicio : + servicioActual,
-    			usuario : 1
+    			usuario : 1,
+    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
+    			accion:'Regsitrar'
     		 	})
     		.success(function(data){
     			var toasterdata = {
 			            type:  'success',
 			            title: 'Establecimiento',
-			            text:  data.codeMessage
+			            text:  'Debe esperar a que la reservación sea aprobada\n por el administrador'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario.calendario.push(data.jsoncalendar);
-                
+    			establecimientoCalendario = data;
+    			$('#calendarioContent').remove();
+    			$rootScope.$broadcast("actualizar");
     		});
         }
         
@@ -306,15 +351,24 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	$route.reload();
         }
         
-        function validarCalendario(servicio, hora){
+        function validarCalendario(servicio, hora, fecha){
         	var valido = false;
         	angular.forEach(establecimientoCalendario.servicios, function(servicioEstablecimiento, index){
-        		//alert(servicioEstablecimiento.idServicio + ' ' + servicio);
         		if(servicioEstablecimiento.idServicio == servicio){
         			angular.forEach(servicioEstablecimiento.reservaciones, function(reservacion, index){
         				var horaReservacion = hora.toTimeString();
+        				mes = function(){
+        					if(fecha.getMonth()+1 > 10){
+        						return '0'+ fecha.getMonth()+1; 
+        					}else{
+        						return fecha.getMonth()+1;
+        					}
+        				}
+        				var fechaReservacion = fecha.getFullYear() + '-' + mes +
+        				fecha.getDate();
+        				
         				horaReservacion = horaReservacion.split(' ')[0];
-        				if(reservacion.hora == horaReservacion){
+        				if(reservacion.hora == horaReservacion && fechaReservacion == reservacion.fecha){
         					valido = true;
         				}
         			});
@@ -322,22 +376,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	});
         	return valido;
         }
-        
-        function initReservaciones(reservacionesJSON){
-            
-            var reservaciones = [];
-            
-            angular.forEach(reservacionesJSON, function(reservacionJSON, index){
-            	var reservacion = {};
-            	reservacion.title = reservacionJSON.title;
-            	reservacion.start = new Date(reservacionJSON.start.millis);
-            	reservacion.end = new Date(reservacionJSON.end.millis);
-            	reservacion.backgroundColor = reservacionJSON.backgroundColor;
-            	reservacion.borderColor = reservacionJSON.borderColor;
-            	
-            	reservaciones.push(reservacion);
-            });            
-        }       
+               
     };
     
     

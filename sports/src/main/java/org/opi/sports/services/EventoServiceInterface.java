@@ -9,12 +9,16 @@ import org.opi.sports.ejb.Evento;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta interfaza sirve para implementar los servicios
+ *Sprint 05 Descripción: Esta interfaza sirve para implementar los servicios
  *de eventos deportivos.
  */
 
 public interface EventoServiceInterface {
 
 	public List<Evento> getAllEventos();
+	
+	public <Eventos extends Evento> Eventos save(Eventos evento);
+	
+	public Evento findOne(Integer idEvento);
 
 }

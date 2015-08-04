@@ -2,6 +2,7 @@ package org.opi.sports.ejb;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.List;
 
 
@@ -19,20 +20,18 @@ public class Servicio implements Serializable {
 	private int idServicio;
 
 	private byte arbitro;
+	
+	private byte active;
 
-	private String horaApertura;
+	private Time horaApertura;
 
-	private String horaCierre;
+	private Time horaCierre;
 
-	private int precio;
+	private String precio;
 
 	private String servicio;
 
-	//bi-directional many-to-one association to Foto
-	@OneToMany(mappedBy="servicio")
-	private List<Foto> fotos;
-
-	//bi-directional many-to-one association to Reservacione
+	//bi-directional many-to-one association to Reservaciones
 	@OneToMany(mappedBy="servicio")
 	private List<Reservaciones> reservaciones;
 
@@ -74,27 +73,35 @@ public class Servicio implements Serializable {
 		this.arbitro = arbitro;
 	}
 
-	public String getHoraApertura() {
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
+	}
+	
+	public Time getHoraApertura() {
 		return this.horaApertura;
 	}
 
-	public void setHoraApertura(String horaApertura) {
+	public void setHoraApertura(Time horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 
-	public String getHoraCierre() {
+	public Time getHoraCierre() {
 		return this.horaCierre;
 	}
 
-	public void setHoraCierre(String horaCierre) {
+	public void setHoraCierre(Time horaCierre) {
 		this.horaCierre = horaCierre;
 	}
 
-	public int getPrecio() {
+	public String getPrecio() {
 		return this.precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
 
@@ -104,28 +111,6 @@ public class Servicio implements Serializable {
 
 	public void setServicio(String servicio) {
 		this.servicio = servicio;
-	}
-
-	public List<Foto> getFotos() {
-		return this.fotos;
-	}
-
-	public void setFotos(List<Foto> fotos) {
-		this.fotos = fotos;
-	}
-
-	public Foto addFoto(Foto foto) {
-		getFotos().add(foto);
-		foto.setServicio(this);
-
-		return foto;
-	}
-
-	public Foto removeFoto(Foto foto) {
-		getFotos().remove(foto);
-		foto.setServicio(null);
-
-		return foto;
 	}
 
 	public List<Reservaciones> getReservaciones() {

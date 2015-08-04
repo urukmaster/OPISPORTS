@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TipoServicioService implements TipoServicioServiceInterface{
 
 	@Autowired
-	public TipoServicioRepository tipoServicioRepositorio;
+	TipoServicioRepository tipoServicioRepositorio;
 	
 	@Transactional
 	public List<TipoServicio> getAllTipoServicio(){

@@ -6,8 +6,12 @@ import java.util.List;
 import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.ReservacionesHelper;
+import org.opi.sports.pojo.CalendarioPOJO;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
+import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
@@ -48,6 +52,9 @@ public class ReservacionController {
 	@Autowired
 	ServicioServiceInterface servicioServices;
 
+	@Autowired
+	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
+
 	/**
 	 * Este método obtiene cada una de las instancias de reservaciones
 	 * registradas en la base de datos
@@ -78,10 +85,8 @@ public class ReservacionController {
 	 * Este método se encarga de guardar las reservaciones
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public ReservacionesResponse save(
+	public EstablecimientoDeportivoPOJO save(
 			@RequestBody ReservacionesRequest reservacion) {
-
-		ReservacionesResponse reservacionResponse = new ReservacionesResponse();
 
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
 				.saveReservacion(reservacion, reservacionesServices,
@@ -91,16 +96,48 @@ public class ReservacionController {
 		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
 			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
 			reservaciones.add(reservacionView);
-			reservacionResponse.setReservacion(reservaciones);
-			reservacionResponse.setCode(200);
-			reservacionResponse
-					.setCodeMessage("Se registró la reservación correctamente");
 		}
 
-		reservacionResponse.setJSONCalendar(ReservacionesHelper.getInstance()
-				.reservacionSerializer(reservacionResponse.getReservacion()));
-
-		return reservacionResponse;
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
 	}
 
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO delete(
+			@RequestBody ReservacionesRequest reservacion) {
+		
+		Reservaciones reservacionesEJB = reservacionesServices.findOne(reservacion.getIdCalendario());
+		reservacionesEJB.setActive((byte) 0);
+		reservacionesServices.save(reservacionesEJB);
+
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO update(
+			@RequestBody ReservacionesRequest reservacion) {
+
+		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
+				.saveReservacion(reservacion, reservacionesServices,
+						usuarioServices.findOne(reservacion.getUsuario()),
+						servicioServices.findOne(reservacion.getServicio()));
+
+		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
+			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+			reservaciones.add(reservacionView);
+		}
+
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
+	}
 }

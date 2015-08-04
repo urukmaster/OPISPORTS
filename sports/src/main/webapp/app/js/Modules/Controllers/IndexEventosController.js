@@ -5,8 +5,58 @@
  * events and events creations
  =========================================================*/
 
+App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
+	
+	$scope.registrar = function () {
+        var RegistrarModalInstance = $modal.open({
+            templateUrl: '/myEventoModalContent.html',
+            controller: RegistrarEventoInstanceCtrl,
+            size: 'lg'
+        });
+    };
 
-App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+//------------------------------------------------------------------------------------
+    var RegistrarEventoInstanceCtrl = function ($scope, $modalInstance) {
+    	
+    	$scope.eventoForm = {};
+        $scope.eventoForm.hora = new Date();
+        $scope.eventoForm.fecha = new Date();
+        $scope.eventoForm.registrar = function () {
+
+        	var data = {
+        		"nombre": $scope.eventoForm.evento,
+                "precio": $scope.eventoForm.precio,
+                "hora": $scope.eventoForm.hora.getTime(),
+                "fecha": $scope.eventoForm.fecha,
+                "informacion": $scope.eventoForm.informacion,
+                "tipoEvento" : 1,
+                "establecimiento" : 1,
+                "cupo" : $scope.eventoForm.cupo,
+                "direccion" : $scope.eventoForm.direccion,
+                "accion" : "Registrar"
+            };
+            
+            $http.post('rest/evento/save', data).
+            success(function(data){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Evento',
+			            text:  'Se registro el evento correctamente.'
+			    };
+    			//$scope.pop(toasterdata);
+            	$modalInstance.dismiss('cancel');
+            	$state.reload();
+            });
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+    RegistrarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+}]);
+
+App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$state', '$modal', function($scope, $http, $timeout, $state, $modal) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -71,6 +121,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
                 week:  'semana',
                 day:   'dia'
             },
+            eventClick:  function(evento, jsEvent, view) {
+                $state.go('app.perfilEvento',{id: evento.idEvento});
+                
+            },
             events: events
         });
     }   
@@ -88,6 +142,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
     	evento.end = new Date(eventoJSON.end.millis);
     	evento.backgroundColor = eventoJSON.backgroundColor;
     	evento.borderColor = eventoJSON.borderColor;
+    	evento.idEvento = eventoJSON.idEvento;
     	
     	eventos.push(evento);
     })
@@ -180,17 +235,18 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', func
     	$http.get('rest/evento/getAll')
         .success(function(data) {
         	var calendar = $('#calendar');
-        	
+        	        	
         	var eventos = initEventos(data.jsoncalendar);
         	
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, eventos);
 
-        })
+        })	
     	
-    }
+    };
     
     $scope.init();
-
+    
+    
 }]);

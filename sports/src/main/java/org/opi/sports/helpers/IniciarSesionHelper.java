@@ -57,6 +57,7 @@ public class IniciarSesionHelper {
 		usuarioView.setRoles(roles);
 		return usuarioView;
 	}
+	
 	/**
 	 * Metodo encargado de covertir un rol ejb a rol POJO
 	 * 
@@ -71,6 +72,7 @@ public class IniciarSesionHelper {
 		rol.setPermisos(permisos);
 		return rol;
 	}
+	
 	/**
 	 * Metodo encargado de covertir un permiso ejb a permiso POJO
 	 * 

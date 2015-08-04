@@ -111,7 +111,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             .state('app.retos', {
                 url: '/retos',
                 title: 'Retos',
-                templateUrl: helper.basepath('retos.html'),
+                templateUrl: helper.basepath('reto.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.eventos', {
@@ -133,7 +133,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Log in',
                 templateUrl: helper.basepath('login.html'),
                 controller: 'LoginFormController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley')
             })
             .state('app.agendaReservaciones', {
                 url: '/agendaReservaciones',
@@ -171,16 +171,38 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil.reservaciones',{
+            	url:'/reservaciones',
+            	title:'Reservaciones',
+            	templateUrl: helper.basepath('perfil-reservaciones.html')
+            })
+            .state('app.perfil.reservaciones.calendario',{
                 url: '/reservaciones',
                 title: 'Reservaciones',
                 templateUrl: helper.basepath('perfil-calendario.html'),
                 resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
+            .state('app.perfil.reservaciones.pendientes',{
+                url: '/reservaciones',
+                title: 'Reservaciones',
+                templateUrl: helper.basepath('perfil-pendientes.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
             .state('app.perfilEvento',{
-                url: '/perfilEvento',
+                url: '/perfilEvento/{id:[0-9]{1,4}}',
                 title: 'Perfil de evento',
                 templateUrl: helper.basepath('perfilEvento.html'),
                 resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
+            })
+            .state('app.perfilEvento.informacion',{
+                url: '/informacionEvento',
+                title: 'Informacion',
+                templateUrl: helper.basepath('perfilEvento-informacion.html'),
+                resolve: helper.resolveFor('loadGoogleMapsJS', function() { return loadGoogleMaps(); }, 'ui.map','jquery-ui', 'jquery-ui-widgets')
+            })
+            .state('app.perfilEvento.puntosRetiro',{
+                url: '/puntosRetiro',
+                title: 'Puntos de retiro',
+                templateUrl: helper.basepath('perfilEvento-puntosRetiro.html'),
             })
             .state('app.registrarEventoMasivo',{
                 url: '/registrarEventoMasivo',
@@ -200,12 +222,18 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
+            .state('app.modificarEstablecimiento',{
+                url: '/modificarEstablecimiento/{id:[0-9]{1,4}}',
+                title: 'Modificar Establecimiento',
+                templateUrl: helper.basepath('modificarEstablecimiento.html'),
+                resolve: helper.resolveFor('parsley')
+            })
             .state('app.actividades', {
                 url: '/actividades',
                 title: 'Actividades Deportivas',
-                templateUrl: helper.basepath('actividades.html'),
-                controller: 'ActividadesController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+                templateUrl: helper.basepath('actividadesDeportivas.html'),
+                controller: 'ActividadesDeportivasController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid','parsley')
             })
             .state('app.servicio', {
                 url: '/servicio',
@@ -504,6 +532,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     		.success(function(data){
     			if(data.code == 200){
     				$rootScope.usuario = {
+    						idUsuario: data.usuario.idUsuario,
     						nombre: data.usuario.nombre,
     						apellido: data.usuario.apellido,
     						correo: data.usuario.contrasenna,
@@ -1546,7 +1575,10 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     
     $scope.init = function(){
     	$scope.today();
-    	$scope.reservacion.fecha = $scope.dt;
+    	if($scope.reservacion != null){
+
+   		$scope.reservacion.fecha = $scope.dt;
+    	}
     }
     
     $scope.init();
@@ -2087,8 +2119,12 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     };
     
     $scope.init = function(){
-    	$scope.mytime.setMinutes(00, 00, 00);
-    	$scope.reservacion.hora = $scope.mytime;
+    	
+    	if($scope.reservacion != null){
+    		$scope.mytime.setMinutes(00, 00, 00);
+    		$scope.mytime.setSeconds(00, 00);
+    		$scope.reservacion.hora = $scope.mytime;
+    	}
     }
     
     $scope.init();
@@ -3970,7 +4006,22 @@ App.controller('ChartRickshawController', ['$scope', function($scope) {
 
 App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils',
     function($rootScope, $scope, $state, $http, $timeout, Utils){
-
+		$scope.validarUsuario = function(item){
+			
+			if(typeof $rootScope.usuario == 'undefined'){
+				return false;
+			}else{
+				for(i=0;i<$rootScope.usuario.roles.length;i++){
+					for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+						if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+							return true;
+						}
+					}
+				}
+							
+			}
+			
+		};
         var collapseList = [];
 
         // demo: when switch from collapse to hover, close all items
@@ -4805,7 +4856,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope', function(
     }
     
     $scope.logout = function(){
-    	$rootScope.usuario = null;
+    	$rootScope.usuario = undefined;
     }
 
 }]);

@@ -18,6 +18,8 @@ public class EstablecimientoDeportivo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEstablecimientoDeportivo;
 
+	private byte active;
+
 	private String direccion;
 
 	private String nombre;
@@ -26,14 +28,22 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	private String telefono;
 
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
+	private Distrito distrito;
+
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 
-	//bi-directional many-to-one association to Establecimiento_Evento
+	//bi-directional many-to-one association to Evento
 	@OneToMany(mappedBy="establecimientoDeportivo")
-	private List<Establecimiento_Evento> establecimientoEventos;
+	private List<Evento> eventos;
+
+	//bi-directional many-to-one association to Foto
+	@OneToMany(mappedBy="establecimientoDeportivo")
+	private List<Foto> fotos;
 
 	//bi-directional many-to-one association to Review
 	@OneToMany(mappedBy="establecimientoDeportivo")
@@ -52,6 +62,14 @@ public class EstablecimientoDeportivo implements Serializable {
 
 	public void setIdEstablecimientoDeportivo(int idEstablecimientoDeportivo) {
 		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
+	}
+
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 	public String getDireccion() {
@@ -86,6 +104,14 @@ public class EstablecimientoDeportivo implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public Distrito getDistrito() {
+		return this.distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
+	}
+
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
@@ -94,26 +120,48 @@ public class EstablecimientoDeportivo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Establecimiento_Evento> getEstablecimientoEventos() {
-		return this.establecimientoEventos;
+	public List<Evento> getEventos() {
+		return this.eventos;
 	}
 
-	public void setEstablecimientoEventos(List<Establecimiento_Evento> establecimientoEventos) {
-		this.establecimientoEventos = establecimientoEventos;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
-	public Establecimiento_Evento addEstablecimientoEvento(Establecimiento_Evento establecimientoEvento) {
-		getEstablecimientoEventos().add(establecimientoEvento);
-		establecimientoEvento.setEstablecimientoDeportivo(this);
+	public Evento addEvento(Evento evento) {
+		getEventos().add(evento);
+		evento.setEstablecimientoDeportivo(this);
 
-		return establecimientoEvento;
+		return evento;
 	}
 
-	public Establecimiento_Evento removeEstablecimientoEvento(Establecimiento_Evento establecimientoEvento) {
-		getEstablecimientoEventos().remove(establecimientoEvento);
-		establecimientoEvento.setEstablecimientoDeportivo(null);
+	public Evento removeEvento(Evento evento) {
+		getEventos().remove(evento);
+		evento.setEstablecimientoDeportivo(null);
 
-		return establecimientoEvento;
+		return evento;
+	}
+
+	public List<Foto> getFotos() {
+		return this.fotos;
+	}
+
+	public void setFotos(List<Foto> fotos) {
+		this.fotos = fotos;
+	}
+
+	public Foto addFoto(Foto foto) {
+		getFotos().add(foto);
+		foto.setEstablecimientoDeportivo(this);
+
+		return foto;
+	}
+
+	public Foto removeFoto(Foto foto) {
+		getFotos().remove(foto);
+		foto.setEstablecimientoDeportivo(null);
+
+		return foto;
 	}
 
 	public List<Review> getReviews() {
