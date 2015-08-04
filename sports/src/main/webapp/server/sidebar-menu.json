@@ -13,7 +13,7 @@
   },
   {
     "text": "Retos",
-    "sref": "#",
+    "sref": "app.retos",
     "icon": "icon-fire",
     "label": "label label-info"
   },
@@ -26,7 +26,7 @@
       {"text": "Usuarios", "sref": "#"},
       {"text": "Tipos de servicios", "sref": "#" },
       {"text": "Tipos de eventos", "sref": "#" },
-      {"text": "Tipos de actividades deportivas", "sref": "#" }
+      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" }
       ]
   }
 ]

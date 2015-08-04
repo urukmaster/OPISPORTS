@@ -1,0 +1,104 @@
+    <!-- START timeline-->
+    <ul class="timeline">
+    <!-- START timeline item DERECHA-->
+    <li class="timeline-inverted">
+        <div class="timeline-badge green">
+            <em class="fa fa-comment"></em>
+        </div>
+        <div class="timeline-panel">
+            <div class="popover right">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <div class="table-grid table-grid-align-middle mb">
+                        <div class="col col-xs">
+                        </div>
+                        <div class="col">
+                            <p class="m0">
+                                <a href="#" class="text-muted"><strong>Comentarios</strong></a>
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-muted mv">Comenta sobre este evento deportivo</p>
+                    <div class="media bb p">
+                        <small class="pull-right text-muted"></small>
+                        <div class="pull-left">
+                        </div>
+                        <div class="media-body">
+                            <span class="media-heading">
+                                <p class="m0">
+                                    <a href="#">
+                                        <strong>Mauricio Araica</strong>
+                                    </a>
+                                </p>
+                                <p class="m0 text-muted">Estuvo muy tuanis nos trataron bien.</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="media bb p">
+                        <small class="pull-right text-muted"></small>
+                        <div class="pull-left">
+                        </div>
+                        <div class="media-body">
+                            <span class="media-heading">
+                                <p class="m0">
+                                    <a href="#">
+                                        <strong>Estaban Lopez</strong>
+                                    </a>
+                                </p>
+                                <p class="m0 text-muted">El mejor trato lo recomiendo :)</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="media bb p">
+                        <small class="pull-right text-muted"></small>
+                        <div class="pull-left">
+                        </div>
+                        <div class="media-body">
+                            <span class="media-heading">
+                                <p class="m0">
+                                    <a href="#">
+                                        <strong>Juanma Viales</strong>
+                                    </a>
+                                </p>
+                                <p class="m0 text-muted">Muy mal servicio!! No vengan nunca</p>
+                            </span>
+                        </div>
+                    </div>
+                    <form method="post" action="" class="mt">
+                        <textarea placeholder="Escribe un comentario..." rows="1" class="form-control no-resize"></textarea>
+                    </form>
+                    <br>
+                    <button class="btn btn-danger">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <!-- END timeline item-->
+
+    <!-- START timeline item-->
+    <li>
+        <div class="timeline-badge purple">
+            <em class="fa fa-map-marker"></em>
+        </div>
+        <div class="timeline-panel">
+            <div class="popover left">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <div class="table-grid table-grid-align-middle mb">
+                        <div class="col col-xs">
+                        </div>
+                        <div class="col">
+                            <p class="m0">
+                                <strong>Ubicaci�n del evento.</strong></p>
+                        </div>
+                    </div>
+                    <div id="map" ng-controller="GMapController">
+                        <div ui-map="myMap5" ui-options="mapOptions5" class="gmap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <!-- END timeline item-->
+    </ul>
+    <!-- END timeline-->

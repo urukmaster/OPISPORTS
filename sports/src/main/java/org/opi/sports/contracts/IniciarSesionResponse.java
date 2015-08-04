@@ -15,14 +15,7 @@ import org.opi.sports.pojo.UsuarioPOJO;
  *Sprint 02 Descripción: Clase response del iniciar sesión
  */
 public class IniciarSesionResponse extends BaseResponse{
-	//Id del usuario
-	private int idUsuario;
-	//Nombre del usuario
-	private String nombre;
-	//Apellido del usuario
-	private String apellido;
-	//Lista de roles
-	private List<Usuario_Rol> roles;
+	
 	//Usuario POJO 
 	private UsuarioPOJO usuario; 
 
@@ -35,62 +28,7 @@ public class IniciarSesionResponse extends BaseResponse{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * Metodo get
-	 * 
-	 */
-	public List<Usuario_Rol> getRoles() {
-		return roles;
-	}
-	/**
-	 * Metodo set
-	 * 
-	 */
-	public void setRoles(List<Usuario_Rol> roles) {
-		this.roles = roles;
-	}
-	/**
-	 * Metodo get
-	 * 
-	 */
-	public int getIdUsuario() {
-		return idUsuario;
-	}
-	/**
-	 * Metodo set
-	 * 
-	 */
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	/**
-	 * Metodo get
-	 * 
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-	/**
-	 * Metodo set
-	 * 
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	/**
-	 * Metodo get
-	 * 
-	 */
-	public String getApellido() {
-		return apellido;
-	}
-	/**
-	 * Metodo set
-	 * 
-	 */
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
+	
 	/**
 	 * Metodo get
 	 * 

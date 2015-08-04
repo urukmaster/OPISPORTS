@@ -1,8 +1,5 @@
 package org.opi.sports.contracts;
 
-import java.util.List;
-
-import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 
 
@@ -28,7 +25,8 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 	private String paginaWeb;
 	//Id del usuario relacionado al establecimiento
 	private int idUsuario;
-	
+	//Tipo de transaccion en la base de datos
+	private String accion;
 	/**
 	 * Metodo get
 	 */
@@ -100,6 +98,19 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 	 */
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	/**
+	 * Metodo get
+	 */
+	public String getAccion() {
+		return accion;
+	}
+	/**
+	 * Metodo set
+	 */
+	public void setAccion(String accion) {
+		this.accion = accion;
 	}
 	/**
 	 * Metodo toString

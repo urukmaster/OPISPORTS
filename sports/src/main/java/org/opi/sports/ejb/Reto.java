@@ -19,6 +19,8 @@ public class Reto implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReto;
 
+	private byte active;
+
 	private String estado;
 
 	@Temporal(TemporalType.DATE)
@@ -48,6 +50,14 @@ public class Reto implements Serializable {
 
 	public void setIdReto(int idReto) {
 		this.idReto = idReto;
+	}
+
+	public byte getActive() {
+		return this.active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 	public String getEstado() {

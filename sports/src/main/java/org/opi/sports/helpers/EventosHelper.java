@@ -8,8 +8,14 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.opi.sports.pojo.CalendarioPOJO;
+import org.opi.sports.contracts.EventoRequest;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Evento;
+import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.utils.PojoUtils;
 
 /**
  * Fecha: 15-07-2015 version 1.0
@@ -46,13 +52,13 @@ public class EventosHelper {
 	 * Este método serializa cada uno de los atributos de "Eventos" para poder
 	 * utilizarlos en el front end como un JSON
 	 */
-	public List<CalendarioPOJO> calendarioSerializer(
+	public List<EventoCalendarioPOJO> calendarioSerializer(
 			List<EventoPOJO> listaEventosView) {
 
-		List<CalendarioPOJO> listaEventos = new ArrayList<CalendarioPOJO>();
+		List<EventoCalendarioPOJO> listaEventos = new ArrayList<EventoCalendarioPOJO>();
 
 		for (EventoPOJO eventoView : listaEventosView) {
-			CalendarioPOJO eventos = new CalendarioPOJO();
+			EventoCalendarioPOJO eventos = new EventoCalendarioPOJO();
 
 			SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
 			SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
@@ -61,7 +67,7 @@ public class EventosHelper {
 			sumarHora.setTime(eventoView.getHora());
 			sumarHora.add(Calendar.HOUR_OF_DAY, 1);
 
-			eventos.setTitle("Carrera");
+			eventos.setTitle(eventoView.getNombre());
 			eventos.setStart(convertirFecha(convertirFecha.format(eventoView
 					.getFecha())
 					+ " "
@@ -72,6 +78,8 @@ public class EventosHelper {
 					+ convertirHora.format(sumarHora.getTime())));
 			eventos.setBackgroundColor("#f56954");
 			eventos.setBorderColor("#f56954");
+
+			eventos.setIdEvento(eventoView.getIdEvento());
 
 			listaEventos.add(eventos);
 		}
@@ -90,4 +98,40 @@ public class EventosHelper {
 
 	}
 
+	/**
+	 * Método para guardar o modificar los eventos de un establcimiento deportivo
+	 * @param eventoRequest
+	 * @param eventoService
+	 * @param establecimientoDeportivoService
+	 * @return
+	 */
+	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
+		
+		Evento evento = new Evento();
+		
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(eventoRequest.getEstablecimiento());
+		
+		evento.setCupo(eventoRequest.getCupo());
+		evento.setDireccion(eventoRequest.getDireccion());
+		evento.setFecha(eventoRequest.getFecha());
+		evento.setHora(eventoRequest.getHora());
+		evento.setInformacion(eventoRequest.getInformacion());
+		evento.setNombre(eventoRequest.getNombre());
+		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
+		evento.setPrecio(eventoRequest.getPrecio());
+		evento.setActive(eventoRequest.isActive());
+		
+		if(eventoRequest.getAccion().equals("Modificar")){
+			evento.setIdEvento(eventoRequest.getIdEvento());
+		}
+		
+		evento = eventoService.save(evento);
+		
+		EventoPOJO eventoPOJO = new EventoPOJO();
+		
+		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
+		
+		return eventoPOJO;
+		
+	}
 }
