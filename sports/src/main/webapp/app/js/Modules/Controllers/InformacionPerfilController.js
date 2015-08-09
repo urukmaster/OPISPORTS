@@ -7,7 +7,6 @@
  * Revision: 1.1 
  */
 
-
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
     $scope.init = function(){  	
@@ -53,6 +52,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
                     establecimientoCalendario = establecimientos[i];
+                    $scope.Reviews = establecimientos[i].reviews;
                 }
             }
 		});

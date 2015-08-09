@@ -26,7 +26,8 @@
       {"text": "Usuarios", "sref": "#"},
       {"text": "Tipos de servicios", "sref": "#" },
       {"text": "Tipos de eventos", "sref": "#" },
-      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" }
+      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" },
+      {"text": "Centros de distribucion", "sref":"app.centrosDistribucion" }
       ]
   }
 ]

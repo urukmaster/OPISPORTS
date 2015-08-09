@@ -36,6 +36,7 @@ public class EstablecimientoDeportivoPOJO {
 	private List<CalendarioPOJO> pendientes;
 	private DistritoPOJO distrito;
 	
+	private List<ReviewsPOJO> reviews;
 	/**
 	 * Metodo get 
 	 * 
@@ -144,5 +145,12 @@ public class EstablecimientoDeportivoPOJO {
 	}
 	public void setDistrito(DistritoPOJO idDistrito) {
 		this.distrito = idDistrito;
+	}
+	
+	public List<ReviewsPOJO> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<ReviewsPOJO> reviews) {
+		this.reviews = reviews;
 	}
 }

@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * 
  * @author Juan Manuel Viales Chavarría
  *
- *Sprint 01 Descripción: Permite probar la funcionalidad al registrar
+ *Sprint 05 Descripción: Permite probar la funcionalidad al registrar
  *los usuario, desde el controller hasta el repositorio de
  *datos.
  */

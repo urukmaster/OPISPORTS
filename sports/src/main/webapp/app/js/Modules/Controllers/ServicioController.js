@@ -1,6 +1,10 @@
-/**=========================================================
- * Module: Servicio
- =========================================================*/
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ *Sprint #4 Descripción: Controlador para gestionar los servicios
+ */
 
 
 var gridServicio = {};

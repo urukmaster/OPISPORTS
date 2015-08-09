@@ -5,6 +5,14 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ * Sprint #4: Se encarga de especificar los servicios para los establecimientos deportivos
+ *
+ */
 public class ServicioPOJO {
 	
 	private int idServicio;

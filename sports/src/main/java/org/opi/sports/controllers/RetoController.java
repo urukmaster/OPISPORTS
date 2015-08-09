@@ -1,4 +1,4 @@
-package org.opi.sports.controllers;
+ package org.opi.sports.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,8 +142,6 @@ public class RetoController {
 		retospojo = RetoHelper.getInstance().convertirReto(retoList);
 		
 		if (retoService.exists(retopojo.getIdReto())) {
-			List<RetoPOJO> retPojos = new ArrayList<RetoPOJO>();
-			retPojos.add(retopojo);
 			retoResponse.setRetospojo(retospojo);
 			retoResponse.setCode(200);
 			retoResponse.setCodeMessage("El reto se eliminoo correctamente");

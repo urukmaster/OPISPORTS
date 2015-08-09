@@ -11,7 +11,7 @@ import org.opi.sports.ejb.Tiquete;
  * 
  * @author Mauricio Fernández Mora
  *
- *         Sprint 01 Descripción: Esta clase es la representación de un objeto
+ *         Sprint 05 Descripción: Esta clase es la representación de un objeto
  *         "Evento"
  *
  */

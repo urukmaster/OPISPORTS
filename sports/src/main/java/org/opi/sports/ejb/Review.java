@@ -20,6 +20,8 @@ public class Review implements Serializable {
 	private int calificacion;
 
 	private String review;
+	
+	private byte active;
 
 	//bi-directional many-to-one association to EstablecimientoDeportivo
 	@ManyToOne
@@ -72,6 +74,14 @@ public class Review implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 }
