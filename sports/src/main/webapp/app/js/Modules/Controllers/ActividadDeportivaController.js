@@ -15,7 +15,7 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
             '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket">Yesca!</span>' +
+            '<span class="fa fa-rocket"></span>' +
             '</button>'+
             '</div>'}
         ],

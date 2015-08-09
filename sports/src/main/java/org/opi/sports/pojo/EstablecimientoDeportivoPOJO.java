@@ -12,6 +12,7 @@ import java.util.List;
  *
  */
 
+
 import org.opi.sports.helpers.ReservacionesHelper;
 
 
@@ -33,7 +34,7 @@ public class EstablecimientoDeportivoPOJO {
 	private List<CalendarioPOJO> calendario;
 	//Lista de reservaciones pendientes
 	private List<CalendarioPOJO> pendientes;
-	
+	private DistritoPOJO distrito;
 	
 	/**
 	 * Metodo get 
@@ -136,5 +137,12 @@ public class EstablecimientoDeportivoPOJO {
 	}
 	public void setPendientes() {
 		this.pendientes = ReservacionesHelper.getInstance().reservacionesPendientes(getServicios());
+	}
+	
+	public DistritoPOJO getDistrito() {
+		return distrito;
+	}
+	public void setDistrito(DistritoPOJO idDistrito) {
+		this.distrito = idDistrito;
 	}
 }

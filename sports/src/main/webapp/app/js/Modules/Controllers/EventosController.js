@@ -1,7 +1,9 @@
-/**=========================================================
- * Module: Evento
- =========================================================*/
-
+/**
+ * Modulo Controlador para listar los eventos
+ * author: Mauricio Fernandez
+ * Fecha: 02/08/2015
+ * Revision: 1.1 
+ */
 
 var gridEventos = {};
 

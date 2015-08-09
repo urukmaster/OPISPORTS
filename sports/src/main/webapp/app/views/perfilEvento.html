@@ -61,47 +61,26 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Evento</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.evento" type="text"  class="form-control" />
+                        <div class="form-group col-md-6">
+                        	<div class="form-group>
+                            	<label class="control-label">Evento</label>
+                                <input ng-model="eventoForm.evento" type="text" class="form-control" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Dirección</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.direccion" type="text"  class="form-control" />
+                        	<div class="form-group>
+                            	<label class="control-label">Dirección</label>
+                                <input ng-model="eventoForm.direccion" type="text" class="form-control" />
                             </div>
-                        </div>
-                        <div ng-controller="DatepickerDemoCtrl">
-    						<h5>Fecha</h5>
-   							<div style="display:inline-block; min-height:290px;">
-      						<datepicker ng-model="eventoForm.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-    					</div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Hora</label>
-                            <div class="col-lg-10">
-                                <div ng-controller="TimepickerDemoCtrl">
-									<timepicker ng-model="eventoForm.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-								</div>
+							<div class="form-group">
+                            	<label class="control-label">Cupos</label>
+                                <input ng-model="eventoForm.cupo" type="number"  class="form-control" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Información</label>
-                            <div class="col-lg-10">
+							<div class="form-group">
+                            	<label class="control-label">Precio</label>
+                                <input ng-model="eventoForm.precio" type="text"  class="form-control" />
+                            </div>
+                        	<div class="form-group">
+                            	<label class="control-label">Información</label>
                                 <textarea ng-model="eventoForm.informacion" class="form-control"></textarea>
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-lg-2 control-label">Cupos</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.cupo" type="number"  class="form-control"/>
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-lg-2 control-label">Precio</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.precio" type="text"  class="form-control"/>
                             </div>
                         </div>
                     </form>

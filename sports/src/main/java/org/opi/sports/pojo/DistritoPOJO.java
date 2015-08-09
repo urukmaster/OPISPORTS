@@ -2,11 +2,8 @@ package org.opi.sports.pojo;
 
 /**
  * Fecha: 01-08-2015 version 1.0
- * 
  * @author Mauricio Fernández Mora
- *
  *Sprint 04 Descripción: Esta clase es la representación de un objeto "Distrito"
- *
  */
 
 public class DistritoPOJO {
