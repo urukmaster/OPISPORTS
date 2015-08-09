@@ -13,7 +13,7 @@ public class ServicioPOJO {
 	private Time horaCierre;
 	private String precio;
 	private String servicio;	
-	private List<ReservacionesPOJO> reservaciones;	
+	private List<ReservacionesPOJO> reservacionesLista;	
 	private TipoServicioPOJO tipoServicio;	
 	private DateTime horaInicial;	
 	private DateTime horaFinal;
@@ -66,12 +66,12 @@ public class ServicioPOJO {
 		this.servicio = servicio;
 	}
 
-	public List<ReservacionesPOJO> getReservaciones() {
-		return reservaciones;
+	public List<ReservacionesPOJO> getReservacionesLista() {
+		return reservacionesLista;
 	}
 
-	public void setReservaciones(List<ReservacionesPOJO> reservaciones) {
-		this.reservaciones = reservaciones;
+	public void setReservacionesLista(List<ReservacionesPOJO> reservacionesLista) {
+		this.reservacionesLista = reservacionesLista;
 	}
 
 	public TipoServicioPOJO getTipoServicio() {

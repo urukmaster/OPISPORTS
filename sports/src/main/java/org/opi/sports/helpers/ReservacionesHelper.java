@@ -9,12 +9,14 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.ReservacionesRequest;
+import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.pojo.CalendarioPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
@@ -61,7 +63,7 @@ public class ReservacionesHelper {
 
 		for (ServicioPOJO servicioView : listaServiciosView) {
 			for (ReservacionesPOJO reservacionView : servicioView
-					.getReservaciones()) {
+					.getReservacionesLista()) {
 				if (reservacionView.getEstado().equals("Reservado")) {
 					CalendarioPOJO reservacion = new CalendarioPOJO();
 
@@ -107,7 +109,7 @@ public class ReservacionesHelper {
 
 		for (ServicioPOJO servicioView : listaServiciosView) {
 			for (ReservacionesPOJO reservacionView : servicioView
-					.getReservaciones()) {
+					.getReservacionesLista()) {
 				if (reservacionView.getEstado().equals("Pendiente")) {
 					CalendarioPOJO reservacion = new CalendarioPOJO();
 
@@ -184,7 +186,7 @@ public class ReservacionesHelper {
 		return convertirFechaHora.parseDateTime(fecha);
 
 	}
-
+	
 	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
 			ReservacionesServiceInterface reservacionService, Usuario usuario,
 			Servicio servicio) {
@@ -198,7 +200,7 @@ public class ReservacionesHelper {
 		reservacionEJB.setServicio(servicio);
 		reservacionEJB.setUsuario(usuario);
 		
-		if(reservacion.getAccion().equals("Aceptar")){
+		if(reservacion.getAccion().equals("Aceptar") || reservacion.getAccion().equals("Modificar")){
 			reservacionEJB.setIdCalendario(reservacion.getIdCalendario());
 		}
 
@@ -208,6 +210,55 @@ public class ReservacionesHelper {
 				reservacionService.save(reservacionEJB));
 
 		return reservacionPOJO;
+	}
+
+	public ReservacionesResponse getReservacion(int idReservacion, ReservacionesServiceInterface reservacionesService) {
+		
+		ReservacionesResponse reservacionResponse = new ReservacionesResponse();
+		
+		Reservaciones reservacionEJB = reservacionesService.findOne(idReservacion);
+		
+		UsuarioPOJO usuario = new UsuarioPOJO();
+		
+		PojoUtils.pojoMappingUtility(usuario, reservacionEJB.getUsuario());
+		
+		reservacionResponse.setUsuario(usuario);
+		
+		ServicioPOJO servicio = new ServicioPOJO();
+		
+		PojoUtils.pojoMappingUtility(servicio, reservacionEJB.getServicio());
+		
+		reservacionResponse.setServicio(servicio);
+		
+		CalendarioPOJO reservacion = new CalendarioPOJO();
+
+		SimpleDateFormat convertirHora = new SimpleDateFormat(
+				"HH:mm");
+		SimpleDateFormat convertirFecha = new SimpleDateFormat(
+				"dd-MM-yyyy");
+
+		Calendar sumarHora = Calendar.getInstance();
+		sumarHora.setTime(reservacionEJB.getHora());
+		sumarHora.add(Calendar.HOUR_OF_DAY, 1);
+		
+		reservacion.setServicio(servicio.getIdServicio());
+		reservacion.setIdCalendario(reservacionEJB.getIdCalendario());
+		reservacion.setTitle(servicio.getServicio());
+		reservacion.setStart(convertirFecha(convertirFecha
+				.format(reservacionEJB.getFecha())
+				+ " "
+				+ convertirHora.format(reservacionEJB.getHora()
+						.getTime())));
+		reservacion.setEnd(convertirFecha(convertirFecha
+				.format(reservacionEJB.getFecha())
+				+ " "
+				+ convertirHora.format(sumarHora.getTime())));
+		reservacion.setBackgroundColor("#f56954");
+		reservacion.setBorderColor("#f56954");
+		
+		reservacionResponse.setReservacion(reservacion);
+		
+		return reservacionResponse;
 	}
 
 }

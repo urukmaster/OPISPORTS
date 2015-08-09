@@ -135,12 +135,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 controller: 'LoginFormController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley')
             })
-            .state('app.agendaReservaciones', {
-                url: '/agendaReservaciones',
-                title: 'Reservaciones',
-                templateUrl: helper.basepath('agendaReservaciones.html'),
-                resolve: helper.resolveFor('jquery-ui', 'jquery-ui-widgets', 'moment', 'fullcalendar')
-            })
             .state('app.eventosIndex', {
                 url: '/eventosIndex',
                 title: 'Eventos deportivos',
@@ -168,12 +162,14 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 url: '/servicios',
                 title: 'Servicios',
                 templateUrl: helper.basepath('perfil-servicios.html'),
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid', 'jquery-ui', 
+                		'jquery-ui-widgets', 'moment', 'fullcalendar')
             })
             .state('app.perfil.reservaciones',{
             	url:'/reservaciones',
             	title:'Reservaciones',
-            	templateUrl: helper.basepath('perfil-reservaciones.html')
+            	templateUrl: helper.basepath('perfil-reservaciones.html'),
+            	resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
             .state('app.perfil.reservaciones.calendario',{
                 url: '/reservaciones',
@@ -1568,7 +1564,7 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     
     $scope.init = function(){
     	$scope.today();
-    	if($scope.reservacion != null){
+    	if($scope.reservacion != null && $scope.reservacion.fecha == null){
     		$scope.reservacion.fecha = $scope.dt;
     	}
     }
@@ -2111,12 +2107,8 @@ App.controller('TimepickerDemoCtrl', ['$scope', function ($scope) {
     };
     
     $scope.init = function(){
-    	
-    	if($scope.reservacion != null){
     		$scope.mytime.setMinutes(00, 00, 00);
     		$scope.mytime.setSeconds(00, 00);
-    		$scope.reservacion.hora = $scope.mytime;
-    	}
     }
     
     $scope.init();

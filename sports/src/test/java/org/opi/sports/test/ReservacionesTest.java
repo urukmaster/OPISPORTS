@@ -87,7 +87,7 @@ public class ReservacionesTest {
 			reservacionesViewList.add(reservacionesView);
 		}
 		
-		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setReservaciones(reservacionesViewList);
 		
 		assertNotNull(reservacionesResponse);
 	}

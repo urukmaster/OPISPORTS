@@ -77,7 +77,7 @@ public class EstablecimientoDeportivoHelper {
 			}
 		}
 		
-		servicioView.setReservaciones(reservaciones);
+		servicioView.setReservacionesLista(reservaciones);
 		
 		
 		servicioView.setHoraInicial(new DateTime(servicio.getHoraApertura()));

@@ -10,30 +10,24 @@
  * Revision: 1.1 
  */
 
-App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
+var reservacionModificar = {};
+    
+
+App.controller('CalendarController', ['$scope', '$http', '$timeout', '$modal', 'toaster', function($scope, $http, $timeout, $modal, toaster) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
     // global shared var to know what we are dragging
     var draggingEvent = null;
     
-
+    
 
     // listen for the event in the relevant $scope
        $scope.$on('myEvent', function (event, data) {
-    	   
-    	 
-         console.log(data); // 'Data to send'
-         
-
-   
- 		var calendar = $('#calendar');
-     	
-     	console.log(data);
-     	
-     	initExternalEvents(calendar);
-
-     	initCalendar(calendar, data);
+  
+    	   var calendar = $('#calendar');
+    	   initExternalEvents(calendar);
+    	   initCalendar(calendar, data);
        });
 
     /**
@@ -65,6 +59,7 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         });
     };
 
+    
     /**
      * Invoke full calendar plugin and attach behavior
      * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
@@ -95,7 +90,20 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
             firstDay: 1,
             businessHours :{start: 8, end: 23},
             height: 700,
-            events: events
+            events: events,
+            eventClick:  function(evento, jsEvent, view) {
+            	$http.post('rest/reservaciones/getReservacion', {idCalendario: evento.idReservacion})
+                .success(function(data){
+                	reservacionModificar.servicio = data.servicio;
+                	reservacionModificar.reservacion = data.reservacion;
+                	
+                	var ModificarModalInstance = $modal.open({
+                        templateUrl: '/modalReservaciones.html',
+                        controller: ModificarReservacionInstanceCtrl,
+                        size: 'lg'
+                    });
+                });
+                }
             });
         calElement.fullCalendar('show');
     }
@@ -112,6 +120,7 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     	reservacion.end = new Date(reservacionJSON.end.millis);
     	reservacion.backgroundColor = reservacionJSON.backgroundColor;
     	reservacion.borderColor = reservacionJSON.borderColor;
+    	reservacion.idReservacion = reservacionJSON.idCalendario;
     	
     	reservaciones.push(reservacion);
     })
@@ -217,8 +226,6 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         	
         	var reservaciones = initReservaciones(establecimientoCalendario.calendario);
         	
-        	console.log(reservaciones);
-        	
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, reservaciones);
@@ -227,64 +234,15 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     
     $scope.init();
     
-}]);
-
-/**
- * Modulo Controlador reservar los servicios
- * author: Mauricio Fernandez
- * Fecha: 15/07/2015
- * Revision: 1.0
- */
-
-App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
-	$scope.Servicios = establecimientoCalendario.servicios;
-
-}]);
-
-$(function() {
-	  var $container = $('.contenedorServicios');
-	  var $b = $('body');
-	  $.waypoints.settings.scrollThrottle = 0;
-	  $container.waypoint({
-	    handler: function(e, d) {
-	      $b.toggleClass('sticky', d === 'down');
-	      e.preventDefault();
-	    }
-	  });
-	});
-
-
-/**=========================================================
- * Module: modals.js
- * Provides a simple way to implement bootstrap modals from templates
- =========================================================*/
-
-App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {
-	var servicioActual;
-    $scope.open = function (size, idServicioActual) {
-    	servicioActual = idServicioActual;
-
-        var modalInstance = $modal.open({
-            templateUrl: '/modalReservaciones.html',
-            controller: ModalInstanceCtrl,
-            size: size
-        });
-
-        var state = $('#modal-state');
-        modalInstance.result.then(function () {
-            state.text('Modal dismissed with OK status');
-        }, function () {
-            state.text('Modal dismissed with Cancel status');
-        });
-    };
+    var ModificarReservacionInstanceCtrl = function ($scope, $modalInstance) {
         
-    // Please note that $modalInstance represents a modal window (instance) dependency.
-    // It is not the same as the $modal service used above.
-
-    var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
-    	$scope.reservacion = {};	
-    	
-        $scope.ok = function () {
+    	$scope.reservacion = {};
+    	$scope.reservacion.fecha = new Date(reservacionModificar.reservacion.start.millis);
+    	$scope.reservacion.hora = new Date(reservacionModificar.reservacion.start.millis);
+        $scope.reservacion.idReservacion = reservacionModificar.reservacion.idCalendario;
+    	$scope.accion = "Modificar";
+        
+        $scope.modificar = function () {
         	
         	var fecha = $scope.reservacion.fecha;
         	var hora = $scope.reservacion.hora;
@@ -298,7 +256,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	})
         	
         	if(registrar == true){
-        	$scope.registrarReservacion(fecha, hora);
+        	$scope.modificarReservacion();
 
 			
         	}else{
@@ -310,6 +268,11 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			$scope.pop(toasterdata);
         	}
         	
+        	 $scope.pop = function(toasterdata) {
+                 toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+             };
+            
+        	
         	$modalInstance.close('closed');  
         	
             
@@ -319,15 +282,16 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
             $modalInstance.dismiss('cancel');
         };
         
-        $scope.registrarReservacion = function(fecha, hora){
+        $scope.ok = function(){
         	$http.post('rest/reservaciones/save', {
-    			fecha: fecha,
-    			hora: hora.getTime(),
-    			estado : 'Pendiente',
-    			servicio : + servicioActual,
+    			fecha: $scope.reservacion.fecha,
+    			hora: $scope.reservacion.hora.getTime(),
+    			estado : 'Reservado',
+    			servicio : reservacionModificar.servicio.idServicio,
     			usuario : 1,
     			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
-    			accion:'Regsitrar'
+    			accion:'Modificar',
+    			idCalendario: $scope.reservacion.idReservacion
     		 	})
     		.success(function(data){
     			var toasterdata = {
@@ -342,6 +306,23 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			$rootScope.$broadcast("actualizar");
     		});
         }
+        
+        $scope.eliminar = function(){
+    		$http.post('rest/reservaciones/delete', {
+    			idCalendario : $scope.reservacion.idReservacion,
+    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
+    	 	}).success(function(data){
+    	 		var toasterdata = {
+    					type:  'success',
+    					title: 'Establecimiento',
+    					text:  'Se ha aceptado la reservacion correctamente'
+    			};
+    	 		$scope.pop(toasterdata);
+    			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			establecimientoCalendario = data;
+    			$state.reload();
+    	 	})
+    	}
         
         $scope.pop = function(toasterdata) {
             toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
@@ -376,10 +357,40 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	});
         	return valido;
         }
-               
-    };
-    
-    
-    ModalInstanceCtrl.$inject = ["$scope", "$modalInstance", "toaster","$timeout", "$route"];
-
+        
+       };
+    ModificarReservacionInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
+
+
+
+
+/**
+ * Modulo Controlador reservar los servicios
+ * author: Mauricio Fernandez
+ * Fecha: 15/07/2015
+ * Revision: 1.0
+ */
+
+App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
+	$scope.Servicios = establecimientoCalendario.servicios;
+}]);
+
+$(function() {
+	  var $container = $('.contenedorServicios');
+	  var $b = $('body');
+	  $.waypoints.settings.scrollThrottle = 0;
+	  $container.waypoint({
+	    handler: function(e, d) {
+	      $b.toggleClass('sticky', d === 'down');
+	      e.preventDefault();
+	    }
+	  });
+	});
+
+
+/**=========================================================
+ * Module: modals.js
+ * Provides a simple way to implement bootstrap modals from templates
+ =========================================================*/
+

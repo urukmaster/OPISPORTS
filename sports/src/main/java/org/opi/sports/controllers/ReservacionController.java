@@ -68,7 +68,7 @@ public class ReservacionController {
 			reservacionesViewList.add(reservacionesView);
 		}
 
-		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setReservaciones(reservacionesViewList);
 
 		return reservacionesResponse;
 
@@ -129,5 +129,10 @@ public class ReservacionController {
 				.convertirEstablecimiento(
 						establecimientoDeportivoService.findOne(reservacion
 								.getEstablecimiento()));
+	}
+	
+	@RequestMapping(value = "getReservacion", method = RequestMethod.POST)
+	public ReservacionesResponse getReservacion(@RequestBody ReservacionesRequest reservacionRequest){
+		return ReservacionesHelper.getInstance().getReservacion(reservacionRequest.getIdCalendario(), reservacionesServices);
 	}
 }
