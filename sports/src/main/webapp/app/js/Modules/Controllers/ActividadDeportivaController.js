@@ -14,8 +14,8 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
             '<button ng-click="modificar(row)" class="btn btn-primary" >' +
             '<span class="fa fa-rocket"></span>' +
             '</button>'+
-            '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
+            '<button ng-click="eliminar(row)" class="btn btn-danger" >' +
+            '<span class="fa fa-trash"></span>' +
             '</button>'+
             '</div>'}
         ],
@@ -124,11 +124,6 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
      
     };
     
-   
-    
-    
-
-
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
