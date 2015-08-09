@@ -60,7 +60,10 @@ public class EventoController {
 		for(Evento eventos : eventoList){
 			EventoPOJO eventoView = new EventoPOJO();
 			PojoUtils.pojoMappingUtility(eventoView, eventos);
-			eventoViewList.add(eventoView);
+			
+			if(eventos.getActive() == 1){
+				eventoViewList.add(eventoView);
+			}
 		}
 		
 		eventoResponse.setEventos(eventoViewList);
@@ -71,8 +74,8 @@ public class EventoController {
 	}
 
 	/**
-	 *Este método obtiene una de eventos deportivos
-	 *registrados en la base de datos por medio de su id
+	 *Este método obtiene un evento deportivo
+	 *registrado en la base de datos por medio de su id
 	 */	
 	@RequestMapping(value="getEvento", method = RequestMethod.POST)
 	public EventoResponse getEvento(@RequestBody int idEvento){

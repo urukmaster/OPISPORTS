@@ -9,7 +9,7 @@ import org.opi.sports.ejb.Evento;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta interfaza sirve para implementar los servicios
+ *Sprint 05 Descripción: Esta interfaza sirve para implementar los servicios
  *de eventos deportivos.
  */
 

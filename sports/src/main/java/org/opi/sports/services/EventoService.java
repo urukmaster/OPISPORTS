@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
+ *Sprint 05 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
  *provenientes de los repositorios.
  */
 @Service

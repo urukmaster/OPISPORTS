@@ -30,6 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
  *         Sprint 01 Descripción:Esta clase es la que contendrá cada uno de los
  *         servicios que serán necesarios para procesar la información de
  *         reservaciones de la aplicación
+ *         
+ * Fecha: 14-07-2015 version 1.1
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ * Sprint 03 Descripción: Se agrega la funcionalidad para guardar las reservaciones
+ * 
  */
 
 @RestController
@@ -74,6 +81,9 @@ public class ReservacionController {
 
 	}
 
+	/**
+	 * Este método se encarga de guardar las reservaciones
+	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public EstablecimientoDeportivoPOJO save(
 			@RequestBody ReservacionesRequest reservacion) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
+import org.opi.sports.contracts.ServicioRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Servicio;
@@ -13,13 +14,12 @@ import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
+import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
 /**
  * Fecha: 17-07-2015 version 1.0
- * 
  * @author Mauricio Araica Hernández
- *
  *Sprint 02 Descripción: Helper de establecimientos deportivos
  *
  */
@@ -97,17 +97,23 @@ public class EstablecimientoDeportivoHelper {
 	 * Metodo encargado de registrar el establecimiento deportivo
 	 * 
 	 */
-	public EstablecimientoDeportivoPOJO saveEstablecimiento(EstablecimientoDeportivoRequest establecimiento,
+	public EstablecimientoDeportivoPOJO saveEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
 			EstablecimientoDeportivoServiceInterface establecimientoService) {
-
+		
 		EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
-		establecimientoEJB.setNombre(establecimiento.getNombre());
-		establecimientoEJB.setDireccion(establecimiento.getDireccion());
-		establecimientoEJB.setTelefono(establecimiento.getTelefono());
-		establecimientoEJB.setPaginaWeb(establecimiento.getPaginaWeb());
+
+		if(establecimientoRequest.getAccion().equals("Modificar")){
+			establecimientoEJB.setIdEstablecimientoDeportivo(establecimientoRequest.getIdEstablecimientoDeportivo());
+		}
+		
+		establecimientoEJB.setNombre(establecimientoRequest.getNombre());
+		establecimientoEJB.setDireccion(establecimientoRequest.getDireccion());
+		establecimientoEJB.setTelefono(establecimientoRequest.getTelefono());
+		establecimientoEJB.setPaginaWeb(establecimientoRequest.getPaginaWeb());
 		Usuario usuario = new Usuario();
-		usuario.setIdUsuario(establecimiento.getIdUsuario());
+		usuario.setIdUsuario(establecimientoRequest.getIdUsuario());
 		establecimientoEJB.setUsuario(usuario);
+		establecimientoEJB.setActive((byte)1);
 		
 		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
 
@@ -116,5 +122,22 @@ public class EstablecimientoDeportivoHelper {
 		
 		return establecimientoPOJO;
 	}
+	
+
+
+	/*public EstablecimientoDeportivoPOJO deleteEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
+			EstablecimientoDeportivoServiceInterface establecimientoService) {
+		
+		EstablecimientoDeportivo establecimientoEJB = establecimientoService.findOne(establecimientoRequest.getIdEstablecimientoDeportivo());
+		establecimientoEJB.setActive((byte) 0);
+		
+		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
+
+		establecimientoService.save(establecimientoEJB);
+		
+		PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimientoEJB);
+		
+		return establecimientoPOJO;
+	}*/
 
 }

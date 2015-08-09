@@ -5,11 +5,24 @@ import java.util.List;
 
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
+import org.opi.sports.contracts.EventoResponse;
+import org.opi.sports.contracts.RetoRequest;
+import org.opi.sports.contracts.RetoResponse;
+import org.opi.sports.contracts.ServicioRequest;
+import org.opi.sports.contracts.ServicioResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Reto;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
+import org.opi.sports.helpers.RetoHelper;
+import org.opi.sports.helpers.ServicioHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.pojo.RetoPOJO;
+import org.opi.sports.pojo.RetosPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
+import org.opi.sports.utils.PojoUtils;
 //import org.opi.sports.services.UsuarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
  *objetos java
  *
  */
+
 @RestController
 @RequestMapping(value = "rest/establecimientoDeportivo")
 public class EstablecimientoDeportivoController {
@@ -54,13 +68,36 @@ public class EstablecimientoDeportivoController {
 		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
 		for(EstablecimientoDeportivo establecimiento : establecimientoList){
-			establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
+			if(establecimiento.getActive() == 1){
+				establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
+			}			
 		}
 		
-		establecimientoResponse.setEstablecimientoDeportivo(establecimientoViewList);
+		establecimientoResponse.setEstablecimientosDeportivos(establecimientoViewList);
 		
 		return establecimientoResponse;
 	}
+
+	/**
+	 *Este método obtiene un establecimiento deportivo
+	 *registrado en la base de datos por medio de su id
+	 */	
+	@RequestMapping(value="getEstablecimiento", method = RequestMethod.POST)
+	public EstablecimientoDeportivoResponse getEstablecimiento(@RequestBody int idEstablecimiento){
+		
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+		
+		EstablecimientoDeportivo establecimiento = establecimientoDeportivoService.findOne(idEstablecimiento);
+				
+		EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
+		PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
+		
+		establecimientoResponse.setEstablecimientoDeportivo(establecimientoView);
+		
+		return establecimientoResponse;		
+		
+	}
+	
 	/**
 	 * Metodo de registrar el establecimiento deportivo
 	 * 
@@ -75,7 +112,7 @@ public class EstablecimientoDeportivoController {
 		if(establecimientoDeportivoService.exists(establecimientoView.getIdEstablecimientoDeportivo())){
 			List<EstablecimientoDeportivoPOJO> establecimientos = new ArrayList<EstablecimientoDeportivoPOJO>();
 			establecimientos.add(establecimientoView);
-			establecimientoResponse.setEstablecimientoDeportivo(establecimientos);
+			establecimientoResponse.setEstablecimientosDeportivos(establecimientos);
 			establecimientoResponse.setCode(200);
 			establecimientoResponse.setCodeMessage("El establecimiento deportivo se registro correctamente");
 		}else{
@@ -83,6 +120,23 @@ public class EstablecimientoDeportivoController {
 			establecimientoResponse.setCodeMessage("El establecimiento deportivo no se registro");
 		}
 		return establecimientoResponse;
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO delete(@RequestBody int idEstablecimiento) {
+
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+		
+		EstablecimientoDeportivo establecimiento = establecimientoDeportivoService.findOne(idEstablecimiento);
+		establecimiento.setActive((byte) 0);
+		
+		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
+
+		establecimientoDeportivoService.save(establecimiento);
+		
+		PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimiento);
+
+		return establecimientoPOJO;
 	}
 
 }
