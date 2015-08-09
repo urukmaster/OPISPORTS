@@ -34,7 +34,8 @@ public class EstablecimientoDeportivoPOJO {
 	//Lista de reservaciones pendientes
 	private List<CalendarioPOJO> pendientes;
 	
-	
+	private List<ReviewsPOJO> reviews;
+
 	/**
 	 * Metodo get 
 	 * 
@@ -136,5 +137,11 @@ public class EstablecimientoDeportivoPOJO {
 	}
 	public void setPendientes() {
 		this.pendientes = ReservacionesHelper.getInstance().reservacionesPendientes(getServicios());
+	}
+	public List<ReviewsPOJO> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<ReviewsPOJO> reviews) {
+		this.reviews = reviews;
 	}
 }

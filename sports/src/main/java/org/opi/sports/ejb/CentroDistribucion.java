@@ -25,6 +25,8 @@ public class CentroDistribucion implements Serializable {
 	private String nombre;
 
 	private String telefono;
+	
+	private byte active;
 
 	//bi-directional many-to-one association to Distribucion
 	@OneToMany(mappedBy="centroDistribucion")
@@ -93,6 +95,14 @@ public class CentroDistribucion implements Serializable {
 		distribucion.setCentroDistribucion(null);
 
 		return distribucion;
+	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 }

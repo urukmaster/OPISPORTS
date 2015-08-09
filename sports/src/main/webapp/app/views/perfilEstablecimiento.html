@@ -37,6 +37,7 @@
                               <div class="timeline-badge green">
                                  <em class="fa fa-comment"></em>
                               </div>
+                              
                               <div class="timeline-panel">
                                  <div class="popover right">
                                     <div class="arrow"></div>
@@ -50,52 +51,25 @@
                                                    <strong>Comentarios</strong>
                                           </div>
                                        </div>
+                                       
+                                      
                                        <p class="text-muted mv">Comenta sobre este establecimiento deportivo</p>
+                                      
+                                       <div ng-repeat="review in Review">
                                        <div class="media bb p">
                                           <small class="pull-right text-muted"></small>
-                                          <div class="pull-left">
-                                          </div>
+                                          <div class="pull-left"></div>
                                           <div class="media-body">
-                                 <span class="media-heading">
-                                    <p class="m0">
-                                       <a href="#">
-                                          <strong>Mauricio Araica</strong>
-                                       </a>
-                                    </p>
-                                    <p class="m0 text-muted">Estuvo muy tuanis nos trataron bien.</p>
-                                 </span>
+                                 		  	<span class="media-heading">
+                                    			<p class="m0">
+                                          			<strong>{{review.nombreUsuario}}</strong>
+                                    			</p>
+                                    			<p class="m0 text-muted">{{review.review}}</p>
+                                 			</span>
                                           </div>
                                        </div>
-                                       <div class="media bb p">
-                                          <small class="pull-right text-muted"></small>
-                                          <div class="pull-left">
-                                          </div>
-                                          <div class="media-body">
-                                 <span class="media-heading">
-                                    <p class="m0">
-                                       <a href="#">
-                                          <strong>Estaban Lopez</strong>
-                                       </a>
-                                    </p>
-                                    <p class="m0 text-muted">El mejor trato lo recomiendo :)</p>
-                                 </span>
-                                          </div>
                                        </div>
-                                       <div class="media bb p">
-                                          <small class="pull-right text-muted"></small>
-                                          <div class="pull-left">
-                                          </div>
-                                          <div class="media-body">
-                                 <span class="media-heading">
-                                    <p class="m0">
-                                       <a href="#">
-                                          <strong>Juanma Viales</strong>
-                                       </a>
-                                    </p>
-                                    <p class="m0 text-muted">No vengan nunca</p>
-                                 </span>
-                                          </div>
-                                       </div>
+                                       
                                        <form method="post" action="" class="mt">
                                           <textarea placeholder="Escribe un comentario..." rows="1" class="form-control no-resize"></textarea>
                                        </form>
@@ -104,6 +78,7 @@
                                     </div>
                                  </div>
                               </div>
+                              
                            </li>
                            <!-- END timeline item-->
                            <!-- START timeline item-->
