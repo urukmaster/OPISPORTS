@@ -2,6 +2,7 @@ org\opi\sports\controllers\TiqueteController.class
 org\opi\sports\services\TipoServicioService.class
 org\opi\sports\pojo\SubscripcionPOJO.class
 org\opi\sports\contracts\EstablecimientoDeportivoRequest.class
+org\opi\sports\repositories\TipoEventoRepository.class
 org\opi\sports\helpers\IniciarSesionHelper.class
 org\opi\sports\controllers\IniciarSesionController.class
 org\opi\sports\ejb\Distribucion.class
@@ -16,9 +17,11 @@ org\opi\sports\config\ServletInitializer.class
 org\opi\sports\helpers\ServicioHelper.class
 org\opi\sports\contracts\RetoRequest.class
 org\opi\sports\helpers\ReservacionesHelper.class
+org\opi\sports\contracts\TipoEventoRequest.class
 org\opi\sports\controllers\RetoController.class
 org\opi\sports\controllers\HomeController.class
 org\opi\sports\ejb\Review.class
+org\opi\sports\services\TipoEventoServiceInterface.class
 org\opi\sports\config\WSFilter.class
 org\opi\sports\contracts\EventoRequest.class
 org\opi\sports\ejb\Mensajeria.class
@@ -26,6 +29,7 @@ org\opi\sports\contracts\ServicioResponse.class
 org\opi\sports\ejb\Distrito.class
 org\opi\sports\ejb\Foto.class
 org\opi\sports\ejb\Reservaciones.class
+org\opi\sports\helpers\TipoEventoHelper.class
 org\opi\sports\repositories\ServicioRepository.class
 org\opi\sports\utils\Utils.class
 org\opi\sports\pojo\TipoEventoPOJO.class
@@ -41,6 +45,7 @@ org\opi\sports\pojo\TiquetePOJO.class
 org\opi\sports\repositories\ActividadDeportivaRepository.class
 org\opi\sports\controllers\TipoServicioController.class
 org\opi\sports\services\EventoService.class
+org\opi\sports\repositories\RolRepository.class
 org\opi\sports\services\ReservacionesService.class
 org\opi\sports\contracts\TiqueteRequest.class
 org\opi\sports\pojo\PermisoPOJO.class
@@ -92,6 +97,7 @@ org\opi\sports\services\ActividadDeportivaServiceInterface.class
 org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
 org\opi\sports\contracts\BasePagingRequest.class
 org\opi\sports\services\IniciarSesionServiceInterface.class
+org\opi\sports\controllers\TipoEventoController.class
 org\opi\sports\helpers\TiquetesHelper.class
 org\opi\sports\config\OpiSportsApplication.class
 org\opi\sports\controllers\ServicioController.class
@@ -101,12 +107,14 @@ org\opi\sports\pojo\RetoPOJO.class
 org\opi\sports\services\TiqueteService.class
 org\opi\sports\services\UsuarioService.class
 org\opi\sports\controllers\EventoController.class
+org\opi\sports\services\TipoEventoService.class
 org\opi\sports\services\EstablecimientoDeportivoServiceInterface.class
 org\opi\sports\services\TiqueteServiceInterface.class
 org\opi\sports\helpers\EventosHelper.class
 org\opi\sports\contracts\EventoResponse.class
 org\opi\sports\contracts\IniciarSesionRequest.class
 org\opi\sports\contracts\ReservacionesResponse.class
+org\opi\sports\contracts\TipoEventoResponse.class
 org\opi\sports\helpers\ActividadDeportivaHelper.class
 org\opi\sports\ejb\Reto.class
 org\opi\sports\controllers\ReservacionController.class

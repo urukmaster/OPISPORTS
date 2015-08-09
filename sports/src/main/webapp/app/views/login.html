@@ -1,49 +1,131 @@
-<div ng-controller="LoginFormController" class="block-center mt-xl wd-xl">
-   <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
-   <!-- START panel-->
-   <div class="panel panel-dark panel-flat">
-      <div class="panel-heading text-center">
-         <a href="#">
-            <img src="app/img/opi.png" alt="Image" class="block-center img-rounded" />            
-         </a>
-      </div>
-      <div class="panel-body">
-         <p class="text-center pv">Inicia sesion para continuar</p>
-         <form role="form" ng-submit="login()" name="loginForm" novalidate="" class="form-validate mb-lg">
-            <div class="form-group has-feedback">
-               <input id="exampleInputEmail1" type="email" name="account_email" placeholder="Ingrese el correo" autocomplete="off" ng-model="account.email" required="" class="form-control" />
-               <span class="fa fa-envelope form-control-feedback text-muted"></span>
-               <span ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.required" class="text-danger">Este campo es requerido</span>
-               <span ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.email" class="text-danger">Este campo deberia ser un correo valido</span>
+
+
+
+<div ng-controller="LoginFormController"
+	class="block-center mt-xl wd-xl">
+	<toaster-container
+		toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+	<!-- START panel-->
+	<div class="panel panel-dark panel-flat">
+		<div class="panel-heading text-center">
+			<a href="#"> <img src="app/img/opi.png" alt="Image"
+				class="block-center img-rounded" />
+			</a>
+		</div>
+		<div class="panel-body">
+			<p class="text-center pv">Inicia sesion para continuar</p>
+			<form role="form" ng-submit="login()" name="loginForm" novalidate=""
+				class="form-validate mb-lg">
+				<div class="form-group has-feedback">
+					<input id="exampleInputEmail1" type="email" name="account_email"
+						placeholder="Ingrese el correo" autocomplete="off"
+						ng-model="account.email" required="" class="form-control" /> <span
+						class="fa fa-envelope form-control-feedback text-muted"></span> <span
+						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.required"
+						class="text-danger">Este campo es requerido</span> <span
+						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.email"
+						class="text-danger">Este campo deberia ser un correo valido</span>
+				</div>
+				<div class="form-group has-feedback">
+					<input id="exampleInputPassword1" type="password"
+						name="account_password" placeholder="Contraseña"
+						ng-model="account.password" required="" class="form-control" /> <span
+						class="fa fa-lock form-control-feedback text-muted"></span> <span
+						ng-show="loginForm.account_password.$dirty &amp;&amp; loginForm.account_password.$error.required"
+						class="text-danger">This field is required</span>
+				</div>
+				<div class="clearfix">
+					<div class="checkbox c-checkbox pull-left mt0">
+						<label> <input type="checkbox" value=""
+							name="account_remember" ng-model="account.remember" /> <span
+							class="fa fa-check"></span>Recordar
+						</label>
+					</div>
+					<div class="pull-right">
+						<a ui-sref="page.recover" class="text-muted">¿Olvido su
+							contraseña?</a>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
+			</form>
+			<div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
+			<p class="pt-lg text-center">¿Necesita registarse?</p>
+			<div ng-controller="RegistrarUsuarioModalController">
+				<script type="text/ng-template" id="/myUsuarioModalContent.html">
+                  <div class="modal-header">
+                <h4 id="myModalLabel" class="modal-title">{{accion+" Usuario"}}</h4>
             </div>
-            <div class="form-group has-feedback">
-               <input id="exampleInputPassword1" type="password" name="account_password" placeholder="Contraseña" ng-model="account.password" required="" class="form-control" />
-               <span class="fa fa-lock form-control-feedback text-muted"></span>
-               <span ng-show="loginForm.account_password.$dirty &amp;&amp; loginForm.account_password.$error.required" class="text-danger">This field is required</span>
-            </div>
-            <div class="clearfix">
-               <div class="checkbox c-checkbox pull-left mt0">
-                  <label>
-                     <input type="checkbox" value="" name="account_remember" ng-model="account.remember" />
-                     <span class="fa fa-check"></span>Recordar</label>
-               </div>
-               <div class="pull-right"><a ui-sref="page.recover" class="text-muted">¿Olvido su contraseña?</a>
-               </div>
-            </div>
-            <button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
-         </form>
-         <div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
-         <p class="pt-lg text-center">¿Necesita registarse?</p>
-         <a href="#/app/registrarUsuario" class="btn btn-block btn-default">Registrate ahora</a>
-      </div>
-   </div>
-   <!-- END panel-->
-   <div class="p-lg text-center">
-      <span>&copy;</span>
-      <span ng-bind="app.year"></span>
-      <span>-</span>
-      <span ng-bind="app.name"></span>
-      <br/>
-      <span ng-bind="app.description"></span>
-   </div>
+			<form name="formUsuario" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">
+            <div class="panel panel-default">	   			
+	   				<div class="panel-body">
+						<legend>Datos Personales</legend>	
+                  		<fieldset>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Nombre</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" name="nombre" required="" ng-model="usuario.nombre" class="form-control" />
+                           				<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Apellidos</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" name="apellido" required="" ng-model="usuario.apellidos" class="form-control" />
+                           				<span ng-show="validateInput('apellido', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Telefono</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuario.telefono" class="form-control" />
+                           				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+                  		</fieldset>
+						<legend>Login</legend>	
+                  		<fieldset>
+                     		<div class="form-group">
+                        		<label class="col-sm-2 control-label">Correo Electronico</label>
+                        			<div class="col-sm-6">
+                           				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuario.correo" class="form-control" />
+                           				<span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Contrase�a</label>
+                        			<div class="col-sm-6">
+                           				<input type="password" name="contrasenna" required="" ng-model="usuario.contrasenna" class="form-control" />
+                           				<span ng-show="validateInput('contrasenna', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Confirmar Contrase�a</label>
+                        			<div class="col-sm-6">
+                           				<input type="password" name="contrasenna" required="" class="form-control" />
+                           				
+                        			</div>                        
+                     		</div>
+                  		</fieldset>
+               		</div>                              		
+       		</div>
+       		<div class="modal-footer">
+       			<button type="submit" class="btn btn-info">{{accion}}</button>
+				<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+       		</div>
+			</form>
+               </script>
+				<a ng-click="registrar()" class="btn btn-block btn-default">Registrate
+					ahora</a>
+			</div>
+		</div>
+	</div>
+	<!-- END panel-->
+	<div class="p-lg text-center">
+		<span>&copy;</span> <span ng-bind="app.year"></span> <span>-</span> <span
+			ng-bind="app.name"></span> <br /> <span ng-bind="app.description"></span>
+	</div>
 </div>

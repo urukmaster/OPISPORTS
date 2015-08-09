@@ -1,220 +1,8 @@
-<<<<<<< HEAD
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Review.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\ReservacionesHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\EstablecimientoDeportivoPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\UsuarioService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\EventoController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\UsuarioServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Reservaciones.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Inscripcion.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\ServicioController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Permiso.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Distrito.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\EventosHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\WebMvcConfig.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\ReservacionController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\CentroDistribucion.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Distribucion.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\EventoPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\TipoEvento.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\ServicioRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\utils\Utils.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\ServicioService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EventoResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\TiquetesHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\IniciarSesionController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\CalendarioPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\IniciarSesionService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Tiquete.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Permisos_Rol.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\ServicioServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\IniciarSesionRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Foto.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Evento.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Rol.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\EstablecimientoDeportivoController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Subscripcion.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Canton.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario_Rol.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\RolPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\ServicioHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TiqueteService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EventoServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Mensajeria.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\ReservacionesPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\EventoCalendarioPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\TipoServicioRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\HomeController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\TiqueteController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\PermisoPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\OpiSportsApplication.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\SwaggerConfig.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\BaseResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\EventoRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Servicio.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\IniciarSesionHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\EstablecimientoRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\UsuarioPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\utils\PojoUtils.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\IniciarSesionServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\TipoServicio.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\WSFilter.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\ReservacionesRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\EstablecimientoDeportivo.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\controllers\TipoServicioController.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\ServletInitializer.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Reto.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\config\PassthroughFilter.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\Provincia.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\TiquetePOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\TiqueteServiceInterface.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\ServicioPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\helpers\EstablecimientoDeportivoHelper.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioResponse.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\UsuarioRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\repositories\TiqueteRepository.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\EventoRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\pojo\TipoServicioPOJO.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\services\EventoService.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\BasePagingRequest.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\ejb\ActividadDeportiva.java
-C:\Users\Mauricio\Documents\Proyecto 3\Técnico\OP-I-SPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesRequest.java
-=======
-<<<<<<< HEAD
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Subscripcion.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\TipoServicioRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\TiquetePOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\TipoEvento.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Rol.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\EventoService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RetoPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\TiqueteService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\IniciarSesionService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\UsuarioRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\BasePagingRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\ServicioService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\ServicioPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\UsuarioResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\UsuarioPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\EstablecimientoRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\IniciarSesionServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Tiquete.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Distrito.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Evento.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\ServicioRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\BaseResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\PassthroughFilter.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\HomeController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reservaciones.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\EstablecimientoDeportivoHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Inscripcion.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\ReservacionController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\UsuarioServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\EstablecimientoDeportivoController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\ReservacionesPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\utils\PojoUtils.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Mensajeria.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\UsuarioHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Distribucion.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\RetoController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\WSFilter.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\UsuarioService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\EstablecimientoDeportivo.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\SwaggerConfig.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\UsuarioRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Permisos_Rol.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\TipoServicio.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EventoRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\ActividadDeportiva.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\SubscripcionPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\PermisoPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\OpiSportsApplication.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\utils\Utils.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Foto.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RetosPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\TiqueteServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reto.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\IniciarSesionRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EventoPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\RetoService.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\CalendarioPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\ServletInitializer.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\CentroDistribucion.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\RetoRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\RetoResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Permiso.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\RetoServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\TiqueteRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\IniciarSesionHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Servicio.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\RetoHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\ServicioServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Canton.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\ServicioHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\RetoRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\TipoServicioPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EventoResponse.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RolPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\EventoRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\TiqueteController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario_Rol.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\ReservacionesHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\TipoEventoPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Review.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Provincia.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\EventoServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\UsuarioController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\TiquetesHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\ReservacionesRepository.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\EventoController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\TipoServicioController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesServiceInterface.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EstablecimientoDeportivoPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\IniciarSesionController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\ServicioController.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EventoCalendarioPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\InscripcionesPOJO.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\config\WebMvcConfig.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteRequest.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\EventosHelper.java
-C:\Users\Mauricee\Documents\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioResponse.java
-=======
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\ActividadDeportivaPOJO.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\RetoRepository.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\EstablecimientoDeportivo.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\CalendarioPOJO.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\TipoEventoPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\EventoServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Canton.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\EstablecimientoRepository.java
@@ -226,12 +14,15 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\ServicioController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Provincia.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\UsuarioService.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\RetoServiceInterface.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\RetoResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\ServletInitializer.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\ReservacionesHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\SwaggerConfig.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\PassthroughFilter.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\IniciarSesionServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioServiceInterface.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoEventoResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\CentroDistribucion.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Rol.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\ServicioHelper.java
@@ -244,16 +35,24 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoServicioService.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EstablecimientoDeportivoPOJO.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoEventoService.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\RetoController.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\TipoEventoHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\UsuarioRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Review.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\RetoHelper.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\InscripcionesPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ReservacionesRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\TiqueteService.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\IniciarSesionHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\ServicioServiceInterface.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\RetoRequest.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\TipoEventoRepository.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\EstablecimientoDeportivoHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\WebMvcConfig.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ActividadDeportivaResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EventoCalendarioPOJO.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\RetoService.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\TiqueteRepository.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Subscripcion.java
@@ -270,17 +69,20 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\BaseResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\utils\Utils.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\TiquetesHelper.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\SubscripcionPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\UsuarioController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\EstablecimientoDeportivoServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\IniciarSesionResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\UsuarioPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Mensajeria.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EstablecimientoDeportivoResponse.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoEventoRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\UsuarioRepository.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Inscripcion.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteResponse.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ActividadDeportivaRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TipoServicioRequest.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\RolRepository.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\ServicioPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\ActividadDeportivaController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesService.java
@@ -289,9 +91,11 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\ServicioRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EventoRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Servicio.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\TipoEventoController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\BasePagingRequest.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Usuario_Rol.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\config\OpiSportsApplication.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RetosPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\helpers\UsuarioHelper.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Evento.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\PermisoPOJO.java
@@ -301,10 +105,12 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reto.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Reservaciones.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\ReservacionesPOJO.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\RetoPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\controllers\EventoController.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\TipoServicio.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\TipoEvento.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\repositories\ActividadDeportivaRepository.java
+C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\TipoEventoServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\pojo\EventoPOJO.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\UsuarioServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\EventoResponse.java
@@ -321,5 +127,3 @@ C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\s
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\ejb\Permisos_Rol.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\services\ReservacionesServiceInterface.java
 C:\Users\JuanManuel\Documents\workspace\OPISPORTS\sports\src\main\java\org\opi\sports\contracts\TiqueteRequest.java
->>>>>>> 756f4290d9e4e431132bf612c9acae3bb695b5bf
->>>>>>> bef3db540bc5db2df245bf5e5d76e64da0055afa
