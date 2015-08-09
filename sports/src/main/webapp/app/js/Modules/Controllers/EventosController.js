@@ -66,7 +66,7 @@ App.controller('EventoModalController', ['$scope', '$modal', function ($scope, $
             templateUrl: '/myEventoModalContent.html',
             controller: ModificarEventoInstanceCtrl,
             size: 'lg'
-        });
+        });z
     };
 //------------------------------------------------------------------------------------
     var RegistrarEventoInstanceCtrl = function ($scope, $modalInstance) {

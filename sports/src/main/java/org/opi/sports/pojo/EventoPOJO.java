@@ -26,9 +26,9 @@ public class EventoPOJO {
 	private String informacion;
 	private String nombre;
 	private String precio;
-	private DistritoPOJO idDistrito;
-	private EstablecimientoDeportivoPOJO idEstablecimiento;
-	private TipoEventoPOJO idTipoEvento;
+	private DistritoPOJO distrito;
+	private EstablecimientoDeportivoPOJO establecimiento;
+	private TipoEventoPOJO tipoEvento;
 	public int getIdEvento() {
 		return idEvento;
 	}
@@ -101,29 +101,29 @@ public class EventoPOJO {
 		this.precio = precio;
 	}
 
-	public DistritoPOJO getIdDistrito() {
-		return idDistrito;
+	public DistritoPOJO getDistrito() {
+		return distrito;
 	}
 
-	public void setIdDistrito(DistritoPOJO idDistrito) {
-		this.idDistrito = idDistrito;
+	public void setDistrito(DistritoPOJO distrito) {
+		this.distrito = distrito;
 	}
 
-	public EstablecimientoDeportivoPOJO getIdEstablecimiento() {
-		return idEstablecimiento;
+	public EstablecimientoDeportivoPOJO getEstablecimiento() {
+		return establecimiento;
 	}
 
-	public void setIdEstablecimiento(
-			EstablecimientoDeportivoPOJO idEstablecimiento) {
-		this.idEstablecimiento = idEstablecimiento;
+	public void setEstablecimiento(
+			EstablecimientoDeportivoPOJO establecimiento) {
+		this.establecimiento = establecimiento;
 	}
 
-	public TipoEventoPOJO getIdTipoEvento() {
-		return idTipoEvento;
+	public TipoEventoPOJO getTipoEvento() {
+		return tipoEvento;
 	}
 
-	public void setIdTipoEvento(TipoEventoPOJO idTipoEvento) {
-		this.idTipoEvento = idTipoEvento;
+	public void setTipoEvento(TipoEventoPOJO tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 
 }

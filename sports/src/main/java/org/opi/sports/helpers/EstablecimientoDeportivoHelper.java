@@ -158,22 +158,5 @@ public class EstablecimientoDeportivoHelper {
 		
 		return establecimientoPOJO;
 	}
-	
-
-
-	/*public EstablecimientoDeportivoPOJO deleteEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
-			EstablecimientoDeportivoServiceInterface establecimientoService) {
-		
-		EstablecimientoDeportivo establecimientoEJB = establecimientoService.findOne(establecimientoRequest.getIdEstablecimientoDeportivo());
-		establecimientoEJB.setActive((byte) 0);
-		
-		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
-
-		establecimientoService.save(establecimientoEJB);
-		
-		PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimientoEJB);
-		
-		return establecimientoPOJO;
-	}*/
 
 }
