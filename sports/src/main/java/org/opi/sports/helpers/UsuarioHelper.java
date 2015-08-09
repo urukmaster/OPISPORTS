@@ -4,36 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import org.opi.sports.ejb.EstablecimientoDeportivo;
+
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Inscripcion;
-import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.Subscripcion;
 import org.opi.sports.ejb.TipoEvento;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.ejb.Usuario;
-import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.InscripcionesPOJO;
 import org.opi.sports.pojo.PermisoPOJO;
-import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.pojo.SubscripcionPOJO;
 import org.opi.sports.pojo.TipoEventoPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.utils.PojoUtils;
-import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.UsuarioRequest;
-import org.opi.sports.contracts.UsuarioResponse;
 import org.opi.sports.ejb.Permiso;
 import org.opi.sports.ejb.Permisos_Rol;
 import org.opi.sports.ejb.Rol;
 import org.opi.sports.ejb.Usuario_Rol;
 import org.opi.sports.pojo.RolPOJO;
 import org.opi.sports.services.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Fecha: 26-07-2015 version 1.0
@@ -69,6 +61,7 @@ public class UsuarioHelper {
 		}
 		return instance;
 	}
+	
 	/**
 	 * Metodo encargado de convertir un usuario ejb en un usuario pojo
 	 */
@@ -87,6 +80,7 @@ public class UsuarioHelper {
 		return usuariopojo;
 
 	}
+	
 	/**
 	 * Metodo encargado de convertir una suscripcion ejb en una lista de suscripciones pojo
 	 */
@@ -97,6 +91,7 @@ public class UsuarioHelper {
 		}
 		return subscripcionespojo;
 	}
+	
 	/**
 	 * Metodo encargado de convertir una suscripcion ejb en una suscripciones pojo
 	 */
@@ -108,6 +103,7 @@ public class UsuarioHelper {
 		subscripcionpojo.setEventospojo(convertirTipoEvento(tipoevento));
 		return subscripcionpojo;
 	}
+	
 	/**
 	 * Metodo encargado de convertir un tipo de evento ejb en un tipo de evento pojo
 	 */
@@ -128,6 +124,7 @@ public class UsuarioHelper {
 		}
 		return inscripicionespojo;
 	}
+	
 	/**
 	 * Metodo encargado de convertir una inscripcion ejb en una inscripcion pojo
 	 */
@@ -142,6 +139,7 @@ public class UsuarioHelper {
 		inscripcionpojo.setTiquetes(tiquetespojo);
 		return inscripcionpojo;
 	}
+	
 	/**
 	 * Metodo encargado de convertir un tiquete ejb en un tiquete pojo
 	 */
@@ -151,6 +149,7 @@ public class UsuarioHelper {
 		tiquetepojo.setIdEvento(convertirEvento(tiquete.getEvento()));
 		return tiquetepojo;
 	}
+	
 	/**
 	 * Metodo encargado de convertir unevento ejb en un evento pojo pojo
 	 */
@@ -159,6 +158,7 @@ public class UsuarioHelper {
 		PojoUtils.pojoMappingUtility(eventopojo, evento);
 		return eventopojo;
 	}
+	
 	/**
 	 * Metodo encargado de covertir Usuario ejb a Usuario POJO
 	 * 
@@ -209,18 +209,35 @@ public class UsuarioHelper {
 	 */
 	public UsuarioPOJO saveUsuario(UsuarioRequest usuario,
 			UsuarioServiceInterface usuarioService) {
-
+		
+		
 		Usuario usuarioEJB = new Usuario();
-		usuarioEJB.setCorreo(usuario.getUsuario().getCorreo());
-		usuarioEJB.setNombre(usuario.getUsuario().getNombre());
-		usuarioEJB.setApellido(usuario.getUsuario().getApellido());
-		usuarioEJB.setTelefono(usuario.getUsuario().getTelefono());
+		//Inicializacion del Rol
+		Rol rolEJB = new Rol();
+		rolEJB.setIdRol(1);
+			
+		//Inicializacion del Usuario
+		usuarioEJB.setCorreo(usuario.getCorreo());
+		usuarioEJB.setNombre(usuario.getNombre());
+		usuarioEJB.setApellido(usuario.getApellido());
+		usuarioEJB.setTelefono(usuario.getTelefono());
+		usuarioEJB.setContrasenna(usuario.getContrasenna());
+		usuarioEJB.setActive((byte)1);
 		
 		
 		UsuarioPOJO usuarioPOJO = new UsuarioPOJO();
 
 		PojoUtils.pojoMappingUtility(usuarioPOJO,
 				usuarioService.save(usuarioEJB));
+		
+		usuarioEJB = usuarioService.ValidarUsuario(usuario);
+		
+		//Inicializacion del usuarioRol
+		Usuario_Rol usuario_rolEJB = new Usuario_Rol();
+		usuario_rolEJB.setRol(rolEJB);
+		usuario_rolEJB.setUsuario(usuarioEJB);
+				
+		usuarioService.save(usuario_rolEJB);
 		
 		return usuarioPOJO;
 	}
@@ -233,11 +250,11 @@ public class UsuarioHelper {
 			UsuarioServiceInterface usuarioService) {
 
 		Usuario usuarioEJB = new Usuario();
-		usuarioEJB.setIdUsuario(usuario.getUsuario().getIdUsuario());
-		usuarioEJB.setCorreo(usuario.getUsuario().getCorreo());
-		usuarioEJB.setNombre(usuario.getUsuario().getNombre());
-		usuarioEJB.setApellido(usuario.getUsuario().getApellido());
-		usuarioEJB.setTelefono(usuario.getUsuario().getTelefono());
+		usuarioEJB.setIdUsuario(usuario.getIdUsuario());
+		usuarioEJB.setCorreo(usuario.getCorreo());
+		usuarioEJB.setNombre(usuario.getNombre());
+		usuarioEJB.setApellido(usuario.getApellido());
+		usuarioEJB.setTelefono(usuario.getTelefono());
 		
 		
 		UsuarioPOJO usuarioPOJO = new UsuarioPOJO();

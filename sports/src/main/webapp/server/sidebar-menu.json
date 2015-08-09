@@ -23,11 +23,10 @@
     "icon": "icon-settings",
     "label": "label label-info",
     "submenu": [
-      {"text": "Usuarios", "sref": "#"},
+      {"text": "Usuarios", "sref": "app.usuarios"},
       {"text": "Tipos de servicios", "sref": "#" },
-      {"text": "Tipos de eventos", "sref": "#" },
-      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" },
-      {"text": "Centros de distribucion", "sref":"app.centrosDistribucion" }
+      {"text": "Tipos de eventos", "sref": "app.tiposEventos" },
+      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" }
       ]
   }
 ]
