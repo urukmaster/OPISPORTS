@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.id.uuid.Helper;
+import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.helpers.EventosHelper;
+import org.opi.sports.pojo.DistritoPOJO;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.pojo.TipoEventoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -79,8 +84,21 @@ public class EventoController {
 		
 		Evento evento = eventoServices.findOne(idEvento);
 		
+		/*DistritoPOJO distrito = new DistritoPOJO();		
+		PojoUtils.pojoMappingUtility(distrito, evento.getDistrito());
+		
+		EstablecimientoDeportivoPOJO establecimiento = new EstablecimientoDeportivoPOJO();		
+		PojoUtils.pojoMappingUtility(establecimiento, evento.getEstablecimientoDeportivo());
+		
+		TipoEventoPOJO tipoEvento = new TipoEventoPOJO();		
+		PojoUtils.pojoMappingUtility(tipoEvento, evento.getTipoEvento());*/
+		
 		EventoPOJO eventoView = new EventoPOJO();
 		PojoUtils.pojoMappingUtility(eventoView, evento);
+		
+		/*eventoView.setDistrito(distrito);
+		eventoView.setEstablecimiento(establecimiento);
+		eventoView.setTipoEvento(tipoEvento);*/
 		
 		eventoResponse.setEvento(eventoView);
 		
@@ -102,6 +120,23 @@ public class EventoController {
 		eventoResponse.setEvento(evento);
 		
 		return eventoResponse;
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public EventoPOJO delete(@RequestBody int idEvento) {
+
+		EventoResponse eventoResponse = new EventoResponse();
+		
+		Evento evento = eventoServices.findOne(idEvento);
+		evento.setActive((byte) 0);
+		
+		EventoPOJO eventoPOJO = new EventoPOJO();
+
+		eventoServices.save(evento);
+		
+		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
+
+		return eventoPOJO;
 	}
 
 }

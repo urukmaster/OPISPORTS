@@ -7,6 +7,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.ServicioRequest;
+import org.opi.sports.ejb.Distrito;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Reto;
@@ -129,7 +130,7 @@ public class EstablecimientoDeportivoHelper {
 	public EstablecimientoDeportivoPOJO saveEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
 			EstablecimientoDeportivoServiceInterface establecimientoService) {
 		
-		EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
+ 		EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
 
 		if(establecimientoRequest.getAccion().equals("Modificar")){
 			establecimientoEJB.setIdEstablecimientoDeportivo(establecimientoRequest.getIdEstablecimientoDeportivo());
@@ -139,9 +140,15 @@ public class EstablecimientoDeportivoHelper {
 		establecimientoEJB.setDireccion(establecimientoRequest.getDireccion());
 		establecimientoEJB.setTelefono(establecimientoRequest.getTelefono());
 		establecimientoEJB.setPaginaWeb(establecimientoRequest.getPaginaWeb());
+		
+		Distrito distrito = new Distrito();
+		distrito.setIdDistrito(establecimientoRequest.getIdDistrito());
+		establecimientoEJB.setDistrito(distrito);
+		
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(establecimientoRequest.getIdUsuario());
 		establecimientoEJB.setUsuario(usuario);
+		
 		establecimientoEJB.setActive((byte)1);
 		
 		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
@@ -151,22 +158,5 @@ public class EstablecimientoDeportivoHelper {
 		
 		return establecimientoPOJO;
 	}
-	
-
-
-	/*public EstablecimientoDeportivoPOJO deleteEstablecimiento(EstablecimientoDeportivoRequest establecimientoRequest,
-			EstablecimientoDeportivoServiceInterface establecimientoService) {
-		
-		EstablecimientoDeportivo establecimientoEJB = establecimientoService.findOne(establecimientoRequest.getIdEstablecimientoDeportivo());
-		establecimientoEJB.setActive((byte) 0);
-		
-		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
-
-		establecimientoService.save(establecimientoEJB);
-		
-		PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimientoEJB);
-		
-		return establecimientoPOJO;
-	}*/
 
 }
