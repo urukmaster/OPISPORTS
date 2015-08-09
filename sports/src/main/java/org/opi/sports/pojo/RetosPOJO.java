@@ -24,6 +24,8 @@ public class RetosPOJO {
 	private Integer idUsuario;
 	//nombre del usuario
 	private String nombreUsuario;
+	//apellido del usuario
+	private String apellidoUsuario;
 	//telefono del usuario
 	private String telefonoUsuario;
 	//id del servicio
@@ -214,5 +216,11 @@ public class RetosPOJO {
 	 */
 	public void setActive(byte active) {
 		this.active = active;
+	}
+	public String getApellidoUsuario() {
+		return apellidoUsuario;
+	}
+	public void setApellidoUsuario(String apellidoUsuario) {
+		this.apellidoUsuario = apellidoUsuario;
 	}
 }

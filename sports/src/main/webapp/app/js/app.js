@@ -114,6 +114,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('reto.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
+            .state('app.centrosDistribucion', {
+                url: '/centrosDistribucion',
+                title: 'Centros distribucion',
+                templateUrl: helper.basepath('centroDeDistribucion.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
@@ -273,13 +279,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
              })
-            .state('app.centroDistribucion', {
-                url: '/centroDistribucion',
-                title: 'Centro de Distribucion',
-                templateUrl: helper.basepath('centroDeDistribucion.html'),
-                controller: 'CentroDistribucionController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
 
             //
             // CUSTOM RESOLVES

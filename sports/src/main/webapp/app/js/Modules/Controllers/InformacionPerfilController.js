@@ -72,6 +72,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
                     establecimientoCalendario = establecimientos[i];
+                    $scope.Reviews = establecimientos[i].reviews;
                 }
             }
 		});
@@ -152,4 +153,6 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
+
+
 
