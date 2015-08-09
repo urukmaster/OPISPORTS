@@ -1,6 +1,10 @@
-/**=========================================================
- * Module: Servicio
- =========================================================*/
+/**
+ * Fecha: 20-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ * 
+ *Sprint #4 Descripción: Controlador para gestionar los servicios
+ */
 
 
 var gridServicio = {};
@@ -64,20 +68,20 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     };
     
     $scope.eliminar = function($row){
-    		servicioModificar = $row.entity;
-    		data = {'idServicio': servicioModificar.idServicio,
-    				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
-            $http.post('rest/servicio/delete', data).
-            success(function(data){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Servicio',
-			            text:  'Se eliminó el servicio.'
-			    };
-            	
-            	establecimientoCalendario = data;
-            	gridServicio.data = establecimientoCalendario.servicios;
-            });
+		servicioModificar = $row.entity;
+		data = {'idServicio': servicioModificar.idServicio,
+				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
+	    $http.post('rest/servicio/delete', data).
+	    success(function(data){
+	    	var toasterdata = {
+		            type:  'success',
+		            title: 'Servicio',
+		            text:  'Se eliminó el servicio.'
+		    };
+	    	
+	    	establecimientoCalendario = data;
+	    	gridServicio.data = establecimientoCalendario.servicios;
+	    });
     }
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {

@@ -2,21 +2,59 @@
  * Created by JuanManuel on 09/07/2015.
  */
 
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', function($scope,$http, $stateParams) {
-	
+
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
-			$scope.Establecimientos = response.establecimientoDeportivo;
+			$scope.Establecimientos = response.establecimientosDeportivos;
+			
 		});
-	    
     };
-    $scope.init();
+    $scope.init(); 
     
-}]);
+    $scope.buscarServicios = function(establecimiento){
+    	cambiarServicios(establecimiento);
+    };
+    
+    function cambiarServicios(establecimiento) {
+        $scope.serviciosEstablecimiento = establecimiento.servicios;
+    }
+    
+    $scope.obtenerServicio = function(servicio){
+    	$rootScope.$broadcast('enviarServicio',{
+    		  idServicio: servicio.idServicio    		 
+		});
+    }
+    
+    $scope.eliminar = function(id){
+            $http.post('rest/establecimientoDeportivo/delete', id).
+            success(function(){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Establecimiento',
+			            text:  'Se eliminó el establecimiento.'
+			    };                
+            	$scope.pop(toasterdata);
+            	$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+            });
+    }
+    
+    //notificacion
+    
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.reload();
+    }
+	
+}]);   
 
 var tipoServicios = [];
+
 
 App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
        
@@ -29,11 +67,12 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
-			var establecimientos = response.establecimientoDeportivo;
+			var establecimientos = response.establecimientosDeportivos;
 			for (var i = 0; i < establecimientos.length; i++) {
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
                     establecimientoCalendario = establecimientos[i];
+                    $scope.Reviews = establecimientos[i].reviews;
                 }
             }
 		});
@@ -114,3 +153,6 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
+
+
+

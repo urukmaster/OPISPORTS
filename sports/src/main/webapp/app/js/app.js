@@ -114,6 +114,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('reto.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
+            .state('app.centrosDistribucion', {
+                url: '/centrosDistribucion',
+                title: 'Centros distribucion',
+                templateUrl: helper.basepath('centroDeDistribucion.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+            })
             .state('app.eventos', {
                 url: '/eventos',
                 title: 'Eventos',
@@ -222,6 +228,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('registrarEstablecimiento.html'),
                 resolve: helper.resolveFor('parsley')
             })
+            .state('app.modificarEstablecimiento',{
+                url: '/modificarEstablecimiento/{id:[0-9]{1,4}}',
+                title: 'Modificar Establecimiento',
+                templateUrl: helper.basepath('modificarEstablecimiento.html'),
+                resolve: helper.resolveFor('parsley')
+            })
             .state('app.actividades', {
                 url: '/actividades',
                 title: 'Actividades Deportivas',
@@ -274,13 +286,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
              })
-            .state('app.centroDistribucion', {
-                url: '/centroDistribucion',
-                title: 'Centro de Distribucion',
-                templateUrl: helper.basepath('centroDeDistribucion.html'),
-                controller: 'CentroDistribucionController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
 
             //
             // CUSTOM RESOLVES
@@ -1654,7 +1659,8 @@ App.controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
     $scope.init = function(){
     	$scope.today();
     	if($scope.reservacion != null){
-    		$scope.reservacion.fecha = $scope.dt;
+
+   		$scope.reservacion.fecha = $scope.dt;
     	}
     }
     

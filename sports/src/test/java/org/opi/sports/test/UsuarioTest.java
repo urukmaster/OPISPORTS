@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Juan Manuel Viales Chavarría
  *
- *Sprint 01 Descripción: Permite probar la funcionalidad al registrar
+ *Sprint 03 Descripción: Permite probar la funcionalidad al registrar
  *los usuario, desde el controller hasta el repositorio de
  *datos.
  */

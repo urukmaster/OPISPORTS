@@ -86,7 +86,11 @@ public class EventosHelper {
 
 		return listaEventos;
 	}
-
+	/**
+	 * Método que se encarga de gestionar las fechas
+	 * @param fecha
+	 * @return
+	 */
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
 				.forPattern("dd-MM-yyyy HH:mm");
@@ -94,6 +98,13 @@ public class EventosHelper {
 
 	}
 
+	/**
+	 * Método para guardar o modificar los eventos de un establcimiento deportivo
+	 * @param eventoRequest
+	 * @param eventoService
+	 * @param establecimientoDeportivoService
+	 * @return
+	 */
 	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
 		
 		Evento evento = new Evento();
@@ -108,6 +119,7 @@ public class EventosHelper {
 		evento.setNombre(eventoRequest.getNombre());
 		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
+		evento.setActive(eventoRequest.isActive());
 		
 		if(eventoRequest.getAccion().equals("Modificar")){
 			evento.setIdEvento(eventoRequest.getIdEvento());

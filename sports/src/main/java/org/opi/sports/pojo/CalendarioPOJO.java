@@ -2,6 +2,13 @@ package org.opi.sports.pojo;
 
 import org.joda.time.DateTime;
 
+/**
+ * Fecha: 14-07-2015 version 1.0
+ * 
+ * @author Luis Esteban López Ramírez
+ *
+ *Sprint #3: Se encarga de especificar las caracteristicas necesarias para el calendario
+ */
 public class CalendarioPOJO {
 
 	private Integer idCalendario;

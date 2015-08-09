@@ -2,15 +2,20 @@ package org.opi.sports.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
+import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.helpers.EventosHelper;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -25,7 +30,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 01 Descripción: Permite probar la funcionalidad al consultar
+ *Sprint 05 Descripción: Permite probar la funcionalidad al consultar
  *los eventos, desde el controller hasta el repositorio de
  *datos. La funcionalidad debe estar a prueba, segun distintos escenarios
  *
@@ -41,8 +46,10 @@ public class EventosTest {
 	@Autowired
 	private EventoServiceInterface eventoService;
 
+	
 	@Autowired
-	ServicioServiceInterface servicioServices;
+	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
+
 	
 	/**
 	 * Esta prueba permite saber si el servicio de Eventos se inyecta al
@@ -51,7 +58,8 @@ public class EventosTest {
 	 */
 	@Test
 	public void getEventoServiceTest(){
-		assertNotNull(servicioServices);
+		assertNotNull(eventoService);
+		assertNotNull(establecimientoDeporitvoService);
 	}
 	
 	/**
@@ -59,7 +67,7 @@ public class EventosTest {
 	 * el cual va a traer una lista de Tipos de Servicios
 	 */
 	@Test
-	public void getLisTipoServicioTest(){
+	public void getLisEventoTest(){
 		assertNotNull(eventoService.getAllEventos());
 	}
 	
@@ -67,7 +75,7 @@ public class EventosTest {
 	 * Prueba la implementación del controller
 	 */
 	@Test
-	public void getTipoServicioControllerGetAll(){
+	public void getEventoControllerGetAll(){
 		
 		EventoResponse eventoResponse = new EventoResponse();
 		
@@ -84,6 +92,27 @@ public class EventosTest {
 		
 		assertNotNull(eventoResponse);
 	}
-	
+	/**
+	 * Prueba para guardar o modificar eventos
+	 */
+	@Test
+	public void saveEventos(){
+EventoResponse eventoResponse = new EventoResponse();
+		EventoRequest eventoRequest = new EventoRequest();
+		eventoRequest.setAccion("Registrar");
+		eventoRequest.setCupo(1000);
+		eventoRequest.setDireccion("Prueba");
+		eventoRequest.setEstablecimiento(1);
+		eventoRequest.setEvento("Evento Prueba");
+		eventoRequest.setFecha(new Date());
+		eventoRequest.setHora(new Time(new Date().getTime()));
+		eventoRequest.setInformacion("Prueba");
+		eventoRequest.setPrecio("10000");
+		eventoRequest.setTipoEvento(1);
+		
+		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoService, establecimientoDeporitvoService);
+		
+		eventoResponse.setEvento(evento);
+	}
 	
 }

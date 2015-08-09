@@ -160,9 +160,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
                 				}else{
                 					aActividades.push(actividadView);
                 				}
-                			}
-                			
-                	);
+                			});
         			
         			var responsedata = {
         		            type:  'success',
@@ -241,7 +239,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         		});        	
             	
             } else {
-            	
+            	alert("No registro!! :O");
                 return false;
             }
         };

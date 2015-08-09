@@ -17,15 +17,17 @@ import org.opi.sports.pojo.EventoPOJO;
 public class EventoRequest extends BasePagingRequest{
 
 	private int idEvento;
+	private byte active;
 	private int cupo;
 	private String direccion;
 	private Date fecha;
 	private Time hora;
 	private String informacion;
 	private String nombre;
+	private String precio;
+	private Integer distrito;
 	private Integer establecimiento;
 	private Integer tipoEvento;
-	private String precio;
 	private String accion;
 	
 	public int getIdEvento() {
@@ -33,6 +35,12 @@ public class EventoRequest extends BasePagingRequest{
 	}
 	public void setIdEvento(int idEvento) {
 		this.idEvento = idEvento;
+	}
+	public byte isActive() {
+		return active;
+	}
+	public void setActive(byte active) {
+		this.active = active;
 	}
 	public int getCupo() {
 		return cupo;
@@ -70,17 +78,23 @@ public class EventoRequest extends BasePagingRequest{
 	public void setEvento(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getEstablecimiento() {
-		return establecimiento;
-	}
-	public void setEstablecimiento(Integer establecimiento) {
-		this.establecimiento = establecimiento;
-	}
 	public String getPrecio() {
 		return precio;
 	}
 	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+	public Integer getDistrito() {
+		return distrito;
+	}
+	public void setDistrito(Integer distrito) {
+		this.distrito = distrito;
+	}
+	public Integer getEstablecimiento() {
+		return establecimiento;
+	}
+	public void setEstablecimiento(Integer establecimiento) {
+		this.establecimiento = establecimiento;
 	}
 	public String getAccion() {
 		return this.accion;

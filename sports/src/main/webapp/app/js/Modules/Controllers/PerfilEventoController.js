@@ -81,20 +81,6 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
             eventoModificar.horaModificar = response.hora;
             eventoModificar.fechaModificar = response.fecha;
 		});
-		
-
-		$http.get('rest/tiquete/getAll')
-		.success(function(response) {
-			var tiquetes = response.tiquetes;
-			console.log(tiquetes);
-			for (var i = 0; i < tiquetes.length; i++) {
-				
-                if (tiquetes[i].idEvento == $stateParams.id){
-                    $scope.tiquete = tiquetes[i];
-                }
-                
-            }
-		});
     };
     
     $scope.init();

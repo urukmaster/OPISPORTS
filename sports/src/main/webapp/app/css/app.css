@@ -150,6 +150,7 @@ a.text-muted:focus {
 [data-ng-click] {
   cursor: pointer;
 }
+
 hr {
   border-top: 1px solid #e4eaec;
 }
@@ -8875,7 +8876,7 @@ body .ng-table-pager:after {
    Component: uigrid.less
  ========================================================================== */
 .table-uigrid.ui-grid {
-  border-top-width: 3px;
+  border-top-width: 1px;
 }
 .table-uigrid.ui-grid,
 .table-uigrid.ui-grid .ui-grid-header,
