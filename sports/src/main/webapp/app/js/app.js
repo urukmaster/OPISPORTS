@@ -255,6 +255,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 controller: 'TipoServicioController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
+            .state('app.perfilUsuario', {
+                url: '/miPerfil',
+                title: 'Perfil',
+                templateUrl: helper.basepath('perfil-Usuario.html'),
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+             })
             .state('app.mailbox', {
                 url: '/mailbox',
                 title: 'Mailbox',
@@ -534,7 +540,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     						idUsuario: data.usuario.idUsuario,
     						nombre: data.usuario.nombre,
     						apellido: data.usuario.apellido,
-    						correo: data.usuario.contrasenna,
+    						correo: data.usuario.correo,
     						telefono: data.usuario.telefono,
     						roles: data.usuario.roles
     				};
@@ -566,8 +572,6 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     $scope.callAtTimeout = function(){
     	$state.go("app.index");
     }
- 
-
  
  
 }]);
@@ -3031,6 +3035,10 @@ App.controller('AppController',
             $scope.toggleUserBlock = function(){
                 $scope.$broadcast('toggleUserBlock');
             };
+            
+            $scope.miPerfil = function(){
+                $scope.$broadcast('miPerfil');
+            };
 
             // Internationalization
             // ----------------------
@@ -4856,9 +4864,18 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope', function(
     
     $scope.logout = function(){
     	$rootScope.usuario = undefined;
+    	$state.go('app.login');
     }
-
+    
+    $scope.$on('miPerfil', function(event, args) {
+    	if($rootScope.usuario != undefined){
+    		$state.go('app.perfilUsuario');
+        }else{
+        	$state.go('app.login');
+        }
+    });
 }]);
+
 /**=========================================================
  * Module: vmaps,js
  * jVector Maps support

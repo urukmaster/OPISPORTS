@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SubscripcionPOJO {
 	
-	private int idSupscripcion;
+	private int idSubscripcion;
 	
 	private TipoEventoPOJO eventospojo;
 
@@ -19,11 +19,11 @@ public class SubscripcionPOJO {
 	}
 
 	public int getIdSupscripcion() {
-		return idSupscripcion;
+		return idSubscripcion;
 	}
 
 	public void setIdSupscripcion(int idSupscripcion) {
-		this.idSupscripcion = idSupscripcion;
+		this.idSubscripcion = idSupscripcion;
 	}
 
 }
