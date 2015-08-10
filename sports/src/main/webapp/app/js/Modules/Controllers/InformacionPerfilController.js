@@ -133,6 +133,33 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
+App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
+	'use strict'; 
+	$scope.submitted = false;
+    
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formCentroDistribucion[name];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
+    };
+    
+    // Submit form
+    $scope.submitForm = function() {
+        $scope.submitted = true;
+        if ($scope.formCentroDistribucion.$valid) {
+        	$http.post('rest/centroDistribucion/save', {
+        		comentario : $scope.comentario
+    		 	})
+    		.success(function(data){
+    			$rootScope.$broadcast('actualizarGrid',responsedata);
+    			$modalInstance.close('closed');     			
+    		});        	
+        } else {
+        	
+            return false;
+        }
+    };
+
+}]);
 
 App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
 	var id;

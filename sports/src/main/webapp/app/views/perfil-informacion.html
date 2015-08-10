@@ -3,6 +3,9 @@
     <ul class="timeline">
     <!-- START timeline item DERECHA-->
     <li class="timeline-inverted">
+    <br>
+    <br>
+    <br>
         <div class="timeline-badge green">
             <em class="fa fa-comment"></em>
         </div>
@@ -21,6 +24,7 @@
                     </div>
                     <p class="text-muted mv">Comenta sobre este establecimiento deportivo</p>
                     <div>
+                    <scrollable height="183	" >
 						<div ng-repeat="review in Reviews">
                      		<div class="media bb p">
                         		<small class="pull-right text-muted"></small>
@@ -35,12 +39,15 @@
                        	 		</div>
                       		</div>
                       	</div>
+                     </scrollable>
 					</div>
-                    <form ng-controller="" method="post" action="" class="mt">
-                        <textarea placeholder="Escribe un comentario..." rows="1" class="form-control no-resize"></textarea>
-                    </form>
-                    <br>
-                    <button class="btn btn-danger">Agregar</button>
+					<div>
+                    	<form ng-controller="FormReviewController" method="post" action="" class="mt">
+                        	<textarea ng-model="comentario"placeholder="Escribe un comentario..." rows="1" class="form-control no-resize"></textarea>
+                    	</form>
+                    	<br>
+                    		<button type="submit"class="btn btn-danger">Agregar</button>
+                    	</div>
                 </div>
             </div>
         </div>
@@ -48,7 +55,11 @@
     <!-- END timeline item-->
 
     <!-- START timeline item-->
+
     <li>
+    <br>
+    <br>
+    <br>
         <div class="timeline-badge purple">
             <em class="fa fa-map-marker"></em>
         </div>
