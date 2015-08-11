@@ -100,6 +100,8 @@ public class EstablecimientoDeportivoController {
 		establecimientoView.setDistrito(distrito);
 		
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoView);
+		establecimientoResponse.setIdCanton(establecimiento.getDistrito().getCanton().getIdCanton());
+		establecimientoResponse.setIdProvincia(establecimiento.getDistrito().getCanton().getProvincia().getIdProvincia());
 		
 		return establecimientoResponse;		
 		

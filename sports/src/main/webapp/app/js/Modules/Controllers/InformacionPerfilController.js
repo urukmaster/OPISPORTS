@@ -1,14 +1,18 @@
 /**
  * Created by JuanManuel on 09/07/2015.
- * 
- * Modulo Controlador para modificar evento 
- * author: Mauricio Fernandez
- * Fecha: 04/08/2015
- * Revision: 1.1 
+ * Modificado por Mauricio fernandez on 04/08/2015.
+ * Revision: 1.2
  */
 
+
+/**==========================================================
+ * Modulo: EstablecimientosController
+ * Este controlador se encarga de carga cada uno de los establecimientos
+ * deportivos registrados y de inicializar la página
+ ============================================================*/
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
+	//Trae los establecimientos deportivos registrados
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
@@ -16,17 +20,21 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 			
 		});
     };
+    
+    //Inicializa la aplicación
     $scope.init(); 
     
+    //Busca los servicios asociados al establecimiento
     $scope.buscarServicios = function(establecimiento){
     	cambiarServicios(establecimiento);
     };
     
+    //Cambia los servicios asociados al establecimiento
     function cambiarServicios(establecimiento) {
         $scope.serviciosEstablecimiento = establecimiento.servicios;
     }
     
-
+    //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
         $scope.init(); 
     });
@@ -133,6 +141,11 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
+
+/**==========================================================
+ * Modulo: EliminarModalController
+ * Este controlador se encarga de eliminar un establecimiento deportivo
+ ============================================================*/
 
 App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
 	var id;

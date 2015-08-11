@@ -120,13 +120,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('centroDeDistribucion.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.eventos', {
-                url: '/eventos',
-                title: 'Eventos',
-                templateUrl: helper.basepath('eventos.html'),
-                controller: 'EventosController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
             .state('app.usuarios', {
                 url: '/usuarios',
                 title: 'Usuarios',

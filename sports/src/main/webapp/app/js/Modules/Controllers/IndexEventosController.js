@@ -1,12 +1,23 @@
+/**
+ * Modulo Controlador para traer los datos del modificar evento * 
+ * author: Mauricio Fernandez
+ * Fecha: 27/07/2015
+ * Revision: 1.0
+ *//**
+ * Modulo Controlador para traer los datos del modificar evento * 
+ * author: Mauricio Fernandez
+ * Fecha: 31/07/2015
+ * Revision: 1.1
+ */
 
-/**=========================================================
- * Module: calendar-ui.js
- * This script handle the calendar demo with draggable
- * events and events creations
- =========================================================*/
-
+/**==========================================================
+ * Modulo: EventoModalController
+ * Este controlador se encarga de desplegar un "Modal" 
+ * para registrar un evento en la base de datos 
+ ============================================================*/
 App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
 	
+	//Depliega el "Modal"
 	$scope.registrar = function () {
         var RegistrarModalInstance = $modal.open({
             templateUrl: '/myEventoModalContent.html',
@@ -24,18 +35,20 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
         $scope.eventoForm.registrar = function () {
 
         	var data = {
-        		"nombre": $scope.eventoForm.evento,
+        		"nombre": $scope.eventoForm.nombre,
                 "precio": $scope.eventoForm.precio,
                 "hora": $scope.eventoForm.hora.getTime(),
                 "fecha": $scope.eventoForm.fecha,
                 "informacion": $scope.eventoForm.informacion,
                 "tipoEvento" : 1,
                 "establecimiento" : 1,
+                "active": 1,
                 "cupo" : $scope.eventoForm.cupo,
                 "direccion" : $scope.eventoForm.direccion,
                 "accion" : "Registrar"
             };
             
+        	//Manda a salvar el evento
             $http.post('rest/evento/save', data).
             success(function(data){
             	var toasterdata = {
@@ -52,10 +65,16 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
             $modalInstance.dismiss('cancel');
         };
     };
-
+    
     RegistrarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    
 }]);
 
+/**==========================================================
+ * Modulo: CalendarControllerEventos
+ * Este controlador se encarga de renderizar e inicializar
+ * el calendario de eventos deportivos
+ ============================================================*/
 App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$state', '$modal', function($scope, $http, $timeout, $state, $modal) {
     'use strict';
     if(!$.fn.fullCalendar) return;
@@ -64,10 +83,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     var draggingEvent = null;
 
 
-    /**
-     * ExternalEvent object
-     * @param jQuery Object elements Set of element as jQuery objects
-     */
+/**
+ * ExternalEvent object
+ * @param jQuery Object elements Set of element as jQuery objects
+ */
     var ExternalEvent = function (elements) {
 
         if (!elements) return;
@@ -93,11 +112,11 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
         });
     };
 
-    /**
-     * Invoke full calendar plugin and attach behavior
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     * @param  EventObject [events] An object with the event list to load when the calendar displays
-     */
+/**
+ * Invoke full calendar plugin and attach behavior
+ * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+ * @param  EventObject [events] An object with the event list to load when the calendar displays
+ */
     function initCalendar(calElement, events) {
 
     	calElement.fullCalendar({
@@ -151,10 +170,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     
     }
 
-    /**
-     * Inits the external events panel
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     */
+/**
+ * Inits the external events panel
+ * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+ */
     function initExternalEvents(calElement){
         // Panel with the external events list
         var externalEvents = $('.external-events');
@@ -246,7 +265,6 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     	
     };
     
-    $scope.init();
-    
+    $scope.init();    
     
 }]);
