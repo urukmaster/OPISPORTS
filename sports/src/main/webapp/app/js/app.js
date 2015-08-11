@@ -537,7 +537,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
     };
 
 //------------------------------------------------------------------------------------
-    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope) {
+    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope,$timeout) {
         $scope.accion = "Registrar";
         $scope.usuario = {};
         $scope.usuarioForm = {};
@@ -577,7 +577,8 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             			            title: 'Login',
             			            text:  data.codeMessage
             			        	};
-            				$state.go("app.index");
+            				$timeout(function(){ $scope.callAtTimeout(); }, 3000);
+            			
             			}
             	});
             	$modalInstance.close('closed');
@@ -589,11 +590,15 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             
         }
         
+        $scope.callAtTimeout = function(){
+        	$state.go("app.index");
+        }
+        
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
     };
-    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope"];
+    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope","$timeout"];
 
 }]);
 /**=========================================================

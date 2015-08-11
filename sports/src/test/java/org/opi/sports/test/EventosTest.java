@@ -95,7 +95,7 @@ public class EventosTest {
 	/**
 	 * Prueba para guardar o modificar eventos
 	 */
-	@Test
+	//@Test
 	public void saveEventos(){
 EventoResponse eventoResponse = new EventoResponse();
 		EventoRequest eventoRequest = new EventoRequest();

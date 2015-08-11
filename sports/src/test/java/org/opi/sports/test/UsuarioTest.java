@@ -76,7 +76,7 @@ public class UsuarioTest {
 	*
 	*/
 	
-	@Test
+	//@Test
 	public void saveRolTest(){
 		
 		//------------------------------------------------------------------

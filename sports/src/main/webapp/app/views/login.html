@@ -105,8 +105,8 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Confirmar Contraseña</label>
                         			<div class="col-sm-6">
-                           				<input type="password" name="contrasenna" required="" class="form-control" />
-                           				
+                           				<input type="password" name="confirmarContasenna" required="" ng-model="usuario.confirmarContrasenna" ui-validate="'$value==usuario.contrasenna'" ui-validate-watch="'validator.usuario.contrasenna'" class="form-control" />
+                           				<p ng-show="validateInput('confirmarContasenna', 'validator')" class="text-danger">Las contraseñas no coinciden.</p>
                         			</div>                        
                      		</div>
                   		</fieldset>

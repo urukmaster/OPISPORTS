@@ -100,7 +100,7 @@ public class ReservacionesTest {
 	/**
 	 * Prueba para guardar reservaciones
 	 */
-	@Test
+	//@Test
 	public void saveReservaciones(){
 		ReservacionesRequest reservacion = new ReservacionesRequest();
 		reservacion.setFecha(new Date());
