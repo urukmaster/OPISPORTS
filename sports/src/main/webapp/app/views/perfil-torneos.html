@@ -1,5 +1,42 @@
-<div ng-controller="TorneosController">
-	<div id="uigrid-demo" ui-grid="gridTorneos" class="table-uigrid"></div>
+<div ng-controller="TorneoModalController">
+	<div>
+		<!-- Modal inline template-->
+		<script type="text/ng-template" id="/myTorneoModalContent.html">
+            <div class="modal-header">
+                <h4 id="myModalLabel" class="modal-title">{{accion+" Torneos"}}</h4>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal"> 
+						<div class="form-group">
+                            <label class="col-lg-2 control-label">Precio</label>
+                            <div class="col-lg-10">
+                                <input ng-model="torneoForm.precio" type="text"  class="form-control"/>
+                            </div>
+                        </div>
+						<div class="form-group">
+                        	<label class="col-lg-2 control-label">Fecha</label>
+   							<div ng-controller="DatepickerDemoCtrl">
+    							<datepicker ng-model="torneoForm.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+    						</div>
+						</div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+				<button ng-hide="accion == 'Modificar'" ng-click="torneoForm.registrar()"type="submit" class="btn btn-primary">Registrar</button>
+                <button ng-hide="accion == 'Registrar'" ng-click="torneoForm.modificar()"type="submit" class="btn btn-primary">Modificar</button>
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+        </script>
+		<button ng-click="registrar()" class="btn btn-primary">
+			<span class="fa fa-plus"></span>
+		</button>
+	</div>
 </div>
+
+	<div ng-controller="TorneosController">
+		<div id="uigrid-demo" ui-grid="gridTorneos" class="table-uigrid"></div>
+	</div>
 
 <script src="app/js/Modules/Controllers/TorneosController.js"></script>

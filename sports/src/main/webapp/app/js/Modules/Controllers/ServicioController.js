@@ -15,13 +15,6 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 	
 	
 	$scope.init = function(){
-		servicios ="<select ng-model='servicioForm.tipoServicio' type='text'  class='form-control'>"
-			
-		angular.forEach(tipoServicios, function(tipoServicio, index){
-			servicios += "<option value=" + tipoServicio.idTipoServicio + ">" + tipoServicio.tipoServicio +"</option>"
-		});
-		servicios += "</select>"
-		$('#servicios').append(servicios);
 	}
 	
 	$scope.init();

@@ -101,12 +101,6 @@ public class EventosHelper {
 
 	}
 
-	public EventoPOJO save(
-			EventoRequest eventoRequest,
-			EventoServiceInterface eventoService,
-			EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
-
-
 	/**
 	 * Método para guardar o modificar los eventos de un establcimiento deportivo
 	 * @param eventoRequest
@@ -114,12 +108,9 @@ public class EventosHelper {
 	 * @param establecimientoDeportivoService
 	 * @return
 	 */
-	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
+	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService) {
 		
 		Evento evento = new Evento();
-
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService
-				.findOne(eventoRequest.getEstablecimiento());
 
 		evento.setCupo(eventoRequest.getCupo());
 		evento.setDireccion(eventoRequest.getDireccion());
@@ -127,7 +118,6 @@ public class EventosHelper {
 		evento.setHora(eventoRequest.getHora());
 		evento.setInformacion(eventoRequest.getInformacion());
 		evento.setNombre(eventoRequest.getNombre());
-		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
 
 		evento.setActive(eventoRequest.isActive());
@@ -145,57 +135,6 @@ public class EventosHelper {
 
 		return eventoPOJO;
 
-	}
-
-	public EventoPOJO saveTorneo(
-			TorneoRequest torneoRequest,
-			EventoServiceInterface eventoServices,
-			EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService,
-			ReservacionesServiceInterface reservacionesService) {
-
-		Evento evento = new Evento();
-
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeporitvoService
-				.findOne(torneoRequest.getEstablecimiento());
-
-		evento.setCupo(torneoRequest.getCupo());
-		evento.setFecha(torneoRequest.getFecha());
-		evento.setInformacion(torneoRequest.getInformacion());
-		evento.setNombre(torneoRequest.getNombre());
-		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
-		evento.setPrecio(torneoRequest.getPrecio());
-
-		if (torneoRequest.getAccion().equals("Modificar")) {
-			evento.setIdEvento(torneoRequest.getIdEvento());
-		}
-		
-		evento = eventoServices.save(evento);
-
-		reservarTorneo(evento, reservacionesService, torneoRequest);
-		
-		EventoPOJO eventoPOJO = new EventoPOJO();
-
-		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
-
-		return eventoPOJO;
-	}
-
-	private void reservarTorneo(Evento evento, ReservacionesServiceInterface reservacionesService, TorneoRequest torneoRequest) {
-		
-		Reservaciones reservacionTorneo = new Reservaciones();
-		
-		reservacionTorneo.setActive((byte)1);
-		reservacionTorneo.setEstado("Reservado");
-		reservacionTorneo.setFecha(evento.getFecha());
-		reservacionTorneo.setServicio(evento.getEstablecimientoDeportivo().getServicios().get(0));
-		reservacionTorneo.setUsuario(evento.getEstablecimientoDeportivo().getUsuario());
-		
-		if(torneoRequest.getAccion().equals("Modificar")){
-			reservacionTorneo.setIdCalendario(torneoRequest.getIdCalendario());
-		}
-		
-		reservacionesService.save(reservacionTorneo);
-		
 	}
 
 }

@@ -145,4 +145,17 @@ public class ReservacionController {
 	public ReservacionesResponse getReservacion(@RequestBody ReservacionesRequest reservacionRequest){
 		return ReservacionesHelper.getInstance().getReservacion(reservacionRequest.getIdCalendario(), reservacionesServices);
 	}
+	
+	@RequestMapping(value="saveTorneo", method = RequestMethod.POST)
+	public EstablecimientoDeportivoPOJO saveTorneo(@RequestBody ReservacionesRequest reservacion){
+		
+		
+		
+		return EstablecimientoDeportivoHelper
+				.getInstance()
+				.convertirEstablecimiento(
+						establecimientoDeportivoService.findOne(reservacion
+								.getEstablecimiento()));
+	}
+	
 }

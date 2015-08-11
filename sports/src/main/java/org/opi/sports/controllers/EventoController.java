@@ -40,9 +40,6 @@ public class EventoController {
 	EventoServiceInterface eventoServices;
 	
 	@Autowired
-	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
-	
-	@Autowired
 	ReservacionesServiceInterface reservacionesService;
 
 	/**
@@ -102,25 +99,12 @@ public class EventoController {
 		
 		EventoResponse eventoResponse = new EventoResponse();
 		
-		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices, establecimientoDeporitvoService);
+		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices);
 		
 		eventoResponse.setEvento(evento);
 		
 		return eventoResponse;
 	}
 	
-	@RequestMapping(value="saveTorneo", method = RequestMethod.POST)
-	@Transactional
-	public EventoResponse saveTorneo(@RequestBody TorneoRequest torneoRequest){
-		
-		EventoResponse eventoResponse = new EventoResponse();
-		
-		EventoPOJO evento = EventosHelper.getInstance().saveTorneo(torneoRequest, eventoServices, establecimientoDeporitvoService, reservacionesService);
-		
-		eventoResponse.setEvento(evento);
-		
-		return eventoResponse;
-	}
-
 }
 
