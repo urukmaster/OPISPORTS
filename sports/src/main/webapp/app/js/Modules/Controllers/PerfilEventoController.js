@@ -1,18 +1,20 @@
 /**
- * Fecha: 23-07-2015 version 1.0
- * 
- * @author Mauricio Fernández Mora.
- *
+ * Modulo Controlador para traer los datos de un evento deportivo
+ * author: Mauricio Fernandez
+ * Fecha: 23/07/2015
+ * Revision: 1.1 
  */
 
 var eventoModificar = {};
 
 /**==========================================================
- * Module: EventoModalController
- * Implementa el modal de modificar un evento
+ * Modulo: EventoModalController
+ * Este controlador se encarga de consultar y modificar la 
+ * información de un evento deportivo.
  ============================================================*/
 App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
 	
+	//Abre el "Modal" de modificación
 	$scope.modificar = function () {
 		var ModificarModalInstance = $modal.open({
             templateUrl: '/myEventoModalContent.html',
@@ -37,8 +39,8 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
         $scope.eventoForm.cupo = eventoModificar.cupo;
         $scope.eventoForm.direccion = eventoModificar.direccion;
         
+        //Guarda la modificación del evento
         $scope.eventoForm.modificar = function () {
-        	console.log($scope.eventoForm.fecha);
         	var data = {
         		"idEvento" : eventoModificar.idEvento,
         		"nombre": $scope.eventoForm.nombre,
@@ -48,6 +50,7 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
                 "informacion": $scope.eventoForm.informacion,
                 "tipoEvento" : 1,
                 "establecimiento" : 1,
+                "active" : 1,
                 "cupo" : $scope.eventoForm.cupo,
                 "direccion" : $scope.eventoForm.direccion,
                 "accion" : "Modificar"
@@ -71,11 +74,12 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
     };
 
     ModificarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    
 }]);
 
 /**==========================================================
- * Module: PerfilEventoController
- * Es el encargado de traer el evento que se requiere consultar
+ * Modulo: PerfilEventoController
+ * Este controlador se traer un evento deportivo por medio del Id
  ============================================================*/
 App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', function($scope, $http, $stateParams, $state) {
 
