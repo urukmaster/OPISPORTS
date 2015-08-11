@@ -3,70 +3,68 @@
 </h3>
 
 <div ng-controller="EventoModalController">
-<script type="text/ng-template" id="/myEventoModalContent.html">
-            <div class="modal-header">
-                <h4 id="myModalLabel" class="modal-title">{{accion+" Eventos"}}</h4>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Evento</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.evento" type="text"  class="form-control" />
-                            </div>
+	<!-- Modal inline template-->
+        <script type="text/ng-template" id="/myEventoModalContent.html">
+        <div class="modal-header">
+            <h4 id="myModalLabel" class="modal-title">{{accion+" Eventos"}}</h4>
+        </div>
+		<form class="form-horizontal">
+            <div>	   			
+	   			<div class="panel-body">
+				<div class="form-group col-lg-12">				
+                	<div class="col-lg-6">
+						<label control-label">Fecha</label>
+                    	<div ng-controller="DatepickerDemoCtrl">
+    						<div style="display:inline-block; min-height:290px;">
+      							<datepicker ng-model="eventoForm.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+    						</div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">DirecciÃ³n</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.direccion" type="text"  class="form-control" />
-                            </div>
+
+						<label control-label">Hora</label>
+                       	<div ng-controller="TimepickerDemoCtrl">
+							<timepicker ng-model="eventoForm.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+						</div>
+					</div>
+                    <div class="col-lg-6">
+                    	<div>
+							<label class="control-label">Nombre</label>
+							<input type="text" name="nombre" ng-model="eventoForm.nombre" rows="2" class="form-control" required=""/>                    			
+                        	<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
+                        </div>			
+						<label  control-label">Dirección</label>
+                    	<div>
+							<textarea name="direccion" ng-model="eventoForm.direccion" rows="2" class="form-control no-resize" required=""></textarea>                    			
+                        	<span ng-show="validateInput('direccion', 'required')" class="text-danger">Este campo es requerido</span>
+                    	</div>	
+			
+						<label  control-label">Información</label>
+                    	<div>
+							<textarea name="informacion" ng-model="eventoForm.informacion" rows="2" class="form-control" required=""></textarea>                    			
+                        	<span ng-show="validateInput('informacion', 'required')" class="text-danger">Este campo es requerido</span>
+                    	</div>
+                    	<div>
+							<label class="control-label">Precio</label>
+							<input type="text" name="precio" ng-model="eventoForm.precio" rows="2" class="form-control" required=""/>                    			
+                        	<span ng-show="validateInput('precio', 'required')" class="text-danger">Este campo es requerido</span>
+                        </div>	
+                    	<div>
+							<label class="control-label">Cupo</label>
+							<input type="text" name="cupo" ng-model="eventoForm.cupo" rows="2" class="form-control" required=""/>                    			
+                        	<span ng-show="validateInput('cupo', 'required')" class="text-danger">Este campo es requerido</span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label"Fecha</label>
-                            <div class="col-lg-10">
-                                <div ng-controller="TimepickerDemoCtrl">
-									<datepicker ng-model="evento.Form.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-								</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">Hora</label>
-                            <div class="col-lg-10">
-                                <div ng-controller="TimepickerDemoCtrl">
-									<timepicker ng-model="eventoForm.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-								</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2 control-label">InformaciÃ³n</label>
-                            <div class="col-lg-10">
-                                <textarea ng-model="eventoForm.informacion" class="form-control"></textarea>
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-lg-2 control-label">Cupos</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.cupo" type="number"  class="form-control"/>
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-lg-2 control-label">Precio</label>
-                            <div class="col-lg-10">
-                                <input ng-model="eventoForm.precio" type="text"  class="form-control"/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    </div
+				</div>
+            </div>   		                             		
+       		</div>
             <div class="modal-footer">
                 <button ng-click="eventoForm.registrar()"type="submit" class="btn btn-primary">Registrar</button>
                 <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
             </div>
+		</form>
         </script>
-        <button ng-click="registrar()" class="btn btn-primary">
-						<span class="fa fa-plus"></span>
-		</button>
+	<button ng-click="registrar()" class="btn btn-primary">
+		<span class="fa fa-plus"></span>
+	</button>
 </div>
 
 

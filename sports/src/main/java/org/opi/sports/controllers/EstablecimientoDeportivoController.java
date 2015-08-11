@@ -16,6 +16,7 @@ import org.opi.sports.ejb.Reto;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.RetoHelper;
 import org.opi.sports.helpers.ServicioHelper;
+import org.opi.sports.pojo.DistritoPOJO;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.RetoPOJO;
@@ -91,11 +92,19 @@ public class EstablecimientoDeportivoController {
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
 		
 		EstablecimientoDeportivo establecimiento = establecimientoDeportivoService.findOne(idEstablecimiento);
-				
+		
+		DistritoPOJO distrito = new DistritoPOJO();
+		
+		PojoUtils.pojoMappingUtility(distrito, establecimiento.getDistrito());
+		
 		EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
 		PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
 		
+		establecimientoView.setDistrito(distrito);
+		
 		establecimientoResponse.setEstablecimientoDeportivo(establecimientoView);
+		establecimientoResponse.setIdCanton(establecimiento.getDistrito().getCanton().getIdCanton());
+		establecimientoResponse.setIdProvincia(establecimiento.getDistrito().getCanton().getProvincia().getIdProvincia());
 		
 		return establecimientoResponse;		
 		

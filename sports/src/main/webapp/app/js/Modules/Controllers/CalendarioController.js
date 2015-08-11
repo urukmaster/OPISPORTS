@@ -10,6 +10,12 @@
  * Revision: 1.1 
  */
 
+
+/**==========================================================
+ * Modulo: CalendarController
+ * Este controlador se encarga de renderizar e inicializar el
+ * calendario
+ ============================================================*/
 App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
     'use strict';
     if(!$.fn.fullCalendar) return;
@@ -65,11 +71,11 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         });
     };
 
-    /**
-     * Invoke full calendar plugin and attach behavior
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     * @param  EventObject [events] An object with the event list to load when the calendar displays
-     */
+/**
+ * Invoke full calendar plugin and attach behavior
+ * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+ * @param  EventObject [events] An object with the event list to load when the calendar displays
+ */
     function initCalendar(calElement, events) {
 
         // check to remove elements from the list
@@ -197,11 +203,11 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         });
     }
 
-    /**
-     * Creates an array of events to display in the first load of the calendar
-     * Wrap into this function a request to a source to get via ajax the stored events
-     * @return Array The array with the events
-     */
+/**
+ * Creates an array of events to display in the first load of the calendar
+ * Wrap into this function a request to a source to get via ajax the stored events
+ * @return Array The array with the events
+ */
     
     $scope.$on('actualizar', function(){
     	$('#calendario').append('<div id="calendarioContent">' +
@@ -254,13 +260,16 @@ $(function() {
 	});
 
 
-/**=========================================================
- * Module: modals.js
- * Provides a simple way to implement bootstrap modals from templates
- =========================================================*/
+/**==========================================================
+ * Modulo: ModalReservacionesController
+ * Este controladorde desplegar un "Modal" para el registro
+ * de reservaciones
+ ============================================================*/
 
 App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {
 	var servicioActual;
+	
+	//Despliega el "Modal"
     $scope.open = function (size, idServicioActual) {
     	servicioActual = idServicioActual;
 
@@ -277,13 +286,11 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
             state.text('Modal dismissed with Cancel status');
         });
     };
-        
-    // Please note that $modalInstance represents a modal window (instance) dependency.
-    // It is not the same as the $modal service used above.
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
     	$scope.reservacion = {};	
     	
+    	//Confirmación de la reservación que se quiere registrar
         $scope.ok = function () {
         	
         	var fecha = $scope.reservacion.fecha;
@@ -315,6 +322,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
             
         };
 
+        //Cancelación de la cofirmación de la reseración
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
