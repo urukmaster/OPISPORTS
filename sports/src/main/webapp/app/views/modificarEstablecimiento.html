@@ -52,6 +52,7 @@
 				           <div class="col-lg-9">
 							   <select name="cmbProvincias" required=""  ng-model="idProvincia" class="chosen-select input-md form-control" ng-options="provincia.idProvincia as provincia.provincia for provincia in Provincias" ng-click="buscarCantones()">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 							</div>
 				        </div>
 				        <div class="form-group">

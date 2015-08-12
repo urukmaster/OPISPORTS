@@ -63,7 +63,9 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 			            title: 'Evento',
 			            text:  'Se registro el evento correctamente.'
 			    };
-    			//$scope.pop(toasterdata);
+
+      			$scope.pop(toasterdata);
+      			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
             	$modalInstance.dismiss('cancel');
             	$state.reload();
             });
@@ -71,6 +73,15 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+        
+        //Despliegue de confirmación    
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+        };
+        
+        $scope.callAtTimeout = function(){
+        	$state.go("app.establecimientos");
+        }
     };
 
     ModificarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
@@ -159,9 +170,10 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	    	$state.go("app.eventosIndex");
 	    }
 	
-	$scope.cancel = function () {
-	  $modalInstance.dismiss('cancel');
+	    $scope.cancel = function () {
+	    	$modalInstance.dismiss('cancel');
 	    };
+	    
 	  };
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 

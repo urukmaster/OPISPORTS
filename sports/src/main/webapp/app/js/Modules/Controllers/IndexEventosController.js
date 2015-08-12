@@ -15,7 +15,7 @@
  * Este controlador se encarga de desplegar un "Modal" 
  * para registrar un evento en la base de datos 
  ============================================================*/
-App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
+App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $modal, $timeout ,$http, $state, toaster) {
 	
 	//Depliega el "Modal"
 	$scope.registrar = function () {
@@ -56,16 +56,25 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 			            title: 'Evento',
 			            text:  'Se registro el evento correctamente.'
 			    };
-    			//$scope.pop(toasterdata);
+    			$scope.pop(toasterdata);
+      			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
             	$modalInstance.dismiss('cancel');
-            	$state.reload();
             });
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+        
+        //Despliegue de confirmación    
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+        };
+        
+        $scope.callAtTimeout = function(){
+        	$state.reload();
+        }
+        
     };
-    
     RegistrarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
     
 }]);
