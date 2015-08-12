@@ -75,7 +75,9 @@ public class EstablecimientoDeportivoHelper {
 	private List<ReviewsPOJO> obtenerReviews(EstablecimientoDeportivo establecimiento) {
 		List<ReviewsPOJO> reviews =  new ArrayList<ReviewsPOJO>();
 		for(Review review : establecimiento.getReviews()){
+			if(review.getActive() == 1){
 			reviews.add(convertirReview(review));
+			}
 		}
 		return reviews;
 	}
@@ -83,15 +85,14 @@ public class EstablecimientoDeportivoHelper {
 	private ReviewsPOJO convertirReview(Review preview) {
 		ReviewsPOJO reviewpojo = new ReviewsPOJO();
 		reviewpojo.setIdComentario(preview.getIdComentario());
-		reviewpojo.setCalificacion(preview.getCalificacion());
 		reviewpojo.setReview(preview.getReview());
 		reviewpojo.setIdEstablecimientoDeportivo(preview.getEstablecimientoDeportivo().getIdEstablecimientoDeportivo());
 		reviewpojo.setNombreUsuario(preview.getUsuario().getNombre());
+		reviewpojo.setApellidoUsuario(preview.getUsuario().getApellido());
 		reviewpojo.setIdUsuario(preview.getUsuario().getIdUsuario());
 		reviewpojo.setActive(preview.getActive());
 		
-	return reviewpojo;
-	
+		return reviewpojo;
 	}
 
 	private ServicioPOJO convertirServicios(Servicio servicio) {

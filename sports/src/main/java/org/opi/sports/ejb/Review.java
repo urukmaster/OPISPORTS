@@ -17,8 +17,6 @@ public class Review implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idComentario;
 
-	private int calificacion;
-
 	private String review;
 	
 	private byte active;
@@ -42,14 +40,6 @@ public class Review implements Serializable {
 
 	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
-	}
-
-	public int getCalificacion() {
-		return this.calificacion;
-	}
-
-	public void setCalificacion(int calificacion) {
-		this.calificacion = calificacion;
 	}
 
 	public String getReview() {

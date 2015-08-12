@@ -3,9 +3,7 @@ package org.opi.sports.pojo;
 public class ReviewsPOJO {
 	
 	private int idComentario;
-	
-	private int calificacion;
-	
+
 	private String review;
 	
 	private int idEstablecimientoDeportivo;
@@ -16,18 +14,15 @@ public class ReviewsPOJO {
 	
 	private String nombreUsuario;
 	
+	private String apellidoUsuario;
+	
 	public int getIdComentario() {
 		return idComentario;
 	}
 	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
 	}
-	public int getCalificacion() {
-		return calificacion;
-	}
-	public void setCalificacion(int calificacion) {
-		this.calificacion = calificacion;
-	}
+
 	public String getReview() {
 		return review;
 	}
@@ -57,5 +52,11 @@ public class ReviewsPOJO {
 	}
 	public void setActive(byte active) {
 		this.active = active;
+	}
+	public String getApellidoUsuario() {
+		return apellidoUsuario;
+	}
+	public void setApellidoUsuario(String apellidoUsuario) {
+		this.apellidoUsuario = apellidoUsuario;
 	}
 }

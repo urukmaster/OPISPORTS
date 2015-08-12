@@ -68,7 +68,6 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						retosView.idEstablecimiento = reto.idEstablecimiento;
 						retosView.nombreEstablecimiento = reto.nombreEstablecimiento;
 						retosView.active = reto.active;
-						
 						if(retosView.active == 0){	
 						}else{
 							ARetos.push(retosView);
@@ -76,7 +75,10 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						
 			        });
 			            $scope.gridReto.data = ARetos;       
-			});
+			}).error(function(response){
+                alert(response.message);
+           
+            });
 			
 			function getMonth(mes){ 
 				if(mes<=10){
