@@ -139,7 +139,7 @@ App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$state
       };
       
       $scope.callAtTimeout = function(){
-      	$state.go("app.establecimientos");
+      	$state.go("app.eventosIndex");
       }
     
 }]);
