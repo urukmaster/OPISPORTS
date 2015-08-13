@@ -34,11 +34,44 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
         $scope.serviciosEstablecimiento = establecimiento.servicios;
     }
     
+<<<<<<< HEAD
+    $scope.obtenerServicio = function(servicio){
+    	$rootScope.$broadcast('enviarServicio',{
+    		  idServicio: servicio.idServicio    		 
+		});
+    }
+    
+    $scope.eliminar = function(id){
+            $http.post('rest/establecimientoDeportivo/delete', id).
+            success(function(){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Establecimiento',
+			            text:  'Se eliminó el establecimiento.'
+			    };                
+            	$scope.pop(toasterdata);
+            	$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+            });
+    }
+    
+    //notificacion
+    
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.reload();
+    }
+    
+
+=======
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
         $scope.init(); 
     });
 	
+>>>>>>> ae2cc14ab122d73cabc55555151dbf5766d34ca9
 }]);   
 
 var tipoServicios = [];
@@ -86,6 +119,14 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 
     $scope.init();
     
+    $scope.eliminar = function(id) {
+    	$http.post('rest/review/delete', {
+    		idComentario : id
+		 	})
+		.success(function(data){
+			$state.reload();
+		});        	
+  	}
 
 }]);
 
@@ -141,32 +182,39 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
-App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
+App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
 	'use strict'; 
-	$scope.submitted = false;
-    
-    $scope.validateInput = function(name, type) {
-        var input = $scope.formCentroDistribucion[name];
-        return (input.$dirty || $scope.submitted) && input.$error[type];
-    };
+//	$scope.submitted = false;
+//    
+//    $scope.validateInput = function(name, type) {
+//        var input = $scope.formCentroDistribucion[name];
+//        return (input.$dirty || $scope.submitted) && input.$error[type];
+//    };
     
     // Submit form
-    $scope.submitForm = function() {
-        $scope.submitted = true;
-        if ($scope.formCentroDistribucion.$valid) {
-        	$http.post('rest/centroDistribucion/save', {
-        		comentario : $scope.comentario
+//    $scope.submitForm = function() {
+//        $scope.submitted = true;
+//        if ($scope.formCentroDistribucion.$valid) {
+	$scope.registrarReview = function() {
+        	$http.post('rest/review/save', {
+        		review : $scope.comentario,	
+        		idUsuario : $rootScope.usuario.idUsuario,
+        		idEstablecimientoDeportivo : establecimientoCalendario.idEstablecimientoDeportivo,
+        		active : 1
     		 	})
     		.success(function(data){
-    			$rootScope.$broadcast('actualizarGrid',responsedata);
-    			$modalInstance.close('closed');     			
+    			$state.reload();
     		});        	
-        } else {
-        	
-            return false;
-        }
-    };
-
+//        } else {
+//        	
+//            return false;
+//        }
+//    };   	
+	}
+	
+	
+	
+	
 }]);
 
 /**==========================================================
