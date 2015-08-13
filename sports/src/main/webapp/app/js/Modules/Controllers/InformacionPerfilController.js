@@ -34,44 +34,11 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
         $scope.serviciosEstablecimiento = establecimiento.servicios;
     }
     
-<<<<<<< HEAD
-    $scope.obtenerServicio = function(servicio){
-    	$rootScope.$broadcast('enviarServicio',{
-    		  idServicio: servicio.idServicio    		 
-		});
-    }
-    
-    $scope.eliminar = function(id){
-            $http.post('rest/establecimientoDeportivo/delete', id).
-            success(function(){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Establecimiento',
-			            text:  'Se eliminó el establecimiento.'
-			    };                
-            	$scope.pop(toasterdata);
-            	$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-            });
-    }
-    
-    //notificacion
-    
-    $scope.pop = function(toasterdata) {
-        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
-    };
-    
-    $scope.callAtTimeout = function(){
-    	$state.reload();
-    }
-    
 
-=======
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
         $scope.init(); 
     });
-	
->>>>>>> ae2cc14ab122d73cabc55555151dbf5766d34ca9
 }]);   
 
 var tipoServicios = [];
