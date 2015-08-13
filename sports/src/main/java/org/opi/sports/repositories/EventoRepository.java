@@ -12,11 +12,12 @@ import org.springframework.data.repository.CrudRepository;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta clase sirve de repositorio para objetos de tipo "Evento"
+ *Sprint 05 Descripción: Esta clase sirve de repositorio para objetos de tipo "Evento"
  *
  */
 public interface EventoRepository extends CrudRepository<Evento, Integer> {
-
+	
+	
 	public List<Evento> findAll();
 	public Evento findOne(Integer idEvento);
 	public <Eventos extends Evento> Eventos save(Eventos evento);

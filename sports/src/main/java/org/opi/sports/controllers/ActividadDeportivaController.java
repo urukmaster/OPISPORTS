@@ -31,7 +31,7 @@ public class ActividadDeportivaController {
 	ActividadDeportivaServiceInterface actividadDeportivaService;
 	
 	/**
-	 * Este método se encarga de guardar los usuarios
+	 * Este método se encarga de guardar las actividades depotivas
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public ActividadDeportivaResponse save(@RequestBody ActividadDeportivaRequest actividadDeportivaRequest) {
@@ -51,11 +51,11 @@ public class ActividadDeportivaController {
 		
 		//Inicializacion de las actividades
 		
-		//Variable de tipo EstablecimientoDeportivoResponse
+		//Lista de actividades deportivas
 		List<ActividadDeportiva> actividadDeportivaList = actividadDeportivaService.getAllActividadDeportiva();
 		//Lista de EstablecimientoDeportivoPOJO
 		List<ActividadDeportivaPOJO> actividadDeportivaViewList = new ArrayList<ActividadDeportivaPOJO>();
-		System.out.println("Cantidad de Actividades:"+actividadDeportivaList.size());		
+				
 		for(ActividadDeportiva actividadDeportiva : actividadDeportivaList){
 			actividadDeportivaViewList.add(ActividadDeportivaHelper.getInstance().convertirActividadDeportiva(actividadDeportiva));
 		}

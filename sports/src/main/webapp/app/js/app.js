@@ -120,13 +120,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('centroDeDistribucion.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
             })
-            .state('app.eventos', {
-                url: '/eventos',
-                title: 'Eventos',
-                templateUrl: helper.basepath('eventos.html'),
-                controller: 'EventosController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
-            })
             .state('app.usuarios', {
                 url: '/usuarios',
                 title: 'Usuarios',
@@ -139,7 +132,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Log in',
                 templateUrl: helper.basepath('login.html'),
                 controller: 'LoginFormController',
-                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley')
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley','inputmask')
             })
             .state('app.agendaReservaciones', {
                 url: '/agendaReservaciones',
@@ -239,6 +232,13 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Actividades Deportivas',
                 templateUrl: helper.basepath('actividadesDeportivas.html'),
                 controller: 'ActividadesDeportivasController',
+                resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid','parsley')
+            })
+            .state('app.tiposEventos', {
+                url: '/tiposEventos',
+                title: 'Tipos de Eventos',
+                templateUrl: helper.basepath('tiposEventos.html'),
+                controller: 'TiposEventosController',
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid','parsley')
             })
             .state('app.servicio', {
@@ -517,7 +517,84 @@ App
     })
 ;
 
+/**=========================================================
+ * Module: modals.js Login
+ * Implementa el modal de registro de usuario
+ =========================================================*/
+var tipoServicioModificar = {};
+App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function ($scope, $modal) {
 
+    $scope.registrar = function () {
+
+        var RegistrarModalInstance = $modal.open({
+            templateUrl: '/myUsuarioModalContent.html',
+            controller: RegistrarUsuarioInstanceCtrl,
+            size: 'lg'
+        });
+
+
+    };
+
+//------------------------------------------------------------------------------------
+    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope) {
+        $scope.accion = "Registrar";
+        $scope.usuario = {};
+        $scope.usuarioForm = {};
+        $scope.validateInput = function(name, type) {
+            var input = $scope.formUsuario[name	];
+            return (input.$dirty || $scope.submitted) && input.$error[type];
+        };
+        
+        // Submit form
+        $scope.submitForm = function() {
+            $scope.submitted = true;
+           
+            if ($scope.formUsuario.$valid) {
+            	$http.post('rest/usuario/save',{
+            		nombre : $scope.usuario.nombre,
+            		apellido : $scope.usuario.apellidos,
+            		telefono : $scope.usuario.telefono,
+            		correo : $scope.usuario.correo,
+            		contrasenna : $scope.usuario.contrasenna
+            	}).success(function(data){
+            		$http.post('rest/iniciarSesion/validarUsuario', {
+                		correo : $scope.usuario.correo,
+                		contrasenna : $scope.usuario.contrasenna
+            		 	})
+            		.success(function(data){
+            			if(data.code == 200){
+            				$rootScope.usuario = {
+            						idUsuario: data.usuario.idUsuario,
+            						nombre: data.usuario.nombre,
+            						apellido: data.usuario.apellido,
+            						correo: data.usuario.contrasenna,
+            						telefono: data.usuario.telefono,
+            						roles: data.usuario.roles
+            				};
+            				var toasterdata = {
+            			            type:  'success',
+            			            title: 'Login',
+            			            text:  data.codeMessage
+            			        	};
+            				$state.go("app.index");
+            			}
+            	});
+            	$modalInstance.close('closed');
+            });
+            }else {
+            	
+                return false;
+            }
+            
+        }
+        
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope"];
+
+}]);
 /**=========================================================
  * Module: access-login.js
  * Demo for login api

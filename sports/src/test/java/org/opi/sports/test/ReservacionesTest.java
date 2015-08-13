@@ -33,6 +33,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
  *las reservaciones, desde el controller hasta el repositorio de
  *datos. La funcionalidad debe estar a prueba, segun distintos escenarios
  *
+ *
+ *Fecha: 14-07-2015 version 1.1
+ *
+ *@author Luis Esteban López Ramírez
+ *
+ *Sprint #3 Descripción: Permite probar que las reservaciones se guarden correctamente
  */
 
 //Se especifica con que correrá el JUNIT
@@ -91,8 +97,10 @@ public class ReservacionesTest {
 		
 		assertNotNull(reservacionesResponse);
 	}
-	
-	//@Test
+	/**
+	 * Prueba para guardar reservaciones
+	 */
+	@Test
 	public void saveReservaciones(){
 		ReservacionesRequest reservacion = new ReservacionesRequest();
 		reservacion.setFecha(new Date());

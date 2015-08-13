@@ -1,10 +1,18 @@
 /**
  * Created by JuanManuel on 09/07/2015.
+ * Modificado por Mauricio fernandez on 04/08/2015.
+ * Revision: 1.2
  */
 
 
+/**==========================================================
+ * Modulo: EstablecimientosController
+ * Este controlador se encarga de carga cada uno de los establecimientos
+ * deportivos registrados y de inicializar la página
+ ============================================================*/
 App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
+	//Trae los establecimientos deportivos registrados
     $scope.init = function(){  	
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
@@ -12,16 +20,21 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 			
 		});
     };
+    
+    //Inicializa la aplicación
     $scope.init(); 
     
+    //Busca los servicios asociados al establecimiento
     $scope.buscarServicios = function(establecimiento){
     	cambiarServicios(establecimiento);
     };
     
+    //Cambia los servicios asociados al establecimiento
     function cambiarServicios(establecimiento) {
         $scope.serviciosEstablecimiento = establecimiento.servicios;
     }
     
+<<<<<<< HEAD
     $scope.obtenerServicio = function(servicio){
     	$rootScope.$broadcast('enviarServicio',{
     		  idServicio: servicio.idServicio    		 
@@ -52,6 +65,13 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     }
     
 
+=======
+    //Recibe la llamada del broadcast de eliminar para refrescar la página
+    $scope.$on('eliminar', function (event) {
+        $scope.init(); 
+    });
+	
+>>>>>>> ae2cc14ab122d73cabc55555151dbf5766d34ca9
 }]);   
 
 var tipoServicios = [];
@@ -197,5 +217,55 @@ App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state
 	
 }]);
 
+/**==========================================================
+ * Modulo: EliminarModalController
+ * Este controlador se encarga de eliminar un establecimiento deportivo
+ ============================================================*/
 
+App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+	var id;
+	
+	$scope.open = function (pid) {
+		id = pid;
+	var modalInstance = $modal.open({
+		templateUrl: '/modalEliminarEstablecimiento.html',
+		controller: ModalInstanceCtrl,
+		size: 'sm'
+	});
+	
+	var state = $('#modal-state');
+	modalInstance.result.then(function () {
+	  state.text('Modal dismissed with OK status');
+	}, function () {
+	  state.text('Modal dismissed with Cancel status');
+	    });
+	  };
+	
+	
+  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	
+	    $scope.ok = function () {
+	    	
+	        $http.post('rest/establecimientoDeportivo/delete', id).
+	        success(function(){
+	        	var toasterdata = {
+			            type:  'success',
+			            title: 'Establecimiento',
+			            text:  'Se eliminó el establecimiento.'
+			    };                
+	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        });
+			$rootScope.$broadcast('eliminar');
+	    	$modalInstance.close('closed');
+	    };
+	    $scope.pop = function(toasterdata) {
+	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	    };
+	
+	$scope.cancel = function () {
+	  $modalInstance.dismiss('cancel');
+	    };
+	  };
+	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
+}]);
