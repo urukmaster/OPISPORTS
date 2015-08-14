@@ -37,6 +37,8 @@ public class Evento implements Serializable {
 	private String nombre;
 
 	private String precio;
+	
+	private Integer diasParaRetiro;
 
 	//bi-directional many-to-one association to Distribucion
 	@OneToMany(mappedBy="evento")
@@ -202,6 +204,14 @@ public class Evento implements Serializable {
 		tiquete.setEvento(null);
 
 		return tiquete;
+	}
+
+	public Integer getDiasParaRetiro() {
+		return diasParaRetiro;
+	}
+
+	public void setDiasParaRetiro(Integer diasParaRetiro) {
+		this.diasParaRetiro = diasParaRetiro;
 	}
 
 }

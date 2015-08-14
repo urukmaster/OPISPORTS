@@ -1,10 +1,10 @@
 /**
- * Modulo Controlador para traer los datos del modificar evento * 
+ * Modulo Controlador para traer los datos de registar evento * 
  * author: Mauricio Fernandez
  * Fecha: 27/07/2015
  * Revision: 1.0
  *//**
- * Modulo Controlador para traer los datos del modificar evento * 
+ * Modulo Controlador para traer los datos de registar evento * 
  * author: Mauricio Fernandez
  * Fecha: 31/07/2015
  * Revision: 1.1
@@ -16,7 +16,7 @@
  * para registrar un evento en la base de datos 
  ============================================================*/
 App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $modal, $timeout ,$http, $state, toaster) {
-	
+   
 	//Depliega el "Modal"
 	$scope.registrar = function () {
         var RegistrarModalInstance = $modal.open({
@@ -24,43 +24,60 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
             controller: RegistrarEventoInstanceCtrl,
             size: 'lg'
         });
+
     };
 
 //------------------------------------------------------------------------------------
     var RegistrarEventoInstanceCtrl = function ($scope, $modalInstance) {
+
+        //Valida el formulario de registro
+          $scope.submitted = false;
+          $scope.validateInput = function(name, type) {
+              var input = $scope.formRegistrarEvento[name];
+              return (input.$dirty || $scope.submitted) && input.$error[type];
+          };
+          
+        //Envío del formulario
+          $scope.submitForm = function() {
+              $scope.submitted = true;
+              if ($scope.formRegistrarEvento.$valid) {
+
+              	var data = {
+              		"nombre": $scope.eventoForm.nombre,
+                      "precio": $scope.eventoForm.precio,
+                      "hora": $scope.eventoForm.hora.getTime(),
+                      "fecha": $scope.eventoForm.fecha,
+                      "informacion": $scope.eventoForm.informacion,
+                      "tipoEvento" : 1,
+                      "establecimiento" : 1,
+                      "active": 1,
+                      "cupo" : $scope.eventoForm.cupo,
+                      "diasParaRetiro": $scope.eventoForm.diasParaRetiro,
+                      "direccion" : $scope.eventoForm.direccion,
+                      "accion" : "Registrar"
+                  };
+                  
+              	//Manda a salvar el evento
+                  $http.post('rest/evento/save', data).
+                  success(function(data){
+                  	var toasterdata = {
+      			            type:  'success',
+      			            title: 'Evento',
+      			            text:  'Se registro el evento correctamente.'
+      			    };
+          			$scope.pop(toasterdata);
+            			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+                  	$modalInstance.dismiss('cancel');
+                  });
+                  
+            	  }
+              }
+    	
     	
     	$scope.eventoForm = {};
         $scope.eventoForm.hora = new Date();
-        $scope.eventoForm.fecha = new Date();
-        $scope.eventoForm.registrar = function () {
-
-        	var data = {
-        		"nombre": $scope.eventoForm.nombre,
-                "precio": $scope.eventoForm.precio,
-                "hora": $scope.eventoForm.hora.getTime(),
-                "fecha": $scope.eventoForm.fecha,
-                "informacion": $scope.eventoForm.informacion,
-                "tipoEvento" : 1,
-                "establecimiento" : 1,
-                "active": 1,
-                "cupo" : $scope.eventoForm.cupo,
-                "direccion" : $scope.eventoForm.direccion,
-                "accion" : "Registrar"
-            };
-            
-        	//Manda a salvar el evento
-            $http.post('rest/evento/save', data).
-            success(function(data){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Evento',
-			            text:  'Se registro el evento correctamente.'
-			    };
-    			$scope.pop(toasterdata);
-      			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-            	$modalInstance.dismiss('cancel');
-            });
-        };
+        $scope.eventoForm.fecha = new Date();  
+        
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
