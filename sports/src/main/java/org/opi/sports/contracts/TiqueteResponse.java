@@ -17,13 +17,13 @@ import org.opi.sports.pojo.TiquetePOJO;
 public class TiqueteResponse extends BaseResponse{
 
 	private List<TiquetePOJO> tiquetes;
-	private Tiquete tiquete;
+	private TiquetePOJO tiquete;
 
-	public Tiquete getTiquete() {
+	public TiquetePOJO getTiquete() {
 		return tiquete;
 	}
 
-	public void setTiquete(Tiquete tiquete) {
+	public void setTiquete(TiquetePOJO tiquete) {
 		this.tiquete = tiquete;
 	}
 

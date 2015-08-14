@@ -5,14 +5,14 @@
  * Revision: 1.1 
  */
 
-var eventoModificar = {};
+var eventoActual = {};
 
 /**==========================================================
  * Modulo: EventoModalController
  * Este controlador se encarga de consultar y modificar la 
  * información de un evento deportivo.
  ============================================================*/
-App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
+App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $modal, $timeout ,$http, $state, toaster) {
 	
 	//Abre el "Modal" de modificación
 	$scope.modificar = function () {
@@ -26,23 +26,23 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 //------------------------------------------------------------------------------------
     var ModificarEventoInstanceCtrl = function ($scope, $modalInstance) {
     	
-    	var fecha = new Date(eventoModificar.fechaModificar.millis);
-    	var hora = new Date(eventoModificar.horaModificar.millis);
+    	var fecha = new Date(eventoActual.fechaModificar.millis);
+    	var hora = new Date(eventoActual.horaModificar.millis);
     	
     	$scope.eventoForm = {};
         $scope.eventoForm.hora = hora;
         $scope.eventoForm.fecha = fecha;
-        $scope.eventoForm.nombre = eventoModificar.nombre;
-        $scope.eventoForm.precio = eventoModificar.precio;
-        $scope.eventoForm.informacion = eventoModificar.informacion;
-        $scope.eventoForm.tipoEvento = eventoModificar.tipoEvento;
-        $scope.eventoForm.cupo = eventoModificar.cupo;
-        $scope.eventoForm.direccion = eventoModificar.direccion;
+        $scope.eventoForm.nombre = eventoActual.nombre;
+        $scope.eventoForm.precio = eventoActual.precio;
+        $scope.eventoForm.informacion = eventoActual.informacion;
+        $scope.eventoForm.tipoEvento = eventoActual.tipoEvento;
+        $scope.eventoForm.cupo = eventoActual.cupo;
+        $scope.eventoForm.direccion = eventoActual.direccion;
         
         //Guarda la modificación del evento
         $scope.eventoForm.modificar = function () {
         	var data = {
-        		"idEvento" : eventoModificar.idEvento,
+        		"idEvento" : eventoActual.idEvento,
         		"nombre": $scope.eventoForm.nombre,
                 "precio": $scope.eventoForm.precio,
                 "hora": $scope.eventoForm.hora.getTime(),
@@ -67,7 +67,6 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
       			$scope.pop(toasterdata);
       			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
             	$modalInstance.dismiss('cancel');
-            	$state.reload();
             });
         };
         $scope.cancel = function () {
@@ -80,7 +79,7 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
         };
         
         $scope.callAtTimeout = function(){
-        	$state.go("app.establecimientos");
+        	$state.reload();	
         }
     };
 
@@ -92,18 +91,20 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
  * Modulo: PerfilEventoController
  * Este controlador se traer un evento deportivo por medio del Id
  ============================================================*/
-App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', function($scope, $http, $stateParams, $state) {
+App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', function($scope, $http, $stateParams, $state, $modal) {
 
     
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
+			
 			console.log(response);
 
             $scope.evento = response.evento;
-            eventoModificar = $scope.evento;
-            eventoModificar.horaModificar = response.hora;
-            eventoModificar.fechaModificar = response.fecha;
+            eventoActual = $scope.evento;
+            eventoActual = $scope.evento;
+            eventoActual.horaModificar = response.hora;
+            eventoActual.fechaModificar = response.fecha;
 		});
     };
     
@@ -119,6 +120,8 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
 	}
 
     $scope.init();
+
+    
 }]);
 
 /**==========================================================
@@ -159,9 +162,8 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	        });
 	    	$modalInstance.close('closed');
 	    };
+	    
 	    //notificacion
-	    
-	    
 	    $scope.pop = function(toasterdata) {
 	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
 	    };
@@ -177,4 +179,114 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	  };
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
+}]);
+
+/**==========================================================
+ * Modulo: InscripcionModalController
+ * Este controlador se encarga de de realizar el registro de
+ * una inscripción a un evento deportivo.
+ ============================================================*/
+App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", '$rootScope', 'toaster', function ($scope, $modal, $timeout ,$http, $state, $rootScope, toaster) {
+	
+	/*Abre el "Modal" de inscripción si el usuario esta logueado, de lo 
+	contrario lo lleva a la página de login*/
+	$scope.inscripcion = function () {
+		
+		if($rootScope.usuario == null){
+        	var toasterdata = {
+		            type:  'error',
+		            title: 'Evento',
+		            text:  'Por favor ingresar.'
+		    };
+			$scope.pop(toasterdata);
+			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+			
+		}else{
+			
+			var ModificarModalInstance = $modal.open({
+	            templateUrl: '/modalInscripciones.html',
+	            controller: InscripcionInstanceCtrl,
+	            size: 'sm'
+	        });
+			
+		}
+		
+    };
+    
+    //notificacion de error
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    //Redireccionamiento a la página de login
+    $scope.callAtTimeout = function(){
+    	$state.go("app.login");
+    }
+    
+
+//------------------------------------------------------------------------------------
+    var InscripcionInstanceCtrl = function ($scope, $modalInstance) {
+    	
+    	$scope.inscripcionForm = {};
+        $scope.inscripcionForm.nombre = eventoActual.nombre;
+        $scope.inscripcionForm.precio = eventoActual.precio;
+        $scope.inscripcionForm.fecha = eventoActual.fecha;
+        $scope.inscripcionForm.total = eventoActual.precio;
+        
+        //Seteo de la fecha de caducidad
+        var fechaCaducidad = new Date();
+        fechaCaducidad.setDate(fechaCaducidad.getDate() + eventoActual.diasParaRetiro);
+        
+        /*var str = $rootScope.usuario.nombre;*/
+        var codigo = eventoActual.idEvento + $rootScope.usuario.nombre.slice(0, 3) + $rootScope.usuario.apellido.slice(0, 3);
+        
+        //Guarda la modificación del evento
+       $scope.inscripcionForm.inscribir = function () {
+           
+        	var data = {
+        		"estado" : 'reservado',
+        		"fechaCaducidad": fechaCaducidad,
+                "precio": $scope.inscripcionForm.precio,
+                "evento": eventoActual.idEvento,
+                "usuario": $rootScope.usuario.idUsuario,
+                "accion" : "Registrar",
+                "active" : 1,
+                "inscripcion": 1,
+                "codigo" : codigo,
+                "cantidad" : $scope.inscripcionForm.cantidad,
+            };
+        	       	
+            //Llamada para registrar la inscripcion
+            $http.post('rest/tiquete/save', data).
+            success(function(data){
+            	var toasterdata = {
+			            type:  'success',
+			            title: 'Inscripción',
+			            text:  'Se registro la inscripción correctamente.'
+			    };
+            	
+      			$scope.pop(toasterdata);
+    	    	$modalInstance.close('closed');
+            });
+        };
+        
+        //Despliegue de confirmación    
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+        };
+        
+        //Calculo del total a pagar
+        $scope.calcularTotal = function(){
+        	$scope.inscripcionForm.total = $scope.inscripcionForm.cantidad * $scope.inscripcionForm.precio;        	
+        	
+        };
+    	
+        //Cierra el modal
+        $scope.cancel = function () {
+        	$modalInstance.dismiss('cancel');
+        };
+    };
+
+    InscripcionInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    
 }]);
