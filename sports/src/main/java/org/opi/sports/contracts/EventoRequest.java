@@ -29,6 +29,7 @@ public class EventoRequest extends BasePagingRequest{
 	private Integer establecimiento;
 	private Integer tipoEvento;
 	private String accion;
+	private Integer diasParaRetiro;
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -108,5 +109,12 @@ public class EventoRequest extends BasePagingRequest{
 	}
 	public void setTipoEvento(Integer tipoEvento) {
 		this.tipoEvento = tipoEvento;
+	}
+	
+	public Integer getDiasParaRetiro() {
+		return diasParaRetiro;
+	}
+	public void setDiasParaRetiro(Integer diasParaRetiro) {
+		this.diasParaRetiro = diasParaRetiro;
 	}
 }

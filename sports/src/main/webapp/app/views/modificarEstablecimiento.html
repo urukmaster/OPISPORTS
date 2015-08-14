@@ -60,6 +60,7 @@
 				           <div class="col-lg-9">
 							   <select name="cmbCantones" required="" ng-model="idCanton" class="chosen-select input-md form-control" ng-options="canton.idCanton as canton.canton for canton in Cantones" ng-click="buscarDistritos()">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>
 				        </div>
 				        <div class="form-group">
@@ -67,6 +68,7 @@
 				           <div class="col-lg-9">
 							   <select name="cmbDistritos" required="" ng-model="Establecimiento.distrito.idDistrito" class="chosen-select input-md form-control" ng-options="distrito.idDistrito as distrito.distrito for distrito in Distritos">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>
 				        </div>
 				   </div>

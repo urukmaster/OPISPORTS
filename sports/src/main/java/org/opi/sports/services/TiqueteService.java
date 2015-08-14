@@ -3,6 +3,7 @@ package org.opi.sports.services;
 import java.util.List;
 
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.repositories.TiqueteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,14 @@ public class TiqueteService implements TiqueteServiceInterface{
 
 	public Tiquete findOne(Integer idTiquete) {
 		return tiqueteRepositorio.findOne(idTiquete);
+	}
+
+	public boolean exists(Integer idTiquete) {
+		return tiqueteRepositorio.exists(idTiquete);
+	}
+
+	public <Tiquetes extends Tiquete> Tiquetes save(Tiquetes tiquete) {
+		return tiqueteRepositorio.save(tiquete);
 	}
 
 }

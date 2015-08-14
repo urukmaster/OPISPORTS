@@ -99,7 +99,7 @@ public class EventosHelper {
 	}
 
 	/**
-	 * Método para guardar o modificar los eventos de un establcimiento deportivo
+	 * Método para guardar o modificar los eventos de un establecimiento deportivo
 	 * @param eventoRequest
 	 * @param eventoService
 	 * @param establecimientoDeportivoService
@@ -120,6 +120,7 @@ public class EventosHelper {
 		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
 		evento.setActive(eventoRequest.isActive());
+		evento.setDiasParaRetiro(eventoRequest.getDiasParaRetiro());
 		
 		if(eventoRequest.getAccion().equals("Modificar")){
 			evento.setIdEvento(eventoRequest.getIdEvento());
