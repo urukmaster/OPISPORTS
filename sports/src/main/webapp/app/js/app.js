@@ -97,6 +97,13 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('home.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
             })
+									            .state(
+											'app.dashboard', {
+                url: '/dashboard',
+                title: 'Dashboard',
+                templateUrl: helper.basepath('dashboard.html'),
+                resolve: helper.resolveFor('xeditable')
+            })
             .state('app.index', {
                 url: '/index',
                 title: 'Index',
@@ -576,7 +583,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             			            title: 'Login',
             			            text:  data.codeMessage
             			        	};
-            				$state.go("app.index");
+            				$state.go("app.dashboard");
             			}
             	});
             	$modalInstance.close('closed');
@@ -647,7 +654,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     };
     
     $scope.callAtTimeout = function(){
-    	$state.go("app.index");
+    	$state.go("app.dashboard");
     }
  
  
