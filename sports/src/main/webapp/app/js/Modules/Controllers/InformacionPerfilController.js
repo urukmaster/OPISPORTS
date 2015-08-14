@@ -24,15 +24,6 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     //Inicializa la aplicación
     $scope.init(); 
     
-    //Busca los servicios asociados al establecimiento
-    $scope.buscarServicios = function(establecimiento){
-    	cambiarServicios(establecimiento);
-    };
-    
-    //Cambia los servicios asociados al establecimiento
-    function cambiarServicios(establecimiento) {
-        $scope.serviciosEstablecimiento = establecimiento.servicios;
-    }
     
 
     //Recibe la llamada del broadcast de eliminar para refrescar la página
