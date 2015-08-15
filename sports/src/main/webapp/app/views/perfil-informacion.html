@@ -32,30 +32,32 @@
                         		<div class="media-body">
                           			<span class="media-heading">
                              			<p class="m0">
-                                 			<strong>{{review.nombreUsuario}}</strong>
+                             			<button ng-click="eliminar(review.idComentario)" class="btn btn-sm btn-danger pull-right">x</button>
+                                 			<strong>{{review.nombreUsuario}}</strong><strong> {{review.apellidoUsuario}}</strong>
                              			</p>
                              			<p class="m0 text-muted">{{review.review}}</p>
+                             			
                           			</span>
                        	 		</div>
                       		</div>
                       	</div>
                      </scrollable>
 					</div>
-					<div>
-                    	<form ng-controller="FormReviewController" method="post" action="" class="mt">
-                        	<textarea ng-model="comentario"placeholder="Escribe un comentario..." rows="1" class="form-control no-resize"></textarea>
+					<div ng-controller="FormReviewController">
+                    	<form method="post" action="" class="mt">
+                    	<fieldset>
+                  			<textarea ng-model="comentario" placeholder="Escribe un comentario..." rows="2" class="form-control no-resize"></textarea>	
+                    	</fieldset>
                     	</form>
-                    	<br>
-                    		<button type="submit"class="btn btn-danger">Agregar</button>
-                    	</div>
+                    	<button ng-click="registrarReview()" class="btn btn-green">Agregar</button>
+                    	
+                    </div>
                 </div>
             </div>
         </div>
     </li>
     <!-- END timeline item-->
-
     <!-- START timeline item-->
-
     <li>
     <br>
     <br>
