@@ -81,8 +81,8 @@ public class TiqueteController {
 	}
 
 	/**
-	 *Este método obtiene una de eventos deportivos
-	 *registrados en la base de datos por medio de su id
+	 *Este método obtiene un tiquete a un evento
+	 *registrado en la base de datos por medio de su id
 	 */	
 	@RequestMapping(value="getTiquete", method = RequestMethod.POST)
 	public TiqueteResponse getTiquete(@RequestBody int idTiquete){
