@@ -17,21 +17,12 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     //Inicializa la aplicación
     $scope.init(); 
     
-    //Busca los servicios asociados al establecimiento
-    $scope.buscarServicios = function(establecimiento){
-    	cambiarServicios(establecimiento);
-    };
     
-    //Cambia los servicios asociados al establecimiento
-    function cambiarServicios(establecimiento) {
-        $scope.serviciosEstablecimiento = establecimiento.servicios;
-    }
-    
+
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
         $scope.init(); 
     });
-	
 }]);   
 
 var tipoServicios = [];
@@ -79,6 +70,14 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 
     $scope.init();
     
+    $scope.eliminar = function(id) {
+    	$http.post('rest/review/delete', {
+    		idComentario : id
+		 	})
+		.success(function(data){
+			$state.reload();
+		});        	
+  	}
 
 }]);
 
@@ -134,32 +133,39 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
-App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
+App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
 	'use strict'; 
-	$scope.submitted = false;
-    
-    $scope.validateInput = function(name, type) {
-        var input = $scope.formCentroDistribucion[name];
-        return (input.$dirty || $scope.submitted) && input.$error[type];
-    };
+//	$scope.submitted = false;
+//    
+//    $scope.validateInput = function(name, type) {
+//        var input = $scope.formCentroDistribucion[name];
+//        return (input.$dirty || $scope.submitted) && input.$error[type];
+//    };
     
     // Submit form
-    $scope.submitForm = function() {
-        $scope.submitted = true;
-        if ($scope.formCentroDistribucion.$valid) {
-        	$http.post('rest/centroDistribucion/save', {
-        		comentario : $scope.comentario
+//    $scope.submitForm = function() {
+//        $scope.submitted = true;
+//        if ($scope.formCentroDistribucion.$valid) {
+	$scope.registrarReview = function() {
+        	$http.post('rest/review/save', {
+        		review : $scope.comentario,	
+        		idUsuario : $rootScope.usuario.idUsuario,
+        		idEstablecimientoDeportivo : establecimientoCalendario.idEstablecimientoDeportivo,
+        		active : 1
     		 	})
     		.success(function(data){
-    			$rootScope.$broadcast('actualizarGrid',responsedata);
-    			$modalInstance.close('closed');     			
+    			$state.reload();
     		});        	
-        } else {
-        	
-            return false;
-        }
-    };
-
+//        } else {
+//        	
+//            return false;
+//        }
+//    };   	
+	}
+	
+	
+	
+	
 }]);
 
 /**==========================================================

@@ -1,6 +1,7 @@
-package org.opi.sports.pojo;
+package org.opi.sports.contracts;
 
-public class ReviewPOJO {
+
+public class ReviewRequest {
 	
 	private int idComentario;
 	
@@ -18,7 +19,7 @@ public class ReviewPOJO {
 	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
 	}
-	
+
 	public String getReview() {
 		return review;
 	}
@@ -44,3 +45,4 @@ public class ReviewPOJO {
 		this.active = active;
 	}
 }
+

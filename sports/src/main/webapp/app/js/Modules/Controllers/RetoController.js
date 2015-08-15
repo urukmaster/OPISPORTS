@@ -68,7 +68,6 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						retosView.idEstablecimiento = reto.idEstablecimiento;
 						retosView.nombreEstablecimiento = reto.nombreEstablecimiento;
 						retosView.active = reto.active;
-						
 						if(retosView.active == 0){	
 						}else{
 							ARetos.push(retosView);
@@ -76,7 +75,10 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						
 			        });
 			            $scope.gridReto.data = ARetos;       
-			});
+			}).error(function(response){
+                alert(response.message);
+           
+            });
 			
 			function getMonth(mes){ 
 				if(mes<=10){
@@ -168,15 +170,12 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
     	
     	$scope.accion = 'Registrar';
         $scope.submitted = false;
-        
-        $scope.$on('enviarServicio', function (event, Servicio) {
-        	  servicioActual = Servicio.idServicio;
-        });
-        
+                
         $scope.validateInput = function(name, type) {
             var input = $scope.formReto[name];
             return (input.$dirty || $scope.submitted) && input.$error[type];
         };
+        
         // Submit form
         $scope.submitForm = function() {
             $scope.submitted = true;  
@@ -187,7 +186,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
             		hora: $scope.reto.hora.getTime(),
             		mensaje: $scope.reto.mensaje,
             		active: 1,
-            		servicio: servicioActual,
+            		servicio: $rootScope.ServicioActual.idServicio,
             		usuario: $rootScope.usuario.idUsuario
         		 	})
         		.success(function(data){
@@ -240,17 +239,15 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
         $scope.accion = "Modificar";
         $scope.reto = {};
         $scope.formReto = {};
-        var servicioActual;
+        
         
         $scope.reto.mensaje = retoModificar.mensaje;
         horaModal = new Date(retoModificar.hora.millis);
         fechaModal = new Date(retoModificar.fecha.millis);
         $scope.reto.fecha = fechaModal;
         $scope.reto.hora = horaModal;
-        
-        $scope.$on('enviarServicio', function (event, Servicio) {
-      	  servicioActual = Servicio.idServicio;
-        });
+        $scope.reto.servicio = retoModificar.nombreServicio;
+
         $scope.submitForm = function () {
                 $http.post('rest/reto/update',{
                 	idReto: retoModificar.idReto,
@@ -259,7 +256,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
                 	fecha: $scope.reto.fecha,
                 	hora:$scope.reto.hora.getTime(),
                     active: 1,
-                    servicio : servicioActual,
+                    servicio : $rootScope.ServicioActual.idServicio,
                     usuario : retoModificar.idUsuario
                 })
                 .success(function(data){
@@ -302,7 +299,35 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
         };
     };
     ModificarRetoInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$rootScope"];
-
+    
+    
+    
+    App.controller('Cargar', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {    
+    	 
+    	$scope.init = function(){  	
+    		    $http.get('rest/establecimientoDeportivo/getAll')
+    			.success(function(response) {
+    				$scope.Establecimientos = response.establecimientosDeportivos;
+    			});
+    	    };
+    	    //Inicializa la aplicación
+    	    $scope.init();  
+    	    
+    	    $scope.buscarServicios = function(establecimiento){
+    	    	cambiarServicios(establecimiento);
+    	    };
+    	    
+    	    //Cambia los servicios asociados al establecimiento
+    	    function cambiarServicios(establecimiento) {
+    	        $scope.serviciosEstablecimiento = establecimiento.servicios;
+    	    }
+    	    
+    	    $scope.obtenerServicio = function(servicio){	
+    	    	$rootScope.ServicioActual = servicio;
+    	    }
+    }]);
+  
+  
 }]);
 var retoEliminar = {};
 App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {

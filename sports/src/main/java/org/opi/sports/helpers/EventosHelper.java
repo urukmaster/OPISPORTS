@@ -11,8 +11,16 @@ import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.ejb.Servicio;
+import org.opi.sports.ejb.Tiquete;
+import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.pojo.ReservacionesPOJO;
+import org.opi.sports.pojo.ReviewsPOJO;
+import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -46,6 +54,41 @@ public class EventosHelper {
 			createInstance();
 		}
 		return instance;
+	}
+
+	/**
+	 * Este método convierte cada uno de los eventosEJB en eventosPOJO
+	 */
+	public EventoPOJO convertirEvento(Evento evento) {
+
+		EventoPOJO eventoView = new EventoPOJO();
+		
+		PojoUtils.pojoMappingUtility(eventoView, evento);
+		
+		List<TiquetePOJO> tiquetes = new ArrayList<TiquetePOJO>();
+		
+		for(Tiquete tiquete: evento.getTiquetes()){
+			if(tiquete.getActive() == 1){
+				tiquetes.add(convertirTiquetes(tiquete));
+			}
+		}
+		
+		eventoView.setTiquetes(tiquetes);
+		
+		return eventoView;
+	}
+	
+
+
+	/**
+	 * Este método convierte cada uno de los tiquetesEJB en tiquetesPOJO
+	 */
+	private TiquetePOJO convertirTiquetes(Tiquete tiquete) {
+
+		TiquetePOJO tiqueteView = new TiquetePOJO();
+		PojoUtils.pojoMappingUtility(tiqueteView, tiquete);
+		
+		return tiqueteView;
 	}
 
 	/**
@@ -99,7 +142,7 @@ public class EventosHelper {
 	}
 
 	/**
-	 * Método para guardar o modificar los eventos de un establcimiento deportivo
+	 * Método para guardar o modificar los eventos de un establecimiento deportivo
 	 * @param eventoRequest
 	 * @param eventoService
 	 * @param establecimientoDeportivoService
@@ -120,6 +163,7 @@ public class EventosHelper {
 		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
 		evento.setActive(eventoRequest.isActive());
+		evento.setDiasParaRetiro(eventoRequest.getDiasParaRetiro());
 		
 		if(eventoRequest.getAccion().equals("Modificar")){
 			evento.setIdEvento(eventoRequest.getIdEvento());

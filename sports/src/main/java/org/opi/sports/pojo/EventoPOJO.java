@@ -29,6 +29,9 @@ public class EventoPOJO {
 	private DistritoPOJO distrito;
 	private EstablecimientoDeportivoPOJO establecimiento;
 	private TipoEventoPOJO tipoEvento;
+	private int diasParaRetiro;
+	private List<TiquetePOJO> tiquetes;
+
 	public int getIdEvento() {
 		return idEvento;
 	}
@@ -124,6 +127,22 @@ public class EventoPOJO {
 
 	public void setTipoEvento(TipoEventoPOJO tipoEvento) {
 		this.tipoEvento = tipoEvento;
+	}
+	
+	public int getDiasParaRetiro() {
+		return diasParaRetiro;
+	}
+
+	public void setDiasParaRetiro(int diasParaRetiro) {
+		this.diasParaRetiro = diasParaRetiro;
+	}
+	
+	public List<TiquetePOJO> getTiquetes() {
+		return tiquetes;
+	}
+
+	public void setTiquetes(List<TiquetePOJO> tiquetes) {
+		this.tiquetes = tiquetes;
 	}
 
 }

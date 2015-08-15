@@ -7,8 +7,8 @@
             <div class="modal-header">
                 <h4 id="myModalLabel" class="modal-title">{{accion+" reto"}}</h4>
             </div>
-			<form name="formReto" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">
-            <div>	   			
+			<form name="formReto"  ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">
+            <div ng-controller="Cargar">	   			
 	   			<div class="panel-body">
 				<div class="form-group col-lg-12">
 				
@@ -34,9 +34,10 @@
                         	<span ng-show="validateInput('mensaje', 'required')" class="text-danger">Este campo es requerido</span>
                     	</div>
 					
-						<div ng-controller="EstablecimientosController">	
+						<div>	
                     		<div>
 								<label class="control-label">Establecimiento</label>
+ 								
                             	<select value="Establecimientos"ng-model="reto.establecimiento" class="chosen-select input-md form-control" width="'300px'">
       								<option ng-click="buscarServicios(establecimiento)" ng-repeat="establecimiento in Establecimientos" value="{{establecimiento.idEstablecimientoDeportivo}}">
            								{{establecimiento.nombre}}
