@@ -6,6 +6,7 @@
  */
 
 var eventoActual = {};
+var cantTiquetesReservados;
 
 /**==========================================================
  * Modulo: EventoModalController
@@ -96,9 +97,11 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
     
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
-		.success(function(response) {
+		.success(function(response) {			
 			
-			console.log(response);
+			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
+			
+			console.log(cantTiquetesReservados);
 
             $scope.evento = response.evento;
             eventoActual = $scope.evento;
@@ -107,6 +110,21 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
             eventoActual.fechaModificar = response.fecha;
 		});
     };
+	
+	$scope.obtenerCantTiquetes = function(listaTiquetes){
+		
+		var cant = 0;
+		
+		for(i = 0; i < listaTiquetes.length; i++){
+			
+			if(listaTiquetes[i].estado == 'reservado'){
+				cant++;
+			}
+		}
+		
+		return cant;
+		
+	}
     
     $scope.init();
     $state.go("app.perfilEvento.informacion");
@@ -242,8 +260,24 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
         
         //Guarda la modificación del evento
        $scope.inscripcionForm.inscribir = function () {
-           
-        	var data = {
+    	   
+    	   var cantTiquetesTotal = $scope.inscripcionForm.cantidad + cantTiquetesReservados;
+    	   var cantDisponible = eventoActual.cupo - cantTiquetesReservados;
+    	   
+    	   if(cantTiquetesTotal > eventoActual.cupo ){
+    		   
+           	var toasterdata = {
+		            type:  'error',
+		            title: 'Inscripción',
+		            text:  'Por favor escoja menos tiquetes.\nQuedan ' + cantDisponible + ' tiquetes disponibles.'
+		    };
+        	
+  			$scope.pop(toasterdata);
+	    	$modalInstance.close('closed');
+    		   
+    	   }else{
+    		   
+    		   var data = {
         		"estado" : 'reservado',
         		"fechaCaducidad": fechaCaducidad,
                 "precio": $scope.inscripcionForm.precio,
@@ -266,10 +300,12 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
 			    };
             	
       			$scope.pop(toasterdata);
+      			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
     	    	$modalInstance.close('closed');
             });
         };
-        
+    		   
+    	}
         //Despliegue de confirmación    
         $scope.pop = function(toasterdata) {
             toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
@@ -280,6 +316,10 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
         	$scope.inscripcionForm.total = $scope.inscripcionForm.cantidad * $scope.inscripcionForm.precio;        	
         	
         };
+        
+        $scope.callAtTimeout = function(){
+        	$state.reload();	
+        }
     	
         //Cierra el modal
         $scope.cancel = function () {

@@ -9,6 +9,7 @@ import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.EventosHelper;
 import org.opi.sports.pojo.DistritoPOJO;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
@@ -57,12 +58,10 @@ public class EventoController {
 		List<Evento> eventoList = eventoServices.getAllEventos();
 		List<EventoPOJO> eventoViewList = new ArrayList<EventoPOJO>();
 		
-		for(Evento eventos : eventoList){
-			EventoPOJO eventoView = new EventoPOJO();
-			PojoUtils.pojoMappingUtility(eventoView, eventos);
+		for(Evento evento : eventoList){
 			
-			if(eventos.getActive() == 1){
-				eventoViewList.add(eventoView);
+			if(evento.getActive() == 1){
+				eventoViewList.add(EventosHelper.getInstance().convertirEvento(evento));
 			}
 		}
 		
@@ -84,23 +83,7 @@ public class EventoController {
 		
 		Evento evento = eventoServices.findOne(idEvento);
 		
-		/*DistritoPOJO distrito = new DistritoPOJO();		
-		PojoUtils.pojoMappingUtility(distrito, evento.getDistrito());
-		
-		EstablecimientoDeportivoPOJO establecimiento = new EstablecimientoDeportivoPOJO();		
-		PojoUtils.pojoMappingUtility(establecimiento, evento.getEstablecimientoDeportivo());
-		
-		TipoEventoPOJO tipoEvento = new TipoEventoPOJO();		
-		PojoUtils.pojoMappingUtility(tipoEvento, evento.getTipoEvento());*/
-		
-		EventoPOJO eventoView = new EventoPOJO();
-		PojoUtils.pojoMappingUtility(eventoView, evento);
-		
-		/*eventoView.setDistrito(distrito);
-		eventoView.setEstablecimiento(establecimiento);
-		eventoView.setTipoEvento(tipoEvento);*/
-		
-		eventoResponse.setEvento(eventoView);
+		eventoResponse.setEvento(EventosHelper.getInstance().convertirEvento(evento));
 		
 		eventoResponse.setFecha();
 		eventoResponse.setHora();
