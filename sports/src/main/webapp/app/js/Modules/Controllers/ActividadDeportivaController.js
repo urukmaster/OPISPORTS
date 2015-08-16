@@ -10,14 +10,19 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
         columnDefs: [
             {field: 'idActividadDeportiva', visible:false},
             {field: 'actividadDeportiva', name: 'ActividadDeportiva', displayName: 'Actividad Deportiva'},
-            {name: 'acciones', cellTemplate:'<div ng-controller="ActividadDeportivaModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '<button ng-click="eliminar(row)" class="btn btn-danger" >' +
-            '<span class="fa fa-trash"></span>' +
-            '</button>'+
-            '</div>'}
+            {name: 'acciones', cellTemplate:
+                '<div class="btn-group btn-group-justified" role="group" ng-controller="ActividadDeportivaModalController">' +   			
+            	'<div class="btn-group" role="group">'+
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+						'<span class="fa fa-pencil"></span>' +
+					'</button>'+
+				'</div>'+			
+				'<div class="btn-group" role="group">'+
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+						'<span class="fa fa-trash"></span>' +
+					'</button>'+
+				'</div>'+			
+			'</div>'}
         ],
         data: data,
         onRegisterApi: function (gridApi) {
