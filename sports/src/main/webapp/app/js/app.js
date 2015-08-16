@@ -305,6 +305,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('registrarUsuario.html'),
                 resolve: helper.resolveFor('ngWig','flot-chart','flot-chart-plugins','parsley','inputmask')
              })
+             .state('app.perfil.reservaciones.torneos',{
+                url: '/torneos',
+                title: 'Torneos',
+                templateUrl: helper.basepath('perfil-torneos.html'),
+                resolve: helper.resolveFor('ui.grid')
+            })
             //
             // CUSTOM RESOLVES
             //   Add your own resolves properties

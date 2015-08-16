@@ -17,6 +17,7 @@ import org.opi.sports.helpers.ReservacionesHelper;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
+import org.opi.sports.services.TorneoServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,9 @@ public class ReservacionesTest {
 	@Autowired
 	ServicioServiceInterface servicioServices;
 	
+	@Autowired
+	TorneoServiceInterface torneoService;
+	
 	/**
 	 * Esta prueba permite saber si el servicio de Reservaciones se inyecta al
 	 * ejecutar la prueba, esto para probar la funcionalidad del Spring al hacer
@@ -93,7 +97,7 @@ public class ReservacionesTest {
 			reservacionesViewList.add(reservacionesView);
 		}
 		
-		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setReservaciones(reservacionesViewList);
 		
 		assertNotNull(reservacionesResponse);
 	}
@@ -108,9 +112,11 @@ public class ReservacionesTest {
 		reservacion.setEstado("Pendiente");
 		reservacion.setUsuario(1);
 		reservacion.setServicio(1);
+		reservacion.setAccion("Reservar");
+		reservacion.setTorneo(false);
 		
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance().saveReservacion(reservacion, reservacionesService,
-				usuarioServices.findOne(reservacion.getUsuario()), servicioServices.findOne(reservacion.getServicio()));
+				usuarioServices.findOne(reservacion.getUsuario()), servicioServices.findOne(reservacion.getServicio()), torneoService);
 		
 		assertNotNull(reservacionView);
 	}

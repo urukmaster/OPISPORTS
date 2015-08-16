@@ -14,21 +14,18 @@ import org.opi.sports.pojo.EventoPOJO;
  *simula las solicitudes del front end.
  */
 
-public class EventoRequest extends BasePagingRequest{
+public class TorneoRequest extends BasePagingRequest{
 
 	private int idEvento;
-	private byte active;
+	private int idCalendario;
 	private int cupo;
-	private String direccion;
 	private Date fecha;
-	private Time hora;
 	private String informacion;
 	private String nombre;
-	private String precio;
-	private Integer distrito;
+	private Integer establecimiento;
 	private Integer tipoEvento;
+	private String precio;
 	private String accion;
-	private Integer diasParaRetiro;
 	
 	public int getIdEvento() {
 		return idEvento;
@@ -36,35 +33,17 @@ public class EventoRequest extends BasePagingRequest{
 	public void setIdEvento(int idEvento) {
 		this.idEvento = idEvento;
 	}
-	public byte isActive() {
-		return active;
-	}
-	public void setActive(byte active) {
-		this.active = active;
-	}
 	public int getCupo() {
 		return cupo;
 	}
 	public void setCupo(int cupo) {
 		this.cupo = cupo;
 	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
 	public Date getFecha() {
 		return fecha;
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-	public Time getHora() {
-		return hora;
-	}
-	public void setHora(Time hora) {
-		this.hora = hora;
 	}
 	public String getInformacion() {
 		return informacion;
@@ -78,17 +57,17 @@ public class EventoRequest extends BasePagingRequest{
 	public void setEvento(String nombre) {
 		this.nombre = nombre;
 	}
+	public Integer getEstablecimiento() {
+		return establecimiento;
+	}
+	public void setEstablecimiento(Integer establecimiento) {
+		this.establecimiento = establecimiento;
+	}
 	public String getPrecio() {
 		return precio;
 	}
 	public void setPrecio(String precio) {
 		this.precio = precio;
-	}
-	public Integer getDistrito() {
-		return distrito;
-	}
-	public void setDistrito(Integer distrito) {
-		this.distrito = distrito;
 	}
 	public String getAccion() {
 		return this.accion;
@@ -103,11 +82,10 @@ public class EventoRequest extends BasePagingRequest{
 	public void setTipoEvento(Integer tipoEvento) {
 		this.tipoEvento = tipoEvento;
 	}
-	
-	public Integer getDiasParaRetiro() {
-		return diasParaRetiro;
+	public int getIdCalendario() {
+		return idCalendario;
 	}
-	public void setDiasParaRetiro(Integer diasParaRetiro) {
-		this.diasParaRetiro = diasParaRetiro;
+	public void setIdCalendario(int idCalendario) {
+		this.idCalendario = idCalendario;
 	}
 }

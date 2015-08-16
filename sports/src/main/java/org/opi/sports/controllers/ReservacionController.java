@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
+import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.ReservacionesHelper;
@@ -14,6 +15,7 @@ import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
+import org.opi.sports.services.TorneoServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,9 @@ public class ReservacionController {
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 
+	@Autowired
+	TorneoServiceInterface torneoService;
+	
 	/**
 	 * Este método obtiene cada una de las instancias de reservaciones
 	 * registradas en la base de datos
@@ -75,7 +80,7 @@ public class ReservacionController {
 			reservacionesViewList.add(reservacionesView);
 		}
 
-		reservacionesResponse.setReservacion(reservacionesViewList);
+		reservacionesResponse.setReservaciones(reservacionesViewList);
 
 		return reservacionesResponse;
 
@@ -91,7 +96,7 @@ public class ReservacionController {
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
 				.saveReservacion(reservacion, reservacionesServices,
 						usuarioServices.findOne(reservacion.getUsuario()),
-						servicioServices.findOne(reservacion.getServicio()));
+						servicioServices.findOne(reservacion.getServicio()), torneoService);
 
 		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
 			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
@@ -104,7 +109,9 @@ public class ReservacionController {
 						establecimientoDeportivoService.findOne(reservacion
 								.getEstablecimiento()));
 	}
-
+	/**
+	 * Se encarga de elminiar las reservaciones o torneos
+	 */
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public EstablecimientoDeportivoPOJO delete(
 			@RequestBody ReservacionesRequest reservacion) {
@@ -119,7 +126,9 @@ public class ReservacionController {
 						establecimientoDeportivoService.findOne(reservacion
 								.getEstablecimiento()));
 	}
-	
+	/**
+	 * Se encarga de modificar las reservaciones o torneos
+	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public EstablecimientoDeportivoPOJO update(
 			@RequestBody ReservacionesRequest reservacion) {
@@ -127,17 +136,30 @@ public class ReservacionController {
 		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
 				.saveReservacion(reservacion, reservacionesServices,
 						usuarioServices.findOne(reservacion.getUsuario()),
-						servicioServices.findOne(reservacion.getServicio()));
+						servicioServices.findOne(reservacion.getServicio()), torneoService);
 
 		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
 			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
 			reservaciones.add(reservacionView);
 		}
-
+		
+		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(reservacion
+				.getEstablecimiento());
+		
 		return EstablecimientoDeportivoHelper
 				.getInstance()
 				.convertirEstablecimiento(
-						establecimientoDeportivoService.findOne(reservacion
-								.getEstablecimiento()));
+						establecimientoDeportivo);
 	}
+	
+	/**
+	 * Se encarga de obtener las reservaciones o torneos
+	 */
+	@RequestMapping(value = "getReservacion", method = RequestMethod.POST)
+	public ReservacionesResponse getReservacion(@RequestBody ReservacionesRequest reservacionRequest){
+		return ReservacionesHelper.getInstance().getReservacion(reservacionRequest.getIdCalendario(), reservacionesServices);
+	}
+	
+	
+	
 }

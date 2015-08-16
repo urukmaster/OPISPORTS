@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EventoRequest;
+import org.opi.sports.contracts.TorneoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reservaciones;
@@ -23,6 +24,7 @@ import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
 /**
@@ -148,34 +150,34 @@ public class EventosHelper {
 	 * @param establecimientoDeportivoService
 	 * @return
 	 */
-	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService, EstablecimientoDeportivoServiceInterface establecimientoDeportivoService) {
+	public EventoPOJO save(EventoRequest eventoRequest, EventoServiceInterface eventoService) {
 		
 		Evento evento = new Evento();
-		
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(eventoRequest.getEstablecimiento());
-		
+
 		evento.setCupo(eventoRequest.getCupo());
 		evento.setDireccion(eventoRequest.getDireccion());
 		evento.setFecha(eventoRequest.getFecha());
 		evento.setHora(eventoRequest.getHora());
 		evento.setInformacion(eventoRequest.getInformacion());
 		evento.setNombre(eventoRequest.getNombre());
-		evento.setEstablecimientoDeportivo(establecimientoDeportivo);
 		evento.setPrecio(eventoRequest.getPrecio());
+
 		evento.setActive(eventoRequest.isActive());
 		evento.setDiasParaRetiro(eventoRequest.getDiasParaRetiro());
 		
-		if(eventoRequest.getAccion().equals("Modificar")){
+		if (eventoRequest.getAccion().equals("Modificar")) {
+
 			evento.setIdEvento(eventoRequest.getIdEvento());
 		}
-		
+
 		evento = eventoService.save(evento);
-		
+
 		EventoPOJO eventoPOJO = new EventoPOJO();
-		
+
 		PojoUtils.pojoMappingUtility(eventoPOJO, evento);
-		
+
 		return eventoPOJO;
-		
+
 	}
+
 }

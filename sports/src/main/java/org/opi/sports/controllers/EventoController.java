@@ -7,6 +7,7 @@ import org.hibernate.id.uuid.Helper;
 import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.EventoResponse;
+import org.opi.sports.contracts.TorneoRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
@@ -17,6 +18,7 @@ import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.TipoEventoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.EventoServiceInterface;
+import org.opi.sports.services.ReservacionesServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +46,7 @@ public class EventoController {
 	EventoServiceInterface eventoServices;
 	
 	@Autowired
-	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
+	ReservacionesServiceInterface reservacionesService;
 
 	/**
 	 *Este método obtiene cada una de las instancias de eventos deportivos
@@ -98,13 +100,14 @@ public class EventoController {
 		
 		EventoResponse eventoResponse = new EventoResponse();
 		
-		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices, establecimientoDeporitvoService);
+		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoServices);
 		
 		eventoResponse.setEvento(evento);
 		
 		return eventoResponse;
 	}
 	
+
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public EventoPOJO delete(@RequestBody int idEvento) {
 
