@@ -5,6 +5,7 @@ import java.util.List;
 import org.opi.sports.pojo.CalendarioPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.pojo.TorneoPOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 
 /**
@@ -23,6 +24,7 @@ public class ReservacionesResponse extends BaseResponse{
 	private UsuarioPOJO usuario;
 	private ServicioPOJO servicio;
 	private CalendarioPOJO reservacion;
+	private TorneoPOJO torneo;
 	
 	public List<ReservacionesPOJO> getReservaciones() {
 		return reservaciones;
@@ -62,5 +64,13 @@ public class ReservacionesResponse extends BaseResponse{
 
 	public void setReservacion(CalendarioPOJO reservacion) {
 		this.reservacion = reservacion;
+	}
+
+	public TorneoPOJO getTorneo() {
+		return torneo;
+	}
+
+	public void setTorneo(TorneoPOJO torneo) {
+		this.torneo = torneo;
 	}
 }

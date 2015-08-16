@@ -12,19 +12,21 @@ import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Servicio;
+import org.opi.sports.ejb.Torneo;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.pojo.CalendarioPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.pojo.TorneoPOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.ReservacionesServiceInterface;
+import org.opi.sports.services.TorneoServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
 /**
  * Fecha: 12-07-2015 version 1.0
  * 
- * @author Mauricio Fernández Mora.
- * Revision: 1.0 Sprint 01
+ * @author Mauricio Fernández Mora. Revision: 1.0 Sprint 01
  *
  *         Sprint 01 Descripción:Esta clase sirve de apoyo a la clase de
  *         ReservacionesController y contiene la lógica necesaria para
@@ -32,12 +34,22 @@ import org.opi.sports.utils.PojoUtils;
  *         clase se implementa como "Singleton" para asegurarnos que sea
  *         instanciada una sola vez.
  * 
- * Fecha: 24-07-2015
+ *         Fecha: 24-07-2015
  * 
- * @author: Luis Esteban López Ramírez
- * Revision: 1.1 Sprint 02
+ * @author: Luis Esteban López Ramírez Revision: 1.1 Sprint 02
  * 
- * 		  Sprint 02: Descripcion: Se realizar la implementación para realizar las reservaciones.
+ *          Sprint 02: Descripcion: Se realizó la implementación para realizar
+ *          las reservaciones.
+ * 
+ * @author: Luis Esteban López Ramírez Revision: 1.2 Sprint 04
+ * 
+ *          Sprint 04: Descripcion: Se realizó la implementación la modificación
+ *          de las reservaciones
+ * 
+ * @author: Luis Esteban López Ramírez Revision: 1.3 Sprint 02
+ * 
+ *          Sprint 06: Descripcion: Se realizar la implementación para los
+ *          torneos de los establecimientos.
  * 
  */
 
@@ -85,17 +97,40 @@ public class ReservacionesHelper {
 					sumarHora.setTime(reservacionView.getHora());
 					sumarHora.add(Calendar.HOUR_OF_DAY, 1);
 
-					reservacion.setIdCalendario(reservacionView.getIdCalendario());
-					reservacion.setTitle(servicioView.getServicio());
-					reservacion.setStart(convertirFecha(convertirFecha
-							.format(reservacionView.getFecha())
-							+ " "
-							+ convertirHora.format(reservacionView.getHora()
-									.getTime())));
-					reservacion.setEnd(convertirFecha(convertirFecha
-							.format(reservacionView.getFecha())
-							+ " "
-							+ convertirHora.format(sumarHora.getTime())));
+					reservacion.setIdCalendario(reservacionView
+							.getIdCalendario());
+
+					String title;
+					if (reservacionView.getTorneo() != null) {
+						title = "Torneo: "
+								+ reservacionView.getTorneo().getTorneo()
+								+ "\n";
+						title += "Cupos disponibles "
+								+ reservacionView.getTorneo().getCupos();
+						reservacion.setStart(convertirFecha(convertirFecha
+								.format(reservacionView.getFecha())
+								+ " "
+								+ convertirHora.format(reservacionView
+										.getHora().getTime())));
+						sumarHora.add(Calendar.HOUR_OF_DAY, reservacionView.getTorneo().getHorasTorneos());
+						reservacion.setEnd(convertirFecha(convertirFecha
+								.format(reservacionView.getFecha())
+								+ " "
+								+ convertirHora.format(sumarHora.getTime())));
+					} else {
+						title = servicioView.getServicio();
+						reservacion.setStart(convertirFecha(convertirFecha
+								.format(reservacionView.getFecha())
+								+ " "
+								+ convertirHora.format(reservacionView
+										.getHora().getTime())));
+						reservacion.setEnd(convertirFecha(convertirFecha
+								.format(reservacionView.getFecha())
+								+ " "
+								+ convertirHora.format(sumarHora.getTime())));
+					}
+					reservacion.setTitle(title);
+
 					reservacion.setBackgroundColor("#f56954");
 					reservacion.setBorderColor("#f56954");
 
@@ -130,9 +165,10 @@ public class ReservacionesHelper {
 					Calendar sumarHora = Calendar.getInstance();
 					sumarHora.setTime(reservacionView.getHora());
 					sumarHora.add(Calendar.HOUR_OF_DAY, 1);
-					
+
 					reservacion.setServicio(servicioView.getIdServicio());
-					reservacion.setIdCalendario(reservacionView.getIdCalendario());
+					reservacion.setIdCalendario(reservacionView
+							.getIdCalendario());
 					reservacion.setTitle(servicioView.getServicio());
 					reservacion.setStart(convertirFecha(convertirFecha
 							.format(reservacionView.getFecha())
@@ -153,50 +189,9 @@ public class ReservacionesHelper {
 
 		return calendario;
 	}
-	
-	/* Se encarga de serializar las reservaciones compatibles con el calendario
-	 * en el front end
-	 * @param listaReservacionesView
-	 * @return Lista para el calendario
-	 */
-	public List<CalendarioPOJO> reservacionSerializer(
-			List<ReservacionesPOJO> listaReservacionesView) {
 
-		List<CalendarioPOJO> calendario = new ArrayList<CalendarioPOJO>();
-
-		for (ReservacionesPOJO reservacionView : listaReservacionesView) {
-			CalendarioPOJO reservacion = new CalendarioPOJO();
-
-			SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
-			SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
-
-			Calendar sumarHora = Calendar.getInstance();
-			sumarHora.setTime(reservacionView.getHora());
-			sumarHora.add(Calendar.HOUR_OF_DAY, 1);
-			
-			reservacion.setTitle("Cancha");
-			reservacion
-					.setStart(convertirFecha(convertirFecha
-							.format(reservacionView.getFecha())
-							+ " "
-							+ convertirHora.format(reservacionView.getHora()
-									.getTime())));
-			reservacion.setEnd(convertirFecha(convertirFecha
-					.format(reservacionView.getFecha())
-					+ " "
-					+ convertirHora.format(sumarHora.getTime())));
-			reservacion.setBackgroundColor("#f56954");
-			reservacion.setBorderColor("#f56954");
-
-			calendario.add(reservacion);
-		}
-
-		return calendario;
-	}
 	/*
 	 * Este metodo de convertir a fecha para manejo del sistema.
-	 * @param fecha
-	 * @return
 	 */
 	private DateTime convertirFecha(String fecha) {
 		DateTimeFormatter convertirFechaHora = DateTimeFormat
@@ -204,87 +199,105 @@ public class ReservacionesHelper {
 		return convertirFechaHora.parseDateTime(fecha);
 
 	}
-	
-	/*
-	 * Meotod que sirve para reservar o modificar los servicios del establecimiento.
-	 * @param reservacion
-	 * @param reservacionService
-	 * @param usuario
-	 * @param servicio
-	 * @return
-	 */
 
+	/*
+	 * Metodo que sirve para reservar o modificar los servicios del
+	 * establecimiento.
+	 */
 	public ReservacionesPOJO saveReservacion(ReservacionesRequest reservacion,
 			ReservacionesServiceInterface reservacionService, Usuario usuario,
-			Servicio servicio) {
-		
-		
+			Servicio servicio, TorneoServiceInterface torneoService) {
+
 		Reservaciones reservacionEJB = new Reservaciones();
+		Torneo torneoEJB = new Torneo();
+
+		if (reservacion.getAccion().equals("Aceptar")
+				|| reservacion.getAccion().equals("Modificar")) {
+			if(reservacion.getTorneo()){
+				torneoEJB = torneoService.findOne(reservacion.getIdCalendario());
+				torneoEJB.setTorneo(reservacion.getNombre());
+				torneoEJB.setCupos(reservacion.getCupos());
+				torneoEJB.setHorasTorneos(reservacion.getHorasTorneos());
+				torneoEJB = torneoService.save(torneoEJB);
+				reservacionEJB = torneoEJB.getReservaciones().get(0);
+				reservacionEJB.setTorneo(torneoEJB);
+			}else{
+				reservacionEJB = reservacionService.findOne(reservacion.getIdCalendario());
+			}
+		}
+		
 		reservacionEJB.setFecha(reservacion.getFecha());
 		reservacionEJB.setHora(reservacion.getHora());
 		reservacionEJB.setEstado(reservacion.getEstado());
 		reservacionEJB.setActive((byte) 1);
 		reservacionEJB.setServicio(servicio);
 		reservacionEJB.setUsuario(usuario);
-		
-		if(reservacion.getAccion().equals("Aceptar") || reservacion.getAccion().equals("Modificar")){
-			reservacionEJB.setIdCalendario(reservacion.getIdCalendario());
-		}
+
+		reservacionEJB = reservacionService.save(reservacionEJB);
 
 		ReservacionesPOJO reservacionPOJO = new ReservacionesPOJO();
 
-		PojoUtils.pojoMappingUtility(reservacionPOJO,
-				reservacionService.save(reservacionEJB));
+		PojoUtils.pojoMappingUtility(reservacionPOJO, reservacionEJB);
 
 		return reservacionPOJO;
 	}
 
-	public ReservacionesResponse getReservacion(int idReservacion, ReservacionesServiceInterface reservacionesService) {
-		
+	/**
+	 * Necesario para obtener la reservación seleccionada y modificarla o
+	 * eliminarla
+	 */
+	public ReservacionesResponse getReservacion(int idReservacion,
+			ReservacionesServiceInterface reservacionesService) {
+
 		ReservacionesResponse reservacionResponse = new ReservacionesResponse();
-		
-		Reservaciones reservacionEJB = reservacionesService.findOne(idReservacion);
-		
+
+		Reservaciones reservacionEJB = reservacionesService
+				.findOne(idReservacion);
+
 		UsuarioPOJO usuario = new UsuarioPOJO();
-		
+
 		PojoUtils.pojoMappingUtility(usuario, reservacionEJB.getUsuario());
-		
+
 		reservacionResponse.setUsuario(usuario);
-		
+
 		ServicioPOJO servicio = new ServicioPOJO();
-		
+
 		PojoUtils.pojoMappingUtility(servicio, reservacionEJB.getServicio());
-		
+
 		reservacionResponse.setServicio(servicio);
-		
+
 		CalendarioPOJO reservacion = new CalendarioPOJO();
 
-		SimpleDateFormat convertirHora = new SimpleDateFormat(
-				"HH:mm");
-		SimpleDateFormat convertirFecha = new SimpleDateFormat(
-				"dd-MM-yyyy");
+		SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
 
 		Calendar sumarHora = Calendar.getInstance();
 		sumarHora.setTime(reservacionEJB.getHora());
 		sumarHora.add(Calendar.HOUR_OF_DAY, 1);
-		
+
 		reservacion.setServicio(servicio.getIdServicio());
 		reservacion.setIdCalendario(reservacionEJB.getIdCalendario());
 		reservacion.setTitle(servicio.getServicio());
 		reservacion.setStart(convertirFecha(convertirFecha
 				.format(reservacionEJB.getFecha())
 				+ " "
-				+ convertirHora.format(reservacionEJB.getHora()
-						.getTime())));
-		reservacion.setEnd(convertirFecha(convertirFecha
-				.format(reservacionEJB.getFecha())
-				+ " "
-				+ convertirHora.format(sumarHora.getTime())));
+				+ convertirHora.format(reservacionEJB.getHora().getTime())));
+		reservacion
+				.setEnd(convertirFecha(convertirFecha.format(reservacionEJB
+						.getFecha())
+						+ " "
+						+ convertirHora.format(sumarHora.getTime())));
 		reservacion.setBackgroundColor("#f56954");
 		reservacion.setBorderColor("#f56954");
-		
+
 		reservacionResponse.setReservacion(reservacion);
 		
+		if(reservacionEJB.getTorneo() != null){
+			TorneoPOJO torneo = new TorneoPOJO();
+			PojoUtils.pojoMappingUtility(torneo, reservacionEJB.getTorneo());
+			reservacionResponse.setTorneo(torneo);
+		}
+
 		return reservacionResponse;
 	}
 

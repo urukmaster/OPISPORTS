@@ -1,20 +1,26 @@
 package org.opi.sports.helpers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.ServicioRequest;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Servicio;
+import org.opi.sports.ejb.Torneo;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.pojo.TorneoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -46,6 +52,10 @@ public class EstablecimientoDeportivoHelper {
 		return instance;
 	}
 
+	/**
+	 * Metodo que se encarga de convertir un establecimiento EJB a POJO con
+	 * todas las relaciones correspondientes
+	 */
 	public EstablecimientoDeportivoPOJO convertirEstablecimiento(
 			EstablecimientoDeportivo establecimiento) {
 
@@ -55,21 +65,42 @@ public class EstablecimientoDeportivoHelper {
 
 		List<ServicioPOJO> servicios = new ArrayList<ServicioPOJO>();
 
-		List<ReservacionesPOJO> torneos = new ArrayList<ReservacionesPOJO>();
-		
+		List<TorneoPOJO> torneos = new ArrayList<TorneoPOJO>();
+
 		for (Servicio servicio : establecimiento.getServicios()) {
 			if (servicio.getActive() == 1) {
 				servicios.add(convertirServicios(servicio));
-				for(Reservaciones reservacion : servicio.getReservaciones()){
-					if(reservacion.getTipoReservacion().getTipoReservacion().equals("Torneo")){
-						ReservacionesPOJO torneo = new ReservacionesPOJO();
+				for (Reservaciones reservacion : servicio.getReservaciones()) {
+					if (reservacion.getTorneo() != null) {
+						TorneoPOJO torneo = new TorneoPOJO();
+						PojoUtils.pojoMappingUtility(torneo,
+								reservacion.getTorneo());
+						SimpleDateFormat convertirHora = new SimpleDateFormat(
+								"HH:mm");
+						SimpleDateFormat convertirFecha = new SimpleDateFormat(
+								"dd-MM-yyyy");
+
+						torneo.setStart(convertirFecha(convertirFecha
+								.format(reservacion.getFecha())
+								+ " "
+								+ convertirHora.format(reservacion.getHora()
+										.getTime())));
+						Calendar sumarHora = Calendar.getInstance();
+						sumarHora.setTime(reservacion.getHora());
+						sumarHora.add(Calendar.HOUR_OF_DAY, reservacion.getTorneo().getHorasTorneos());
+						
+						torneo.setEnd(convertirFecha(convertirFecha
+								.format(reservacion.getFecha())
+								+ " "
+								+ convertirHora.format(sumarHora.getTime())));
+						
 						torneos.add(torneo);
 					}
 				}
 			}
-			
+
 		}
-		
+
 		establecimientoView.setTorneos(torneos);
 		establecimientoView.setServicios(servicios);
 		establecimientoView.setCalendario();
@@ -78,6 +109,19 @@ public class EstablecimientoDeportivoHelper {
 
 	}
 
+	/*
+	 * Este metodo de convertir a fecha para manejo del sistema.
+	 */
+	private DateTime convertirFecha(String fecha) {
+		DateTimeFormatter convertirFechaHora = DateTimeFormat
+				.forPattern("dd-MM-yyyy HH:mm");
+		return convertirFechaHora.parseDateTime(fecha);
+
+	}
+
+	/**
+	 * Metodo que convierte un servicio EJB a POJO
+	 */
 	private ServicioPOJO convertirServicios(Servicio servicio) {
 
 		ServicioPOJO servicioView = new ServicioPOJO();
@@ -87,10 +131,7 @@ public class EstablecimientoDeportivoHelper {
 
 		for (Reservaciones reservacion : servicio.getReservaciones()) {
 			if (reservacion.getActive() == (byte) 1) {
-				if (reservacion.getTipoReservacion().getTipoReservacion()
-						.equals("Normal")) {
-					reservaciones.add(convertirReservaciones(reservacion));
-				}
+				reservaciones.add(convertirReservaciones(reservacion));
 			}
 		}
 
@@ -102,11 +143,21 @@ public class EstablecimientoDeportivoHelper {
 		return servicioView;
 	}
 
+	/**
+	 * Metodo que se encarga una reservacion EJB a pojo
+	 */
 	private ReservacionesPOJO convertirReservaciones(Reservaciones reservacion) {
 
 		ReservacionesPOJO reservacionesPOJO = new ReservacionesPOJO();
 
 		PojoUtils.pojoMappingUtility(reservacionesPOJO, reservacion);
+
+		if (reservacion.getTorneo() != null) {
+			TorneoPOJO torneoPOJO = new TorneoPOJO();
+			PojoUtils.pojoMappingUtility(torneoPOJO, reservacion.getTorneo());
+			reservacionesPOJO.setTorneo(torneoPOJO);
+		}
+
 		return reservacionesPOJO;
 	}
 
@@ -142,26 +193,5 @@ public class EstablecimientoDeportivoHelper {
 
 		return establecimientoPOJO;
 	}
-
-	/*
-	 * public EstablecimientoDeportivoPOJO
-	 * deleteEstablecimiento(EstablecimientoDeportivoRequest
-	 * establecimientoRequest, EstablecimientoDeportivoServiceInterface
-	 * establecimientoService) {
-	 * 
-	 * EstablecimientoDeportivo establecimientoEJB =
-	 * establecimientoService.findOne
-	 * (establecimientoRequest.getIdEstablecimientoDeportivo());
-	 * establecimientoEJB.setActive((byte) 0);
-	 * 
-	 * EstablecimientoDeportivoPOJO establecimientoPOJO = new
-	 * EstablecimientoDeportivoPOJO();
-	 * 
-	 * establecimientoService.save(establecimientoEJB);
-	 * 
-	 * PojoUtils.pojoMappingUtility(establecimientoPOJO, establecimientoEJB);
-	 * 
-	 * return establecimientoPOJO; }
-	 */
 
 }

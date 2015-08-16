@@ -17,7 +17,7 @@ public class ReservacionesPOJO {
 	private Date fecha;
 	private Time hora;
 	private String estado;
-	private TipoReservacionesPOJO tipoReservaciones;
+	private TorneoPOJO torneo;
 	
 	
 	public int getIdCalendario() {
@@ -52,12 +52,12 @@ public class ReservacionesPOJO {
 		this.estado = estado;
 	}
 
-	public TipoReservacionesPOJO getTipoReservaciones() {
-		return tipoReservaciones;
+	public TorneoPOJO getTorneo() {
+		return torneo;
 	}
 
-	public void setTipoReservaciones(TipoReservacionesPOJO tipoReservaciones) {
-		this.tipoReservaciones = tipoReservaciones;
+	public void setTorneo(TorneoPOJO torneo) {
+		this.torneo = torneo;
 	}
 			
 }

@@ -13,6 +13,10 @@ App.controller('ReservacionesController', ['$scope','$state', function($scope,$s
     $scope.pendientes = function(){
     	$state.go('app.perfil.reservaciones.pendientes');
     }
+    
+    $scope.torneos = function(){
+    	$state.go('app.perfil.reservaciones.torneos');
+    }
 }]);
 
 App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {

@@ -1,33 +1,48 @@
-App.controller('TorneosController', ['$scope', 'uiGridConstants', 'toaster', '$http', 
-    function($scope, uiGridConstants, toaster, $http){
-	
-	var data = [];
 
-    gridTorneo = $scope.gridTorneo = {
-        columnDefs: [
-            { field: 'idCalendario',visible:false},
-            { field: 'precio' , name:'Precio'},
-            { field: 'fecha' , name:'Fecha'},
-            {name: 'Acciones', cellTemplate:'<div ng-controller="ServicioModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '</div> <div ng-controller="ServicioModalController" >' +
-                '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-                '<span class="fa fa-rocket"></span>' +
-                '</button>'+
-            '</div>'}
-        ],
-        data: establecimientoCalendario.torneos
-    }
-    
-    
+App.controller('TorneosController', ['$scope', 'uiGridConstants', function($scope, uiGridConstants){
 	
+	var torneos = [];
+	
+	angular.forEach(establecimientoCalendario.torneos, function(torneoPOJO, index){
+		console.log(torneoPOJO);
+		var torneo = {};
+		var minutes;
+		torneo.idTorneo = torneoPOJO.idTorneo;
+		torneo.cupos = torneoPOJO.cupos;
+		torneo.torneo = torneoPOJO.torneo;
+		torneo.start = torneoPOJO.start;
+		torneo.fecha = torneoPOJO.start.dayOfMonth + '/' + torneoPOJO.start.monthOfYear + '/' + torneoPOJO.start.year + ' ' +
+						torneoPOJO.start.hourOfDay + ':00 - ' +
+						torneoPOJO.end.hourOfDay + ':00';
+		torneos.push(torneo);
+	});
+	
+	gridTorneos = $scope.gridTorneos = {
+			columnDefs : [
+			              {
+			            	  field: 'idTorneo', visible: false
+			              },
+			              {
+			            	  field: 'torneo', name: 'Torneo'
+			              },
+			              {
+			            	  field: 'fecha', name: 'Fecha'
+			              },
+			              {
+			            	  field: 'cupos', name: 'Cupos disponibles'
+			              },
+			              {name: 'acciones', cellTemplate:'<div ng-controller="TorneoModalController" >' +
+                              '<button ng-click="modificar(row)" class="btn btn-primary" >' +
+                              '<span class="fa fa-rocket"></span>' +
+                              '</button><button ng-click="eliminar(row)" class="btn btn-primary"> ' +
+                              '<span class="fa fa-rocket"></span>' +
+                              '</div>'}
+			              ],
+			data: torneos
+	};
 }]);
 
-var torneoModificar = {};
-
-App.controller('TorneoModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
+App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http', 'toaster', function ($scope, $modal, $timeout ,$http) {
 	
 	
 	$scope.registrar = function () {
@@ -42,6 +57,7 @@ App.controller('TorneoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 
     $scope.modificar = function ($row) {
         torneoModificar = $row.entity;
+        console.log(torneoModificar);
         var ModificarModalInstance = $modal.open({
             templateUrl: '/myTorneoModalContent.html',
             controller: ModificarTorneoInstanceCtrl,
@@ -59,7 +75,7 @@ App.controller('TorneoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 					title: 'Establecimiento',
 					text:  'Se ha aceptado la reservacion correctamente'
 			};
-			//$scope.pop(toasterdata);
+			$scope.pop(toasterdata);
 			establecimientoCalendario = data;
 			gridTorneo = establecimientoCalendario.torneos;
 			$state.reload();
@@ -67,19 +83,30 @@ App.controller('TorneoModalController', ['$scope', '$modal', "$timeout" ,"$http"
 	};
     
     var RegistrarTorneoInstanceCtrl = function ($scope, $modalInstance) {
+    	
         $scope.accion = "Registrar";
         $scope.torneoForm = {};
         $scope.torneoForm.fecha = new Date();
+        $scope.torneoForm.hora = new Date();
+        $scope.torneoForm.hora.setMinutes(00);
         
         $scope.torneoForm.registrar = function () {
         	
-            var data = {
-            	"precio": $scope.torneoForm.precio,
-                "fecha": $scope.torneoForm.fecha,
-                "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                "accion" : $scope.accion
-            };
-            $http.post('rest/reservaciones/saveTorneo', data).
+        	var data = {
+        			"precio": $scope.torneoForm.precio,
+                    "fecha": $scope.torneoForm.fecha,
+                    "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
+                    "accion" : $scope.accion,
+                    "torneo" : true,
+                    "estado" : "Reservado",
+                    "servicio" : establecimientoCalendario.servicios[0],
+                    "usuario" : 1,
+                    "nombre" : $scope.torneoForm.nombre,
+                    "cupos" : $scope.torneoForm.cupos,
+                    "horasTorneos" : $scope.torneoForm.horasTorneos,
+                    "hora" : $scope.torneoForm.hora.getTime()
+                };
+            $http.post('rest/reservaciones/save', data).
             success(function(data){
             	var toasterdata = {
 			            type:  'success',
@@ -97,48 +124,63 @@ App.controller('TorneoModalController', ['$scope', '$modal', "$timeout" ,"$http"
     };
     
     RegistrarTorneoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    
     var ModificarTorneoInstanceCtrl = function ($scope, $modalInstance) {
-        $scope.accion = "Modificar";
+    	
+    	angular.forEach(establecimientoCalendario.torneos, function(torneoPOJO, index){
+    		if(torneoPOJO.idTorneo == torneoModificar.idTorneo){
+    			torneoModificar = torneoPOJO;
+    		}
+    	});
+    	
+		$scope.accion = "Modificar";
         $scope.torneoForm = {};
-
         
-        $scope.torneoModificar.idReservacion = torneoModificar.idCalendario;
-        $scope.torneoForm.precio = servicioModificar.precio;
+        $scope.torneoForm = torneoModificar;
 
-        fecha = new Date(torneoModificar.fecha.millis);
+        fecha = new Date(torneoModificar.start.millis);
         
         $scope.torneoForm.fecha = fecha;
         
+        hora = new Date(torneoModificar.start.millis);
+        hora.setMinutes(00);
+        $scope.torneoForm.hora = hora
         
-        $scope.servicioForm.modificar = function () {
+    	
+        $scope.torneoForm.modificar = function () {
         	var data = {
-        			"idCalendario": torneoModificar.idReservacion,
-                	"precio": $scope.torneoForm.precio,
-                    "fecha": $scope.torneoForm.fecha,
+        			"idCalendario" : $scope.torneoForm.idTorneo,
+                	"fecha": $scope.torneoForm.fecha,
                     "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                    "accion" : $scope.accion
+                    "accion" : $scope.accion,
+                    "torneo" : true,
+                    "estado" : "Reservado",
+                    "servicio" : establecimientoCalendario.servicios[0].idServicio,
+                    "usuario" : 1,
+                    "nombre" : $scope.torneoForm.nombre,
+                    "cupos" : $scope.torneoForm.cupos,
+                    "horasTorneos" : $scope.torneoForm.horasTorneos,
+                    "hora" : $scope.torneoForm.hora.getTime()
                 };
-                $http.post('rest/reservaciones/saveTorneo', data).
+                $http.post('rest/reservaciones/save', data).
                 success(function(data){
                 	var toasterdata = {
     			            type:  'success',
     			            title: 'Servicio',
     			            text:  'Se registro los cambios correctamente.'
     			    };
+                	$scope.torneoForm = null;
         			$scope.pop(toasterdata);
         			gridTorneo.data = data.torneos;
         			establecimientoCalendario = data;
-                	
                 });
 
             $modalInstance.close('closed');
         };
         $scope.cancel = function () {
+        	$scope.torneoForm = null;
             $modalInstance.dismiss('cancel');
         };
     };
     ModificarTorneoInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
-
-    
-    

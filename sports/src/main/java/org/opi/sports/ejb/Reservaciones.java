@@ -34,8 +34,8 @@ public class Reservaciones implements Serializable {
 	private Servicio servicio;
 
 	@ManyToOne
-	@JoinColumn(name="idTipoReservacion")
-	private TipoReservacion tipoReservacion;
+	@JoinColumn(name="idTorneo")
+	private Torneo torneo;
 	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -101,12 +101,12 @@ public class Reservaciones implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public TipoReservacion getTipoReservacion() {
-		return tipoReservacion;
+	public Torneo getTorneo() {
+		return torneo;
 	}
 
-	public void setTipoReservacion(TipoReservacion tipoReservacion) {
-		this.tipoReservacion = tipoReservacion;
+	public void setTorneo(Torneo torneo) {
+		this.torneo = torneo;
 	}
 
 }

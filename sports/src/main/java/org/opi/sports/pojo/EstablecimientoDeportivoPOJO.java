@@ -34,7 +34,7 @@ public class EstablecimientoDeportivoPOJO {
 	//Lista de reservaciones pendientes
 	private List<CalendarioPOJO> pendientes;
 	
-	private List<ReservacionesPOJO> torneos;
+	private List<TorneoPOJO> torneos;
 	
 	/**
 	 * Metodo get 
@@ -138,10 +138,10 @@ public class EstablecimientoDeportivoPOJO {
 	public void setPendientes() {
 		this.pendientes = ReservacionesHelper.getInstance().reservacionesPendientes(getServicios());
 	}
-	public List<ReservacionesPOJO> getTorneos() {
+	public List<TorneoPOJO> getTorneos() {
 		return torneos;
 	}
-	public void setTorneos(List<ReservacionesPOJO> torneos) {
+	public void setTorneos(List<TorneoPOJO> torneos) {
 		this.torneos = torneos;
 	}
 }
