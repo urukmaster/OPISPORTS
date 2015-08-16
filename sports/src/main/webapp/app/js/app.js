@@ -96,9 +96,8 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Home',
                 templateUrl: helper.basepath('home.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
-            })
-									            .state(
-											'app.dashboard', {
+            })	
+            .state('app.dashboard', {
                 url: '/dashboard',
                 title: 'Dashboard',
                 templateUrl: helper.basepath('dashboard.html'),
@@ -292,6 +291,23 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
              })
+             // 
+             // Pages Routes
+             // ----------------------------------- 
+//             .state('page', {
+//            	 url: '/page',
+//            	 templateUrl: 'app/pages/page.html',
+//            	 resolve: helper.resolveFor('modernizr', 'icons'),
+//            	 controller: ["$rootScope", function($rootScope) {
+//            		 $rootScope.app.layout.isBoxed = false;
+//            	 }]
+//             })
+//             .state('page.landing', {
+//            	 url: '/landing',
+//            	 title: "Landing",
+//            	 templateUrl: 'landing.html'
+//             })
+             
 
             //
             // CUSTOM RESOLVES
@@ -568,7 +584,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
                 		correo : $scope.usuario.correo,
                 		contrasenna : $scope.usuario.contrasenna
             		 	})
-            		.success(function(data){
+            		.success(function(data){ 
             			if(data.code == 200){
             				$rootScope.usuario = {
             						idUsuario: data.usuario.idUsuario,
@@ -626,7 +642,8 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     						apellido: data.usuario.apellido,
     						correo: data.usuario.correo,
     						telefono: data.usuario.telefono,
-    						roles: data.usuario.roles
+    						roles: data.usuario.roles,
+    						subscripciones : data.usuario.subscripciones
     				};
     				var toasterdata = {
     			            type:  'success',
@@ -1599,6 +1616,8 @@ App.controller('ButtonsCtrl', ['$scope', function ($scope) {
     };
 
 }]);
+
+
 /**=========================================================
  * Module: demo-carousel.js
  * Provides a simple demo for bootstrap ui carousel
@@ -4915,7 +4934,7 @@ App.controller('FileUploadController', ['$scope', 'FileUploader', function($scop
         console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
+        console.info('onSuccessItem', fileItem, response, status, 	s);
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         console.info('onErrorItem', fileItem, response, status, headers);
@@ -4953,7 +4972,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope', function(
     
     $scope.$on('miPerfil', function(event, args) {
     	if($rootScope.usuario != undefined){
-    		$state.go('app.perfilUsuario');
+    		$state.go('app.dashboard');
         }else{
         	$state.go('app.login');
         }

@@ -1,15 +1,107 @@
 <h3>{{usuario.nombre + " " +usuario.apellido}}
    <small>Mi perfil</small>
 </h3>
-<div>
-	<div class="col-md-12">
-		<!-- Aqui viene lo suyo de perfil -->
-  		<div class="col-md-4">
-  		
-  		</div>
-  		<!-- ---------------------------- -->
-  		<div class="col-md-8">
-  		
-  		</div>
+<div class="row">
+	<!-- Aqui viene lo suyo de perfil -->
+  	<div class="col-md-6">
+  		<p>Lorem ipsum dolor sit amet, consectetuer 
+  			adipiscing elit. Aenean commodo ligula eget 
+  			dolor. Aenean massa. Cum sociis natoque penatibus 
+  			et magnis dis parturient montes, nascetur ridiculus 
+  			mus. Donec quam felis, ultricies nec, pellentesque 
+  			eu, pretium quis, sem. Nulla consequat massa quis 
+  			enim. Donec pede justo, fringilla vel, aliquet nec,
+  			 vulputate eget, arcu. In enim justo, rhoncus ut, 
+  			 imperdiet a, venenatis vitae, justo. Nullam dictum 
+  			 felis eu pede mollis pretium. Integer tincidunt. 
+  			 Cras dapibus. Vivamus elementum semper nisi. Aenean
+  			  vulputate eleifend tellus. Aenean leo ligula,
+  			   porttitor eu, consequat vitae, eleifend ac, enim.</p>
+  	</div>
+  	<!-- ---------------------------- -->
+  	<div class="col-md-6">
+  			<p>Lorem ipsum dolor sit amet, consectetuer 
+  			adipiscing elit. Aenean commodo ligula eget 
+  			dolor. Aenean massa. Cum sociis natoque penatibus 
+  			et magnis dis parturient montes, nascetur ridiculus 
+  			mus. Donec quam felis, ultricies nec, pellentesque 
+  			eu, pretium quis, sem. Nulla consequat massa quis 
+  			enim. Donec pede justo, fringilla vel, aliquet nec,
+  			 vulputate eget, arcu. In enim justo, rhoncus ut, 
+  			 imperdiet a, venenatis vitae, justo. Nullam dictum 
+  			 felis eu pede mollis pretium. Integer tincidunt. 
+  			 Cras dapibus. Vivamus elementum semper nisi. Aenean
+  			  vulputate eleifend tellus. Aenean leo ligula,
+  			   porttitor eu, consequat vitae, eleifend ac, enim.</p>
+  	</div>
+</div>
+<div class="row">
+	<div class="col-md-8">
+		<p>Lorem ipsum dolor sit amet, consectetuer 
+  			adipiscing elit. Aenean commodo ligula eget 
+  			dolor. Aenean massa. Cum sociis natoque penatibus 
+  			et magnis dis parturient montes, nascetur ridiculus 
+  			mus. Donec quam felis, ultricies nec, pellentesque 
+  			eu, pretium quis, sem. Nulla consequat massa quis 
+  			enim. Donec pede justo, fringilla vel, aliquet nec,
+  			 vulputate eget, arcu. In enim justo, rhoncus ut, 
+  			 imperdiet a, venenatis vitae, justo. Nullam dictum 
+  			 felis eu pede mollis pretium. Integer tincidunt. 
+  			 Cras dapibus. Vivamus elementum semper nisi. Aenean
+  			  vulputate eleifend tellus. Aenean leo ligula,
+  			   porttitor eu, consequat vitae, eleifend ac, enim.</p>
+	</div>
+	<!--<scrollable height="230" class="list-group">--> 
+	<div ng-controller="SuscripcionController" class="col-md-4">
+		      <div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Mis suscripciones</div>
+         </div>
+         <scrollable height="230" class="list-group">
+         <div ng-repeat="suscripcion in Suscripciones">
+            <!-- START list group item-->
+            <div class="list-group-item">
+               <div class="media-box">
+                  <div class="pull-left">
+                     <span class="fa-stack">
+                        <em class="fa fa-circle fa-stack-2x text-purple"></em>
+                        <em class="fa fa-file fa-stack-1x fa-inverse text-white"></em>
+                     </span>
+                  </div> 
+                  <div class="media-box-body clearfix">
+                  	<div ng-controller="EliminarSuscripcionModalController" >
+                  	<button ng-click="open(suscripcion.idSubscripcion)" class="btn btn-danger btn-sm fa fa-trash pull-right"></button>
+                     </div>
+                     <div class="media-box-heading">
+                     	{{suscripcion.eventopojo.tipo}}
+                     </div>
+                  </div>       
+               </div>
+            </div> 
+         </div>
+         </scrollable>
+         <!-- START panel footer-->
+         <div class="panel-footer clearfix">
+            <a href="#" class="pull-left">
+               <small>Load more</small>
+            </a>
+         </div>
+         <!-- END panel-footer-->
+      </div>
+        <div ng-controller="EliminarSuscripcionModalController">
+	       <!-- Modal inline template-->
+	       <script type="text/ng-template" id="/modalEliminarSuscripcion.html">
+           	<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+				<h4 id="myModalLabel" class="modal-title">Eliminar suscripcion</h4>
+			</div>
+			<div class="modal-body">¿Desea eliminar la suscripcion?</div>
+			<div class="modal-footer">
+				<button ng-click="ok(suscripcion.idSubscripcion)" class="btn btn-primary">Si</button>
+				<a ng-click="cancelar()" class="btn btn-warning">Cancelar</a>
+			</div>
+           </script>
+	    </div>
 	</div>
 </div>
+<script src="app/js/Modules/Controllers/SuscripcionesController.js"></script>

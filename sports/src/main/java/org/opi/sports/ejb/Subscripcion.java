@@ -16,7 +16,9 @@ public class Subscripcion implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSubscripcion;
-
+	
+	private int active;
+	
 	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
 	@JoinColumn(name="idTipoEvento")
@@ -52,6 +54,14 @@ public class Subscripcion implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 }

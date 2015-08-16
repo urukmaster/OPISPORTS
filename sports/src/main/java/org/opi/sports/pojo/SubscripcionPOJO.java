@@ -6,24 +6,24 @@ public class SubscripcionPOJO {
 	
 	private int idSubscripcion;
 	
-	private TipoEventoPOJO eventospojo;
+	private TipoEventoPOJO eventopojo;
 
-
-
-	public TipoEventoPOJO getEventospojo() {
-		return eventospojo;
-	}
-
-	public void setEventospojo(TipoEventoPOJO eventospojo) {
-		this.eventospojo = eventospojo;
-	}
-
-	public int getIdSupscripcion() {
+	public int getIdSubscripcion() {
 		return idSubscripcion;
 	}
 
-	public void setIdSupscripcion(int idSupscripcion) {
-		this.idSubscripcion = idSupscripcion;
+	public void setIdSubscripcion(int idSubscripcion) {
+		this.idSubscripcion = idSubscripcion;
 	}
+
+	public TipoEventoPOJO getEventopojo() {
+		return eventopojo;
+	}
+
+	public void setEventopojo(TipoEventoPOJO eventopojo) {
+		this.eventopojo = eventopojo;
+	}
+
+
 
 }

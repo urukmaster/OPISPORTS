@@ -52,38 +52,30 @@ public class IniciarSesionHelper {
 		UsuarioPOJO usuarioView = new UsuarioPOJO();
 		
 		PojoUtils.pojoMappingUtility(usuarioView, pusuario);
-		List<SubscripcionPOJO> subscripcionespojou = new ArrayList<SubscripcionPOJO>();
 		
-		subscripcionespojou = subscripcion(pusuario);
+		List<SubscripcionPOJO> subscripciones = new ArrayList<SubscripcionPOJO>();
 		List<RolPOJO> roles = new ArrayList<RolPOJO>();
 	
 		for(Usuario_Rol  usuario_rol : pusuario.getUsuarioRols()){
 			roles.add(convertirRol(usuario_rol.getRol()));
 		}
-		usuarioView.setSubscripciones(subscripcionespojou);
+		for(Subscripcion subscripcion : pusuario.getSubscripcions()){
+			subscripciones.add(convertirSubscripcion(subscripcion));
+		}
+		usuarioView.setSubscripciones(subscripciones);
 		usuarioView.setRoles(roles);
 		return usuarioView;
 	}
 	/**
-	 * Metodo encargado de convertir una suscripcion ejb en una lista de suscripciones pojo
-	 */
-	private List<SubscripcionPOJO> subscripcion(Usuario pusuario) {
-		List<SubscripcionPOJO> subscripcionespojo= new ArrayList<SubscripcionPOJO>();
-		for(Subscripcion subscripcion : pusuario.getSubscripcions()){
-			subscripcionespojo.add(convertirSubscripcion(subscripcion));
-		}
-		return subscripcionespojo;
-	}
-	/**
 	 * Metodo encargado de convertir una suscripcion ejb en una suscripciones pojo
 	 */
-	private SubscripcionPOJO convertirSubscripcion(Subscripcion subscripcion) {
+	private SubscripcionPOJO convertirSubscripcion(Subscripcion psubscripcion) {
 		// TODO Auto-generated method stub
-		SubscripcionPOJO subscripcionpojo = new SubscripcionPOJO();
-		PojoUtils.pojoMappingUtility(subscripcionpojo, subscripcion);
-		TipoEvento tipoevento = subscripcion.getTipoEvento();
-		subscripcionpojo.setEventospojo(convertirTipoEvento(tipoevento));
-		return subscripcionpojo;
+		SubscripcionPOJO subscripcion = new SubscripcionPOJO();
+		PojoUtils.pojoMappingUtility(subscripcion, psubscripcion);
+		TipoEvento tipoevento = psubscripcion.getTipoEvento();
+		subscripcion.setEventopojo(convertirTipoEvento(tipoevento));
+		return subscripcion;
 	}
 	/**
 	 * Metodo encargado de convertir un tipo de evento ejb en un tipo de evento pojo
