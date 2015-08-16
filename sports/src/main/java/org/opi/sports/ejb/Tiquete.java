@@ -29,6 +29,8 @@ public class Tiquete implements Serializable {
 
 	private String precio;
 
+	private String nombreEvento;
+
 	//bi-directional many-to-one association to Evento
 	@ManyToOne
 	@JoinColumn(name="idEvento")
@@ -104,6 +106,14 @@ public class Tiquete implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
 	}
 
 }

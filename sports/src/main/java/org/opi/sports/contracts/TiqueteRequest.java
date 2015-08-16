@@ -2,8 +2,6 @@ package org.opi.sports.contracts;
 
 import java.util.Date;
 
-import org.opi.sports.pojo.TiquetePOJO;
-
 /**
  * Fecha: 25-07-2015 version 1.0
  * 
@@ -26,6 +24,7 @@ public class TiqueteRequest extends BasePagingRequest{
 	private String accion;
 	private String codigo;
 	private Integer cantidad;
+	private String nombreEvento;
 	
 	public void setAccion(String accion) {
 		this.accion = accion;
@@ -93,6 +92,13 @@ public class TiqueteRequest extends BasePagingRequest{
 	}
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
+	}
+	
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
 	}
 	
 }

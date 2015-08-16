@@ -2,7 +2,6 @@ package org.opi.sports.contracts;
 
 import java.util.List;
 
-import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.pojo.TiquetePOJO;
 
 /**

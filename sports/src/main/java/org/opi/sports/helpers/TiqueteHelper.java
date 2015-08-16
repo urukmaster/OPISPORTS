@@ -1,16 +1,12 @@
 package org.opi.sports.helpers;
 
-import java.security.Timestamp;
-import java.util.Date;
-
 import org.opi.sports.contracts.TiqueteRequest;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.ejb.Usuario;
-import org.opi.sports.pojo.ReservacionesPOJO;
+import org.opi.sports.pojo.InscripcionPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
-import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.services.InscripcionServiceInterface;
 import org.opi.sports.services.TiqueteServiceInterface;
 import org.opi.sports.services.UsuarioServiceInterface;
@@ -50,6 +46,8 @@ public class TiqueteHelper {
 		return instance;
 	}
 	
+	@Autowired
+	InscripcionServiceInterface inscripcionService;
 
 	/**
 	 *Este método convierte las instancias de tiquetesEJB en tiquetesPOJO
@@ -58,8 +56,27 @@ public class TiqueteHelper {
 
 		TiquetePOJO tiqueteView = new TiquetePOJO();
 		
+		Inscripcion inscripcion = new Inscripcion();
+		
+		inscripcion = tiquete.getInscripcion();
+		
 		PojoUtils.pojoMappingUtility(tiqueteView, tiquete);
+		
+		tiqueteView.setIdInscripcion(convertirInscripcion(inscripcion));
+		
 		return tiqueteView;
+
+	}
+	
+	/**
+	 *Este método convierte las instancias de InscripcionEJB en InscripcionPOJO
+	 */	
+	public InscripcionPOJO convertirInscripcion(Inscripcion inscripcion) {
+
+		InscripcionPOJO inscripcionView = new InscripcionPOJO();		
+		PojoUtils.pojoMappingUtility(inscripcionView, inscripcion);
+		
+		return inscripcionView;
 
 	}
 	
@@ -67,13 +84,9 @@ public class TiqueteHelper {
 	 *Este método hace el registro de una inscripcion en la base de datos
 	 */	
 	public TiquetePOJO save(TiqueteRequest tiqueteRequest, TiqueteServiceInterface tiqueteService,
-			Usuario usuario, Evento evento, InscripcionServiceInterface inscripcionService) {
-		
-		Inscripcion inscripcion = new Inscripcion();
+			Usuario usuario, Evento evento, Inscripcion inscripcion) {
 		
 		inscripcion.setUsuario(usuario);
-		
-		inscripcion = inscripcionService.save(inscripcion);
 		
 		Tiquete tiquete = new Tiquete();
 		
@@ -89,6 +102,7 @@ public class TiqueteHelper {
 		tiquete.setFechaCaducidad(tiqueteRequest.getFechaCaducidad());
 		tiquete.setInscripcion(inscripcion);
 		tiquete.setPrecio(tiqueteRequest.getPrecio());
+		tiquete.setNombreEvento(tiqueteRequest.getNombreEvento());
 		tiquete.setCodigo(tiqueteRequest.getCodigo() + current);
 
 		TiquetePOJO tiquetePOJO = new TiquetePOJO();

@@ -8,6 +8,7 @@
  * 
  */
 
+
 if (typeof $ === 'undefined') { throw new Error('This application\'s JavaScript requires jQuery'); }
 
 // APP START
@@ -291,6 +292,11 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Mailbox',
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
+             })
+             .state('app.inscripciones', {
+                 url: '/inscripciones',
+                 title: 'Inscripciones',
+                 templateUrl: helper.basepath('dashboard-inscripciones.html')
              })
 
             //
@@ -576,7 +582,8 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             						apellido: data.usuario.apellido,
             						correo: data.usuario.contrasenna,
             						telefono: data.usuario.telefono,
-            						roles: data.usuario.roles
+            						roles: data.usuario.roles,
+            						inscripciones: data.usuario.inscripciones
             				};
             				var toasterdata = {
             			            type:  'success',
@@ -625,8 +632,10 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     						nombre: data.usuario.nombre,
     						apellido: data.usuario.apellido,
     						correo: data.usuario.correo,
+    						contrasenna: data.usuario.contrasenna,
     						telefono: data.usuario.telefono,
-    						roles: data.usuario.roles
+    						roles: data.usuario.roles,
+    						inscripciones: data.usuario.inscripciones
     				};
     				var toasterdata = {
     			            type:  'success',
