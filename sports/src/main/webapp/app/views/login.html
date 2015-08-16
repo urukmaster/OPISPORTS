@@ -11,7 +11,7 @@
 			</a>
 		</div>
 		<div class="panel-body">
-			<p class="text-center pv">Inicia sesion para continuar</p>
+			<p class="text-center pv">Inicia sesión para continuar</p>
 			<form role="form" ng-submit="login()" name="loginForm" novalidate=""
 				class="form-validate mb-lg">
 				<div class="form-group has-feedback">
@@ -30,7 +30,7 @@
 						ng-model="account.password" required="" class="form-control" /> <span
 						class="fa fa-lock form-control-feedback text-muted"></span> <span
 						ng-show="loginForm.account_password.$dirty &amp;&amp; loginForm.account_password.$error.required"
-						class="text-danger">This field is required</span>
+						class="text-danger">Este campo es requerido.</span>
 				</div>
 				<div class="clearfix">
 					<div class="checkbox c-checkbox pull-left mt0">
@@ -40,14 +40,14 @@
 						</label>
 					</div>
 					<div class="pull-right">
-						<a ui-sref="page.recover" class="text-muted">¿Olvido su
+						<a ui-sref="page.recover" class="text-muted">Olvido su
 							contraseña?</a>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
 			</form>
 			<div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
-			<p class="pt-lg text-center">¿Necesita registarse?</p>
+			<p class="pt-lg text-center">Necesita registarse?</p>
 			<div ng-controller="RegistrarUsuarioModalController">
 				<script type="text/ng-template" id="/myUsuarioModalContent.html">
                   <div class="modal-header">
@@ -85,7 +85,7 @@
 						<legend>Login</legend>	
                   		<fieldset>
                      		<div class="form-group">
-                        		<label class="col-sm-2 control-label">Correo Electronico</label>
+                        		<label class="col-sm-2 control-label">Correo Electrónico</label>
                         			<div class="col-sm-6">
                            				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuario.correo" class="form-control" />
                            				<span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
@@ -93,7 +93,7 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Contrase�a</label>
+                        		<label class="col-sm-2 control-label">Contraseña</label>
                         			<div class="col-sm-6">
                            				<input type="password" name="contrasenna" required="" ng-model="usuario.contrasenna" class="form-control" />
                            				<span ng-show="validateInput('contrasenna', 'required')" class="text-danger">Este campo es requerido</span>
@@ -101,10 +101,10 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Confirmar Contrase�a</label>
+                        		<label class="col-sm-2 control-label">Confirmar Contraseña</label>
                         			<div class="col-sm-6">
                            				<input type="password" name="confirmarContasenna" required="" ng-model="usuario.confirmarContrasenna" ui-validate="'$value==usuario.contrasenna'" ui-validate-watch="'validator.usuario.contrasenna'" class="form-control" />
-                           				<p ng-show="validateInput('confirmarContasenna', 'validator')" class="text-danger">Las contrase�as no coinciden.</p>
+                           				<p ng-show="validateInput('confirmarContasenna', 'validator')" class="text-danger">Las contrases no coinciden.</p>
                         			</div>                        
                      		</div>
                   		</fieldset>
