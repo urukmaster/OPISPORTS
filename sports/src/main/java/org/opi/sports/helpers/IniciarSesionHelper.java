@@ -66,36 +66,8 @@ public class IniciarSesionHelper {
 		for(Usuario_Rol  usuario_rol : pusuario.getUsuarioRols()){
 			roles.add(convertirRol(usuario_rol.getRol()));
 		}
-
-		for(Subscripcion subscripcion : pusuario.getSubscripcions()){
-			subscripciones.add(convertirSubscripcion(subscripcion));
-		}
-		usuarioView.setSubscripciones(subscripciones);
 		usuarioView.setRoles(roles);
 		return usuarioView;
-	}
-
-	/**
-	 * Metodo encargado de convertir una suscripcion ejb en una suscripciones pojo
-	 */
-	private SubscripcionPOJO convertirSubscripcion(Subscripcion psubscripcion) {
-		// TODO Auto-generated method stub
-		SubscripcionPOJO subscripcion = new SubscripcionPOJO();
-		PojoUtils.pojoMappingUtility(subscripcion, psubscripcion);
-		if(subscripcion.getActive() == 1){
-			TipoEvento tipoevento = psubscripcion.getTipoEvento();
-			subscripcion.setEventopojo(convertirTipoEvento(tipoevento));
-		}
-		return subscripcion;
-	}
-	/**
-	 * Metodo encargado de convertir un tipo de evento ejb en un tipo de evento pojo
-	 */
-	private TipoEventoPOJO convertirTipoEvento(TipoEvento tipoevento) {
-		// TODO Auto-generated method stub
-		TipoEventoPOJO tipoeventopojo = new TipoEventoPOJO();
-		PojoUtils.pojoMappingUtility(tipoeventopojo, tipoevento);
-		return tipoeventopojo;
 	}
 	
 	/**

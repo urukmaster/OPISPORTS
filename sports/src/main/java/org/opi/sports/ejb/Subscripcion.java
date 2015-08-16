@@ -17,7 +17,7 @@ public class Subscripcion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSubscripcion;
 	
-	private int active;
+	private byte active;
 	
 	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
@@ -56,11 +56,11 @@ public class Subscripcion implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public int getActive() {
+	public byte getActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 

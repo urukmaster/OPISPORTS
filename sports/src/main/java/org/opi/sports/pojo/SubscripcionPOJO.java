@@ -5,11 +5,10 @@ import java.util.List;
 public class SubscripcionPOJO {
 	
 	private int idSubscripcion;
-	
 	private TipoEventoPOJO eventopojo;
-	
 	private byte active;
-
+	private UsuarioPOJO usuario;
+	
 	public int getIdSubscripcion() {
 		return idSubscripcion;
 	}
@@ -32,6 +31,14 @@ public class SubscripcionPOJO {
 
 	public void setActive(byte active) {
 		this.active = active;
+	}
+
+	public UsuarioPOJO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioPOJO usuario) {
+		this.usuario = usuario;
 	}
 
 

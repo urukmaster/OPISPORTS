@@ -1,5 +1,7 @@
 package org.opi.sports.services;
 
+import java.util.List;
+
 import org.opi.sports.ejb.Review;
 import org.opi.sports.ejb.Subscripcion;
 import org.opi.sports.repositories.ReviewRepository;
@@ -19,6 +21,13 @@ public class SuscripcionService implements SuscripcionServiceInterface{
 	public Subscripcion findOne(Integer idSubscripcion) {
 		// TODO Auto-generated method stub
 		return suscripcionRepository.findOne(idSubscripcion);
+	}
+	
+	@Transactional
+	@Override
+	public List<Subscripcion> getAll() {
+		// TODO Auto-generated method stub
+		return suscripcionRepository.findAll();
 	}
 	
 	@Transactional

@@ -2,8 +2,16 @@ package org.opi.sports.controllers;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.opi.sports.contracts.InscripcionResponse;
+import org.opi.sports.contracts.SuscripcionResponse;
+import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Subscripcion;
+import org.opi.sports.helpers.InscripcionHelper;
 import org.opi.sports.helpers.SuscripcionHelper;
+import org.opi.sports.pojo.InscripcionPOJO;
 import org.opi.sports.pojo.SubscripcionPOJO;
 import org.opi.sports.services.SuscripcionServiceInterface;
 import org.opi.sports.utils.PojoUtils;
@@ -19,6 +27,25 @@ public class SuscripcionController {
 	
 	@Autowired
 	SuscripcionServiceInterface suscripcionService;
+	
+	
+	@RequestMapping(value="getAll", method = RequestMethod.GET)
+	public SuscripcionResponse getAll(){
+		
+		SuscripcionResponse suscripcionResponse = new SuscripcionResponse();
+		
+		List<Subscripcion> suscripciones = suscripcionService.getAll();
+		List<SubscripcionPOJO> inscripcionpojo = new ArrayList<SubscripcionPOJO>();
+		
+		for(Subscripcion suscripcion : suscripciones){
+			inscripcionpojo.add(SuscripcionHelper.getInstance().convertirSuscripcion(suscripcion));
+		}
+		
+		suscripcionResponse.setSuscripciones(inscripcionpojo);
+		
+		return suscripcionResponse;		
+		
+	}
 	
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public SubscripcionPOJO delete(@RequestBody int idSubscripcion) {
