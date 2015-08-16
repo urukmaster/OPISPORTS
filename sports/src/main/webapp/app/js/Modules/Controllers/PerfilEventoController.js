@@ -97,7 +97,9 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
     
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
-		.success(function(response) {			
+		.success(function(response) {
+			
+			console.log(response);
 			
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
 			
@@ -288,11 +290,13 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
                 "inscripcion": 1,
                 "codigo" : codigo,
                 "cantidad" : $scope.inscripcionForm.cantidad,
+                "nombreEvento" : eventoActual.nombre
             };
         	       	
             //Llamada para registrar la inscripcion
             $http.post('rest/tiquete/save', data).
             success(function(data){
+            	console.log(data);
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Inscripción',

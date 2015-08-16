@@ -8,6 +8,7 @@
  * 
  */
 
+
 if (typeof $ === 'undefined') { throw new Error('This application\'s JavaScript requires jQuery'); }
 
 // APP START
@@ -304,7 +305,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('registrarUsuario.html'),
                 resolve: helper.resolveFor('ngWig','flot-chart','flot-chart-plugins','parsley','inputmask')
              })
-
             //
             // CUSTOM RESOLVES
             //   Add your own resolves properties
@@ -630,7 +630,8 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
             						contrasenna: data.usuario.contrasenna,
             						correo: data.usuario.contrasenna,
             						telefono: data.usuario.telefono,
-            						roles: data.usuario.roles
+            						roles: data.usuario.roles,
+            						inscripciones: data.usuario.inscripciones
             				};
             				var toasterdata = {
             			            type:  'success',
@@ -685,8 +686,10 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     						apellidos: data.usuario.apellido,
     						contrasenna : data.usuario.contrasenna,
     						correo: data.usuario.correo,
+    						contrasenna: data.usuario.contrasenna,
     						telefono: data.usuario.telefono,
-    						roles: data.usuario.roles
+    						roles: data.usuario.roles,
+    						inscripciones: data.usuario.inscripciones
     				};
     				var toasterdata = {
     			            type:  'success',
