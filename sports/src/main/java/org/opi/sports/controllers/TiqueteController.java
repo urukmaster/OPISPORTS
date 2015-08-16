@@ -2,36 +2,23 @@ package org.opi.sports.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
-import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
-import org.opi.sports.contracts.EventoRequest;
-import org.opi.sports.contracts.EventoResponse;
 import org.opi.sports.contracts.TiqueteRequest;
 import org.opi.sports.contracts.TiqueteResponse;
-import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.ejb.Usuario;
-import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
-import org.opi.sports.helpers.EventosHelper;
 import org.opi.sports.helpers.TiqueteHelper;
-import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
-import org.opi.sports.pojo.EventoPOJO;
-import org.opi.sports.pojo.ReservacionesPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.EventoServiceInterface;
 import org.opi.sports.services.InscripcionServiceInterface;
 import org.opi.sports.services.TiqueteServiceInterface;
-import org.opi.sports.services.UsuarioService;
 import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -68,11 +55,15 @@ public class TiqueteController {
 	public TiqueteResponse getAll(){	
 		
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
+		
 		List<Tiquete> tiqueteList = tiqueteServices.getAllTiquetes();
-	      List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
+	    List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
 		
 		for(Tiquete tiquete : tiqueteList){
-			tiqueteViewList.add(TiqueteHelper.getInstance().convertirTiquete(tiquete));
+			
+			if(tiquete.getActive() == 1){
+				tiqueteViewList.add(TiqueteHelper.getInstance().convertirTiquete(tiquete));
+			}
 		}
 		
 		tiqueteResponse.setTiquetes(tiqueteViewList);
@@ -81,8 +72,8 @@ public class TiqueteController {
 	}
 
 	/**
-	 *Este método obtiene una de eventos deportivos
-	 *registrados en la base de datos por medio de su id
+	 *Este método obtiene un tiquete a un evento
+	 *registrado en la base de datos por medio de su id
 	 */	
 	@RequestMapping(value="getTiquete", method = RequestMethod.POST)
 	public TiqueteResponse getTiquete(@RequestBody int idTiquete){
@@ -112,10 +103,14 @@ public class TiqueteController {
 		
 		Evento evento = eventoServices.findOne(tiqueteRequest.getEvento());
 		
+		Inscripcion inscripcion = new Inscripcion();
+		
+		inscripcion = inscripcionServices.save(inscripcion);
+		
 		for(int i = 0; i < tiqueteRequest.getCantidad(); i++){
 
 			TiquetePOJO tiqueteView = TiqueteHelper.getInstance().save(tiqueteRequest, tiqueteServices,
-					usuario, evento, inscripcionServices);
+					usuario, evento, inscripcion);
 			
 			if(tiqueteServices.exists(tiqueteView.getIdTiquete())){
 				List<TiquetePOJO> tiquetes = new ArrayList<TiquetePOJO>();
@@ -130,6 +125,25 @@ public class TiqueteController {
 			
 		}
 		return tiqueteResponse;
+	}
+
+	/**
+	 * Metodo de canelar un tiquete
+	 * 
+	 */
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public TiquetePOJO delete(@RequestBody int idTiquete) {
+		
+		Tiquete tiquete = tiqueteServices.findOne(idTiquete);
+		tiquete.setActive((byte) 0);
+		
+		TiquetePOJO tiquetePOJO = new TiquetePOJO();
+
+		tiqueteServices.save(tiquete);
+		
+		PojoUtils.pojoMappingUtility(tiquetePOJO, tiquete);
+
+		return tiquetePOJO;
 	}
 
 }

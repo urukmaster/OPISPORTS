@@ -2,9 +2,6 @@ package org.opi.sports.pojo;
 
 import java.util.Date;
 
-import org.opi.sports.ejb.Evento;
-import org.opi.sports.ejb.Inscripcion;
-
 /**
  * Fecha: 25-07-2015 version 1.0
  * 
@@ -21,7 +18,8 @@ public class TiquetePOJO {
 	private String precio;
 	private String codigo;
 	private EventoPOJO idEvento;
-	private InscripcionesPOJO idInscripcion;
+	private InscripcionPOJO idInscripcion;
+	private String nombreEvento;
 	
 	public int getIdTiquete() {
 		return idTiquete;
@@ -53,10 +51,10 @@ public class TiquetePOJO {
 	public void setIdEvento(EventoPOJO idEvento) {
 		this.idEvento = idEvento;
 	}
-	public InscripcionesPOJO getIdInscripcion() {
+	public InscripcionPOJO getIdInscripcion() {
 		return idInscripcion;
 	}
-	public void setIdInscripcion(InscripcionesPOJO idInscripcion) {
+	public void setIdInscripcion(InscripcionPOJO idInscripcion) {
 		this.idInscripcion = idInscripcion;
 	}
 	public String getCodigo() {
@@ -64,6 +62,13 @@ public class TiquetePOJO {
 	}
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
 	}
 
 }

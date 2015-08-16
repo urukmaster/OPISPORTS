@@ -7,6 +7,8 @@ public class SubscripcionPOJO {
 	private int idSubscripcion;
 	
 	private TipoEventoPOJO eventopojo;
+	
+	private byte active;
 
 	public int getIdSubscripcion() {
 		return idSubscripcion;
@@ -22,6 +24,14 @@ public class SubscripcionPOJO {
 
 	public void setEventopojo(TipoEventoPOJO eventopojo) {
 		this.eventopojo = eventopojo;
+	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 

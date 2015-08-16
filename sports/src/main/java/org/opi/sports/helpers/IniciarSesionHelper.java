@@ -3,17 +3,23 @@ package org.opi.sports.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opi.sports.ejb.Evento;
+import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.ejb.Permiso;
 import org.opi.sports.ejb.Permisos_Rol;
 import org.opi.sports.ejb.Rol;
 import org.opi.sports.ejb.Subscripcion;
 import org.opi.sports.ejb.TipoEvento;
+import org.opi.sports.ejb.Tiquete;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.ejb.Usuario_Rol;
+import org.opi.sports.pojo.EventoPOJO;
+import org.opi.sports.pojo.InscripcionPOJO;
 import org.opi.sports.pojo.PermisoPOJO;
 import org.opi.sports.pojo.RolPOJO;
 import org.opi.sports.pojo.SubscripcionPOJO;
 import org.opi.sports.pojo.TipoEventoPOJO;
+import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.utils.PojoUtils;
 
@@ -53,12 +59,14 @@ public class IniciarSesionHelper {
 		
 		PojoUtils.pojoMappingUtility(usuarioView, pusuario);
 		
+
 		List<SubscripcionPOJO> subscripciones = new ArrayList<SubscripcionPOJO>();
-		List<RolPOJO> roles = new ArrayList<RolPOJO>();
-	
+		List<RolPOJO> roles = new ArrayList<RolPOJO>();		
+
 		for(Usuario_Rol  usuario_rol : pusuario.getUsuarioRols()){
 			roles.add(convertirRol(usuario_rol.getRol()));
 		}
+
 		for(Subscripcion subscripcion : pusuario.getSubscripcions()){
 			subscripciones.add(convertirSubscripcion(subscripcion));
 		}
@@ -66,6 +74,7 @@ public class IniciarSesionHelper {
 		usuarioView.setRoles(roles);
 		return usuarioView;
 	}
+
 	/**
 	 * Metodo encargado de convertir una suscripcion ejb en una suscripciones pojo
 	 */
@@ -73,8 +82,10 @@ public class IniciarSesionHelper {
 		// TODO Auto-generated method stub
 		SubscripcionPOJO subscripcion = new SubscripcionPOJO();
 		PojoUtils.pojoMappingUtility(subscripcion, psubscripcion);
-		TipoEvento tipoevento = psubscripcion.getTipoEvento();
-		subscripcion.setEventopojo(convertirTipoEvento(tipoevento));
+		if(subscripcion.getActive() == 1){
+			TipoEvento tipoevento = psubscripcion.getTipoEvento();
+			subscripcion.setEventopojo(convertirTipoEvento(tipoevento));
+		}
 		return subscripcion;
 	}
 	/**

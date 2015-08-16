@@ -2,7 +2,6 @@ package org.opi.sports.services;
 
 import java.util.List;
 
-import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Tiquete;
 
 /**
