@@ -1,7 +1,5 @@
 package org.opi.sports.contracts;
-
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
-
 
 /**
  * Fecha: 13-07-2015 version 1.0
@@ -27,6 +25,8 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 	private int idUsuario;
 	//Tipo de transaccion en la base de datos
 	private String accion;
+	//Id del distrito relacionado al establecimiento
+	private Integer idDistrito;
 	/**
 	 * Metodo get
 	 */
@@ -111,6 +111,13 @@ public class EstablecimientoDeportivoRequest extends BasePagingRequest {
 	 */
 	public void setAccion(String accion) {
 		this.accion = accion;
+	}
+	
+	public int getIdDistrito() {
+		return idDistrito;
+	}
+	public void setIdDistrito(int idDistrito) {
+		this.idDistrito = idDistrito;
 	}
 	/**
 	 * Metodo toString

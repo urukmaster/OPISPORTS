@@ -59,8 +59,6 @@ public class ServicioController {
 
 		return EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimientoDeportivoService
 				.findOne(servicioRequest.getEstablecimiento()));
-
-
 	}
 	/**
 	 * Se encarga de eliminar los servicios
@@ -77,4 +75,17 @@ public class ServicioController {
 				.findOne(servicioRequest.getEstablecimiento()));
 
 	}
+	
+//	@RequestMapping(value = "findOne", method = RequestMethod.POST)
+//	public  findOne(@RequestBody ServicioRequest servicioRequest) {
+//
+//		ServicioResponse servicioResponse = new ServicioResponse();
+//
+//		servicioResponse.setServicio(ServicioHelper.getInstance().deleteServicio(
+//				servicioRequest, servicioService));
+//
+//		return EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimientoDeportivoService
+//				.findOne(servicioRequest.getEstablecimiento()));
+//
+//	}
 }

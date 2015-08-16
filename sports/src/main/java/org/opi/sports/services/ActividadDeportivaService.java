@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.opi.sports.ejb.ActividadDeportiva;
 import org.opi.sports.repositories.ActividadDeportivaRepository;
-import org.opi.sports.repositories.UsuarioRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

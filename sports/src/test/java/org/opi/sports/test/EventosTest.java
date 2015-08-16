@@ -90,9 +90,9 @@ public class EventosTest {
 	/**
 	 * Prueba para guardar o modificar eventos
 	 */
-	@Test
+	//@Test
 	public void saveEventos(){
-EventoResponse eventoResponse = new EventoResponse();
+		EventoResponse eventoResponse = new EventoResponse();
 		EventoRequest eventoRequest = new EventoRequest();
 		eventoRequest.setAccion("Registrar");
 		eventoRequest.setCupo(1000);

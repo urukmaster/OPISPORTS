@@ -27,6 +27,7 @@
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
                  <ul class="nav nav-tabs nav-justified">
+
 					<li><a ng-click="mostrarInformacion()">Información</a></li>	
 					<li><a ng-click="mostrarServicios()">Servicios</a></li>
 					<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
@@ -50,7 +51,7 @@
                         <em class="fa fa-briefcase fa-fw mr-lg"></em><a href="#">{{establecimiento.paginaWeb}}</a>
                      </li>
                      <li>
-                        <em class="fa fa-phone fa-fw mr-lg"></em><a href="#">{{establecimiento.telefono}}</a>
+                        <em class="fa fa-phone fa-fw mr-lg"></em>{{establecimiento.telefono}}
                      </li>
                   </ul>
                </div>

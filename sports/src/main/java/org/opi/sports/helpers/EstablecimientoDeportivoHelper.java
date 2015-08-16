@@ -10,15 +10,20 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EstablecimientoDeportivoRequest;
 import org.opi.sports.contracts.ServicioRequest;
+import org.opi.sports.ejb.Distrito;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reservaciones;
+import org.opi.sports.ejb.Reto;
+import org.opi.sports.ejb.Review;
 import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.Torneo;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoPOJO;
 import org.opi.sports.pojo.ReservacionesPOJO;
+import org.opi.sports.pojo.RetosPOJO;
+import org.opi.sports.pojo.ReviewsPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
 import org.opi.sports.pojo.TorneoPOJO;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
@@ -102,11 +107,39 @@ public class EstablecimientoDeportivoHelper {
 		}
 
 		establecimientoView.setTorneos(torneos);
+
+		List<ReviewsPOJO> reviews =  new ArrayList<ReviewsPOJO>();
+		
+		reviews = obtenerReviews(establecimiento);
+		
+		establecimientoView.setReviews(reviews);
 		establecimientoView.setServicios(servicios);
 		establecimientoView.setCalendario();
 		establecimientoView.setPendientes();
 		return establecimientoView;
+	}
 
+	private List<ReviewsPOJO> obtenerReviews(EstablecimientoDeportivo establecimiento) {
+		List<ReviewsPOJO> reviews =  new ArrayList<ReviewsPOJO>();
+		for(Review review : establecimiento.getReviews()){
+			if(review.getActive() == 1){
+			reviews.add(convertirReview(review));
+			}
+		}
+		return reviews;
+	}
+
+	private ReviewsPOJO convertirReview(Review preview) {
+		ReviewsPOJO reviewpojo = new ReviewsPOJO();
+		reviewpojo.setIdComentario(preview.getIdComentario());
+		reviewpojo.setReview(preview.getReview());
+		reviewpojo.setIdEstablecimientoDeportivo(preview.getEstablecimientoDeportivo().getIdEstablecimientoDeportivo());
+		reviewpojo.setNombreUsuario(preview.getUsuario().getNombre());
+		reviewpojo.setApellidoUsuario(preview.getUsuario().getApellido());
+		reviewpojo.setIdUsuario(preview.getUsuario().getIdUsuario());
+		reviewpojo.setActive(preview.getActive());
+		
+		return reviewpojo;
 	}
 
 	/*
@@ -134,6 +167,7 @@ public class EstablecimientoDeportivoHelper {
 				reservaciones.add(convertirReservaciones(reservacion));
 			}
 		}
+
 
 		servicioView.setReservacionesLista(reservaciones);
 
@@ -168,8 +202,8 @@ public class EstablecimientoDeportivoHelper {
 	public EstablecimientoDeportivoPOJO saveEstablecimiento(
 			EstablecimientoDeportivoRequest establecimientoRequest,
 			EstablecimientoDeportivoServiceInterface establecimientoService) {
+            EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
 
-		EstablecimientoDeportivo establecimientoEJB = new EstablecimientoDeportivo();
 
 		if (establecimientoRequest.getAccion().equals("Modificar")) {
 			establecimientoEJB
@@ -181,11 +215,16 @@ public class EstablecimientoDeportivoHelper {
 		establecimientoEJB.setDireccion(establecimientoRequest.getDireccion());
 		establecimientoEJB.setTelefono(establecimientoRequest.getTelefono());
 		establecimientoEJB.setPaginaWeb(establecimientoRequest.getPaginaWeb());
+		
+		Distrito distrito = new Distrito();
+		distrito.setIdDistrito(establecimientoRequest.getIdDistrito());
+		establecimientoEJB.setDistrito(distrito);
+		
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(establecimientoRequest.getIdUsuario());
 		establecimientoEJB.setUsuario(usuario);
-		establecimientoEJB.setActive((byte) 1);
-
+		establecimientoEJB.setActive((byte)1);
+		
 		EstablecimientoDeportivoPOJO establecimientoPOJO = new EstablecimientoDeportivoPOJO();
 
 		PojoUtils.pojoMappingUtility(establecimientoPOJO,

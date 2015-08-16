@@ -15,6 +15,9 @@ public class EstablecimientoDeportivoResponse extends BaseResponse {
 	private List<EstablecimientoDeportivoPOJO> establecimientosDeportivos;
 	// Establecimiento deportivo POJO
 	private EstablecimientoDeportivoPOJO establecimientoDeportivo;
+
+	private int idCanton;
+	private int idProvincia;
 	
 	/**
 	 * Metodo get que devuelve una lista de establecimientos deportivos POJO
@@ -41,5 +44,20 @@ public class EstablecimientoDeportivoResponse extends BaseResponse {
 			EstablecimientoDeportivoPOJO establecimientoDeportivo) {
 		this.establecimientoDeportivo = establecimientoDeportivo;
 	}	
+	public int getIdCanton() {
+		return idCanton;
+	}
+
+	public void setIdCanton(int idCanton) {
+		this.idCanton = idCanton;
+	}
+
+	public int getIdProvincia() {
+		return idProvincia;
+	}
+
+	public void setIdProvincia(int idProvincia) {
+		this.idProvincia = idProvincia;
+	}
 
 }
