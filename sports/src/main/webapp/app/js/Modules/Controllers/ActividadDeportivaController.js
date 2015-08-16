@@ -10,14 +10,19 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
         columnDefs: [
             {field: 'idActividadDeportiva', visible:false},
             {field: 'actividadDeportiva', name: 'ActividadDeportiva', displayName: 'Actividad Deportiva'},
-            {name: 'acciones', cellTemplate:'<div ng-controller="ActividadDeportivaModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket">Yesca!</span>' +
-            '</button>'+
-            '</div>'}
+            {name: 'acciones', cellTemplate:
+                '<div class="btn-group btn-group-justified" role="group" ng-controller="ActividadDeportivaModalController">' +   			
+            	'<div class="btn-group" role="group">'+
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+						'<span class="fa fa-pencil"></span>' +
+					'</button>'+
+				'</div>'+			
+				'<div class="btn-group" role="group">'+
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+						'<span class="fa fa-trash"></span>' +
+					'</button>'+
+				'</div>'+			
+			'</div>'}
         ],
         data: data,
         onRegisterApi: function (gridApi) {
@@ -124,11 +129,6 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
      
     };
     
-   
-    
-    
-
-
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
@@ -165,9 +165,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
                 				}else{
                 					aActividades.push(actividadView);
                 				}
-                			}
-                			
-                	);
+                			});
         			
         			var responsedata = {
         		            type:  'success',

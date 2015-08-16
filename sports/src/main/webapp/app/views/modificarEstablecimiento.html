@@ -3,7 +3,7 @@
    <div class="panel panel-default">
 	   <div class="panel-heading"></div>
 	   <div class="panel-body">
-		   <form name="formModificarEstablecimiento" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal" ng-controller="ModificarEstablecimientoController">
+		   <form name="formModificarEstablecimiento" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">
             <legend>Modificar establecimiento deportivo</legend>
 			<div class="col-sm-6">
 				<!-- START panel-->
@@ -50,31 +50,25 @@
 				        <div class="form-group">
 							<label class="col-lg-3 control-label">Provincia</label>
 				           <div class="col-lg-9">
-							   <select name="cmbProvincias" required="" value="Provincias" ng-model="provincias.idProvincia" class="chosen-select input-md form-control">
-							       <option ng-click="buscarCantones(provincia)" ng-repeat="provincia in Provincias" value="{provincia.idProvincia}}">
-							           {{provincia.provincia}}
-							       </option>
+							   <select name="cmbProvincias" required=""  ng-model="idProvincia" class="chosen-select input-md form-control" ng-options="provincia.idProvincia as provincia.provincia for provincia in Provincias" ng-click="buscarCantones()">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 							</div>
 				        </div>
 				        <div class="form-group">
 				           <label class="col-lg-3 control-label">Cantón</label>
 				           <div class="col-lg-9">
-							   <select name="cmbCantones" required="" value="Cantones" ng-model="cantones.idCanton" class="chosen-select input-md form-control">
-							       <option ng-click="buscarDistritos(canton)" ng-repeat="canton in Cantones" value="{{canton.idCanton}}">
-							           {{canton.canton}}
-							       </option>
+							   <select name="cmbCantones" required="" ng-model="idCanton" class="chosen-select input-md form-control" ng-options="canton.idCanton as canton.canton for canton in Cantones" ng-click="buscarDistritos()">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>
 				        </div>
 				        <div class="form-group">
 				           <label class="col-lg-3 control-label">Distrito</label>
 				           <div class="col-lg-9">
-							   <select name="cmbDistritos" required="" value="Distritos" ng-model="distritos.idDistrito" class="chosen-select input-md form-control">
-							       <option ng-repeat="distrito in Distritos" value="{{distrito.idDistrito}}">
-							           {{distrito.distrito}}
-							       </option>
+							   <select name="cmbDistritos" required="" ng-model="Establecimiento.distrito.idDistrito" class="chosen-select input-md form-control" ng-options="distrito.idDistrito as distrito.distrito for distrito in Distritos">
 							   </select>
+							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>
 				        </div>
 				   </div>
@@ -82,7 +76,7 @@
 				<!-- END panel-->
 			</div>          
            <div class="text-center">
-               <button type="submit" class="btn btn-info">Modificar</button>
+           <button type="submit" class="btn btn-info">Modificar</button>
            </div>                     
          </form>
 	   </div>

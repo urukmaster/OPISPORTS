@@ -21,11 +21,15 @@ public class Tiquete implements Serializable {
 	private byte active;
 
 	private String estado;
+	
+	private String codigo;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechaCaducidad;
 
 	private String precio;
+
+	private String nombreEvento;
 
 	//bi-directional many-to-one association to Evento
 	@ManyToOne
@@ -94,6 +98,22 @@ public class Tiquete implements Serializable {
 
 	public void setInscripcion(Inscripcion inscripcion) {
 		this.inscripcion = inscripcion;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombreEvento() {
+		return nombreEvento;
+	}
+
+	public void setNombreEvento(String nombreEvento) {
+		this.nombreEvento = nombreEvento;
 	}
 
 }
