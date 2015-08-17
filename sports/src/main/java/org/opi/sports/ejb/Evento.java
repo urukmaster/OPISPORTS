@@ -49,11 +49,6 @@ public class Evento implements Serializable {
 	@JoinColumn(name="idDistrito")
 	private Distrito distrito;
 
-	//bi-directional many-to-one association to EstablecimientoDeportivo
-	@ManyToOne
-	@JoinColumn(name="idEstablecimiento")
-	private EstablecimientoDeportivo establecimientoDeportivo;
-
 	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
 	@JoinColumn(name="idTipoEvento")
@@ -168,14 +163,7 @@ public class Evento implements Serializable {
 		this.distrito = distrito;
 	}
 
-	public EstablecimientoDeportivo getEstablecimientoDeportivo() {
-		return this.establecimientoDeportivo;
-	}
-
-	public void setEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
-		this.establecimientoDeportivo = establecimientoDeportivo;
-	}
-
+	
 	public TipoEvento getTipoEvento() {
 		return this.tipoEvento;
 	}

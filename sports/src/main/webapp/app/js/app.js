@@ -293,17 +293,29 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
              })
-             .state('app.inscripciones', {
-                 url: '/inscripciones',
-                 title: 'Inscripciones',
-                 templateUrl: helper.basepath('dashboard-inscripciones.html')
+             .state('app.configuracion', {
+                url: '/configuracion',
+                title: 'Configuración',
+                templateUrl: helper.basepath('configuracion.html'),
+                resolve: helper.resolveFor('ngWig')
              })
              .state('app.reportes',{
                  url : "/reporte/{nombre: }",
                  title: 'Reporte',
                  templateUrl: helper.basepath('reporte.html'),
              })
-
+             .state('app.configuracion.registrarUsuario', {
+                url: '/datosUsuario',
+                title: 'datosUsuario',
+                templateUrl: helper.basepath('registrarUsuario.html'),
+                resolve: helper.resolveFor('ngWig','flot-chart','flot-chart-plugins','parsley','inputmask')
+             })
+             .state('app.perfil.reservaciones.torneos',{
+                url: '/torneos',
+                title: 'Torneos',
+                templateUrl: helper.basepath('perfil-torneos.html'),
+                resolve: helper.resolveFor('ui.grid')
+            })
             //
             // CUSTOM RESOLVES
             //   Add your own resolves properties
@@ -540,7 +552,7 @@ App
  * Implementa el modal de registro de usuario
  =========================================================*/
 var tipoServicioModificar = {};
-App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function ($scope, $modal) {
+App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScope','$http','$timeout','$state', function ($scope, $modal,$rootScope,$http,$timeout,$state) {
 
     $scope.registrar = function () {
 
@@ -552,11 +564,52 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
 
 
     };
+    
+    $scope.accion = "Registrar";
+    $scope.usuarioForm = {};
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formUsuario[name	];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
+    };
+    
+    // Submit form
+    $scope.submitForm = function() {
+    	alert("Entro");
+        $scope.submitted = true;
+       
+        if ($scope.formUsuario.$valid) {
+        	alert("Esta valido");
+        	$http.post('rest/usuario/update',{
+        		idUsuario : $rootScope.usuario.idUsuario,
+        		nombre : $scope.usuario.nombre,
+        		apellido : $scope.usuario.apellidos,
+        		telefono : $scope.usuario.telefono,
+        		correo : $rootScope.usuario.correo,
+        		contrasenna : $rootScope.usuario.contrasenna
+        	}).success(function(data){	
+        		
+        				var toasterdata = {
+        			            type:  'success',
+        			            title: 'Login',
+        			            text:  data.codeMessage
+        			        	};
 
+        				$timeout(function(){ $scope.callAtTimeout(); }, 3000);           				
+        });
+        }else {
+        	alert("No esta valido!! :C");
+            return false;
+        }
+        
+    }
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.dashboard");
+    }
+    
 //------------------------------------------------------------------------------------
-    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope) {
+    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope,$timeout) {
         $scope.accion = "Registrar";
-        $scope.usuario = {};
         $scope.usuarioForm = {};
         $scope.validateInput = function(name, type) {
             var input = $scope.formUsuario[name	];
@@ -585,6 +638,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             						idUsuario: data.usuario.idUsuario,
             						nombre: data.usuario.nombre,
             						apellido: data.usuario.apellido,
+            						contrasenna: data.usuario.contrasenna,
             						correo: data.usuario.contrasenna,
             						telefono: data.usuario.telefono,
             						roles: data.usuario.roles,
@@ -595,7 +649,8 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             			            title: 'Login',
             			            text:  data.codeMessage
             			        	};
-            				$state.go("app.dashboard");
+
+            				$timeout(function(){ $scope.callAtTimeout(); }, 3000);           			
             			}
             	});
             	$modalInstance.close('closed');
@@ -607,11 +662,15 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal', function 
             
         }
         
+        $scope.callAtTimeout = function(){
+        	$state.go("app.dashboard");
+        }
+        
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
     };
-    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope"];
+    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope","$timeout"];
 
 }]);
 /**=========================================================
@@ -635,7 +694,8 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
     				$rootScope.usuario = {
     						idUsuario: data.usuario.idUsuario,
     						nombre: data.usuario.nombre,
-    						apellido: data.usuario.apellido,
+    						apellidos: data.usuario.apellido,
+    						contrasenna : data.usuario.contrasenna,
     						correo: data.usuario.correo,
     						contrasenna: data.usuario.contrasenna,
     						telefono: data.usuario.telefono,

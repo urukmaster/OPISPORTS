@@ -10,36 +10,24 @@
  * Revision: 1.1 
  */
 
+var reservacionModificar = {};
+    
 
-/**==========================================================
- * Modulo: CalendarController
- * Este controlador se encarga de renderizar e inicializar el
- * calendario
- ============================================================*/
-App.controller('CalendarController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
+App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '$modal', 'toaster', function($scope, $state ,$http, $timeout, $modal, toaster) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
     // global shared var to know what we are dragging
     var draggingEvent = null;
     
-
+    
 
     // listen for the event in the relevant $scope
        $scope.$on('myEvent', function (event, data) {
-    	   
-    	 
-         console.log(data); // 'Data to send'
-         
-
-   
- 		var calendar = $('#calendar');
-     	
-     	console.log(data);
-     	
-     	initExternalEvents(calendar);
-
-     	initCalendar(calendar, data);
+  
+    	   var calendar = $('#calendar');
+    	   initExternalEvents(calendar);
+    	   initCalendar(calendar, data);
        });
 
     /**
@@ -101,7 +89,21 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
             firstDay: 1,
             businessHours :{start: 8, end: 23},
             height: 700,
-            events: events
+            events: events,
+            eventClick:  function(evento, jsEvent, view) {
+            	$http.post('rest/reservaciones/getReservacion', {idCalendario: evento.idReservacion})
+                .success(function(data){
+                	reservacionModificar.servicio = data.servicio;
+                	reservacionModificar.reservacion = data.reservacion;
+                	reservacionModificar.torneo = data.torneo;
+                	
+                	var ModificarModalInstance = $modal.open({
+                        templateUrl: '/modalReservaciones.html',
+                        controller: ModificarReservacionInstanceCtrl,
+                        size: 'lg'
+                    });
+                });
+                }
             });
         calElement.fullCalendar('show');
     }
@@ -114,10 +116,14 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
     angular.forEach(reservacionesJSON, function(reservacionJSON, index){
     	var reservacion = {};
     	reservacion.title = reservacionJSON.title;
+    	
     	reservacion.start = new Date(reservacionJSON.start.millis);
+    	if(reservacionJSON.end != null){
     	reservacion.end = new Date(reservacionJSON.end.millis);
+    	}
     	reservacion.backgroundColor = reservacionJSON.backgroundColor;
     	reservacion.borderColor = reservacionJSON.borderColor;
+    	reservacion.idReservacion = reservacionJSON.idCalendario;
     	
     	reservaciones.push(reservacion);
     })
@@ -223,8 +229,6 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
         	
         	var reservaciones = initReservaciones(establecimientoCalendario.calendario);
         	
-        	console.log(reservaciones);
-        	
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, reservaciones);
@@ -232,7 +236,6 @@ App.controller('CalendarController', ['$scope', '$http', '$timeout', function($s
       }
     
     $scope.init();
-    
 }]);
 
 /**
@@ -290,8 +293,29 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
     	$scope.reservacion = {};	
     	
-    	//Confirmación de la reservación que se quiere registrar
-        $scope.ok = function () {
+    	$scope.isTorneo = false;
+        
+    	
+    	$scope.reservacion = {};
+    	
+    	$scope.reservacion.idReservacion = reservacionModificar.reservacion.idCalendario;
+    	
+    	
+    	if(reservacionModificar.torneo != null){
+    		$scope.isTorneo = true;
+    		$scope.torneoForm = {};
+    		$scope.torneoForm = reservacionModificar.torneo;
+    		$scope.reservacion.idReservacion = $scope.torneoForm.idTorneo;
+    		console.log($scope.reservacion);
+    	}
+    	
+    	$scope.reservacion.fecha = new Date(reservacionModificar.reservacion.start.millis);
+    	$scope.reservacion.fecha.setMinutes(0);
+    	$scope.reservacion.hora = new Date(reservacionModificar.reservacion.start.millis);
+    	$scope.reservacion.hora.setMinutes(0);
+        $scope.accion = "Modificar";
+        
+        $scope.modificar = function () {
         	
         	var fecha = $scope.reservacion.fecha;
         	var hora = $scope.reservacion.hora;
@@ -305,7 +329,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	})
         	
         	if(registrar == true){
-        	$scope.registrarReservacion(fecha, hora);
+        	$scope.modificarReservacion();
 
 			
         	}else{
@@ -317,6 +341,11 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			$scope.pop(toasterdata);
         	}
         	
+        	 $scope.pop = function(toasterdata) {
+                 toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+             };
+            
+        	
         	$modalInstance.close('closed');  
         	
             
@@ -327,36 +356,68 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
             $modalInstance.dismiss('cancel');
         };
         
-        $scope.registrarReservacion = function(fecha, hora){
-        	$http.post('rest/reservaciones/save', {
-    			fecha: fecha,
-    			hora: hora.getTime(),
-    			estado : 'Pendiente',
-    			servicio : + servicioActual,
-    			usuario : 1,
-    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
-    			accion:'Regsitrar'
-    		 	})
+        $scope.ok = function(){
+        	var data = {
+        			fecha: $scope.reservacion.fecha,
+        			hora: $scope.reservacion.hora.getTime(),
+        			estado : 'Reservado',
+        			servicio : reservacionModificar.servicio.idServicio,
+        			usuario : 1,
+        			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
+        			accion:'Modificar',
+        			idCalendario: $scope.reservacion.idReservacion,
+        			torneo : $scope.isTorneo
+        		 	};
+        	if($scope.isTorneo){
+        		data.nombre = $scope.torneoForm.nombre;
+        		data.cupos = $scope.torneoForm.cupos;
+        		data.horasTorneos = $scope.torneoForm.horasTorneos;
+        	}
+        	
+        	$http.post('rest/reservaciones/save', data)
     		.success(function(data){
     			var toasterdata = {
 			            type:  'success',
-			            title: 'Establecimiento',
-			            text:  'Debe esperar a que la reservación sea aprobada\n por el administrador'
+			            title: 'Reservaciones',
+			            text:  'La reservación se modificó correctamnte'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
     			establecimientoCalendario = data;
     			$('#calendarioContent').remove();
-    			$rootScope.$broadcast("actualizar");
+    			
     		});
+        	$modalInstance.close('closed');  
+        	
         }
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+        };
+        
+        $scope.eliminar = function(){
+    		$http.post('rest/reservaciones/delete', {
+    			idCalendario : $scope.reservacion.idReservacion,
+    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo,
+    			torneo : false
+    	 	}).success(function(data){
+    	 		var toasterdata = {
+    					type:  'success',
+    					title: 'Establecimiento',
+    					text:  'Se ha aceptado la reservacion correctamente'
+    			};
+    	 		$scope.pop(toasterdata);
+    			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			establecimientoCalendario = data;
+    			$('#calendarioContent').remove();
+    	 	})
+    	}
         
         $scope.pop = function(toasterdata) {
             toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
         };
         
         $scope.callAtTimeout = function(){
-        	$route.reload();
+        	$state.reload();
         }
         
         function validarCalendario(servicio, hora, fecha){
@@ -384,10 +445,9 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         	});
         	return valido;
         }
-               
-    };
-    
-    
-    ModalInstanceCtrl.$inject = ["$scope", "$modalInstance", "toaster","$timeout", "$route"];
-
+        
+       };
+    ModificarReservacionInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
+
+

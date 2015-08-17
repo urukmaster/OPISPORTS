@@ -1,10 +1,3 @@
-/**
- * Created by JuanManuel on 09/07/2015.
- * Modificado por Mauricio fernandez on 04/08/2015.
- * Revision: 1.2
- */
-
-
 /**==========================================================
  * Modulo: EstablecimientosController
  * Este controlador se encarga de carga cada uno de los establecimientos

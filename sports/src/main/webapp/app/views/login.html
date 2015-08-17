@@ -30,7 +30,7 @@
 						ng-model="account.password" required="" class="form-control" /> <span
 						class="fa fa-lock form-control-feedback text-muted"></span> <span
 						ng-show="loginForm.account_password.$dirty &amp;&amp; loginForm.account_password.$error.required"
-						class="text-danger">This field is required</span>
+						class="text-danger">Este campo es requerido.</span>
 				</div>
 				<div class="clearfix">
 					<div class="checkbox c-checkbox pull-left mt0">
@@ -40,14 +40,13 @@
 						</label>
 					</div>
 					<div class="pull-right">
-						<a ui-sref="page.recover" class="text-muted">¿Olvidó su
-							contraseña?</a>
+						<a ui-sref="page.recover" class="text-muted">Olvido su contraseña?</a>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
 			</form>
 			<div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
-			<p class="pt-lg text-center">¿Necesita registarse?</p>
+			<p class="pt-lg text-center">Necesita registarse?</p>
 			<div ng-controller="RegistrarUsuarioModalController">
 				<script type="text/ng-template" id="/myUsuarioModalContent.html">
                   <div class="modal-header">
@@ -103,8 +102,8 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Confirmar Contraseña</label>
                         			<div class="col-sm-6">
-                           				<input type="password" name="contrasenna" required="" class="form-control" />
-                           				
+                           				<input type="password" name="confirmarContasenna" required="" ng-model="usuario.confirmarContrasenna" ui-validate="'$value==usuario.contrasenna'" ui-validate-watch="'validator.usuario.contrasenna'" class="form-control" />
+                           				<p ng-show="validateInput('confirmarContasenna', 'validator')" class="text-danger">Las contrases no coinciden.</p>
                         			</div>                        
                      		</div>
                   		</fieldset>
