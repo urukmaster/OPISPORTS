@@ -59,11 +59,12 @@ App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '
         });
     };
 
-/**
- * Invoke full calendar plugin and attach behavior
- * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
- * @param  EventObject [events] An object with the event list to load when the calendar displays
- */
+    
+    /**
+     * Invoke full calendar plugin and attach behavior
+     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+     * @param  EventObject [events] An object with the event list to load when the calendar displays
+     */
     function initCalendar(calElement, events) {
 
         // check to remove elements from the list
@@ -209,11 +210,11 @@ App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '
         });
     }
 
-/**
- * Creates an array of events to display in the first load of the calendar
- * Wrap into this function a request to a source to get via ajax the stored events
- * @return Array The array with the events
- */
+    /**
+     * Creates an array of events to display in the first load of the calendar
+     * Wrap into this function a request to a source to get via ajax the stored events
+     * @return Array The array with the events
+     */
     
     $scope.$on('actualizar', function(){
     	$('#calendario').append('<div id="calendarioContent">' +
@@ -236,6 +237,7 @@ App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '
       }
     
     $scope.init();
+    
     
     var ModificarReservacionInstanceCtrl = function ($scope, $modalInstance) {
     	
@@ -297,7 +299,6 @@ App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '
             
         };
 
-        //Cancelación de la cofirmación de la reseración
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
@@ -396,4 +397,35 @@ App.controller('CalendarController', ['$scope', '$state', '$http', '$timeout', '
     ModificarReservacionInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
 
+
+
+
+/**
+ * Modulo Controlador reservar los servicios
+ * author: Mauricio Fernandez
+ * Fecha: 15/07/2015
+ * Revision: 1.0
+ */
+
+App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
+	$scope.Servicios = establecimientoCalendario.servicios;
+}]);
+
+$(function() {
+	  var $container = $('.contenedorServicios');
+	  var $b = $('body');
+	  $.waypoints.settings.scrollThrottle = 0;
+	  $container.waypoint({
+	    handler: function(e, d) {
+	      $b.toggleClass('sticky', d === 'down');
+	      e.preventDefault();
+	    }
+	  });
+	});
+
+
+/**=========================================================
+ * Module: modals.js
+ * Provides a simple way to implement bootstrap modals from templates
+ =========================================================*/
 
