@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Tiquete;
+import org.opi.sports.ejb.Usuario;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -19,5 +20,10 @@ public interface TiqueteRepository extends CrudRepository<Tiquete, Integer> {
 	public List<Tiquete> findAll();
 	public Tiquete findOne(Integer idTiquete);
 	public <Tiquetes extends Tiquete> Tiquetes save(Tiquetes evento);
+	
+	/**
+	 * Metodo para buscar tiquetes por el id del evento
+	 */
+	List<Tiquete> findByNombreEvento(String nombreEvento);
 
 }

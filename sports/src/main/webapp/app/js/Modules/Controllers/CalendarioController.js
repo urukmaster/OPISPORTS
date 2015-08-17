@@ -276,7 +276,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         var modalInstance = $modal.open({
             templateUrl: '/modalReservaciones.html',
             controller: ModalInstanceCtrl,
-            size: size
+            size: ''
         });
 
         var state = $('#modal-state');

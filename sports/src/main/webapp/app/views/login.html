@@ -11,7 +11,7 @@
 			</a>
 		</div>
 		<div class="panel-body">
-			<p class="text-center pv">Inicia sesion para continuar</p>
+			<p class="text-center pv">Inicia sesión para continuar</p>
 			<form role="form" ng-submit="login()" name="loginForm" novalidate=""
 				class="form-validate mb-lg">
 				<div class="form-group has-feedback">
@@ -22,7 +22,7 @@
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.required"
 						class="text-danger">Este campo es requerido</span> <span
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.email"
-						class="text-danger">Este campo deberia ser un correo valido</span>
+						class="text-danger">Este campo debería ser un correo válido</span>
 				</div>
 				<div class="form-group has-feedback">
 					<input id="exampleInputPassword1" type="password"
@@ -40,7 +40,7 @@
 						</label>
 					</div>
 					<div class="pull-right">
-						<a ui-sref="page.recover" class="text-muted">¿Olvido su
+						<a ui-sref="page.recover" class="text-muted">¿Olvidó su
 							contraseña?</a>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Telefono</label>
+                        		<label class="col-sm-2 control-label">Teléfono</label>
                         			<div class="col-sm-6">
                            				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuario.telefono" class="form-control" />
                            				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
@@ -85,7 +85,7 @@
 						<legend>Login</legend>	
                   		<fieldset>
                      		<div class="form-group">
-                        		<label class="col-sm-2 control-label">Correo Electronico</label>
+                        		<label class="col-sm-2 control-label">Correo Electrónico</label>
                         			<div class="col-sm-6">
                            				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuario.correo" class="form-control" />
                            				<span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
@@ -93,7 +93,7 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Contrase�a</label>
+                        		<label class="col-sm-2 control-label">Contraseña</label>
                         			<div class="col-sm-6">
                            				<input type="password" name="contrasenna" required="" ng-model="usuario.contrasenna" class="form-control" />
                            				<span ng-show="validateInput('contrasenna', 'required')" class="text-danger">Este campo es requerido</span>
@@ -101,7 +101,7 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Confirmar Contrase�a</label>
+                        		<label class="col-sm-2 control-label">Confirmar Contraseña</label>
                         			<div class="col-sm-6">
                            				<input type="password" name="contrasenna" required="" class="form-control" />
                            				
@@ -112,11 +112,11 @@
        		</div>
        		<div class="modal-footer">
        			<button type="submit" class="btn btn-info">{{accion}}</button>
-				<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+				<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
        		</div>
 			</form>
                </script>
-				<a ng-click="registrar()" class="btn btn-block btn-default">Registrate
+				<a ng-click="registrar()" class="btn btn-block btn-default">Regístrate
 					ahora</a>
 			</div>
 		</div>
