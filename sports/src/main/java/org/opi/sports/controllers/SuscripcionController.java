@@ -35,13 +35,18 @@ public class SuscripcionController {
 		SuscripcionResponse suscripcionResponse = new SuscripcionResponse();
 		
 		List<Subscripcion> suscripciones = suscripcionService.getAll();
-		List<SubscripcionPOJO> inscripcionpojo = new ArrayList<SubscripcionPOJO>();
+		List<SubscripcionPOJO> suscripcionespojo = new ArrayList<SubscripcionPOJO>();
 		
 		for(Subscripcion suscripcion : suscripciones){
-			inscripcionpojo.add(SuscripcionHelper.getInstance().convertirSuscripcion(suscripcion));
+			SubscripcionPOJO suscripcionpojo = new SubscripcionPOJO();
+			suscripcionpojo = SuscripcionHelper.getInstance().convertirSuscripcion(suscripcion);
+			if(suscripcionpojo.getActive()==1){
+				suscripcionespojo.add(suscripcionpojo);
+			}
+			
 		}
 		
-		suscripcionResponse.setSuscripciones(inscripcionpojo);
+		suscripcionResponse.setSuscripciones(suscripcionespojo);
 		
 		return suscripcionResponse;		
 		

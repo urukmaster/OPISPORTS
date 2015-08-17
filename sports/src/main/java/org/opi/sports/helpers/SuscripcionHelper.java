@@ -47,14 +47,8 @@ public class SuscripcionHelper {
 		
 		SubscripcionPOJO suscripcionpojo = new SubscripcionPOJO();
 		PojoUtils.pojoMappingUtility(suscripcionpojo, psuscripcion);
-		
 		TipoEventoPOJO tipoEventoPOJO = new TipoEventoPOJO();
-			
-		if(suscripcionpojo.getActive() == 1){		
-			tipoEventoPOJO = convertirTipoEvento(psuscripcion.getTipoEvento());
-		}
-		
-		
+		tipoEventoPOJO = convertirTipoEvento(psuscripcion.getTipoEvento());
 		suscripcionpojo.setEventopojo(tipoEventoPOJO);
 		suscripcionpojo.setUsuario(usuariopojo);
 

@@ -124,7 +124,7 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);
-App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$timeout','$state', function ($scope, $modal, $rootScope, $http, toaster,$timeout,$state) {
 	var id;
 	
 	$scope.open = function (pid) {
@@ -155,6 +155,7 @@ App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$root
 			            text:  'Se eliminó las suscripcion.'
 			    };                
 	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	$timeout(function(){ $scope.callAtTimeout(); }, 1000);
 	        });
 	    	$modalInstance.close('closed');
 	    };
@@ -162,9 +163,13 @@ App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$root
 	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
 	    };
 	
-	$scope.cancelar = function () {
-	  $modalInstance.dismiss('cancelar');
+	    $scope.callAtTimeout = function(){	
+	    	$state.reload();	
+	    }
+	    $scope.cancelar = function () {
+	    	$modalInstance.dismiss('cancelar');
 	    };
+	    
 	  };
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 

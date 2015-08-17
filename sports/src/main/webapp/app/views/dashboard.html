@@ -1,5 +1,5 @@
 <h3>{{usuario.nombre + " " +usuario.apellido}}
-   <small>Mi perfil</small>
+   <small></small>
 </h3>
 <div class="row">
 	<!-- Aqui viene lo suyo de perfil -->
@@ -50,12 +50,26 @@
             <div class="media-body">
                <span class="media-heading">
                   <p class="m0">
-                  	<div ng-controller="EliminarSuscripcionModalController">
-                       <button ng-click="open(suscripcion.idSubscripcion)" class="btn btn-sm btn-danger pull-right fa fa-trash"></button>
+                  	<div ng-controller=CancelarTiqueteModalController>
+                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-danger pull-right fa fa-trash"></button>
                     </div>
                     <strong>{{tiquete.nombreEvento}}</strong>
                   </p>
                </span>
+               <p class="mb-sm">
+               		<div class="col-lg-6">
+                    	<label>Estado:</label>
+                        <small>{{tiquete.estado}}</small><br>
+                        <label>Fecha de caducidad:</label>
+                        <small>{{tiquete.fechaCaducidad}}</small><br>
+                    </div>
+             		<div class="col-lg-6">
+                    	<label>Precio:</label>
+                        <small>{{tiquete.precio}}</small><br>
+                        <label>Código:</label>
+                        <small>{{tiquete.codigo}}</small><br>
+                    </div>
+              </p>
              </div>
           </div>
         </div>

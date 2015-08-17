@@ -20,12 +20,12 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 			'<div class="btn-group btn-group-justified" role="group">' +
 			
 				'<div class="btn-group" role="group" ng-controller="DistribucionModalController" >'+
-					'<button ng-click="modificar(row)" class="btn btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 						'</button>'+
 				'</div>'+
 				'<div class="btn-group" role="group" ng-controller="EliminarModalController">'+
-					'<button ng-click="eliminar(row)" class="btn btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+
