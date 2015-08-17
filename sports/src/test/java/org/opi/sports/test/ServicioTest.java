@@ -52,7 +52,7 @@ public class ServicioTest {
 		assertNotNull(tipoServicioService);
 	}
 	
-	@Test
+	//@Test
 	public void registrarServicioTest(){
 		
 		ServicioRequest servicioRequest = new ServicioRequest();

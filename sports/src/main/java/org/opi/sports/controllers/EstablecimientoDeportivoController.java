@@ -69,8 +69,11 @@ public class EstablecimientoDeportivoController {
 		List<EstablecimientoDeportivoPOJO> establecimientoViewList = new ArrayList<EstablecimientoDeportivoPOJO>();
 		
 		for(EstablecimientoDeportivo establecimiento : establecimientoList){
+			System.out.println(establecimiento.getNombre());
 			if(establecimiento.getActive() == 1){
+				System.out.println(establecimiento.getNombre());
 				establecimientoViewList.add(EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento));
+				
 			}			
 		}
 		

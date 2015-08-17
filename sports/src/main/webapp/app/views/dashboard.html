@@ -1,5 +1,5 @@
 <h3>{{usuario.nombre + " " +usuario.apellido}}
-   <small></small>
+<small>usuario.roles.rol</small>
 </h3>
 <div class="row">
 	<!-- Aqui viene lo suyo de perfil -->
@@ -66,7 +66,7 @@
              		<div class="col-lg-6">
                     	<label>Precio:</label>
                         <small>{{tiquete.precio}}</small><br>
-                        <label>Código:</label>
+                        <label>Cï¿½digo:</label>
                         <small>{{tiquete.codigo}}</small><br>
                     </div>
               </p>
@@ -110,7 +110,7 @@
 			<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
 			<h4 id="myModalLabel" class="modal-title">Cancelar tiquete</h4>
 		</div>
-		<div class="modal-body">¿Desea cancelar el tiquete?</div>
+		<div class="modal-body">ï¿½Desea cancelar el tiquete?</div>
 			<div class="modal-footer">
 				<button ng-click="ok()" class="btn btn-primary">OK</button>
 				<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
@@ -124,7 +124,7 @@
 				<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
 				<h4 id="myModalLabel" class="modal-title">Eliminar suscripcion</h4>
 			</div>
-			<div class="modal-body">¿Desea eliminar la suscripcion?</div>
+			<div class="modal-body">ï¿½Desea eliminar la suscripcion?</div>
 			<div class="modal-footer">
 				<button ng-click="ok()" class="btn btn-primary">Si</button>
 				<a ng-click="cancelar()" class="btn btn-warning">Cancelar</a>

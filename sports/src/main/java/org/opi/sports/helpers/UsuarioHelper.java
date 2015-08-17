@@ -255,7 +255,8 @@ public class UsuarioHelper {
 		usuarioEJB.setNombre(usuario.getNombre());
 		usuarioEJB.setApellido(usuario.getApellido());
 		usuarioEJB.setTelefono(usuario.getTelefono());
-		
+		usuarioEJB.setContrasenna(usuario.getContrasenna());
+		usuarioEJB.setActive((byte)1);
 		
 		UsuarioPOJO usuarioPOJO = new UsuarioPOJO();
 
