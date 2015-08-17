@@ -1,102 +1,131 @@
 <div ng-controller="CalendarController" class="calendar-app">
 <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
-	<div class="col-lg-9 col-md-9">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div id="calendar"></div>
-			</div>
-		</div>
-	</div>
-	<!-- START messages and activity-->
-	<div class="panel panel-default col-lg-3 col-md-3" ng-controller ="ServiciosCalendarioController">
-	   <div class="panel-heading">
-	      <div class="panel-title">Servicios</div>
-	   </div>
-	   <!-- START list group-->
-	   <div class="list-group" ng-repeat="servicio in Servicios">
-	      <!-- START list group item-->
-	      <div class="list-group-item contenedorServicios">
-	         <div class="media-box">
-	            <div class="pull-left" ng-controller ="ModalReservacionesController">
-	               <span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
-	                  <em class="fa fa-circle fa-stack-2x text-purple"></em>
-	                  <em class="fa fa-life-bouy fa-stack-1x fa-inverse text-white"></em>
-	               </span>
-	            </div>
-	            <div class="media-box-body clearfix">
-	               <div class="media-box-heading"><span class="text-purple m0">{{servicio.servicio}}</span>
-	               </div>
-	               <p class="m0">
-	                  </small>
-	                  <small><span>{{servicio.precio}}</a>
-	                  </small>
-	               </p>
-	            </div>
-	         </div>
-	      </div>
-	   </div>
-	   <!-- END list group-->
-	   
+    <div class="col-lg-9 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- START messages and activity-->
+    <div class="panel panel-default col-lg-3 col-md-3" ng-controller ="ServiciosCalendarioController">
+       <div class="panel-heading">
+          <div class="panel-title">Servicios</div>
+       </div>
+       <!-- START list group-->
+       <div class="list-group" ng-repeat="servicio in Servicios">
+          <!-- START list group item-->
+          <div class="list-group-item contenedorServicios">
+             <div class="media-box">
+                <div class="pull-left" ng-controller ="ModalReservacionesController">
+                   <span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
+                      <em class="fa fa-circle fa-stack-2x text-purple"></em>
+                      <em class="fa fa-life-bouy fa-stack-1x fa-inverse text-white"></em>
+                   </span>
+                </div>
+                <div class="media-box-body clearfix">
+                   <div class="media-box-heading"><span class="text-purple m0">{{servicio.servicio}}</span>
+                   </div>
+                   <p class="m0">
+                      </small>
+                      <small><span>{{servicio.precio}}</a>
+                      </small>
+                   </p>
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- END list group-->
+       
                <!-- Modal inline template-->
                <script type="text/ng-template" id="/modalReservaciones.html">
-				<div class="modal-header">
-    				<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
-    				<h4 id="myModalLabel" class="modal-title">{{accion}} + ' Torneos'</h4>
-				</div>
-				<div class="modal-body">
-					<div class="panel panel-default">
-                		<div class="panel-body">
-                    		<form class="form-horizontal">
-								<div ng-show="isTorneo">
-                        			<div class="form-group">
-                            			<label class="col-lg-2 control-label">Torneo</label>
-                            			<div class="col-lg-10">
-                                			<input ng-model="torneoForm.nombre" type="text"  class="form-control" />
-                            			</div>
-                        			</div>
-									<div class="form-group">
-                            			<label class="col-lg-2 control-label">Cupos</label>
-                            			<div class="col-lg-10">
-                                			<input ng-model="torneoForm.cupos" type="number"  class="form-control" />
-                            			</div>
-                        			</div>
-									<div class="form-group">
-                            			<label class="col-lg-2 control-label">Horas del torneo</label>
-                            			<div class="col-lg-10">
-                                			<input ng-model="torneoForm.horasTorneos" type="number"  class="form-control" />
-                            			</div>
-                        			</div>
-								</div>
-								<div class="form-group">
-                            		<label class="col-lg-2 control-label">Fecha</label>
-                            		<div class="col-lg-10">
-    									<div ng-controller="DatepickerDemoCtrl">
-        									<datepicker ng-model="reservacion.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-    									</div>
-									</div>
-								</div>
-    							<div class="form-group">
-                            		<label class="col-lg-2 control-label">Hora</label>
-                            		<div class="col-lg-10">
-										<div ng-controller="TimepickerDemoCtrl">
-            								<timepicker ng-model="reservacion.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-            								<hr>
-        								</div>
-									</div>
-								</div>
-							</form>
-   						</div>
-					</div>
-				</div>
-					<div class="modal-footer">
-						<button ng-click="ok()" class="btn btn-primary">OK</button>
-						<button ng-hide="accion != 'Modificar'" ng-click="eliminar()" class="btn btn-warning">Eliminar</button>
-						<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
-					</div>
-				</form>
+        <div class="modal-header">
+            <h4 id="myModalLabel" class="modal-title">Reservación</h4>
+        </div>
+        <form name="formRegistrarEvento" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">
+            <div>               
+                <div class="panel-body">
+                <div class="form-group col-lg-12">              
+                    <div class="col-lg-8">
+                        <label control-label">Fecha</label>
+                        <div ng-controller="DatepickerDemoCtrl">
+                            <div style="display:inline-block; min-height:290px;">
+                                <datepicker ng-model="reservacion.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label control-label">Hora</label>
+                        <div ng-controller="TimepickerDemoCtrl">
+                            <timepicker ng-model="reservacion.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                        </div>
+                    </div
+                </div>
+            </div>                                              
+            </div>
+            <div class="modal-footer">
+                <button ng-click="ok()" class="btn btn-primary">OK</button>
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+        </form>
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+                    <h4 id="myModalLabel" class="modal-title">{{accion}} + ' Torneos'</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+                                <div ng-show="isTorneo">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Torneo</label>
+                                        <div class="col-lg-10">
+                                            <input ng-model="torneoForm.nombre" type="text"  class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Cupos</label>
+                                        <div class="col-lg-10">
+                                            <input ng-model="torneoForm.cupos" type="number"  class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Horas del torneo</label>
+                                        <div class="col-lg-10">
+                                            <input ng-model="torneoForm.horasTorneos" type="number"  class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Fecha</label>
+                                    <div class="col-lg-10">
+                                        <div ng-controller="DatepickerDemoCtrl">
+                                            <datepicker ng-model="reservacion.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Hora</label>
+                                    <div class="col-lg-10">
+                                        <div ng-controller="TimepickerDemoCtrl">
+                                            <timepicker ng-model="reservacion.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button ng-click="ok()" class="btn btn-primary">OK</button>
+                        <button ng-hide="accion != 'Modificar'" ng-click="eliminar()" class="btn btn-warning">Eliminar</button>
+                        <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+                    </div>
+                </form>
                </script>
-	</div>
-	<!-- END messages and activity-->
+    </div>
+    <!-- END messages and activity-->
 </div>
 
 <script src="app/js/Modules/Controllers/CalendarioController.js"></script>

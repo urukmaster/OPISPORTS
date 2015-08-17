@@ -98,8 +98,8 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('home.html'),
                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins')
             })
-									            .state(
-											'app.dashboard', {
+            .state(
+				'app.dashboard', {
                 url: '/dashboard',
                 title: 'Dashboard',
                 templateUrl: helper.basepath('dashboard.html'),
@@ -298,6 +298,11 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 title: 'Configuración',
                 templateUrl: helper.basepath('configuracion.html'),
                 resolve: helper.resolveFor('ngWig')
+             })
+             .state('app.reportes',{
+                 url : "/reporte/{nombre: }",
+                 title: 'Reporte',
+                 templateUrl: helper.basepath('reporte.html'),
              })
              .state('app.configuracion.registrarUsuario', {
                 url: '/datosUsuario',

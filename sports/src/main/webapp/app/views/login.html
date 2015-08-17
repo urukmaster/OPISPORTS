@@ -22,7 +22,7 @@
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.required"
 						class="text-danger">Este campo es requerido</span> <span
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.email"
-						class="text-danger">Este campo deberia ser un correo valido</span>
+						class="text-danger">Este campo debería ser un correo válido</span>
 				</div>
 				<div class="form-group has-feedback">
 					<input id="exampleInputPassword1" type="password"
@@ -40,8 +40,7 @@
 						</label>
 					</div>
 					<div class="pull-right">
-						<a ui-sref="page.recover" class="text-muted">Olvido su
-							contraseña?</a>
+						<a ui-sref="page.recover" class="text-muted">Olvido su contraseña?</a>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
@@ -75,7 +74,7 @@
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Telefono</label>
+                        		<label class="col-sm-2 control-label">Teléfono</label>
                         			<div class="col-sm-6">
                            				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuario.telefono" class="form-control" />
                            				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
@@ -112,11 +111,11 @@
        		</div>
        		<div class="modal-footer">
        			<button type="submit" class="btn btn-info">{{accion}}</button>
-				<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+				<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
        		</div>
 			</form>
                </script>
-				<a ng-click="registrar()" class="btn btn-block btn-default">Registrate
+				<a ng-click="registrar()" class="btn btn-block btn-default">Regístrate
 					ahora</a>
 			</div>
 		</div>

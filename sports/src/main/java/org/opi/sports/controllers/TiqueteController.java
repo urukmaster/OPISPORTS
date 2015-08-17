@@ -89,6 +89,31 @@ public class TiqueteController {
 		
 		return tiqueteResponse;
 	}
+
+	/**
+	 *Este método obtiene un lista de tiquetes
+	 *registrado en la base de datos por medio del id del evento
+	 */	
+	@RequestMapping(value="getByNombreEvento", method = RequestMethod.POST)
+	public TiqueteResponse getByNombreEvento(@RequestBody String nombreEvento){
+		
+		TiqueteResponse tiqueteResponse = new TiqueteResponse();
+		
+		List<Tiquete> tiqueteList = tiqueteServices.findByNombreEvento(nombreEvento);
+	    List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
+		
+		for(Tiquete tiquete : tiqueteList){
+			
+			if(tiquete.getActive() == 1){
+				tiqueteViewList.add(TiqueteHelper.getInstance().convertirTiquete(tiquete));
+			}
+		}
+		
+		
+		tiqueteResponse.setTiquetes(tiqueteViewList);
+		
+		return tiqueteResponse;
+	}
 		
 	/**
 	 * Metodo de registrar una inscripcion
@@ -136,6 +161,7 @@ public class TiqueteController {
 		
 		Tiquete tiquete = tiqueteServices.findOne(idTiquete);
 		tiquete.setActive((byte) 0);
+		tiquete.setEstado("cancelado");
 		
 		TiquetePOJO tiquetePOJO = new TiquetePOJO();
 

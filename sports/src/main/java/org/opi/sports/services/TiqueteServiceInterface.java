@@ -22,6 +22,8 @@ public interface TiqueteServiceInterface {
 	public <Tiquetes extends Tiquete> Tiquetes save(Tiquetes tiquete);
 	
 	public boolean exists(Integer idTiquete);
+	
+	public  List<Tiquete> findByNombreEvento(String nombreEvento);
 
 }
 

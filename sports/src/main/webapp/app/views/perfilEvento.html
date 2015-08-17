@@ -28,7 +28,7 @@
             <div id="panelDemo15" class="panel panel-default">
                <div class="panel-body">
                  <ul class="nav nav-tabs nav-justified">
-					<li><a ng-click="mostrarInformacion()">Informaciï¿½n</a></li>	
+					<li><a ng-click="mostrarInformacion()">InformaciÃ³n</a></li>	
 					<li><a ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</a></li>
 				</ul>
                </div>
@@ -51,7 +51,7 @@
                      <li>
                         <em class="fa fa-calendar fa-fw mr-lg"></em>{{evento.fecha}}</li>
                   </ul>
-                  <button class="btn btn-success" ng-click="inscripcion()">Inscríbase aqui!</button>
+                  <button class="btn btn-success" ng-click="inscripcion()">InscrÃ­base aquÃ­!</button>
                </div>
             </div>
             
@@ -61,7 +61,7 @@
 				<form>
                 <div class="modal-header">
 					<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
-					<h4 id="myModalLabel" class="modal-title">Inscripción</h4>
+					<h4 id="myModalLabel" class="modal-title">Inscripciï¿½n</h4>
 				</div>
 				<div class="modal-body">
                     <div>
@@ -126,13 +126,13 @@
                         	<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
                         </div>
 			
-						<label  control-label">Dirección</label>
+						<label  control-label">DirecciÃ³n</label>
                     	<div>
 							<textarea name="direccion" ng-model="eventoForm.direccion" rows="2" class="form-control no-resize" required=""></textarea>                    			
                         	<span ng-show="validateInput('direccion', 'required')" class="text-danger">Este campo es requerido</span>
                     	</div>	
 			
-						<label  control-label">Información</label>
+						<label  control-label">InformaciÃ³n</label>
                     	<div>
 							<textarea name="informacion" ng-model="eventoForm.informacion" rows="2" class="form-control" required=""></textarea>                    			
                         	<span ng-show="validateInput('informacion', 'required')" class="text-danger">Este campo es requerido</span>
@@ -157,7 +157,7 @@
             </div>
 			</form>
         	</script>
-		    <div class="panel-body text-center bg-gray-dark">			   
+		    <div class="panel-body text-center bg-gray-dark" ng-controller="EliminarEventoModalController">			   
 			   <div>
 			   <div class="btn-group btn-group-justified" role="group">
 			   		<div class="btn-group" role="group">	
@@ -165,8 +165,13 @@
 							<span>Modificar</span>
 						</button>
 		   			</div>
-		   			<div class="btn-group" role="group"  ng-controller="EliminarEventoModalController">	
-			        	<button ng-click="open(evento.idEvento	)" class="btn btn-warning">
+		   			<div class="btn-group" role="group">	
+			        	<button ng-click="consultarTiquetes(evento.nombre)" class="btn btn-primary">
+							<span>Reporte</span>
+						</button>
+	   				</div>
+		   			<div class="btn-group" role="group">	
+			        	<button ng-click="open(evento.idEvento)" class="btn btn-warning">
 							<span>Eliminar</span>
 						</button>
 	   				</div>
@@ -181,10 +186,10 @@
 					<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
 					<h4 id="myModalLabel" class="modal-title">Eliminar evento</h4>
 				</div>
-				<div class="modal-body">¿Desea eliminar el evento?</div>
+				<div class="modal-body">Â¿Desea eliminar el evento?</div>
 				<div class="modal-footer">
-					<button ng-click="ok()" class="btn btn-primary">OK</button>
-					<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+					<button ng-click="ok()" class="btn btn-primary">Si</button>
+					<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
 				</div>
            	</script>
 	    </div>
