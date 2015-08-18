@@ -89,7 +89,7 @@ public class UsuarioController {
 		return usuarioResponse;
 		
 	}
-	
+
 	/**
 	 * Este método se encarga de actualizar los usuarios
 	 */

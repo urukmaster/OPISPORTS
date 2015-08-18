@@ -76,7 +76,6 @@ org\opi\sports\pojo\CentroDistribucionPOJO.class
 org\opi\sports\config\PassthroughFilter.class
 org\opi\sports\contracts\BaseResponse.class
 org\opi\sports\contracts\TipoServicioResponse.class
-org\opi\sports\pojo\InscripcionesPOJO.class
 org\opi\sports\services\EstablecimientoDeportivoService.class
 org\opi\sports\controllers\ActividadDeportivaController.class
 org\opi\sports\services\ReviewService.class

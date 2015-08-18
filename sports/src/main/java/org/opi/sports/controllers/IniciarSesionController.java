@@ -41,30 +41,51 @@ public class IniciarSesionController {
 	 * 
 	 */
 	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
-	@Transactional
 	public IniciarSesionResponse validarUsuario(@RequestBody IniciarSesionRequest iniciarSesionRequest){	
 	
 		Usuario usuarioLogeado = iniciarSesionService.ValidarUsuario(iniciarSesionRequest);
-		IniciarSesionResponse iniciarSesionresponse = new IniciarSesionResponse();
+		IniciarSesionResponse iniciarSesionResponse = new IniciarSesionResponse();
 		
 		
 		if(usuarioLogeado == null){
 			
-			iniciarSesionresponse.setCode(401);
-			iniciarSesionresponse.setErrorMessage("Usuario no autorizado");
+			iniciarSesionResponse.setCode(401);
+			iniciarSesionResponse.setErrorMessage("Usuario no autorizado");
 			
 		}else{
 			//el codigo 200 significa que tuvo un acceso.correcto
-			iniciarSesionresponse.setCode(200);
-			iniciarSesionresponse.setCodeMessage("Usuario autorizado");
+			iniciarSesionResponse.setCode(200);
+			iniciarSesionResponse.setCodeMessage("Usuario autorizado");
 			
 			//CREATE AND SET THE VALUES FOR THE CONTRACT OBJECT
 			UsuarioPOJO usuario = new UsuarioPOJO();
 			usuario = IniciarSesionHelper.getInstance().convertirUsuario(usuarioLogeado);	
-			iniciarSesionresponse.setUsuario(usuario);
-			request.getSession().setAttribute("idUsusario", usuarioLogeado.getIdUsuario());
+			iniciarSesionResponse.setUsuario(usuario);
+			request.getSession().setAttribute("Usuario", usuarioLogeado);
+			
 		}	
-		return iniciarSesionresponse;	
+		return iniciarSesionResponse;	
+	}
+	
+	@RequestMapping(value = "getSession", method = RequestMethod.GET)
+	public IniciarSesionResponse getSession(){
+		Usuario usuarioLogeado = (Usuario) request.getSession().getAttribute("Usuario");
+		IniciarSesionResponse iniciarSesionResponse = new IniciarSesionResponse();
+		UsuarioPOJO usuario = new UsuarioPOJO();
+		usuario = IniciarSesionHelper.getInstance().convertirUsuario(usuarioLogeado);	
+		
+		if(usuario == null){
+			iniciarSesionResponse.setCode(401);
+			iniciarSesionResponse.setErrorMessage("Usuario no logeado");
+		}else{
+			iniciarSesionResponse.setCode(200);
+			iniciarSesionResponse.setErrorMessage("Usuario logeado");
+			iniciarSesionResponse.setUsuario(usuario);
+		}
+				
+		
+		return iniciarSesionResponse;
+		
 	}
 	/**
 	 * Metodo que invalida la sesion al cerrarla 
@@ -72,6 +93,8 @@ public class IniciarSesionController {
 	 */
 	@RequestMapping(value = "cerrarSesion", method = RequestMethod.GET)
 	public void cerrarSesion(){	
+		
 		request.getSession().invalidate();
+		
 	}
 }
