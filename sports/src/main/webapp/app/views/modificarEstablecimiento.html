@@ -8,7 +8,7 @@
 			<div class="col-sm-6">
 				<!-- START panel-->
 				<div class="">
-				   <div class="panel-heading">Informaci髇 general</div>
+				   <div class="panel-heading">Informaci贸n general</div>
 				   <div class="panel-body">
 				        <div class="form-group">
 				           <label class="col-lg-3 control-label">Nombre</label>
@@ -18,17 +18,17 @@
 				           </div>
 				        </div>
 				        <div class="form-group">
-				           <label class="col-lg-3 control-label">Tel閒ono</label>
+				           <label class="col-lg-3 control-label">Tel茅fono</label>
 				           <div class="col-lg-9">
 	                           <input type="text" name="telefono" required="" ng-model="Establecimiento.telefono" class="form-control" />
 	                           <span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>
 				        </div>
 				        <div class="form-group">
-				           <label class="col-lg-3 control-label">P醙ina web</label>
+				           <label class="col-lg-3 control-label">P谩gina web</label>
 				           <div class="col-lg-9">
 	                           <input type="url" name="paginaWeb" required="" ng-model="Establecimiento.paginaWeb" placeholder="http://ejemplo.com" class="form-control" />
-	                           <span ng-show="validateInput('paginaWeb', 'url')" class="text-danger">Este campo debe ser un url valido</span>
+	                           <span ng-show="validateInput('paginaWeb', 'url')" class="text-danger">Este campo debe ser un url v谩lido</span>
 				           </div>
 				        </div>
 				   </div>
@@ -38,10 +38,10 @@
 			<div class="col-sm-6">
 				<!-- START panel-->
 				<div class="">
-				   <div class="panel-heading">Localizaci髇</div>
+				   <div class="panel-heading">Localizaci贸n</div>
 				   <div class="panel-body">
 				        <div class="form-group">
-				           <label class="col-lg-3 control-label">Direcci髇</label>
+				           <label class="col-lg-3 control-label">Direcci贸n</label>
 				           <div class="col-lg-9">
 				              <input type="text" name="direccion" required="" ng-model="Establecimiento.direccion" class="form-control" />
 				              <span ng-show="validateInput('direccion', 'required')" class="text-danger">Este campo es requerido</span>
@@ -56,7 +56,7 @@
 							</div>
 				        </div>
 				        <div class="form-group">
-				           <label class="col-lg-3 control-label">Cant髇</label>
+				           <label class="col-lg-3 control-label">Cant贸n</label>
 				           <div class="col-lg-9">
 							   <select name="cmbCantones" required="" ng-model="idCanton" class="chosen-select input-md form-control" ng-options="canton.idCanton as canton.canton for canton in Cantones" ng-click="buscarDistritos()">
 							   </select>

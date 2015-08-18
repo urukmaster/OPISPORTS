@@ -18,6 +18,7 @@
                            				<input type="text" name="nombre" required="" ng-model="nombre" class="form-control" />
                            				<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>
+
 								
 									<label control-label">Dirección</label>
                         			<div>
@@ -28,7 +29,8 @@
 								
 								<div class="col-lg-6">
 									<label control-label">Teléfono</label>
-                        			<div	>
+                        			<div>
+
                            				<input type="text" name="telefono" required="" ng-model="telefono" class="form-control" />
                            				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>          
@@ -61,7 +63,7 @@
           		</div>
           		<div class="col-md-6">
           			<div class="form-group">
-                    	<a ui-sref="app.registrarEstablecimiento" class="btn btn-labeled btn-success" ><span class="btn-label"><em class="fa fa-plus"></em></span>Registrar</a>
+                    	<button ng-click="registrar()" class="btn btn-labeled btn-success" ><span class="btn-label"><em class="fa fa-plus"></em></span>Registrar</button>
                     </div>
           		</div>
          	</div>
@@ -83,6 +85,7 @@
 					<h4 id="myModalLabel" class="modal-title">Eliminar centro de distribucion</h4>
 					</div>
 					<div class="modal-body">¿Desea eliminar el centro de distribución?</div>
+
 					<div class="modal-footer">
 						<button ng-click="ok()" class="btn btn-primary">Sí</button>
 						<button ng-click="cancel()" class="btn btn-warning">No</button>
