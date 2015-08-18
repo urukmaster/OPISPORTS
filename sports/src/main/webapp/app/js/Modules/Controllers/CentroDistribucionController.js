@@ -11,8 +11,8 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 			columnDefs: [
 			{ field: 'idCentroDistribucion', visible:false},
 			{ field: 'nombre', name:"Nombre"},
-			{ field: 'direccion' , name:'Direccion'},
-			{ field: 'telefono' , name:'Telefono'},
+			{ field: 'direccion' , name:'Dirección'},
+			{ field: 'telefono' , name:'Teléfono'},
 			{ field: 'correo' , name:'Correo'},
 			{ field: 'active', visible:false},
 			{name: 'acciones', cellTemplate:
@@ -30,8 +30,7 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 					'</button>'+
 				'</div>'+
 			
-			'</div>'
-			}
+			'</div>',width:120}
 			],data: data,
 				onRegisterApi: function (gridApi) {
 					$scope.gridApi = gridApi;

@@ -39,7 +39,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 					'</button>'+
 				'</div>'+
 			
-			'</div>'	
+			'</div>',width:120	
 			}
 			],
 			filterOptions: {filterText: '', useExternalFilter: false},

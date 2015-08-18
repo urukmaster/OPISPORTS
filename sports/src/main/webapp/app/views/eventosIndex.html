@@ -1,5 +1,5 @@
 <h3>Eventos deportivos
-   <small>Obtenga sus suscripciones a eventos deportivos</small>
+   <small>Inscribase a sus eventos preferidos y participe</small>
 </h3>
 <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
 <div ng-controller="EventoModalController">
@@ -63,13 +63,24 @@
        		</div>
             <div class="modal-footer">
                 <button ng-click="eventoForm.registrar()"type="submit" class="btn btn-primary">Registrar</button>
-                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+                <a ng-click="cancel()" class="btn btn-warning">Cancelar</a>
             </div>
 		</form>
         </script>
-	<button ng-click="registrar()" class="btn btn-primary">
-		<span class="fa fa-plus"></span>
-	</button>
+	<fieldset>
+        <div class="row">
+        	<div class="col-lg-12">
+          		<div class="col-md-6">
+          			<div class="form-group">
+                    	<button ng-click="registrar()" class="btn btn-labeled btn-success" ><span class="btn-label"><em class="fa fa-plus"></em></span>Registrar</button>
+                    </div>
+          		</div>
+          		<div class="col-md-6">
+          			
+          		</div>
+         	</div>
+        </div>
+		</fieldset>
 </div>
 <!-- START row-->
 <div ng-controller="CalendarControllerEventos" class="calendar-app">
@@ -80,7 +91,6 @@
                <!-- START panel-->
                <div class="panel panel-default">
                   <div class="panel-heading">
-                  	
                      <h4 class="panel-title">Proximos eventos</h4>
                   </div>
                   <!-- Default external events list-->

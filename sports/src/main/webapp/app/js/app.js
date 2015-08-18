@@ -603,7 +603,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
         	$http.post('rest/usuario/update',{
         		idUsuario : $rootScope.usuario.idUsuario,
         		nombre : $scope.usuario.nombre,
-        		apellido : $scope.usuario.apellidos,
+        		apellido : $scope.usuario.apellido,
         		telefono : $scope.usuario.telefono,
         		correo : $rootScope.usuario.correo,
         		contrasenna : $rootScope.usuario.contrasenna
