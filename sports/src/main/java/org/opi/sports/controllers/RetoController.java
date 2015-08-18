@@ -73,6 +73,7 @@ public class RetoController {
 		
 		return retoResponse;
 	}
+	
 	/**
 	 * Metodo encargado de registrar los retos
 	 */
@@ -144,7 +145,7 @@ public class RetoController {
 		if (retoService.exists(retopojo.getIdReto())) {
 			retoResponse.setRetospojo(retospojo);
 			retoResponse.setCode(200);
-			retoResponse.setCodeMessage("El reto se eliminoo correctamente");
+			retoResponse.setCodeMessage("El reto se elimino correctamente");
 		} else {
 			retoResponse.setCode(401);
 			retoResponse.setCodeMessage("El reto no se elimino");
