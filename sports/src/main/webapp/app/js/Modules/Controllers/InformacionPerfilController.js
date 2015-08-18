@@ -82,7 +82,6 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 
 	//Método que redirecciona a la página de reporte de retos
 	$scope.consultarRetos = function(pidEstablecimiento){
-		console.log(pidEstablecimiento);
         $state.go('app.reporteRetos',{id: pidEstablecimiento});
 	}
 
