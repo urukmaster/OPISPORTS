@@ -9,31 +9,20 @@
    </div>
    <div class="text-center bg-gray-dark p-lg mb-xl">
       <div class="row row-table">
-         <div class="col-xs-6 br">
-            <h3 class="m0">400</h3>
-            <p class="m0">
-               <span class="hidden-xs">Visitas de</span>
-               <span>perfil</span>
-            </p>
-         </div>
-         <div class="col-xs-6 br">
-            <h3 class="m0">2000</h3>
-            <p class="m0">Me gusta</p>
-         </div>
+      	 <ul class="nav nav-tabs nav-justified">
+         	<div class="col-xs-6 br">
+           		<li ng-click="mostrarInformacion()">Informaci�n</li>
+         	</div>
+         	<div class="col-xs-6 br">
+           		<li ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</li>
+         	</div>
+         </ul>
       </div>
    </div>
    <div class="p-lg">
       <div class="row">
          <div class="col-lg-9">
-            <div id="panelDemo15" class="panel panel-default">
-               <div class="panel-body">
-                 <ul class="nav nav-tabs nav-justified">
-					<li><a ng-click="mostrarInformacion()">Información</a></li>	
-					<li><a ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</a></li>
-				</ul>
-               </div>
-               <div ui-view=""> </div>
-            </div>
+			<div class="col-lg-12" ui-view=""> </div>   
          </div>
          <div class="col-lg-3">
             <div class="panel panel-default" ng-controller="InscripcionModalController">
@@ -51,7 +40,8 @@
                      <li>
                         <em class="fa fa-calendar fa-fw mr-lg"></em>{{evento.fecha}}</li>
                   </ul>
-                  <button class="btn btn-success" ng-click="inscripcion()">Inscríbase aquí!</button>
+                  <button class="btn btn-success" ng-click="inscripcion()">¡Inscríbase aquí!</button>
+
                </div>
             </div>
             
