@@ -92,45 +92,18 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
     
     $scope.eliminar = function ($row) {
     	actividadModificar = $row.entity;
-    	$http.post('rest/actividadDeportiva/delete', {
-    		idActividadDeportiva : actividadModificar.idActividadDeportiva,
-    		actividadDeportiva : actividadModificar.actividadDeportiva
-		 	})
-		.success(function(data){
-			var aActividades = [];
-			
-			data.actividadesDeportivas.forEach(
-        			function(actividad,index){
-        				var actividadView = {};
-        				actividadView = {
-        						idActividadDeportiva: actividad.idActividadDeportiva,
-        						actividadDeportiva: actividad.actividadDeportiva,
-        						active: actividad.active
-        				}
-        				
-        				if(actividadView.active == 0){        					
-        				}else{
-        					aActividades.push(actividadView);
-        				}
-        			}
-        			
-        	);
-			
-			var responsedata = {
-		            type:  'success',
-		            title: 'Actividad Deportiva',
-		            text:  data.codeMessage,
-		            newGrid: aActividades
-		        	};
-			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
-			$rootScope.$broadcast('actualizarGrid',responsedata);
-			
-			
+		var modalInstance = $modal.open({
+			templateUrl: '/modalEliminarActividad.html',
+			controller: EliminarActividadDeportivaInstanceCtrl,
+			size: 'sm'
 		});
-    	  
-     
-    };
-    
+		var state = $('#modal-state');
+		modalInstance.result.then(function () {
+		  state.text('Modal dismissed with OK status');
+		}, function () {
+		  state.text('Modal dismissed with Cancel status');
+		});
+	 };
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
@@ -256,5 +229,53 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
 
     };
     ModificarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    
+    var EliminarActividadDeportivaInstanceCtrl = function ($scope, $modalInstance,$http) {
+      
+        $scope.ok = function () {        
+	        
+	    	$http.post('rest/actividadDeportiva/delete', {
+	    		idActividadDeportiva : actividadModificar.idActividadDeportiva,
+	    		actividadDeportiva : actividadModificar.actividadDeportiva
+			 	})
+			.success(function(data){
+				var aActividades = [];
+				
+				data.actividadesDeportivas.forEach(
+	        			function(actividad,index){
+	        				var actividadView = {};
+	        				actividadView = {
+	        						idActividadDeportiva: actividad.idActividadDeportiva,
+	        						actividadDeportiva: actividad.actividadDeportiva,
+	        						active: actividad.active
+	        				}
+	        				
+	        				if(actividadView.active == 0){        					
+	        				}else{
+	        					aActividades.push(actividadView);
+	        				}
+	        			}
+	        			
+	        	);
+				
+				var responsedata = {
+			            type:  'success',
+			            title: 'Actividad Deportiva',
+			            text:  data.codeMessage,
+			            newGrid: aActividades
+			        	};
+				toaster.pop(responsedata.type, responsedata.title, responsedata.text);
+				$rootScope.$broadcast('actualizarGrid',responsedata);
+				$modalInstance.close('closed');				
+			});
+        };
+        
+    	
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+    };
+    EliminarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
 
 }]);
