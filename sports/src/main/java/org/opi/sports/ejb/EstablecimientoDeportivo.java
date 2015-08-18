@@ -37,9 +37,6 @@ public class EstablecimientoDeportivo implements Serializable {
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 
-	//bi-directional many-to-one association to Evento
-	@OneToMany(mappedBy="establecimientoDeportivo")
-	private List<Evento> eventos;
 
 	//bi-directional many-to-one association to Foto
 	@OneToMany(mappedBy="establecimientoDeportivo")
@@ -120,27 +117,6 @@ public class EstablecimientoDeportivo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Evento> getEventos() {
-		return this.eventos;
-	}
-
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
-	}
-
-	public Evento addEvento(Evento evento) {
-		getEventos().add(evento);
-		evento.setEstablecimientoDeportivo(this);
-
-		return evento;
-	}
-
-	public Evento removeEvento(Evento evento) {
-		getEventos().remove(evento);
-		evento.setEstablecimientoDeportivo(null);
-
-		return evento;
-	}
 
 	public List<Foto> getFotos() {
 		return this.fotos;

@@ -1,3 +1,4 @@
+
 <div class="unwrap" ng-controller="InformacionPerfilController">
    <div style="background-image: url(app/img/cancha2.jpg)" class="bg-cover">
       <div class="p-xl text-center text-white">
@@ -8,32 +9,24 @@
    </div>
    <div class="text-center bg-gray-dark p-lg mb-xl">
       <div class="row row-table">
-         <div class="col-xs-6 br">
-            <h3 class="m0">400</h3>
-            <p class="m0">
-               <span class="hidden-xs">Visitas de</span>
-               <span>perfil</span>
-            </p>
-         </div>
-         <div class="col-xs-6 br">
-            <h3 class="m0">2000</h3>
-            <p class="m0">Me gusta</p>
-         </div>
+         <ul class="nav nav-tabs nav-justified">
+        	<div class="col-xs-4 br">
+         	   <li ng-click="mostrarInformacion()">Información</a></li>
+ 			</div>
+ 			<div class="col-xs-4 br">
+         	   <li ng-click="mostrarServicios()">Servicios</a></li>
+ 			</div>
+ 			<div class="col-xs-4 br">
+         	   <li ng-click="mostrarReservaciones()">Calendario</a></li>
+ 			</div>	
+		</ul>
+  
       </div>
    </div>
    <div class="p-lg">
       <div class="row">
          <div class="col-lg-9">
-            <div id="panelDemo15" class="panel panel-default">
-               <div class="panel-body">
-                 <ul class="nav nav-tabs nav-justified">
-					<li><a ng-click="mostrarInformacion()">Informacion</a></li>	
-					<li><a ng-click="mostrarServicios()">Servicios</a></li>
-					<li><a ng-click="mostrarReservaciones()">Calendario</a></li>
-				</ul>
-               </div>
-               <div ui-view=""> </div>
-            </div>
+         	<div class="col-lg-12" ui-view=""> </div>
          </div>
          <div class="col-lg-3">
             <div class="panel panel-default">

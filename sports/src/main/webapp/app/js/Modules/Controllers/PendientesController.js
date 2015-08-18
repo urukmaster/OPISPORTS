@@ -42,6 +42,8 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 	}
 	
 	gridPendientes = $scope.gridPendientes = {
+		paginationPageSizes: [],
+		paginationPageSize: 7,
 		columnDefs : [
 			{
 				field : 'idCalendario',
@@ -67,16 +69,22 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 				field: 'fin',
 				name:'Hora final'
 			},
-			{name: 'Reservar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
-	            '<button ng-click="reservar(row.entity)" class="btn btn-primary" >' +
-	            '<span class="fa fa-rocket"></span>' +
-	            '</button>'+
-	            '</div>'},
-	        {name: 'Eliminar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
-		            '<button ng-click="eliminar(row.entity)" class="btn btn-primary" >' +
-		            '<span class="fa fa-rocket"></span>' +
+			{name: 'Reservar', cellTemplate:
+			'<div class="btn-group btn-group-justified" role="group">' +
+				'<div class="btn-group" role="group" ng-controller="ReservacionModalController" >' +
+	            	'<button ng-click="reservar(row.entity)" class="btn btn-green" >' +
+	            		'<span class="fa fa-check"></span>' +
+	            	'</button>'+
+	            '</div>'+
+	        '</div>',width:90},
+	        {name: 'Cancelar', cellTemplate:
+	        '<div class="btn-group btn-group-justified" role="group">' +
+	        	'<div class="btn-group" role="group" ng-controller="ReservacionModalController" >' +
+		            '<button ng-click="eliminar(row.entity)" class="btn btn-warning" >' +
+		            	'<span class="fa fa-close"></span>' +
 		            '</button>'+
-		     '</div>'}
+		     	'</div>'+
+		     '</div>',width:90}
 			],
 		data : pendientes
 	}

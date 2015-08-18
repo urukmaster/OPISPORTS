@@ -1,5 +1,6 @@
 org\opi\sports\controllers\TiqueteController.class
 org\opi\sports\services\TipoServicioService.class
+org\opi\sports\contracts\InscripcionRequest.class
 org\opi\sports\pojo\SubscripcionPOJO.class
 org\opi\sports\contracts\EstablecimientoDeportivoRequest.class
 org\opi\sports\repositories\TipoEventoRepository.class
@@ -12,6 +13,7 @@ org\opi\sports\pojo\RolPOJO.class
 org\opi\sports\services\EventoServiceInterface.class
 org\opi\sports\contracts\RetoResponse.class
 org\opi\sports\ejb\Subscripcion.class
+org\opi\sports\pojo\InscripcionPOJO.class
 org\opi\sports\controllers\CentroDistribucionController.class
 org\opi\sports\pojo\UsuarioPOJO.class
 org\opi\sports\services\CentroDistribucionServiceInterface.class
@@ -27,10 +29,12 @@ org\opi\sports\ejb\Review.class
 org\opi\sports\pojo\DistritoPOJO.class
 org\opi\sports\services\TipoEventoServiceInterface.class
 org\opi\sports\config\WSFilter.class
+org\opi\sports\helpers\InscripcionHelper.class
 org\opi\sports\contracts\EventoRequest.class
 org\opi\sports\ejb\Mensajeria.class
 org\opi\sports\contracts\ServicioResponse.class
 org\opi\sports\contracts\ProvinciaRequest.class
+org\opi\sports\contracts\TorneoRequest.class
 org\opi\sports\ejb\Distrito.class
 org\opi\sports\ejb\Foto.class
 org\opi\sports\ejb\Reservaciones.class
@@ -43,6 +47,7 @@ org\opi\sports\services\RetoService.class
 org\opi\sports\repositories\EstablecimientoRepository.class
 org\opi\sports\contracts\TiqueteResponse.class
 org\opi\sports\ejb\Servicio.class
+org\opi\sports\contracts\TorneoResponse.class
 org\opi\sports\contracts\UsuarioRequest.class
 org\opi\sports\controllers\ProvinciaController.class
 org\opi\sports\services\TipoServicioServiceInterface.class
@@ -58,6 +63,7 @@ org\opi\sports\services\ReservacionesService.class
 org\opi\sports\repositories\ProvinciaRepository.class
 org\opi\sports\contracts\TiqueteRequest.class
 org\opi\sports\pojo\PermisoPOJO.class
+org\opi\sports\services\TorneoServiceInterface.class
 org\opi\sports\ejb\Provincia.class
 org\opi\sports\ejb\Canton.class
 org\opi\sports\utils\PojoUtils.class
@@ -72,6 +78,7 @@ org\opi\sports\pojo\ActividadDeportivaPOJO.class
 org\opi\sports\config\SwaggerConfig.class
 org\opi\sports\contracts\ReviewResponse.class
 org\opi\sports\services\ProvinciaService.class
+org\opi\sports\contracts\InscripcionResponse.class
 org\opi\sports\pojo\CentroDistribucionPOJO.class
 org\opi\sports\config\PassthroughFilter.class
 org\opi\sports\contracts\BaseResponse.class
@@ -82,6 +89,7 @@ org\opi\sports\services\ReviewService.class
 org\opi\sports\contracts\ServicioRequest.class
 org\opi\sports\helpers\ProvinciaHelper.class
 org\opi\sports\repositories\UsuarioRepository.class
+org\opi\sports\ejb\Torneo.class
 org\opi\sports\ejb\Inscripcion.class
 org\opi\sports\ejb\Permiso.class
 org\opi\sports\ejb\Evento.class
@@ -127,12 +135,14 @@ org\opi\sports\repositories\TiqueteRepository.class
 org\opi\sports\services\RetoServiceInterface.class
 org\opi\sports\contracts\ReviewRequest.class
 org\opi\sports\pojo\RetoPOJO.class
+org\opi\sports\repositories\TorneoRepository.class
 org\opi\sports\services\TiqueteService.class
 org\opi\sports\services\UsuarioService.class
 org\opi\sports\contracts\CentroDistribucionResponse.class
 org\opi\sports\helpers\CentroDistribucionHelper.class
 org\opi\sports\repositories\CentroDistribucionRepository.class
 org\opi\sports\controllers\EventoController.class
+org\opi\sports\services\TorneoService.class
 org\opi\sports\services\TipoEventoService.class
 org\opi\sports\services\EstablecimientoDeportivoServiceInterface.class
 org\opi\sports\services\TiqueteServiceInterface.class
@@ -153,7 +163,9 @@ org\opi\sports\repositories\TipoServicioRepository.class
 org\opi\sports\services\ActividadDeportivaService.class
 org\opi\sports\ejb\ActividadDeportiva.class
 org\opi\sports\repositories\EventoRepository.class
+org\opi\sports\controllers\InscripcionController.class
 org\opi\sports\ejb\Rol.class
 org\opi\sports\services\UsuarioServiceInterface.class
 org\opi\sports\pojo\ServicioPOJO.class
+org\opi\sports\pojo\TorneoPOJO.class
 org\opi\sports\services\ReviewServiceInterface.class

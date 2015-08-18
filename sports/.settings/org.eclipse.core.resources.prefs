@@ -1,17 +1,49 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+<<<<<<< HEAD
+encoding//src/main/webapp/app/js/Modules/Controllers/ReportesController.js=UTF-8
+encoding//src/main/webapp/app/views/actividadesDeportivas.html=UTF-8
+encoding//src/main/webapp/app/views/app-h.html=UTF-8
+encoding//src/main/webapp/app/views/app.html=UTF-8
+encoding//src/main/webapp/app/views/centroDeDistribucion.html=UTF-8
+encoding//src/main/webapp/app/views/dashboard-inscripciones.html=UTF-8
+encoding//src/main/webapp/app/views/dashboard.html=UTF-8
+encoding//src/main/webapp/app/views/documentation.html=UTF-8
+=======
 encoding//src/main/webapp/app/views/actividadesDeportivas.html=UTF-8
 encoding//src/main/webapp/app/views/centroDeDistribucion.html=UTF-8
 encoding//src/main/webapp/app/views/configuracion-cambiarContrasenna.html=UTF-8
 encoding//src/main/webapp/app/views/configuracion.html=UTF-8
 encoding//src/main/webapp/app/views/dashboard.html=UTF-8
+>>>>>>> 3a52ea885e741845058ff89fda3783576f158219
 encoding//src/main/webapp/app/views/establecimientos.html=UTF-8
 encoding//src/main/webapp/app/views/eventosIndex.html=UTF-8
 encoding//src/main/webapp/app/views/home.html=UTF-8
 encoding//src/main/webapp/app/views/index.html=UTF-8
 encoding//src/main/webapp/app/views/login.html=UTF-8
+<<<<<<< HEAD
+encoding//src/main/webapp/app/views/modificarEstablecimiento.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-Usuario.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-calendario.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-informacion.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-pendientes.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-reservaciones.html=UTF-8
+encoding//src/main/webapp/app/views/perfil-servicios.html=UTF-8
+encoding//src/main/webapp/app/views/perfil.html=UTF-8
+encoding//src/main/webapp/app/views/perfilEstablecimiento.html=UTF-8
+encoding//src/main/webapp/app/views/perfilEvento-informacion.html=UTF-8
+encoding//src/main/webapp/app/views/perfilEvento-puntosRetiro.html=UTF-8
+encoding//src/main/webapp/app/views/perfilEvento.html=UTF-8
+encoding//src/main/webapp/app/views/registrarEstablecimiento.html=UTF-8
+encoding//src/main/webapp/app/views/reporte.html=UTF-8
+encoding//src/main/webapp/app/views/reto.html=UTF-8
+encoding//src/main/webapp/app/views/tipoServicios.html=UTF-8
+encoding//src/main/webapp/app/views/tiposEventos.html=UTF-8
+encoding//src/main/webapp/app/views/usuarios.html=UTF-8
+=======
 encoding//src/main/webapp/app/views/perfil-informacion.html=UTF-8
 encoding//src/main/webapp/app/views/registrarUsuario.html=UTF-8
+>>>>>>> 3a52ea885e741845058ff89fda3783576f158219
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

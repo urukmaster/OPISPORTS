@@ -26,7 +26,6 @@ public class EventoRequest extends BasePagingRequest{
 	private String nombre;
 	private String precio;
 	private Integer distrito;
-	private Integer establecimiento;
 	private Integer tipoEvento;
 	private String accion;
 	private Integer diasParaRetiro;
@@ -90,12 +89,6 @@ public class EventoRequest extends BasePagingRequest{
 	}
 	public void setDistrito(Integer distrito) {
 		this.distrito = distrito;
-	}
-	public Integer getEstablecimiento() {
-		return establecimiento;
-	}
-	public void setEstablecimiento(Integer establecimiento) {
-		this.establecimiento = establecimiento;
 	}
 	public String getAccion() {
 		return this.accion;

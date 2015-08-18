@@ -8,14 +8,22 @@
 
 
 var gridServicio = {};
+var servicios;
 
 App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
-
-    var data = [];
-
-    
 	
+	
+	
+	$scope.init = function(){
+	}
+	
+	$scope.init();
+	
+	var data = [];
+
     gridServicio = $scope.gridServicio = {
+    	paginationPageSizes: [],
+		paginationPageSize: 7,
         columnDefs: [
             { field: 'idServicio',visible:false},
             {field:'horaInicial.millis', visible:false},
@@ -25,15 +33,21 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
             { field: 'arbitro' , name:'Arbitro'},
-            {name: 'modificar', cellTemplate:'<div ng-controller="ServicioModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '</div> <div ng-controller="ServicioModalController" >' +
-                '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-                '<span class="fa fa-rocket"></span>' +
-                '</button>'+
-            '</div>'}
+            {name: 'modificar', cellTemplate:
+            '<div class="btn-group btn-group-justified" role="group">' +	
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+            		'<button ng-click="modificar(row)" class="btn btn-green" >' +
+            			'<span class="fa fa-pencil"></span>' +
+            		'</button>'+
+            	'</div>' + 
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+                	'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
+                		'<span class="fa fa-trash"></span>' +
+                	'</button>'+
+                '</div>'+
+            '</div>',width:120
+                
+            }
         ],
         data: establecimientoCalendario.servicios
     }
@@ -46,7 +60,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
 var servicioModificar = {};
 App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
 	
-	$scope.tipoServicios = tipoServicios;
+	
 	$scope.registrar = function () {
 
         var RegistrarModalInstance = $modal.open({
@@ -54,7 +68,6 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             controller: RegistrarServicioInstanceCtrl,
             size: 'lg'
         });
-
 
     };
 

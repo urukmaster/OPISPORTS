@@ -99,12 +99,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
 			
-			console.log(response);
-			
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
-			
-			console.log(cantTiquetesReservados);
-
             $scope.evento = response.evento;
             eventoActual = $scope.evento;
             eventoActual = $scope.evento;
@@ -150,6 +145,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
  ============================================================*/
 App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $modal, $rootScope, $http, toaster, $state, $timeout) {
 	var id;
+	
 	$scope.open = function (pid) {
 	id = pid;
 	var modalInstance = $modal.open({
@@ -164,7 +160,11 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	}, function () {
 	  state.text('Modal dismissed with Cancel status');
 	    });
-	  };
+	};
+	
+	$scope.consultarTiquetes = function(pnombreEvento){
+        $state.go('app.reportes',{nombre: pnombreEvento});
+	}
 	
 	
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
@@ -296,7 +296,6 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
             //Llamada para registrar la inscripcion
             $http.post('rest/tiquete/save', data).
             success(function(data){
-            	console.log(data);
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Inscripción',

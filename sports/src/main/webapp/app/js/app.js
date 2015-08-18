@@ -297,11 +297,43 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('mailbox-compose.html'),
                 resolve: helper.resolveFor('ngWig')
              })
+             // 
+             // Pages Routes
+             // ----------------------------------- 
+//             .state('page', {
+//            	 url: '/page',
+//            	 templateUrl: 'app/pages/page.html',
+//            	 resolve: helper.resolveFor('modernizr', 'icons'),
+//            	 controller: ["$rootScope", function($rootScope) {
+//            		 $rootScope.app.layout.isBoxed = false;
+//            	 }]
+//             })
+//             .state('page.landing', {
+//            	 url: '/landing',
+//            	 title: "Landing",
+//            	 templateUrl: 'landing.html'
+//             })
+             
+
+             .state('app.inscripciones', {
+                 url: '/inscripciones',
+                 title: 'Inscripciones',
+                 templateUrl: helper.basepath('dashboard-inscripciones.html')
+             })
+
+
+
+            
              .state('app.configuracion', {
                 url: '/configuracion',
                 title: 'Configuración',
                 templateUrl: helper.basepath('configuracion.html'),
                 resolve: helper.resolveFor('ngWig')
+             })
+             .state('app.reportes',{
+                 url : "/reporte/{nombre: }",
+                 title: 'Reporte',
+                 templateUrl: helper.basepath('reporte.html'),
              })
              .state('app.configuracion.registrarUsuario', {
                 url: '/datosUsuario',
@@ -321,6 +353,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('configuracion-eliminarUsuario.html'),
                 resolve: helper.resolveFor('ngWig','flot-chart','flot-chart-plugins','parsley','inputmask')
              })
+             .state('app.perfil.reservaciones.torneos',{
+                url: '/torneos',
+                title: 'Torneos',
+                templateUrl: helper.basepath('perfil-torneos.html'),
+                resolve: helper.resolveFor('ui.grid')
+            })
             //
             // CUSTOM RESOLVES
             //   Add your own resolves properties
@@ -579,7 +617,6 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
     $scope.submitForm = function() {
     	alert("Entro");
         $scope.submitted = true;
-       
 	        if ($scope.formUsuario.$valid) {
 	        	alert("Esta valido");
 	        	if($scope.accion == "update"){
@@ -615,8 +652,6 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
         			$timeout(function(){ $scope.callAtTimeout(); }, 3000);           				
         		});
 	        }
-	 	
-        
         }else {
         	alert("No esta valido!! :C");
             return false;
@@ -653,7 +688,7 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
                 		correo : $scope.usuario.correo,
                 		contrasenna : $scope.usuario.contrasenna
             		 	})
-            		.success(function(data){
+            		.success(function(data){ 
             			if(data.code == 200){
             				$rootScope.usuario = {
             						idUsuario: data.usuario.idUsuario,
@@ -1695,6 +1730,8 @@ App.controller('ButtonsCtrl', ['$scope', function ($scope) {
     };
 
 }]);
+
+
 /**=========================================================
  * Module: demo-carousel.js
  * Provides a simple demo for bootstrap ui carousel
@@ -5011,7 +5048,7 @@ App.controller('FileUploadController', ['$scope', 'FileUploader', function($scop
         console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
+        console.info('onSuccessItem', fileItem, response, status, 	s);
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         console.info('onErrorItem', fileItem, response, status, headers);

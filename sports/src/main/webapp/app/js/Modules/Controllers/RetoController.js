@@ -29,17 +29,17 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 			'<div class="btn-group btn-group-justified" role="group" >' +
 			
 				'<div class="btn-group" role="group" ng-controller="RetoModalController">'+
-					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 						'</button>'+
 				'</div>'+
 				'<div class="btn-group" role="group" ng-controller="EliminarModalController">'+
-					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+
 			
-			'</div>'	
+			'</div>',width:120	
 			}
 			],
 			filterOptions: {filterText: '', useExternalFilter: false},
