@@ -61,6 +61,25 @@ var gridReporteRetos = {};
 App.controller('ReporteRetosController', ['$scope', '$http', '$stateParams', 'uiGridConstants', function($scope, $http, $stateParams,uiGridConstants) {
 	
 	var establecimiento;
+	
+	var data = [];
+	gridReporteRetos = $scope.gridReporteRetos = {
+			paginationPageSizes: [],
+		paginationPageSize: 7,
+		columnDefs: [
+		{ field: 'idReto', visible:false},
+		{ field: 'nombreUsuario', name:"Nombre"},
+		{ field: 'apellidoUsuario', name:"Apellido"},
+		{ field: 'telefonoUsuario' , name: "Teléfono"},
+		{ field: 'mensaje', name: "Mensaje"},
+		{ field: 'nombreServicio' , name:'Servicio'},
+		{ field: 'precioServicio' , name:'precioServicio'}
+		],
+	    data: data,
+			onRegisterApi: function (gridApi) {
+				$scope.gridApi = gridApi;
+		    }
+		};
 		
 	$http.get('rest/establecimientoDeportivo/getAll')
 	.success(function(response) {
@@ -71,31 +90,10 @@ App.controller('ReporteRetosController', ['$scope', '$http', '$stateParams', 'ui
     			establecimiento = establecimientos[i];
             }
         }
-			
-		var data = [];
-		gridReporteRetos = $scope.gridReporteRetos = {
-				paginationPageSizes: [],
-			paginationPageSize: 7,
-			columnDefs: [
-			{ field: 'idReto', visible:false},
-			{ field: 'nombreUsuario', name:"Nombre"},
-			{ field: 'apellidoUsuario', name:"Apellido"},
-			{ field: 'telefonoUsuario' , name: "Teléfono"},
-			{ field: 'mensaje', name: "Mensaje"},
-			{ field: 'nombreServicio' , name:'Servicio'},
-			{ field: 'precioServicio' , name:'precioServicio'}
-			],
-		    data: data,
-				onRegisterApi: function (gridApi) {
-					$scope.gridApi = gridApi;
-			    }
-			};
 		
 			var aRetos = [];
 		    $http.get('rest/reto/getAll')
 			.success(function(data) {
-				//console.log(data);
-				//console.log(establecimiento);
 				data.retospojo.forEach( function(reto, index) {
 					
 					for(i = 0; i < establecimiento.servicios.length; i++){
@@ -118,7 +116,6 @@ App.controller('ReporteRetosController', ['$scope', '$http', '$stateParams', 'ui
 		        });
 				
 	            $scope.gridReporteRetos.data = aRetos;
-				console.log($scope.gridReporteRetos.data);
 		            
 			}).error(function(response){
 		        alert(response.message);
