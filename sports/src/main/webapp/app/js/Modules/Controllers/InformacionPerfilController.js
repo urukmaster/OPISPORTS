@@ -6,7 +6,7 @@
 App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
 	//Trae los establecimientos deportivos registrados
-    $scope.init = function(){  	
+    $scope.init = function(){
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
 			if(response.code == 200){
@@ -134,6 +134,12 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
         	}
 		});        	
   	}
+    
+
+	//Método que redirecciona a la página de reporte de retos
+	$scope.consultarRetos = function(pidEstablecimiento){
+        $state.go('app.reporteRetos',{id: pidEstablecimiento});
+	}
 
 }]);
 
