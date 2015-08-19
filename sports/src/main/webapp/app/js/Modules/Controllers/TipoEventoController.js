@@ -1,4 +1,4 @@
-/**
+	/**
  * Created by JuanManuel on 30/07/2015.
  */
 
@@ -9,6 +9,7 @@ App.controller('TiposEventosController', ['$scope','$http','toaster', function($
     $scope.gridTiposEventos = {	
     		paginationPageSizes: [],
 			paginationPageSize: 7,
+			enableFiltering: true,
         columnDefs: [
             {field: 'idTipoEvento', visible:false},
             {field: 'tipo', name: 'tipo', displayName: 'Tipo de Evento Deportivo'},
