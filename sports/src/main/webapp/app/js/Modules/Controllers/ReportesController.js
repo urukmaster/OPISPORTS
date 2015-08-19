@@ -85,8 +85,6 @@ App.controller('ReporteRetosController', ['$scope', '$http', '$stateParams', 'ui
 			{ field: 'nombreServicio' , name:'Servicio'},
 			{ field: 'precioServicio' , name:'precioServicio'}
 			],
-			filterOptions: {filterText: '', useExternalFilter: false},
-		    showFilter: true,
 		    data: data,
 				onRegisterApi: function (gridApi) {
 					$scope.gridApi = gridApi;
