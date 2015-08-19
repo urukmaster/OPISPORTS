@@ -12,25 +12,37 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 05 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
- *provenientes de los repositorios.
+ *         Sprint 05 Descripción: Esta clase se encarga de proveer los servicios
+ *         que el controlador necesita provenientes de los repositorios.
  */
 @Service
-public class EventoService implements EventoServiceInterface{
+public class EventoService implements EventoServiceInterface {
 
 	@Autowired
 	public EventoRepository eventoRepositorio;
 
 	public List<Evento> getAllEventos() {
-		return eventoRepositorio.findAll();
+		try {
+			return eventoRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public <Eventos extends Evento> Eventos save(Eventos evento) {
-		return eventoRepositorio.save(evento);
+		try {
+			return eventoRepositorio.save(evento);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Evento findOne(Integer idEvento) {
-		return eventoRepositorio.findOne(idEvento);
+		try {
+			return eventoRepositorio.findOne(idEvento);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

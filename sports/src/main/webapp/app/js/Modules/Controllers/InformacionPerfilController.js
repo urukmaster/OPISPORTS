@@ -3,13 +3,18 @@
  * Este controlador se encarga de carga cada uno de los establecimientos
  * deportivos registrados y de inicializar la página
  ============================================================*/
-App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
+App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
 	//Trae los establecimientos deportivos registrados
     $scope.init = function(){
 	    $http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
+			if(response.code == 200){
 			$scope.Establecimientos = response.establecimientosDeportivos;
+			}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 			
 		});
     };
@@ -28,17 +33,23 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 var tipoServicios = [];
 
 
-App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
+App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '$stateParams', '$state', function($scope, $rootScope,$http, $stateParams,$state) {
        
 	$scope.init = function(){
 		
 		$http.get('rest/tipoServicio/getAll')
 	    .success(function(data) {
+	    	if(data.code == 200){
 	    	tipoServicios = data.tipoServicio;
+	    	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 	    });
 		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {
+			if(response.code == 200){
 			var establecimientos = response.establecimientosDeportivos;
 			for (var i = 0; i < establecimientos.length; i++) {
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
@@ -47,6 +58,10 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
                     $scope.Reviews = establecimientos[i].reviews;
                 }
             }
+			}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 		});
     };
     
@@ -75,7 +90,12 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
     		idComentario : id
 		 	})
 		.success(function(data){
+			if(data.code == 200){
 			$state.reload();
+			}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 		});        	
   	}
     
@@ -87,7 +107,7 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 
 }]);
 
-App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
+App.controller('EstablecimientosFormController', ['$scope','$rootScope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$rootScope,$http, $stateParams,$state,toaster,$timeout,$route) {
 	'use strict'; 
 	//validación
     $scope.submitted = false;
@@ -107,6 +127,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
         		idUsuario : 1
     		 	})
     		.success(function(data){
+    			if(data.code = 200){
     			var toasterdata = {
     			            type:  'success',
     			            title: 'Establecimiento',
@@ -114,6 +135,10 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     			        	};
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
     			
     		});        	
         	
@@ -139,7 +164,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
     }
 
 }]);
-App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
+App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
 	'use strict'; 
 //	$scope.submitted = false;
 //    
@@ -160,7 +185,12 @@ App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state
         		active : 1
     		 	})
     		.success(function(data){
+    			if(data.code == 200){
     			$state.reload();
+    			}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
     		});        	
 //        } else {
 //        	
@@ -179,7 +209,7 @@ App.controller('FormReviewController', ['$scope','$http', '$stateParams','$state
  * Este controlador se encarga de eliminar un establecimiento deportivo
  ============================================================*/
 
-App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {
 	var id;
 	
 	$scope.open = function (pid) {
@@ -204,13 +234,18 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 	    $scope.ok = function () {
 	    	
 	        $http.post('rest/establecimientoDeportivo/delete', id).
-	        success(function(){
+	        success(function(data){
+	        	if(data.code == 200){
 	        	var toasterdata = {
 			            type:  'success',
 			            title: 'Establecimiento',
 			            text:  'Se eliminó el establecimiento.'
 			    };                
 	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
 	        });
 			$rootScope.$broadcast('eliminar');
 	    	$modalInstance.close('closed');
@@ -223,6 +258,6 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 	  $modalInstance.dismiss('cancel');
 	    };
 	  };
-	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
+	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
 }]);

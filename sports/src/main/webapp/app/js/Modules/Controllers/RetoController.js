@@ -4,7 +4,7 @@
 
 var gridReto = {};
 
-App.controller('RetoController', ['$scope','uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('RetoController', ['$scope','$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 
 	var data = [];
 	gridReto = $scope.gridReto = {
@@ -52,6 +52,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 			var ARetos  = [];
 			$http.get('rest/reto/getAll')
 				.success(function(data) {
+					if(data.code == 200){
 					data.retospojo.forEach( function(reto, index) {
 						var retosView = {};
 						retosView.idReto = reto.idReto;
@@ -74,9 +75,14 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						}
 						
 			        });
-			            $scope.gridReto.data = ARetos;       
+			            $scope.gridReto.data = ARetos;
+					}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
 			}).error(function(response){
-                alert(response.message);
+				$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
            
             });
 			
@@ -110,7 +116,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 }]);
 var retoModificar = {};
 var retoEliminar = {};
-App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','toaster',function ($scope, $modal,$http,$rootScope,toaster) {
+App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','$rootScope','toaster',function ($scope, $rootScope,$modal,$http,$rootScope,toaster) {
 
 
 //----------------------------------------------------------------------------
@@ -260,6 +266,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
                     usuario : retoModificar.idUsuario
                 })
                 .success(function(data){
+                	if(data.code == 200){
                 	var ARetos = [];
                 	data.retospojo.forEach( function(reto, index) {
    						var retosView = {};
@@ -290,7 +297,11 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
    				  }; 
    				   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
    				   $rootScope.$broadcast('actualizarGrid',responsedata);	
-        		   $modalInstance.close('closed');       			
+        		   $modalInstance.close('closed');    
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
         		});        	
          
         };
@@ -302,12 +313,18 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
     
     
     
-    App.controller('Cargar', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {    
+    App.controller('Cargar', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {    
     	 
     	$scope.init = function(){  	
     		    $http.get('rest/establecimientoDeportivo/getAll')
     			.success(function(response) {
-    				$scope.Establecimientos = response.establecimientosDeportivos;
+    				if(response.code = 200)
+    				{
+    					$scope.Establecimientos = response.establecimientosDeportivos;
+    				}else{
+    					$rootScope.errorMessage = response.codeMessage;
+                		$state.go('page.error');
+    				}
     			});
     	    };
     	    //Inicializa la aplicación
@@ -330,7 +347,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
   
 }]);
 var retoEliminar = {};
-App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {
 
 	$scope.eliminar = function ($row) {
 		retoEliminar = $row.entity;
@@ -365,6 +382,7 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
   				usuario : retoEliminar.idUsuario
   				
   				}).success(function(data) {
+  					if(data.code == 200){
   					   var ARetos = [];
   						data.retospojo.forEach( function(reto, index) {
   							var retosView = {};
@@ -397,6 +415,10 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
   					   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
   					   $rootScope.$broadcast('actualizarGrid',responsedata);
   					   $modalInstance.close('closed');
+  					}else{
+  					 $rootScope.errorMessage = data.codeMessage;
+             		$state.go('page.error');
+  					}
   					});
   				};	
   				$scope.cancel = function () {

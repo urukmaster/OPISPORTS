@@ -13,22 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Luis Esteban López Ramírez
  * 
- *Sprint #3 Descripción: Servicio que se encarga de comuicarse con el repositorio para
- * las consulta a la base de datos.
+ *         Sprint #3 Descripción: Servicio que se encarga de comuicarse con el
+ *         repositorio para las consulta a la base de datos.
  */
 @Service
-public class TipoServicioService implements TipoServicioServiceInterface{
+public class TipoServicioService implements TipoServicioServiceInterface {
 
 	@Autowired
 	TipoServicioRepository tipoServicioRepositorio;
-	
+
 	@Transactional
-	public List<TipoServicio> getAllTipoServicio(){
-		return tipoServicioRepositorio.findAll();
+	public List<TipoServicio> getAllTipoServicio() {
+		try {
+			return tipoServicioRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@Transactional
 	public TipoServicio findOne(Integer idTipoServicio) {
-		return tipoServicioRepositorio.findOne(idTipoServicio);
+		try {
+			return tipoServicioRepositorio.findOne(idTipoServicio);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 }

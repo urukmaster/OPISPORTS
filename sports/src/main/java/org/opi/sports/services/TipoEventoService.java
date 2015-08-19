@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
  * 
  * @author Juan Manuel Viales Chavarría
  * 
- *Sprint #5 Descripción: Tipo Evento que se encarga de comuicarse con el repositorio para
- * las consulta a la base de datos.
+ *         Sprint #5 Descripción: Tipo Evento que se encarga de comuicarse con
+ *         el repositorio para las consulta a la base de datos.
  */
 @Service
 public class TipoEventoService implements TipoEventoServiceInterface {
@@ -23,24 +23,30 @@ public class TipoEventoService implements TipoEventoServiceInterface {
 	@Autowired
 	TipoEventoRepository tipoEventoRepository;
 
-	@Override
 	public List<TipoEvento> getAllTipoEvento() {
-		// TODO Auto-generated method stub
-		return tipoEventoRepository.findAll();
+		try {
+			return tipoEventoRepository.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-	@Override
 	public <TiposEventos extends TipoEvento> TiposEventos save(
 			TiposEventos tipoEvento) {
-		// TODO Auto-generated method stub
-		return tipoEventoRepository.save(tipoEvento);
+		try {
+			return tipoEventoRepository.save(tipoEvento);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@Override
 	public boolean exists(Integer idTipoEvento) {
-		// TODO Auto-generated method stub
-		return tipoEventoRepository.exists(idTipoEvento);
+		try {
+			return tipoEventoRepository.exists(idTipoEvento);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-	
 }
