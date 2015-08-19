@@ -14,29 +14,45 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
- *provenientes de los repositorios.
+ *         Sprint 02 Descripción: Esta clase se encarga de proveer los servicios
+ *         que el controlador necesita provenientes de los repositorios.
  */
 @Service
-public class TiqueteService implements TiqueteServiceInterface{
+public class TiqueteService implements TiqueteServiceInterface {
 
 	@Autowired
 	public TiqueteRepository tiqueteRepositorio;
 
 	public List<Tiquete> getAllTiquetes() {
-		return tiqueteRepositorio.findAll();
+		try {
+			return tiqueteRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Tiquete findOne(Integer idTiquete) {
-		return tiqueteRepositorio.findOne(idTiquete);
+		try {
+			return tiqueteRepositorio.findOne(idTiquete);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public boolean exists(Integer idTiquete) {
-		return tiqueteRepositorio.exists(idTiquete);
+		try {
+			return tiqueteRepositorio.exists(idTiquete);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public <Tiquetes extends Tiquete> Tiquetes save(Tiquetes tiquete) {
-		return tiqueteRepositorio.save(tiquete);
+		try {
+			return tiqueteRepositorio.save(tiquete);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

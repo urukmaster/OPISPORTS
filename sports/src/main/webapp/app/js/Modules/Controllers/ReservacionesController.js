@@ -94,6 +94,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			accion:'Regsitrar'
     		 	})
     		.success(function(data){
+    			if(data.code = 200){
     			var toasterdata = {
 			            type:  'success',
 			            title: 'Establecimiento',
@@ -101,9 +102,13 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario = data;
+    			establecimientoCalendario = data.establecimientoDeporitvo;
     			$('#calendarioContent').remove();
     			$rootScope.$broadcast("actualizar");
+    			}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
     		});
         }
         

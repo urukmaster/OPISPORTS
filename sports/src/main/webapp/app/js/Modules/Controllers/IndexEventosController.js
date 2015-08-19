@@ -15,7 +15,7 @@
  * Este controlador se encarga de desplegar un "Modal" 
  * para registrar un evento en la base de datos 
  ============================================================*/
-App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $modal, $timeout ,$http, $state, toaster) {
+App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http, $state, toaster) {
    
 	//Depliega el "Modal"
 	$scope.registrar = function () {
@@ -60,6 +60,7 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
               	//Manda a salvar el evento
                   $http.post('rest/evento/save', data).
                   success(function(data){
+                	  if(data.code = 200){
                   	var toasterdata = {
       			            type:  'success',
       			            title: 'Evento',
@@ -68,6 +69,10 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
           			$scope.pop(toasterdata);
             			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
                   	$modalInstance.dismiss('cancel');
+                	  }else{
+                  		$rootScope.errorMessage = data.codeMessage;
+                  		$state.go('page.error');
+                  	}
                   });
                   
             	  }
@@ -101,7 +106,7 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
  * Este controlador se encarga de renderizar e inicializar
  * el calendario de eventos deportivos
  ============================================================*/
-App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$state', '$modal', function($scope, $http, $timeout, $state, $modal) {
+App.controller('CalendarControllerEventos', ['$scope', '$rootScope','$http', '$timeout', '$state', '$modal', function($scope, $rootScope,$http, $timeout, $state, $modal) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -279,6 +284,8 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     	
     	$http.get('rest/evento/getAll')
         .success(function(data) {
+        	
+        	if(data.code == 200){
         	var calendar = $('#calendar');
         	        	
         	var eventos = initEventos(data.jsoncalendar);
@@ -286,8 +293,13 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, eventos);
+        	
+        	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 
-        })	
+        });	
     	
     };
     

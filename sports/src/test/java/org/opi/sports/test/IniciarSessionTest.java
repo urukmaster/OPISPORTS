@@ -1,34 +1,33 @@
-package org.opi.sports.controllers;
+package org.opi.sports.test;
+
+import static org.junit.Assert.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.activemq.filter.function.inListFunction;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.opi.sports.config.OpiSportsApplication;
 import org.opi.sports.contracts.IniciarSesionRequest;
 import org.opi.sports.contracts.IniciarSesionResponse;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.helpers.IniciarSesionHelper;
-import org.opi.sports.pojo.RolPOJO;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.IniciarSesionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Fecha: 18-07-2015 version 1.0
- * 
- * @author Mauricio Araica Hernández
- *
- *         Sprint 02 Descripción: Controlador de iniciar sesión
- *
- */
-@RestController
-@RequestMapping(value = "rest/iniciarSesion")
-public class IniciarSesionController {
+//Se especifica con que correrá el JUNIT
+@RunWith(SpringJUnit4ClassRunner.class)
+//Se debe cargar la configuracion del servidor
+@SpringApplicationConfiguration(classes = OpiSportsApplication.class)
+@WebAppConfiguration
+public class IniciarSessionTest {
 
 	@Autowired
 	IniciarSesionServiceInterface iniciarSesionService;
@@ -40,9 +39,8 @@ public class IniciarSesionController {
 	 * Metodo que valida el usuario por correo y contraseña
 	 * 
 	 */
-	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
-	@Transactional
-	public IniciarSesionResponse validarUsuario(
+	@Test
+	public void validarUsuario(
 			@RequestBody IniciarSesionRequest iniciarSesionRequest) {
 
 		Usuario usuarioLogeado = iniciarSesionService
@@ -76,15 +74,7 @@ public class IniciarSesionController {
 							+ "Lamentamos el incoveniente, favor intentar mas tarde");
 			iniciarSesionresponse.setErrorMessage(exception.getMessage());
 		}
-		return iniciarSesionresponse;
+		assertTrue(iniciarSesionresponse.getCode() == 200);
 	}
 
-	/**
-	 * Metodo que invalida la sesion al cerrarla
-	 * 
-	 */
-	@RequestMapping(value = "cerrarSesion", method = RequestMethod.GET)
-	public void cerrarSesion() {
-		request.getSession().invalidate();
-	}
 }

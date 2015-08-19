@@ -1,31 +1,32 @@
-package org.opi.sports.controllers;
+package org.opi.sports.test;
+
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.opi.sports.config.OpiSportsApplication;
 import org.opi.sports.contracts.InscripcionResponse;
 import org.opi.sports.ejb.Inscripcion;
 import org.opi.sports.helpers.InscripcionHelper;
 import org.opi.sports.pojo.InscripcionPOJO;
 import org.opi.sports.services.InscripcionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Fecha: 16-08-2015 version 1.0
- * 
- * @author Mauricio Fernández Mora.
- *
- *         Sprint 06 Descripción:Esta clase es la que contendrá cada uno de los
- *         servicios que serán necesarios para procesar la información de las
- *         inscripciones a eventos deportivos
- */
+//Se especifica con que correrá el JUNIT
+@RunWith(SpringJUnit4ClassRunner.class)
+//Se debe cargar la configuracion del servidor
+@SpringApplicationConfiguration(classes = OpiSportsApplication.class)
+@WebAppConfiguration
+public class InscripcionTest {
 
-@RestController
-@RequestMapping(value = "rest/inscripcion")
-public class InscripcionController {
 
 	@Autowired
 	InscripcionServiceInterface inscripcionServices;
@@ -34,8 +35,8 @@ public class InscripcionController {
 	 * Este método obtiene cada una de las instancias de inscripciones
 	 * registradas en la base de datos
 	 */
-	@RequestMapping(value = "getAll", method = RequestMethod.GET)
-	public InscripcionResponse getAll() {
+	@Test
+	public void getAll() {
 
 		InscripcionResponse inscripcionResponse = new InscripcionResponse();
 
@@ -62,8 +63,8 @@ public class InscripcionController {
 			inscripcionResponse.setErrorMessage(exception.getMessage());
 		}
 
-		return inscripcionResponse;
+		assertTrue(inscripcionResponse.getCode() ==200);
 
 	}
-
+	
 }

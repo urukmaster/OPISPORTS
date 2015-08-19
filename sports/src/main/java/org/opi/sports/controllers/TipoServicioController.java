@@ -18,36 +18,50 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  * @author Luis Esteban López Ramírez
  *
- *Sprint #4 Descripción: Se encarga de gestionar los tipos de permisos desde le front
- *end, segun las peticiones por parte de la aplicación.
+ *         Sprint #4 Descripción: Se encarga de gestionar los tipos de permisos
+ *         desde le front end, segun las peticiones por parte de la aplicación.
  */
 @RestController
 @RequestMapping(value = "rest/tipoServicio")
 public class TipoServicioController {
-	
+
 	@Autowired
 	TipoServicioServiceInterface tipoServicioService;
+
 	/**
-	 * Método que se encarga de solicitar todos los tipos de servicios existentes
+	 * Método que se encarga de solicitar todos los tipos de servicios
+	 * existentes
+	 * 
 	 * @return TipoServicioResponse
 	 */
-	@RequestMapping(value="getAll", method = RequestMethod.GET)
-	public TipoServicioResponse getAll(){
-		
+	@RequestMapping(value = "getAll", method = RequestMethod.GET)
+	public TipoServicioResponse getAll() {
+
 		TipoServicioResponse tipoServicioResponse = new TipoServicioResponse();
-		
-		List<TipoServicio> tipoServicioList = tipoServicioService.getAllTipoServicio();
-		List<TipoServicioPOJO> tipoServicioViewList = new ArrayList<TipoServicioPOJO>();
-		
-		for(TipoServicio tipoServicio : tipoServicioList){
-			TipoServicioPOJO tipoServicioView = new TipoServicioPOJO();
-			PojoUtils.pojoMappingUtility(tipoServicioView, tipoServicio);
-			tipoServicioViewList.add(tipoServicioView);
+
+		try {
+
+			List<TipoServicio> tipoServicioList = tipoServicioService
+					.getAllTipoServicio();
+			List<TipoServicioPOJO> tipoServicioViewList = new ArrayList<TipoServicioPOJO>();
+
+			for (TipoServicio tipoServicio : tipoServicioList) {
+				TipoServicioPOJO tipoServicioView = new TipoServicioPOJO();
+				PojoUtils.pojoMappingUtility(tipoServicioView, tipoServicio);
+				tipoServicioViewList.add(tipoServicioView);
+			}
+
+			tipoServicioResponse.setTipoServicio(tipoServicioViewList);
+			tipoServicioResponse.setCode(200);
+			tipoServicioResponse.setCodeMessage("Operación Exitosa");
+		} catch (Exception exception) {
+			tipoServicioResponse.setCode(404);
+			tipoServicioResponse.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+					+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tipoServicioResponse.setErrorMessage(exception.getMessage());
 		}
-		
-		tipoServicioResponse.setTipoServicio(tipoServicioViewList);
-		
+
 		return tipoServicioResponse;
 	}
-	
+
 }

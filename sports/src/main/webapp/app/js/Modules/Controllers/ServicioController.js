@@ -10,7 +10,7 @@
 var gridServicio = {};
 var servicios;
 
-App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 	
 	
 	
@@ -50,7 +50,7 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var servicioModificar = {};
-App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
+App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", function ($scope, $rootScope,$modal, $timeout ,$http) {
 	
 	
 	$scope.registrar = function () {
@@ -78,14 +78,20 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
 				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
 	    $http.post('rest/servicio/delete', data).
 	    success(function(data){
+	    	if(data.code == 200){
 	    	var toasterdata = {
 		            type:  'success',
 		            title: 'Servicio',
 		            text:  'Se eliminó el servicio.'
 		    };
 	    	
-	    	establecimientoCalendario = data;
+	    	establecimientoCalendario = data.establecimientoDeportivo;
 	    	gridServicio.data = establecimientoCalendario.servicios;
+	    }else{
+	    	$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+	    }
+	    
 	    });
     }
 //------------------------------------------------------------------------------------
@@ -108,6 +114,7 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             };
             $http.post('rest/servicio/save', data).
             success(function(data){
+            	if(data.code == 200){
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Servicio',
@@ -116,6 +123,10 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     			$scope.pop(toasterdata);
             	gridServicio.data.push = data.servicio;
             	establecimientoCalendario.servicios.push(data.servicio);
+            	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
             });
         };
         $scope.cancel = function () {
@@ -156,6 +167,7 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
                 };
                 $http.post('rest/servicio/save', data).
                 success(function(data){
+                	if(data.code == 200){
                 	var toasterdata = {
     			            type:  'success',
     			            title: 'Servicio',
@@ -163,7 +175,10 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     			    };
         			$scope.pop(toasterdata);
         			gridServicio.data[data.servicio.idServicio-1] = data.servicio;
-                	
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
                 });
 
             $modalInstance.close('closed');
