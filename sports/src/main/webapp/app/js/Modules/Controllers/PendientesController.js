@@ -1,7 +1,7 @@
 var gridPendientes = {};
 
-App.controller('PendientesController',['$scope','uiGridConstants','$http',
-				function($scope, uiGridConstants, $http) {
+App.controller('PendientesController',['$scope','$rootScope','uiGridConstants','$http',
+				function($scope, $rootScope,uiGridConstants, $http) {
 	
 	var pendientes = [];
 	
@@ -91,22 +91,27 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 	
 } ]);
 
-App.controller('ReservacionModalController', ['$scope', '$http', '$state', function($scope, $http, $state){
+App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', function($scope, $rootScope,$http, $state){
 	
 	$scope.eliminar = function(row){
 		$http.post('rest/reservaciones/delete', {
 			idCalendario : row.idCalendario,
 			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
 	 	}).success(function(data){
+	 		if(data.code == 200){
 	 		var toasterdata = {
 					type:  'success',
 					title: 'Establecimiento',
 					text:  'Se ha aceptado la reservacion correctamente'
 			};
 			//$scope.pop(toasterdata);
-			establecimientoCalendario = data;
+			establecimientoCalendario = data.establecimientoDeportivo;
 			gridPendientes = establecimientoCalendario.pendientes;
 			$state.reload();
+	 		}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 	 	})
 	}
 	
@@ -122,6 +127,7 @@ App.controller('ReservacionModalController', ['$scope', '$http', '$state', funct
     			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
 		 	})
 		.	success(function(data){
+			if(data.code == 200){
 				var toasterdata = {
 						type:  'success',
 						title: 'Establecimiento',
@@ -131,6 +137,10 @@ App.controller('ReservacionModalController', ['$scope', '$http', '$state', funct
 				establecimientoCalendario = data;
 				gridPendientes = establecimientoCalendario.pendientes;
 				$state.reload();
+			}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 		});
 }
 }]);

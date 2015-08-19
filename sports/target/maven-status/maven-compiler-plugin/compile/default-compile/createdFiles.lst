@@ -3,6 +3,7 @@ org\opi\sports\services\TipoServicioService.class
 org\opi\sports\contracts\InscripcionRequest.class
 org\opi\sports\pojo\SubscripcionPOJO.class
 org\opi\sports\contracts\EstablecimientoDeportivoRequest.class
+org\opi\sports\contracts\SuscripcionResponse.class
 org\opi\sports\repositories\TipoEventoRepository.class
 org\opi\sports\helpers\IniciarSesionHelper.class
 org\opi\sports\controllers\IniciarSesionController.class
@@ -12,6 +13,7 @@ org\opi\sports\contracts\IniciarSesionResponse.class
 org\opi\sports\pojo\RolPOJO.class
 org\opi\sports\services\EventoServiceInterface.class
 org\opi\sports\contracts\RetoResponse.class
+org\opi\sports\services\SuscripcionServiceInterface.class
 org\opi\sports\ejb\Subscripcion.class
 org\opi\sports\pojo\InscripcionPOJO.class
 org\opi\sports\controllers\CentroDistribucionController.class
@@ -77,6 +79,7 @@ org\opi\sports\pojo\EventoCalendarioPOJO.class
 org\opi\sports\pojo\ActividadDeportivaPOJO.class
 org\opi\sports\config\SwaggerConfig.class
 org\opi\sports\contracts\ReviewResponse.class
+org\opi\sports\controllers\SuscripcionController.class
 org\opi\sports\services\ProvinciaService.class
 org\opi\sports\contracts\InscripcionResponse.class
 org\opi\sports\pojo\CentroDistribucionPOJO.class
@@ -97,6 +100,8 @@ org\opi\sports\pojo\RetosPOJO.class
 org\opi\sports\pojo\CalendarioPOJO.class
 org\opi\sports\contracts\ActividadDeportivaResponse.class
 org\opi\sports\pojo\CantonPOJO.class
+org\opi\sports\services\SuscripcionService.class
+org\opi\sports\repositories\SuscripcionRepository.class
 org\opi\sports\ejb\Permisos_Rol.class
 org\opi\sports\repositories\RetoRepository.class
 org\opi\sports\services\ProvinciaServiceInterface.class
@@ -121,6 +126,7 @@ org\opi\sports\services\InscripcionServiceInterface.class
 org\opi\sports\pojo\ProvinciaPOJO.class
 org\opi\sports\ejb\Usuario_Rol.class
 org\opi\sports\ejb\CentroDistribucion.class
+org\opi\sports\helpers\SuscripcionHelper.class
 org\opi\sports\services\ActividadDeportivaServiceInterface.class
 org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
 org\opi\sports\contracts\BasePagingRequest.class

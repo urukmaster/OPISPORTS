@@ -2,7 +2,7 @@
  * Created by JuanManuel on 30/07/2015.
  */
 
-App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', function($scope,$http,toaster) {
+App.controller('ActividadesDeportivasController', ['$scope','$rootScope','$http','toaster', function($scope,$rootScope,$http,toaster) {
 	
        
     var data = [];
@@ -35,6 +35,7 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
     var aActividades = [];
     $http.get('rest/actividadDeportiva/getAll')
         .success(function(data) {
+        	if(data.code == 200){
         	data.actividadesDeportivas.forEach(
         			function(actividad,index){
         				var actividadView = {};
@@ -53,6 +54,10 @@ App.controller('ActividadesDeportivasController', ['$scope','$http','toaster', f
         			
         	);
         	$scope.gridActividadesDeportivas.data = aActividades;
+        	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
         });
     
     $scope.$on('actualizarGrid', function (event, responsedata) {
@@ -97,6 +102,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
     		actividadDeportiva : actividadModificar.actividadDeportiva
 		 	})
 		.success(function(data){
+			if(data.code = 200){
 			var aActividades = [];
 			
 			data.actividadesDeportivas.forEach(
@@ -124,7 +130,10 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
 		        	};
 			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
 			$rootScope.$broadcast('actualizarGrid',responsedata);
-			
+			}else{
+				$rootScope.errorMessage = data.codeMessage;
+				$state.go('page.error');
+			}
 			
 		});
     	  
@@ -134,7 +143,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
-    var RegistrarActividadDeportivaInstanceCtrl = function ($scope, $modalInstance,$http) {
+    var RegistrarActividadDeportivaInstanceCtrl = function ($scope,$rootScope, $modalInstance,$http) {
     	'use strict'; 
     	//validación
     	$scope.accion = 'Registrar';
@@ -153,6 +162,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
             		actividadDeportiva : $scope.actividadDeportiva.nombre
         		 	})
         		.success(function(data){
+        			if(data.code = 200){
         			var aActividades = [];
         			data.actividadesDeportivas.forEach(
                 			function(actividad,index){
@@ -177,7 +187,11 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed');    
+        			}else{
+        				$rootScope.codeMessage = data.codeMessage;
+        				$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -191,7 +205,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         };
 
     };
-    RegistrarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    RegistrarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$rootScope" ,"$modalInstance","$http"];
     
     var ModificarActividadDeportivaInstanceCtrl = function ($scope, $modalInstance,$http) {
     	'use strict'; 
@@ -216,6 +230,7 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
             		actividadDeportiva : $scope.actividadDeportiva.nombre
         		 	})
         		.success(function(data){
+        			if(data.code = 200){
         			var aActividades = [];
         			data.actividadesDeportivas.forEach(
                 			function(actividad,index){
@@ -242,7 +257,11 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed');    
+        			}else{
+        				$rootScope.errorMessage = data.codeMessage;
+        				$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -255,6 +274,6 @@ App.controller('ActividadDeportivaModalController', ['$rootScope','$scope', '$mo
         };
 
     };
-    ModificarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    ModificarActividadDeportivaInstanceCtrl.$inject = ["$scope", "$rootScope" ,"$modalInstance","$http"];
 
 }]);

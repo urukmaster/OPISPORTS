@@ -11,7 +11,7 @@
  * información de un establecimiento deportivo.
  ============================================================*/
 
-App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$stateParams', 'toaster','$timeout', '$state', function($scope, $http, $stateParams, toaster, $timeout, $state) {
+App.controller('ModificarEstablecimientoController', ['$scope', '$rootScope','$http', '$stateParams', 'toaster','$timeout', '$state', function($scope, $rootScope,$http, $stateParams, toaster, $timeout, $state) {
 	var provinciaActual;
 	var cantonActual;
 	var distritoActual;
@@ -20,17 +20,21 @@ App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$state
 	$scope.init = function(){
 		$http.post('rest/establecimientoDeportivo/getEstablecimiento', $stateParams.id)
 		.success(function(response) {
-
+			if(data.code ==200){
             $scope.Establecimiento = response.establecimientoDeportivo;
             provinciaActual = response.idProvincia;
             cantonActual = response.idCanton;
             distritoActual = response.establecimientoDeportivo.distrito.idDistrito;
-            
+			}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 		});		
 		
 		//Trae las provinciar registradas
 		$http.get('rest/provincia/getAll')
 		.success(function(response) {
+			if(data.code = 200){
 			$scope.Provincias = response.provincias;
 			angular.forEach($scope.Provincias, function(provincia, index){
 				if(provincia.idProvincia == provinciaActual){
@@ -38,7 +42,11 @@ App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$state
 					$scope.cargarCantones(provincia);
 					
 				}
-			})
+			});
+			}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 		});	    
 	    
     };
@@ -112,6 +120,7 @@ App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$state
       		 	})
       		 	
       		.success(function(data){
+      			if(data.code == 200){
       			var toasterdata = {
       			            type:  'success',
       			            title: 'Establecimiento',
@@ -119,7 +128,10 @@ App.controller('ModificarEstablecimientoController', ['$scope', '$http', '$state
       			        	};
       			$scope.pop(toasterdata);
       			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-      			
+      			}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
       		}); 
           	
           } else {

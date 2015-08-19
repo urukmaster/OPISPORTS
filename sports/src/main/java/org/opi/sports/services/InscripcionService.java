@@ -13,26 +13,39 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 06 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
- *provenientes de los repositorios.
+ *         Sprint 06 Descripción: Esta clase se encarga de proveer los servicios
+ *         que el controlador necesita provenientes de los repositorios.
  */
 
 @Service
-public class InscripcionService implements InscripcionServiceInterface{
+public class InscripcionService implements InscripcionServiceInterface {
 
 	@Autowired
 	public InscripcionRepository inscripcionRepositorio;
 
 	public List<Inscripcion> getAllInscripciones() {
-		return inscripcionRepositorio.findAll();
+		try {
+			return inscripcionRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Inscripcion findOne(Integer idInscripcion) {
-		return inscripcionRepositorio.findOne(idInscripcion);
+		try {
+			return inscripcionRepositorio.findOne(idInscripcion);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-	public <Inscripciones extends Inscripcion> Inscripciones save(Inscripciones inscripcion) {
-		return inscripcionRepositorio.save(inscripcion);
+	public <Inscripciones extends Inscripcion> Inscripciones save(
+			Inscripciones inscripcion) {
+		try {
+			return inscripcionRepositorio.save(inscripcion);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

@@ -11,7 +11,7 @@
  * para un cliente.
  ============================================================*/
 
-App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$rootScope', function($scope, $http, $state,$rootScope) {
+App.controller('MisInscripcionesController', ['$scope', '$rootScope','$http', '$state','$rootScope', function($scope, $rootScope,$http, $state,$rootScope) {
 
 	var listaInscripciones = [];
 	$scope.init = function(){   	
@@ -19,9 +19,8 @@ App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$root
     	$http.get('rest/inscripcion/getAll', {
 		 	})
 		.success(function(response){
+	    	if(response.code == 200){
 	    	
-	    	console.log(response);
-			
 	    	angular.forEach(response.inscripciones, function(inscripcion, index){
 	    		if(inscripcion.usuario.idUsuario == $rootScope.usuario.idUsuario){
 	    			listaInscripciones.push(inscripcion.listaTiquetes);
@@ -29,6 +28,10 @@ App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$root
 	    	});
 
 	    	$scope.Inscripciones = listaInscripciones;
+	    	}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 			
 		});
     	
@@ -70,7 +73,7 @@ App.controller('SuscripcionController', ['$scope', '$http', '$state','$rootScope
  * Module: CancelarInscripcionModalController
  * Implementa el modal de cancelacion de una inscripcion
  ============================================================*/
-App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $modal, $rootScope, $http, toaster, $state, $timeout) {
+App.controller('CancelarTiqueteModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $rootScope, $http, toaster, $state, $timeout) {
 	var id;
     
 	$scope.cancelarTiquete = function (idTiquete) {
@@ -95,6 +98,7 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 	    $scope.ok = function () {
 	        $http.post('rest/tiquete/delete', id).
 	        success(function(){
+	        	if(data.code == 200){
 	        	var toasterdata = {
 			            type:  'success',
 			            title: 'Tiquete',
@@ -102,6 +106,10 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+	        	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
             	
 	        });
 	    	$modalInstance.close('closed');
@@ -121,7 +129,7 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 	    };
 	    
 	  };
-	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
+	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
 }]);
 App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$timeout','$state', function ($scope, $modal, $rootScope, $http, toaster,$timeout,$state) {
