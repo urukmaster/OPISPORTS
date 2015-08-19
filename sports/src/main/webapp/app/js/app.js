@@ -317,9 +317,6 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                  templateUrl: helper.basepath('dashboard-inscripciones.html')
              })
 
-
-
-            
              .state('app.configuracion', {
                 url: '/configuracion',
                 title: 'Configuración',

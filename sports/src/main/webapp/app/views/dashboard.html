@@ -9,37 +9,44 @@
             <div class="panel-title">Establecimientos deportivos</div>
          </div>
          <scrollable height="230" class="list-group">
-       <div ng-repeat="establecimiento in Establecimientos">
+       <div ng-repeat="establecimiento in Establecimientos | filter:search:strict">
          <div class="media bb p">
             <small class="pull-right text-muted"></small>
             <div class="pull-left"></div>
             <div class="media-body">
                <span class="media-heading">
                   <p class="m0">
-                  	<div ng-controller=CancelarTiqueteModalController>
-                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-warning pull-right fa fa-trash"></button>
+                  	<div ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
+                       <button  class="btn btn-sm btn-primary pull-right fa fa-search"></button>
                     </div>
-                    <strong>{{establecimiento.nombre}}</strong>
+                    <h4>{{establecimiento.nombre}}</h4>
                   </p>
                </span>
                <p class="mb-sm">
                		<div class="col-lg-6">
-                    	<label>Estado:</label>
-                        <small>{{tiquete.estado}}</small><br>
-                        <label>Fecha de caducidad:</label>
-                        <small>{{tiquete.fechaCaducidad}}</small><br>
+                    	<label>Dirección:</label>
+                        <small>{{establecimiento.direccion}}</small><br>
+                        <label>Teléfono:</label>
+                        <small>{{establecimiento.telefono}}</small><br>
                     </div>
              		<div class="col-lg-6">
-                    	<label>Precio:</label>
-                        <small>{{tiquete.precio}}</small><br>
-                        <label>C�digo:</label>
-                        <small>{{tiquete.codigo}}</small><br>
+                    	<label>Correo:</label>
+                        <small>{{establecimiento.paginaWeb}}</small><br>
                     </div>
               </p>
              </div>
           </div>
         </div>
          </scrollable>
+         <div class="panel-footer clearfix">
+                  <div class="input-group">
+                     <input ng-model="search" id="busquedaNombre"  type="text" placeholder="Buscar..." class="form-control input-sm" /> 
+                     <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default btn-sm"><i class="icon-magnifier"></i>
+                        </button>
+                     </span>
+                  </div>
+               </div>
          <!-- END panel-footer-->
       </div>
   	</div>
@@ -76,7 +83,7 @@
                <span class="media-heading">
                   <p class="m0">
                   	<div ng-controller=CancelarTiqueteModalController>
-                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-warning pull-right fa fa-trash"></button>
+                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-warning pull-right fa fa-close"></button>
                     </div>
                     <strong>{{tiquete.nombreEvento}}</strong>
                   </p>
@@ -91,7 +98,7 @@
              		<div class="col-lg-6">
                     	<label>Precio:</label>
                         <small>{{tiquete.precio}}</small><br>
-                        <label>C�digo:</label>
+                        <label>Código:</label>
                         <small>{{tiquete.codigo}}</small><br>
                     </div>
               </p>
@@ -100,6 +107,7 @@
         </div>
         </div>
          </scrollable>
+         
          <!-- END panel-footer-->
       </div>
 	</div>
@@ -118,7 +126,7 @@
                <span class="media-heading">
                   <p class="m0">
                   	<div ng-controller="EliminarSuscripcionModalController">
-                       <button ng-click="open(suscripcion.idSubscripcion)" class="btn btn-sm btn-warning pull-right fa fa-trash"></button>
+                       <button ng-click="open(suscripcion.idSubscripcion)" class="btn btn-sm btn-warning pull-right fa fa-close"></button>
                     </div>
                     <strong>{{suscripcion.eventopojo.tipo}}</strong>
                   </p>
@@ -127,6 +135,7 @@
           </div>
         </div>
          </scrollable>
+         
          <!-- END panel-footer-->
       </div>
       <div ng-controller="CancelarTiqueteModalController">

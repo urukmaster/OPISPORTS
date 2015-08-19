@@ -197,7 +197,6 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
     $scope.init(); 
     
     
-
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
         $scope.init(); 
