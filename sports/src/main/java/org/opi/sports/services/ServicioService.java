@@ -14,33 +14,43 @@ import org.springframework.stereotype.Service;
  * 
  * @author Luis Esteban López Ramírez
  * 
- *Sprint #4 Descripción: Servicio que se encarga de comuicarse con el repositorio para
- * las consulta a la base de datos.
+ *         Sprint #4 Descripción: Servicio que se encarga de comuicarse con el
+ *         repositorio para las consulta a la base de datos.
  */
 @Service
-public class ServicioService implements ServicioServiceInterface{
+public class ServicioService implements ServicioServiceInterface {
 
 	@Autowired
 	ServicioRepository servicioRepository;
-	
+
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
-	
+
 	@Transactional
 	public List<Servicio> findAll() {
-		return servicioRepository.findAll();
+		try {
+			return servicioRepository.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@Transactional
 	public Servicio findOne(Integer idServicio) {
-		return servicioRepository.findOne(idServicio);
+		try {
+			return servicioRepository.findOne(idServicio);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@Transactional
 	public <Servicios extends Servicio> Servicios save(Servicios servicio) {
-		return servicioRepository.save(servicio);
+		try {
+			return servicioRepository.save(servicio);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-	
-	
 }

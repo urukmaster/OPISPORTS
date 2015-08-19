@@ -44,7 +44,7 @@ App.controller('TorneosController', ['$scope', 'uiGridConstants', function($scop
 	};
 }]);
 
-App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http', 'toaster', function ($scope, $modal, $timeout ,$http) {
+App.controller('TorneoModalController', ['$scope', '$rootScope','$modal', '$timeout' ,'$http', 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http) {
 	
 	
 	$scope.registrar = function () {
@@ -72,6 +72,7 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
 			idCalendario : row.idCalendario,
 			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
 	 	}).success(function(data){
+	 		if(data.code == 200){
 	 		var toasterdata = {
 					type:  'success',
 					title: 'Establecimiento',
@@ -81,6 +82,10 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
 			establecimientoCalendario = data;
 			gridTorneo = establecimientoCalendario.torneos;
 			$state.reload();
+	 		 }else{
+	            	$rootScope.errorMessage = data.codeMessage;
+	            	$state.go('page.error');
+	            }
 	 	})
 	};
     
@@ -110,6 +115,7 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
                 };
             $http.post('rest/reservaciones/save', data).
             success(function(data){
+            	if(data.code == 200){
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Servicio',
@@ -118,6 +124,10 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
     			$scope.pop(toasterdata);
             	gridTorneo.data = data.torneos;
             	establecimientoCalendario = data;
+            	 }else{
+                 	$rootScope.errorMessage = data.codeMessage;
+                 	$state.go('page.error');
+                 }
             });
         };
         $scope.cancel = function () {
@@ -166,6 +176,7 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
                 };
                 $http.post('rest/reservaciones/save', data).
                 success(function(data){
+                	if(data.code == 200){
                 	var toasterdata = {
     			            type:  'success',
     			            title: 'Servicio',
@@ -175,6 +186,10 @@ App.controller('TorneoModalController', ['$scope', '$modal', '$timeout' ,'$http'
         			$scope.pop(toasterdata);
         			gridTorneo.data = data.torneos;
         			establecimientoCalendario = data;
+                	 }else{
+                     	$rootScope.errorMessage = data.codeMessage;
+                     	$state.go('page.error');
+                     }
                 });
 
             $modalInstance.close('closed');

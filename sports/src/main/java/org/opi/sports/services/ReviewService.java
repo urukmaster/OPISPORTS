@@ -13,21 +13,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReviewService implements ReviewServiceInterface {
-	
+
 	@Autowired
 	public ReviewRepository reviewRepository;
-	
+
 	@Transactional
-	@Override
 	public <S extends Review> S save(S review) {
-		// TODO Auto-generated method stub
-		return reviewRepository.save(review);
+		try {
+			return reviewRepository.save(review);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
-	
+
 	@Transactional
-	@Override
 	public Review findOne(Integer idReview) {
-		return reviewRepository.findOne(idReview);
+		try {
+			return reviewRepository.findOne(idReview);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

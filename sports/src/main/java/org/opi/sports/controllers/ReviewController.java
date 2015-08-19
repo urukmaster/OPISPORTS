@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "rest/review")
 public class ReviewController {
-	
+
 	@Autowired
 	ReviewServiceInterface reviewService;
-	
+
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
-	
+
 	@Autowired
 	UsuarioServiceInterface usuarioServices;
 
@@ -42,29 +42,50 @@ public class ReviewController {
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public ReviewResponse save(@RequestBody ReviewRequest reviewRequest) {
-		
+
 		ReviewResponse reviewResponse = new ReviewResponse();
-		
-		ReviewPOJO reviewPOJO = ReviewHelper.getInstance().saveReview(reviewRequest,
-					reviewService,establecimientoDeportivoService.findOne(reviewRequest.getIdEstablecimientoDeportivo())
-					,usuarioServices.findOne(reviewRequest.getIdUsuario()));
-		
-		
-		reviewResponse.setCode(200);
-		reviewResponse.setCodeMessage("El centro de distribucion se registro correctamente");
+
+		try {
+
+			ReviewPOJO reviewPOJO = ReviewHelper.getInstance().saveReview(
+					reviewRequest,
+					reviewService,
+					establecimientoDeportivoService.findOne(reviewRequest
+							.getIdEstablecimientoDeportivo()),
+					usuarioServices.findOne(reviewRequest.getIdUsuario()));
+
+			reviewResponse.setCode(200);
+			reviewResponse
+					.setCodeMessage("El centro de distribucion se registro correctamente");
+		} catch (Exception exception) {
+			reviewResponse.setCode(404);
+			reviewResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reviewResponse.setErrorMessage(exception.getMessage());
+		}
 		return reviewResponse;
 	}
-	
+
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public ReviewResponse delete(@RequestBody ReviewRequest reviewRequest) {
-		
+
 		ReviewResponse reviewResponse = new ReviewResponse();
-		Review review = reviewService.findOne(reviewRequest.getIdComentario());
-		ReviewPOJO reviewpojo = ReviewHelper.getInstance().deleteReview(reviewService,review);
-	
+		try {
+			Review review = reviewService.findOne(reviewRequest
+					.getIdComentario());
+			ReviewPOJO reviewpojo = ReviewHelper.getInstance().deleteReview(
+					reviewService, review);
+
 			reviewResponse.setCode(200);
 			reviewResponse.setCodeMessage("El review se elimino correctamente");
-
+		} catch (Exception exception) {
+			reviewResponse.setCode(404);
+			reviewResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reviewResponse.setErrorMessage(exception.getMessage());
+		}
 
 		return reviewResponse;
 	}

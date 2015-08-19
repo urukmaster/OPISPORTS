@@ -2,7 +2,7 @@
  * Created by JuanManuel on 30/07/2015.
  */
 
-App.controller('TiposEventosController', ['$scope','$http','toaster', function($scope,$http,toaster) {
+App.controller('TiposEventosController', ['$scope','$rootScope','$http','toaster', function($scope,$rootScope,$http,toaster) {
 	
        
     var data = [];
@@ -36,6 +36,7 @@ App.controller('TiposEventosController', ['$scope','$http','toaster', function($
     var aTipos = [];
     $http.get('rest/tipoEvento/getAll')
         .success(function(data) {
+        	if(data.code = 200){
         	data.tiposEventos.forEach(
         			function(tipo,index){
         				var tipoView = {};
@@ -54,6 +55,10 @@ App.controller('TiposEventosController', ['$scope','$http','toaster', function($
         			
         	);
         	$scope.gridTiposEventos.data = aTipos;
+        	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
         });
     
     $scope.$on('actualizarGrid', function (event, responsedata) {
@@ -133,6 +138,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
             		tipo : $scope.tipoEvento.nombre
         		 	})
         		.success(function(data){
+        			if(data.code == 200){
         			var aTipos = [];
         			data.tiposEventos.forEach(
                 			function(tipo,index){
@@ -158,7 +164,11 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed'); 
+        			}else{
+        				$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -200,6 +210,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
             		active: tipoModificar.active
         		 	})
         		.success(function(data){
+        			if(data.code = 200){
         			var aTipos = [];
         			data.tiposEventos.forEach(
                 			function(tipo,index){
@@ -226,7 +237,11 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed');  
+        			}else{
+        				$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -251,6 +266,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         		tipo : tipoModificar.tipo
     		 	})
     		.success(function(data){
+    			if(data.code == 200){
     			var aTipos = [];			
     			data.tiposEventos.forEach(
             			function(tipo,index){
@@ -277,10 +293,12 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
     		        	};
     			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
     			$rootScope.$broadcast('actualizarGrid',responsedata);
-    			$modalInstance.close('closed');
-    			
+    			}else{
+    				$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+    			}
     		});
-    	}
+    	};
     	
     	
         $scope.cancel = function () {

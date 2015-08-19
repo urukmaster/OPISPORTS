@@ -5082,7 +5082,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', f
     
     $scope.logout = function(){
     	$http.get('rest/iniciarSesion/cerrarSesion');
-    	$rootScope.usuario = {};
+    	$rootScope.usuario = undefined;
     	$state.go('app.login');
     }
     
@@ -5103,9 +5103,11 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', f
         						roles: data.usuario.roles,
         						inscripciones: data.usuario.inscripciones
         	        	}
-        	        	
-                	}else{
+                	}else if(data.code == 401){
                 		$state.go('app.login');
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
                 	}
         		});
             	

@@ -3,6 +3,7 @@ package org.opi.sports.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opi.sports.contracts.EstablecimientoDeportivoResponse;
 import org.opi.sports.contracts.ReservacionesRequest;
 import org.opi.sports.contracts.ReservacionesResponse;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
@@ -32,12 +33,13 @@ import org.springframework.web.bind.annotation.RestController;
  *         Sprint 01 Descripción:Esta clase es la que contendrá cada uno de los
  *         servicios que serán necesarios para procesar la información de
  *         reservaciones de la aplicación
- *         
- * Fecha: 14-07-2015 version 1.1
+ * 
+ *         Fecha: 14-07-2015 version 1.1
  * 
  * @author Luis Esteban López Ramírez
  * 
- * Sprint 03 Descripción: Se agrega la funcionalidad para guardar las reservaciones
+ *         Sprint 03 Descripción: Se agrega la funcionalidad para guardar las
+ *         reservaciones
  * 
  */
 
@@ -59,7 +61,7 @@ public class ReservacionController {
 
 	@Autowired
 	TorneoServiceInterface torneoService;
-	
+
 	/**
 	 * Este método obtiene cada una de las instancias de reservaciones
 	 * registradas en la base de datos
@@ -69,18 +71,31 @@ public class ReservacionController {
 
 		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
 
-		List<Reservaciones> reservacionesList = reservacionesServices
-				.getAllReservaciones();
+		try {
 
-		List<ReservacionesPOJO> reservacionesViewList = new ArrayList<ReservacionesPOJO>();
+			List<Reservaciones> reservacionesList = reservacionesServices
+					.getAllReservaciones();
 
-		for (Reservaciones reservaciones : reservacionesList) {
-			ReservacionesPOJO reservacionesView = new ReservacionesPOJO();
-			PojoUtils.pojoMappingUtility(reservacionesView, reservaciones);
-			reservacionesViewList.add(reservacionesView);
+			List<ReservacionesPOJO> reservacionesViewList = new ArrayList<ReservacionesPOJO>();
+
+			for (Reservaciones reservaciones : reservacionesList) {
+				ReservacionesPOJO reservacionesView = new ReservacionesPOJO();
+				PojoUtils.pojoMappingUtility(reservacionesView, reservaciones);
+				reservacionesViewList.add(reservacionesView);
+			}
+
+			reservacionesResponse.setReservaciones(reservacionesViewList);
+
+			reservacionesResponse.setCode(200);
+			reservacionesResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			reservacionesResponse.setCode(404);
+			reservacionesResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reservacionesResponse.setErrorMessage(exception.getMessage());
 		}
-
-		reservacionesResponse.setReservaciones(reservacionesViewList);
 
 		return reservacionesResponse;
 
@@ -90,76 +105,198 @@ public class ReservacionController {
 	 * Este método se encarga de guardar las reservaciones
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public EstablecimientoDeportivoPOJO save(
+	public EstablecimientoDeportivoResponse save(
 			@RequestBody ReservacionesRequest reservacion) {
 
-		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
-				.saveReservacion(reservacion, reservacionesServices,
-						usuarioServices.findOne(reservacion.getUsuario()),
-						servicioServices.findOne(reservacion.getServicio()), torneoService);
+		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
 
-		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
-			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
-			reservaciones.add(reservacionView);
+		try {
+
+			ReservacionesPOJO reservacionView = ReservacionesHelper
+					.getInstance()
+					.saveReservacion(
+							reservacion,
+							reservacionesServices,
+							usuarioServices.findOne(reservacion.getUsuario()),
+							servicioServices.findOne(reservacion.getServicio()),
+							torneoService);
+
+			if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
+				List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+				reservaciones.add(reservacionView);
+				reservacionesResponse.setCode(200);
+				reservacionesResponse.setCodeMessage("Operación Exitosa");
+			}
+
+		} catch (Exception exception) {
+			reservacionesResponse.setCode(404);
+			reservacionesResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reservacionesResponse.setErrorMessage(exception.getMessage());
+		} finally {
+			if (reservacionesResponse.getCode() == 200) {
+				establecimientoResponse
+						.setEstablecimientoDeportivo(EstablecimientoDeportivoHelper
+								.getInstance().convertirEstablecimiento(
+										establecimientoDeportivoService
+												.findOne(reservacion
+														.getEstablecimiento())));
+				establecimientoResponse.setCode(200);
+				establecimientoResponse.setCodeMessage("Operación Exitosa");
+			} else {
+				establecimientoResponse.setCode(404);
+				establecimientoResponse.setCodeMessage(reservacionesResponse
+						.getCodeMessage());
+				establecimientoResponse.setErrorMessage(reservacionesResponse
+						.getErrorMessage());
+			}
+
 		}
 
-		return EstablecimientoDeportivoHelper
-				.getInstance()
-				.convertirEstablecimiento(
-						establecimientoDeportivoService.findOne(reservacion
-								.getEstablecimiento()));
+		return establecimientoResponse;
+
 	}
+
 	/**
 	 * Se encarga de elminiar las reservaciones o torneos
 	 */
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
-	public EstablecimientoDeportivoPOJO delete(
+	public EstablecimientoDeportivoResponse delete(
 			@RequestBody ReservacionesRequest reservacion) {
-		
-		Reservaciones reservacionesEJB = reservacionesServices.findOne(reservacion.getIdCalendario());
-		reservacionesEJB.setActive((byte) 0);
-		reservacionesServices.save(reservacionesEJB);
 
-		return EstablecimientoDeportivoHelper
-				.getInstance()
-				.convertirEstablecimiento(
-						establecimientoDeportivoService.findOne(reservacion
-								.getEstablecimiento()));
+		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+
+		try {
+
+			Reservaciones reservacionesEJB = reservacionesServices
+					.findOne(reservacion.getIdCalendario());
+			reservacionesEJB.setActive((byte) 0);
+			ReservacionesPOJO reservacionView = ReservacionesHelper
+					.getInstance()
+					.saveReservacion(
+							reservacion,
+							reservacionesServices,
+							usuarioServices.findOne(reservacion.getUsuario()),
+							servicioServices.findOne(reservacion.getServicio()),
+							torneoService);
+
+			if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
+				List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+				reservaciones.add(reservacionView);
+				reservacionesResponse.setCode(200);
+				reservacionesResponse.setCodeMessage("Operación Exitosa");
+			}
+
+		} catch (Exception exception) {
+			reservacionesResponse.setCode(404);
+			reservacionesResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reservacionesResponse.setErrorMessage(exception.getMessage());
+		} finally {
+			if (reservacionesResponse.getCode() == 200) {
+				establecimientoResponse
+						.setEstablecimientoDeportivo(EstablecimientoDeportivoHelper
+								.getInstance().convertirEstablecimiento(
+										establecimientoDeportivoService
+												.findOne(reservacion
+														.getEstablecimiento())));
+				establecimientoResponse.setCode(200);
+				establecimientoResponse.setCodeMessage("Operación Exitosa");
+			} else {
+				establecimientoResponse.setCode(404);
+				establecimientoResponse.setCodeMessage(reservacionesResponse
+						.getCodeMessage());
+				establecimientoResponse.setErrorMessage(reservacionesResponse
+						.getErrorMessage());
+			}
+
+		}
+
+		return establecimientoResponse;
+
 	}
+
 	/**
 	 * Se encarga de modificar las reservaciones o torneos
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public EstablecimientoDeportivoPOJO update(
+	public EstablecimientoDeportivoResponse update(
 			@RequestBody ReservacionesRequest reservacion) {
 
-		ReservacionesPOJO reservacionView = ReservacionesHelper.getInstance()
-				.saveReservacion(reservacion, reservacionesServices,
-						usuarioServices.findOne(reservacion.getUsuario()),
-						servicioServices.findOne(reservacion.getServicio()), torneoService);
+		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
+		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
 
-		if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
-			List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
-			reservaciones.add(reservacionView);
+		try {
+
+			ReservacionesPOJO reservacionView = ReservacionesHelper
+					.getInstance()
+					.saveReservacion(
+							reservacion,
+							reservacionesServices,
+							usuarioServices.findOne(reservacion.getUsuario()),
+							servicioServices.findOne(reservacion.getServicio()),
+							torneoService);
+
+			if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
+				List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
+				reservaciones.add(reservacionView);
+				reservacionesResponse.setCode(200);
+				reservacionesResponse.setCodeMessage("Operación Exitosa");
+			}
+
+		} catch (Exception exception) {
+			reservacionesResponse.setCode(404);
+			reservacionesResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reservacionesResponse.setErrorMessage(exception.getMessage());
+		} finally {
+			if (reservacionesResponse.getCode() == 200) {
+				establecimientoResponse
+						.setEstablecimientoDeportivo(EstablecimientoDeportivoHelper
+								.getInstance().convertirEstablecimiento(
+										establecimientoDeportivoService
+												.findOne(reservacion
+														.getEstablecimiento())));
+				establecimientoResponse.setCode(200);
+				establecimientoResponse.setCodeMessage("Operación Exitosa");
+			} else {
+				establecimientoResponse.setCode(404);
+				establecimientoResponse.setCodeMessage(reservacionesResponse
+						.getCodeMessage());
+				establecimientoResponse.setErrorMessage(reservacionesResponse
+						.getErrorMessage());
+			}
+
 		}
-		
-		EstablecimientoDeportivo establecimientoDeportivo = establecimientoDeportivoService.findOne(reservacion
-				.getEstablecimiento());
-		
-		return EstablecimientoDeportivoHelper
-				.getInstance()
-				.convertirEstablecimiento(
-						establecimientoDeportivo);
+
+		return establecimientoResponse;
 	}
-	
+
 	/**
 	 * Se encarga de obtener las reservaciones o torneos
 	 */
 	@RequestMapping(value = "getReservacion", method = RequestMethod.POST)
-	public ReservacionesResponse getReservacion(@RequestBody ReservacionesRequest reservacionRequest){
-		return ReservacionesHelper.getInstance().getReservacion(reservacionRequest.getIdCalendario(), reservacionesServices);
+	public ReservacionesResponse getReservacion(
+			@RequestBody ReservacionesRequest reservacionRequest) {
+		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
+		try {
+			ReservacionesHelper.getInstance()
+					.getReservacion(reservacionRequest.getIdCalendario(),
+							reservacionesServices);
+		} catch (Exception exception) {
+			reservacionesResponse.setCode(404);
+			reservacionesResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			reservacionesResponse.setErrorMessage(exception.getMessage());
+		}
+
+		return reservacionesResponse;
 	}
-	
-	
-	
+
 }
