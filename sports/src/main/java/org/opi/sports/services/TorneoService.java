@@ -10,13 +10,21 @@ public class TorneoService implements TorneoServiceInterface {
 
 	@Autowired
 	TorneoRepository torneoRepository;
-	
+
 	public <Torneos extends Torneo> Torneos save(Torneos torneos) {
-		return torneoRepository.save(torneos);
+		try {
+			return torneoRepository.save(torneos);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Torneo findOne(Integer idTorneo) {
-		return torneoRepository.findOne(idTorneo);
+		try {
+			return torneoRepository.findOne(idTorneo);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

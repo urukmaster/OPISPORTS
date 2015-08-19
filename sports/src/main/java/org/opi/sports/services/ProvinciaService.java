@@ -12,26 +12,38 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 02 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
- *provenientes de los repositorios.
+ *         Sprint 02 Descripción: Esta clase se encarga de proveer los servicios
+ *         que el controlador necesita provenientes de los repositorios.
  */
 
 @Service
-public class ProvinciaService implements ProvinciaServiceInterface{
+public class ProvinciaService implements ProvinciaServiceInterface {
 
 	@Autowired
 	public ProvinciaRepository provinciaRepositorio;
 
 	public List<Provincia> getAllProvincias() {
-		return provinciaRepositorio.findAll();
+		try {
+			return provinciaRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public <Provincias extends Provincia> Provincias save(Provincias provincia) {
-		return provinciaRepositorio.save(provincia);
+		try {
+			return provinciaRepositorio.save(provincia);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Provincia findOne(Integer idProvincia) {
-		return provinciaRepositorio.findOne(idProvincia);
+		try {
+			return provinciaRepositorio.findOne(idProvincia);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

@@ -7,7 +7,7 @@
  */
 var gridTipoServicio = {};
 
-App.controller('TipoServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('TipoServicioController', ['$scope', '$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 
     var data = [];
 
@@ -28,10 +28,16 @@ App.controller('TipoServicioController', ['$scope', 'uiGridConstants', '$http', 
     }
     $http.get('rest/tipoServicio/getAll')
         .success(function(data) {
-            data.forEach( function(row) {
+        	if(data.code == 200){
+            data.tipoServicio.forEach( function(row) {
                 row.registered = Date.parse(row.registered);
+           
             });
             $scope.gridTipoServicio.data = data;
+        	 }else{
+             	$rootScope.errorMessage = data.codeMessage;
+             	$state.go('page.error');
+             }
         });
 }]);
 

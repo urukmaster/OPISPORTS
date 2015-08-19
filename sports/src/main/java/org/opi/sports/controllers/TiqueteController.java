@@ -2,6 +2,7 @@ package org.opi.sports.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.opi.sports.contracts.TiqueteRequest;
 import org.opi.sports.contracts.TiqueteResponse;
 import org.opi.sports.ejb.Evento;
@@ -26,67 +27,91 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  * @author Mauricio Fernández Mora.
  *
- *Sprint 03 Descripción:Esta clase es la que contendrá cada uno de los servicios que
- *serán necesarios para procesar la información de los tiquetes de eventos de la aplicación
+ *         Sprint 03 Descripción:Esta clase es la que contendrá cada uno de los
+ *         servicios que serán necesarios para procesar la información de los
+ *         tiquetes de eventos de la aplicación
  */
 
 @RestController
 @RequestMapping(value = "rest/tiquete")
-
 public class TiqueteController {
-	
+
 	@Autowired
 	TiqueteServiceInterface tiqueteServices;
-	
+
 	@Autowired
 	EventoServiceInterface eventoServices;
-	
+
 	@Autowired
 	UsuarioServiceInterface usuarioServices;
-	
+
 	@Autowired
 	InscripcionServiceInterface inscripcionServices;
 
 	/**
-	 *Este método obtiene cada una de las instancias de tiquetes
-	 *registrados en la base de datos
-	 */	
-	@RequestMapping(value ="getAll", method = RequestMethod.GET)
-	public TiqueteResponse getAll(){	
-		
+	 * Este método obtiene cada una de las instancias de tiquetes registrados en
+	 * la base de datos
+	 */
+	@RequestMapping(value = "getAll", method = RequestMethod.GET)
+	public TiqueteResponse getAll() {
+
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
-		
-		List<Tiquete> tiqueteList = tiqueteServices.getAllTiquetes();
-	    List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
-		
-		for(Tiquete tiquete : tiqueteList){
-			
-			if(tiquete.getActive() == 1){
-				tiqueteViewList.add(TiqueteHelper.getInstance().convertirTiquete(tiquete));
+
+		try {
+			List<Tiquete> tiqueteList = tiqueteServices.getAllTiquetes();
+			List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
+
+			for (Tiquete tiquete : tiqueteList) {
+
+				if (tiquete.getActive() == 1) {
+					tiqueteViewList.add(TiqueteHelper.getInstance()
+							.convertirTiquete(tiquete));
+				}
 			}
+
+			tiqueteResponse.setTiquetes(tiqueteViewList);
+			tiqueteResponse.setCode(200);
+			tiqueteResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			tiqueteResponse.setCode(404);
+			tiqueteResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tiqueteResponse.setErrorMessage(exception.getMessage());
+
 		}
-		
-		tiqueteResponse.setTiquetes(tiqueteViewList);
-		
 		return tiqueteResponse;
 	}
 
 	/**
-	 *Este método obtiene un tiquete a un evento
-	 *registrado en la base de datos por medio de su id
-	 */	
-	@RequestMapping(value="getTiquete", method = RequestMethod.POST)
-	public TiqueteResponse getTiquete(@RequestBody int idTiquete){
-		
+	 * Este método obtiene un tiquete a un evento registrado en la base de datos
+	 * por medio de su id
+	 */
+	@RequestMapping(value = "getTiquete", method = RequestMethod.POST)
+	public TiqueteResponse getTiquete(@RequestBody int idTiquete) {
+
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
-		
-		Tiquete tiquete = tiqueteServices.findOne(idTiquete);
-		
-		TiquetePOJO tiqueteView = new TiquetePOJO();
-		PojoUtils.pojoMappingUtility(tiqueteView, tiquete);
-		
-		tiqueteResponse.setTiquete(tiqueteView);
-		
+		try {
+			Tiquete tiquete = tiqueteServices.findOne(idTiquete);
+
+			TiquetePOJO tiqueteView = new TiquetePOJO();
+			PojoUtils.pojoMappingUtility(tiqueteView, tiquete);
+
+			tiqueteResponse.setTiquete(tiqueteView);
+
+			tiqueteResponse.setCode(200);
+			tiqueteResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			tiqueteResponse.setCode(404);
+			tiqueteResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tiqueteResponse.setErrorMessage(exception.getMessage());
+
+		}
+
 		return tiqueteResponse;
 	}
 
@@ -98,6 +123,8 @@ public class TiqueteController {
 	public TiqueteResponse getByNombreEvento(@RequestBody String nombreEvento){
 		
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
+		
+		try {
 		
 		List<Tiquete> tiqueteList = tiqueteServices.findByNombreEvento(nombreEvento);
 	    List<TiquetePOJO> tiqueteViewList = new ArrayList<TiquetePOJO>();
@@ -111,6 +138,17 @@ public class TiqueteController {
 		
 		
 		tiqueteResponse.setTiquetes(tiqueteViewList);
+		tiqueteResponse.setCode(200);
+			tiqueteResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			tiqueteResponse.setCode(404);
+			tiqueteResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tiqueteResponse.setErrorMessage(exception.getMessage());
+
+		}
 		
 		return tiqueteResponse;
 	}
@@ -119,35 +157,52 @@ public class TiqueteController {
 	 * Metodo de registrar una inscripcion
 	 * 
 	 */
-	@RequestMapping(value="save" , method = RequestMethod.POST)
-	public TiqueteResponse save(@RequestBody TiqueteRequest tiqueteRequest){
+	@RequestMapping(value = "save", method = RequestMethod.POST)
+	public TiqueteResponse save(@RequestBody TiqueteRequest tiqueteRequest) {
 
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
-		
-		Usuario usuario = usuarioServices.findOne(tiqueteRequest.getUsuario());
-		
-		Evento evento = eventoServices.findOne(tiqueteRequest.getEvento());
-		
-		Inscripcion inscripcion = new Inscripcion();
-		
-		inscripcion = inscripcionServices.save(inscripcion);
-		
-		for(int i = 0; i < tiqueteRequest.getCantidad(); i++){
 
-			TiquetePOJO tiqueteView = TiqueteHelper.getInstance().save(tiqueteRequest, tiqueteServices,
-					usuario, evento, inscripcion);
-			
-			if(tiqueteServices.exists(tiqueteView.getIdTiquete())){
-				List<TiquetePOJO> tiquetes = new ArrayList<TiquetePOJO>();
-				tiquetes.add(tiqueteView);
-				tiqueteResponse.setTiquetes(tiquetes);
-				tiqueteResponse.setCode(200);
-				tiqueteResponse.setCodeMessage("La inscripción se registro correctamente");
-			}else{
-				tiqueteResponse.setCode(401);
-				tiqueteResponse.setCodeMessage("La inscripción no se registro");
+		try {
+			Usuario usuario = usuarioServices.findOne(tiqueteRequest
+					.getUsuario());
+
+			Evento evento = eventoServices.findOne(tiqueteRequest.getEvento());
+
+			Inscripcion inscripcion = new Inscripcion();
+
+			inscripcion = inscripcionServices.save(inscripcion);
+
+			for (int i = 0; i < tiqueteRequest.getCantidad(); i++) {
+
+				TiquetePOJO tiqueteView = TiqueteHelper.getInstance().save(
+						tiqueteRequest, tiqueteServices, usuario, evento,
+						inscripcion);
+
+				if (tiqueteServices.exists(tiqueteView.getIdTiquete())) {
+					List<TiquetePOJO> tiquetes = new ArrayList<TiquetePOJO>();
+					tiquetes.add(tiqueteView);
+					tiqueteResponse.setTiquetes(tiquetes);
+					tiqueteResponse.setCode(200);
+					tiqueteResponse
+							.setCodeMessage("La inscripción se registro correctamente");
+				} else {
+					tiqueteResponse.setCode(401);
+					tiqueteResponse
+							.setCodeMessage("La inscripción no se registro");
+				}
+
 			}
-			
+
+			tiqueteResponse.setCode(200);
+			tiqueteResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			tiqueteResponse.setCode(404);
+			tiqueteResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tiqueteResponse.setErrorMessage(exception.getMessage());
+
 		}
 		return tiqueteResponse;
 	}
@@ -157,20 +212,38 @@ public class TiqueteController {
 	 * 
 	 */
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
-	public TiquetePOJO delete(@RequestBody int idTiquete) {
+	public TiqueteResponse delete(@RequestBody int idTiquete) {
 		
-		Tiquete tiquete = tiqueteServices.findOne(idTiquete);
-		tiquete.setActive((byte) 0);
-		tiquete.setEstado("cancelado");
+		TiqueteResponse tiqueteResponse = new TiqueteResponse();
 		
-		TiquetePOJO tiquetePOJO = new TiquetePOJO();
+		try {
 
-		tiqueteServices.save(tiquete);
-		
-		PojoUtils.pojoMappingUtility(tiquetePOJO, tiquete);
+			Tiquete tiquete = tiqueteServices.findOne(idTiquete);
+			tiquete.setActive((byte) 0);
+			tiquete.setEstado("cancelado");
 
-		return tiquetePOJO;
+
+			TiquetePOJO tiquetePOJO = new TiquetePOJO();
+
+			tiqueteServices.save(tiquete);
+
+			PojoUtils.pojoMappingUtility(tiquetePOJO, tiquete);
+
+			tiqueteResponse.setTiquete(tiquetePOJO);
+			
+			tiqueteResponse.setCode(200);
+			tiqueteResponse.setCodeMessage("Operación exitosa");
+
+		} catch (Exception exception) {
+			tiqueteResponse.setCode(404);
+			tiqueteResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			tiqueteResponse.setErrorMessage(exception.getMessage());
+
+		}
+
+		return tiqueteResponse;
 	}
 
 }
-
