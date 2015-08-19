@@ -198,10 +198,6 @@ App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$stat
 //        }
 //    };   	
 	}
-	
-	
-	
-	
 }]);
 
 /**==========================================================
@@ -255,9 +251,11 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 	    };
 	
 	$scope.cancel = function () {
-	  $modalInstance.dismiss('cancel');
-	    };
-	  };
-	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
+		$modalInstance.dismiss('cancel');
+	};
+	    
+  	};
+  	
+  	ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
 }]);

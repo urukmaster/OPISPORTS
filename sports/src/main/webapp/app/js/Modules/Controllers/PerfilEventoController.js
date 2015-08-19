@@ -97,7 +97,7 @@ App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$time
  * Modulo: PerfilEventoController
  * Este controlador se traer un evento deportivo por medio del Id
  ============================================================*/
-App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', function($scope, $http, $stateParams, $state, $modal) {
+App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', '$rootScope', function($scope, $http, $stateParams, $state, $modal, $rootScope) {
 
     
     $scope.init = function(){
@@ -111,7 +111,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
             eventoActual.horaModificar = response.hora;
             eventoActual.fechaModificar = response.fecha;
 			}else{
-        		$rootScope.errorMessage = data.codeMessage;
+        		$rootScope.errorMessage = response.codeMessage;
         		$state.go('page.error');
         	}
 		});
