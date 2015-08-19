@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.activemq.filter.function.inListFunction;
+import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
 import org.opi.sports.contracts.IniciarSesionRequest;
 import org.opi.sports.contracts.IniciarSesionResponse;
 import org.opi.sports.ejb.Usuario;
@@ -41,7 +42,6 @@ public class IniciarSesionController {
 	 * 
 	 */
 	@RequestMapping(value = "validarUsuario", method = RequestMethod.POST)
-	@Transactional
 	public IniciarSesionResponse validarUsuario(
 			@RequestBody IniciarSesionRequest iniciarSesionRequest) {
 
@@ -77,6 +77,7 @@ public class IniciarSesionController {
 			iniciarSesionresponse.setErrorMessage(exception.getMessage());
 		}
 		return iniciarSesionresponse;
+
 	}
 
 	/**
@@ -86,5 +87,43 @@ public class IniciarSesionController {
 	@RequestMapping(value = "cerrarSesion", method = RequestMethod.GET)
 	public void cerrarSesion() {
 		request.getSession().invalidate();
+
+	}
+
+	@RequestMapping(value = "getSession", method = RequestMethod.GET)
+	public IniciarSesionResponse getSession() {
+		IniciarSesionResponse iniciarSesionResponse = new IniciarSesionResponse();
+		Usuario usuarioLogeado;
+
+		UsuarioPOJO usuario = new UsuarioPOJO();
+		try {
+			try {
+				usuarioLogeado = (Usuario) request.getSession().getAttribute(
+						"Usuario");
+				usuario = IniciarSesionHelper.getInstance().convertirUsuario(
+						usuarioLogeado);
+			} catch (NullPointerException nexception) {
+				Exception exception = new Exception("401");
+				throw exception;
+			}
+
+			iniciarSesionResponse.setCode(200);
+			iniciarSesionResponse.setCodeMessage("Usuario logeado");
+			iniciarSesionResponse.setUsuario(usuario);
+		} catch (Exception exception) {
+			if (exception.getMessage() == "401") {
+				iniciarSesionResponse.setCode(401);
+				iniciarSesionResponse.setCodeMessage("Usuario no logeado");
+			} else {
+				iniciarSesionResponse.setCode(404);
+				iniciarSesionResponse
+						.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+								+ "Lamentamos el incoveniente, favor intentar mas tarde");
+				iniciarSesionResponse.setErrorMessage(exception.getMessage());
+			}
+		}
+
+		return iniciarSesionResponse;
+
 	}
 }
