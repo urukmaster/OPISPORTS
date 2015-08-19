@@ -1,4 +1,4 @@
-/**
+	/**
  * Created by JuanManuel on 30/07/2015.
  */
 
@@ -9,6 +9,7 @@ App.controller('TiposEventosController', ['$scope','$rootScope','$http','toaster
     $scope.gridTiposEventos = {	
     		paginationPageSizes: [],
 			paginationPageSize: 7,
+			enableFiltering: true,
         columnDefs: [
             {field: 'idTipoEvento', visible:false},
             {field: 'tipo', name: 'tipo', displayName: 'Tipo de Evento Deportivo'},
@@ -97,45 +98,17 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
     
     $scope.eliminar = function ($row) {
     	tipoModificar = $row.entity;
-    	$http.post('rest/tipoEvento/delete', {
-    		idTipoEvento : tipoModificar.idTipoEvento,
-    		tipo : tipoModificar.tipo
-		 	})
-		.success(function(data){
-			if(data.code == 200){
-			var aTipos = [];			
-			data.tiposEventos.forEach(
-        			function(tipo,index){
-        				var tipoView = {};
-        				tipoView = {
-        						idTipoEvento: tipo.idTipoEvento,
-        						tipo: tipo.tipo,
-        						active: tipo.active
-        				}
-        				
-        				if(tipoView.active == 0){        					
-        				}else{
-        					aTipos.push(tipoView);
-        				}
-        			}
-        			
-        	);
-			
-			var responsedata = {
-		            type:  'success',
-		            title: 'Tipo de Evento',
-		            text:  data.codeMessage,
-		            newGrid: aTipos
-		        	};
-			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
-			$rootScope.$broadcast('actualizarGrid',responsedata);
-			}else{
-				$rootScope.errorMessage = data.codeMessage;
-        		$state.go('page.error');
-			}
-			
+    	var modalInstance = $modal.open({
+			templateUrl: '/modalEliminarTipoEvento.html',
+			controller: EliminarTipoEventoInstanceCtrl,
+			size: 'sm'
 		});
-    	  
+		var state = $('#modal-state');
+		modalInstance.result.then(function () {
+		  state.text('Modal dismissed with OK status');
+		}, function () {
+		  state.text('Modal dismissed with Cancel status');
+		});  	  
      
     };
     
@@ -159,7 +132,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
     	
         // Submit form
         $scope.submitForm = function() {
-            $scope.submitted = false;
+            $scope.submitted = true;
             if ($scope.formTipoEvento.$valid) {
             	$http.post('rest/tipoEvento/save', {
             		tipo : $scope.tipoEvento.nombre
@@ -283,5 +256,56 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
 
     };
     ModificarTipoEventoInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    
+    var EliminarTipoEventoInstanceCtrl = function ($scope, $modalInstance,$http) {
+    	
+    	$scope.ok = function () {
+    		
+    		$http.post('rest/tipoEvento/delete', {
+        		idTipoEvento : tipoModificar.idTipoEvento,
+        		tipo : tipoModificar.tipo
+    		 	})
+    		.success(function(data){
+    			if(data.code == 200){
+    			var aTipos = [];			
+    			data.tiposEventos.forEach(
+            			function(tipo,index){
+            				var tipoView = {};
+            				tipoView = {
+            						idTipoEvento: tipo.idTipoEvento,
+            						tipo: tipo.tipo,
+            						active: tipo.active
+            				}
+            				
+            				if(tipoView.active == 0){        					
+            				}else{
+            					aTipos.push(tipoView);
+            				}
+            			}
+            			
+            	);
+    			
+    			var responsedata = {
+    		            type:  'success',
+    		            title: 'Tipo de Evento',
+    		            text:  data.codeMessage,
+    		            newGrid: aTipos
+    		        	};
+    			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
+    			$rootScope.$broadcast('actualizarGrid',responsedata);
+    			}else{
+    				$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+    			}
+    		});
+    	};
+    	
+    	
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+    };
+    EliminarTipoEventoInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
 
 }]);

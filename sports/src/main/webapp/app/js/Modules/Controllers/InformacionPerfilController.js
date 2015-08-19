@@ -3,6 +3,7 @@
  * Este controlador se encarga de carga cada uno de los establecimientos
  * deportivos registrados y de inicializar la página
  ============================================================*/
+var establcimientoCalendario = {};
 App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
 
 	//Trae los establecimientos deportivos registrados
