@@ -221,12 +221,18 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
      * @return Array The array with the events
      */
     
-    $scope.$on('actualizar', function(){
+    $scope.$on('actualizar', function(data){
     	$('#calendario').append('<div id="calendarioContent">' +
 						'<div id="calendar"></div>' +
 					'</div>');
     	
     	$scope.init();
+    	
+    	establecimientoCalendario = {};
+    	establecimientoCalendario =	data.establecimientoDeportivo;
+    	
+    	console.log(establecimientoCalendario);
+    	console.log(data);
     })
     
     $scope.init = function(){
@@ -244,7 +250,7 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
     $scope.init();
     
     
-    var ModificarReservacionInstanceCtrl = function ($scope, $modalInstance) {
+    
 }]);
 
 /**
@@ -288,7 +294,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         var modalInstance = $modal.open({
             templateUrl: '/modalReservaciones.html',
             controller: ModalInstanceCtrl,
-            size: ''
+            size: 'lg'
         });
 
         var state = $('#modal-state');
@@ -300,8 +306,6 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     };
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
-    	$scope.reservacion = {};	
->>>>>>> dbc27cce7878a3fc881006dfbc8c1b12471c1975
     	
     	$scope.isTorneo = false;
         
