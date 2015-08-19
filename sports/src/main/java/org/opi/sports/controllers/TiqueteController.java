@@ -212,7 +212,7 @@ public class TiqueteController {
 	 * 
 	 */
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
-	public TiquetePOJO delete(@RequestBody int idTiquete) {
+	public TiqueteResponse delete(@RequestBody int idTiquete) {
 		
 		TiqueteResponse tiqueteResponse = new TiqueteResponse();
 		
