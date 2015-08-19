@@ -5082,7 +5082,7 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', f
     
     $scope.logout = function(){
     	$http.get('rest/iniciarSesion/cerrarSesion');
-    	$rootScope.usuario = undefined;
+    	$rootScope.usuario = {};
     	$state.go('app.login');
     }
     
