@@ -11,8 +11,8 @@ App.controller('CentroDistribucionController', ['$scope', '$rootScope','uiGridCo
 			columnDefs: [
 			{ field: 'idCentroDistribucion', visible:false},
 			{ field: 'nombre', name:"Nombre"},
-			{ field: 'direccion' , name:'Direccion'},
-			{ field: 'telefono' , name:'Telefono'},
+			{ field: 'direccion' , name:'Dirección'},
+			{ field: 'telefono' , name:'Teléfono'},
 			{ field: 'correo' , name:'Correo'},
 			{ field: 'active', visible:false},
 			{name: 'acciones', cellTemplate:
@@ -20,18 +20,17 @@ App.controller('CentroDistribucionController', ['$scope', '$rootScope','uiGridCo
 			'<div class="btn-group btn-group-justified" role="group">' +
 			
 				'<div class="btn-group" role="group" ng-controller="DistribucionModalController" >'+
-					'<button ng-click="modificar(row)" class="btn btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 						'</button>'+
 				'</div>'+
 				'<div class="btn-group" role="group" ng-controller="EliminarModalController">'+
-					'<button ng-click="eliminar(row)" class="btn btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+
 			
-			'</div>'
-			}
+			'</div>',width:120}
 			],data: data,
 				onRegisterApi: function (gridApi) {
 					$scope.gridApi = gridApi;

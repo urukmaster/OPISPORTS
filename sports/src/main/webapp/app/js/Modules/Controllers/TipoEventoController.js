@@ -7,22 +7,24 @@ App.controller('TiposEventosController', ['$scope','$rootScope','$http','toaster
        
     var data = [];
     $scope.gridTiposEventos = {	
+    		paginationPageSizes: [],
+			paginationPageSize: 7,
         columnDefs: [
             {field: 'idTipoEvento', visible:false},
             {field: 'tipo', name: 'tipo', displayName: 'Tipo de Evento Deportivo'},
             {name: 'acciones', cellTemplate:
             '<div class="btn-group btn-group-justified" role="group" ng-controller="TipoEventoModalController">' +   			
             	'<div class="btn-group" role="group">'+
-					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 					'</button>'+
 				'</div>'+			
 				'<div class="btn-group" role="group">'+
-					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+			
-			'</div>'}
+			'</div>',width:120}
         ],
         data: data,
         onRegisterApi: function (gridApi) {
@@ -158,7 +160,6 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         // Submit form
         $scope.submitForm = function() {
             $scope.submitted = false;
-            alert("Validando");
             if ($scope.formTipoEvento.$valid) {
             	$http.post('rest/tipoEvento/save', {
             		tipo : $scope.tipoEvento.nombre
@@ -182,7 +183,6 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
                 			}
                 			
                 	);
-        			alert("Porque entro aqui?");
         			var responsedata = {
         		            type:  'success',
         		            title: 'Tipos de Eventos',
@@ -205,7 +205,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         };
     	
         $scope.cancel = function () {
-        	alert("Se cancelo");
+        	
             $modalInstance.dismiss('cancel');
         };
 

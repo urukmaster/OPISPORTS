@@ -245,6 +245,63 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
     
     
     var ModificarReservacionInstanceCtrl = function ($scope, $modalInstance) {
+}]);
+
+/**
+ * Modulo Controlador reservar los servicios
+ * author: Mauricio Fernandez
+ * Fecha: 15/07/2015
+ * Revision: 1.0
+ */
+
+App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
+	$scope.Servicios = establecimientoCalendario.servicios;
+
+}]);
+
+$(function() {
+	  var $container = $('.contenedorServicios');
+	  var $b = $('body');
+	  $.waypoints.settings.scrollThrottle = 0;
+	  $container.waypoint({
+	    handler: function(e, d) {
+	      $b.toggleClass('sticky', d === 'down');
+	      e.preventDefault();
+	    }
+	  });
+	});
+
+
+/**==========================================================
+ * Modulo: ModalReservacionesController
+ * Este controladorde desplegar un "Modal" para el registro
+ * de reservaciones
+ ============================================================*/
+
+App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {
+	var servicioActual;
+	
+	//Despliega el "Modal"
+    $scope.open = function (size, idServicioActual) {
+    	servicioActual = idServicioActual;
+
+        var modalInstance = $modal.open({
+            templateUrl: '/modalReservaciones.html',
+            controller: ModalInstanceCtrl,
+            size: ''
+        });
+
+        var state = $('#modal-state');
+        modalInstance.result.then(function () {
+            state.text('Modal dismissed with OK status');
+        }, function () {
+            state.text('Modal dismissed with Cancel status');
+        });
+    };
+
+    var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
+    	$scope.reservacion = {};	
+>>>>>>> dbc27cce7878a3fc881006dfbc8c1b12471c1975
     	
     	$scope.isTorneo = false;
         

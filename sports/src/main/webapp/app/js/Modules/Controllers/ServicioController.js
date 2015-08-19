@@ -22,6 +22,8 @@ App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', 
 	var data = [];
 
     gridServicio = $scope.gridServicio = {
+    	paginationPageSizes: [],
+		paginationPageSize: 7,
         columnDefs: [
             { field: 'idServicio',visible:false},
             {field:'horaInicial.millis', visible:false},
@@ -31,15 +33,21 @@ App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', 
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
             { field: 'arbitro' , name:'Arbitro'},
-            {name: 'modificar', cellTemplate:'<div ng-controller="ServicioModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '</div> <div ng-controller="ServicioModalController" >' +
-                '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-                '<span class="fa fa-rocket"></span>' +
-                '</button>'+
-            '</div>'}
+            {name: 'modificar', cellTemplate:
+            '<div class="btn-group btn-group-justified" role="group">' +	
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+            		'<button ng-click="modificar(row)" class="btn btn-green" >' +
+            			'<span class="fa fa-pencil"></span>' +
+            		'</button>'+
+            	'</div>' + 
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+                	'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
+                		'<span class="fa fa-trash"></span>' +
+                	'</button>'+
+                '</div>'+
+            '</div>',width:120
+                
+            }
         ],
         data: establecimientoCalendario.servicios
     }

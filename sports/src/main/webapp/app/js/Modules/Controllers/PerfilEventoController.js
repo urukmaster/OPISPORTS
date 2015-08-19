@@ -105,7 +105,6 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
 		.success(function(response) {
 			if(response.data == 200){
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
-			
             $scope.evento = response.evento;
             eventoActual = $scope.evento;
             eventoActual = $scope.evento;
@@ -155,6 +154,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
  ============================================================*/
 App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $rootScope, $http, toaster, $state, $timeout) {
 	var id;
+	
 	$scope.open = function (pid) {
 	id = pid;
 	var modalInstance = $modal.open({
@@ -169,7 +169,11 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
 	}, function () {
 	  state.text('Modal dismissed with Cancel status');
 	    });
-	  };
+	};
+	
+	$scope.consultarTiquetes = function(pnombreEvento){
+        $state.go('app.reportes',{nombre: pnombreEvento});
+	}
 	
 	
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {

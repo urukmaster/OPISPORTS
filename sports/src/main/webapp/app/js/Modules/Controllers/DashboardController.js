@@ -35,7 +35,31 @@ App.controller('MisInscripcionesController', ['$scope', '$rootScope','$http', '$
 			
 		});
     	
-    	console.log($scope.Inscripciones);
+	}
+	
+    //Inicializa la página
+    $scope.init();
+    
+}]);
+App.controller('SuscripcionController', ['$scope', '$http', '$state','$rootScope', function($scope, $http, $state,$rootScope) {
+
+	var listaSuscripciones = [];
+	$scope.init = function(){   	
+
+    	$http.get('rest/suscripcion/getAll', {
+		 	})
+		.success(function(response){
+	    	console.log(response);
+	    	angular.forEach(response.suscripciones, function(suscripcion, index){
+	    		if(suscripcion.usuario.idUsuario == $rootScope.usuario.idUsuario){
+	    			listaSuscripciones.push(suscripcion);
+	    		}
+	    	});
+
+	    	$scope.Suscripciones = listaSuscripciones;
+			
+		});
+    	
 	}
 	
     //Inicializa la página
@@ -106,5 +130,55 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$rootScope','$modal
 	    
 	  };
 	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
+
+}]);
+App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$timeout','$state', function ($scope, $modal, $rootScope, $http, toaster,$timeout,$state) {
+	var id;
+	
+	$scope.open = function (pid) {
+		id = pid;
+	var modalInstance = $modal.open({
+		templateUrl: '/modalEliminarSuscripcion.html',
+		controller: ModalInstanceCtrl,
+		size: 'sm'
+	});
+	
+	var state = $('#modal-state');
+	modalInstance.result.then(function () {
+	  state.text('Modal dismissed with OK status');
+	}, function () {
+	  state.text('Modal dismissed with Cancel status');
+	    });
+	  };
+	
+	
+  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	
+	    $scope.ok = function () {
+	        $http.post('rest/suscripcion/delete', id).
+	        success(function(){
+	        	var toasterdata = {
+			            type:  'success',
+			            title: 'Suscripcion',
+			            text:  'Se eliminó las suscripcion.'
+			    };                
+	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	$timeout(function(){ $scope.callAtTimeout(); }, 1000);
+	        });
+	    	$modalInstance.close('closed');
+	    };
+	    $scope.pop = function(toasterdata) {
+	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	    };
+	
+	    $scope.callAtTimeout = function(){	
+	    	$state.reload();	
+	    }
+	    $scope.cancelar = function () {
+	    	$modalInstance.dismiss('cancelar');
+	    };
+	    
+	  };
+	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);

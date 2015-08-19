@@ -12,9 +12,7 @@ import java.util.List;
  */
 public class TipoEventoPOJO {
 	private int idTipoEvento;
-	
 	private byte active;
-	
 	private String tipo;
 	
 	public int getIdTipoEvento() {

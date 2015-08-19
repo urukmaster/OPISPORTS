@@ -32,4 +32,5 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	 * 
 	 */
 	Usuario findByCorreoAndContrasenna(String correo,String contraseña);
+	
 }

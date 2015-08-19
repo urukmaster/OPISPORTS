@@ -4,7 +4,7 @@ App.controller('TorneosController', ['$scope', 'uiGridConstants', function($scop
 	var torneos = [];
 	
 	angular.forEach(establecimientoCalendario.torneos, function(torneoPOJO, index){
-		console.log(torneoPOJO);
+		
 		var torneo = {};
 		var minutes;
 		torneo.idTorneo = torneoPOJO.idTorneo;
@@ -18,6 +18,8 @@ App.controller('TorneosController', ['$scope', 'uiGridConstants', function($scop
 	});
 	
 	gridTorneos = $scope.gridTorneos = {
+			paginationPageSizes: [],
+			paginationPageSize: 7,
 			columnDefs : [
 			              {
 			            	  field: 'idTorneo', visible: false
@@ -32,11 +34,11 @@ App.controller('TorneosController', ['$scope', 'uiGridConstants', function($scop
 			            	  field: 'cupos', name: 'Cupos disponibles'
 			              },
 			              {name: 'acciones', cellTemplate:'<div ng-controller="TorneoModalController" >' +
-                              '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-                              '<span class="fa fa-rocket"></span>' +
-                              '</button><button ng-click="eliminar(row)" class="btn btn-primary"> ' +
-                              '<span class="fa fa-rocket"></span>' +
-                              '</div>'}
+                              '<button ng-click="modificar(row)" class="btn btn-green" >' +
+                              '<span class="fa fa-pencil"></span>' +
+                              '</button><button ng-click="eliminar(row)" class="btn btn-warning"> ' +
+                              '<span class="fa fa-trash"></span>' +
+                              '</div>',width:120}
 			              ],
 			data: torneos
 	};
