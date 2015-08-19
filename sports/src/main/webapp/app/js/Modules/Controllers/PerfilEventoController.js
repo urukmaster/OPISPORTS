@@ -171,8 +171,9 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
 	    });
 	};
 	
+	//Método que redirecciona a la página de reporte de tiquetes
 	$scope.consultarTiquetes = function(pnombreEvento){
-        $state.go('app.reportes',{nombre: pnombreEvento});
+        $state.go('app.reporteTiquetes',{nombre: pnombreEvento});
 	}
 	
 	
