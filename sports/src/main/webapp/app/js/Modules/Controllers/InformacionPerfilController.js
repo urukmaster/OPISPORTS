@@ -28,7 +28,7 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
 var tipoServicios = [];
 
 
-App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state', function($scope, $http, $stateParams,$state) {
+App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams', '$state','$modal', function($scope, $http, $stateParams,$state,$modal) {
        
 	$scope.init = function(){
 		
@@ -69,26 +69,46 @@ App.controller('InformacionPerfilController', ['$scope', '$http', '$stateParams'
 	}
 
     $scope.init();
-    
-    $scope.eliminar = function(id) {
-    	$http.post('rest/review/delete', {
-    		idComentario : id
-		 	})
-		.success(function(data){
-			$state.reload();
-		});        	
-  	}
-
+       
 }]);
 
-App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$http, $stateParams,$state,toaster,$timeout,$route) {
-	'use strict'; 
+App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
+
+	$scope.init = function(){
+		$http.get('rest/provincia/getAll')
+		.success(function(response) {
+			$scope.Provincias = response.provincias;
+			
+
+		});	    
+    };
+    $scope.init();
+	
+    $scope.buscarCantones = function(){
+    	angular.forEach($scope.Provincias, function(provincia, index){
+    		if(provincia.idProvincia == $scope.idProvincia){
+    			$scope.Cantones = provincia.listaCantones;
+    		}
+    	});
+    };
+    
+    //Busca el distrito asociado al cantón escogido
+    $scope.buscarDistritos = function(){
+    	angular.forEach($scope.Cantones, function(canton, index){
+    		if($scope.idCanton == canton.idCanton){
+    			$scope.Distritos = canton.listaDistritos;
+    		};
+    	});
+    };
+    
+
 	//validación
     $scope.submitted = false;
     $scope.validateInput = function(name, type) {
         var input = $scope.formEstablecimiento[name];
         return (input.$dirty || $scope.submitted) && input.$error[type];
     };
+    
     // Submit form
     $scope.submitForm = function() {
         $scope.submitted = true;
@@ -98,7 +118,9 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
         		nombre : $scope.establecimiento.nombre,
         		paginaWeb : $scope.establecimiento.paginaWeb,
         		telefono : $scope.establecimiento.telefono,
-        		idUsuario : 1
+        		idDistrito : $scope.idDistrito,
+        		accion : "Registrar",
+        		idUsuario : $rootScope.usuario.idUsuario
     		 	})
     		.success(function(data){
     			var toasterdata = {
@@ -219,4 +241,45 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 	  };
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
+}]);
+var reviewEliminar = {};
+App.controller('EliminarComentario', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state', function ($scope, $modal, $rootScope, $http, toaster,$state) {
+	
+    $scope.eliminar = function(pid){
+    	reviewEliminar = pid;
+    	var modalInstance = $modal.open({
+    		templateUrl: '/modalEliminarReview.html',
+    		controller: ModalInstanceCtrl,
+    		size: 'sm'
+    	});
+    	
+    	var state = $('#modal-state');
+    	modalInstance.result.then(function () {
+    	  state.text('Modal dismissed with OK status');
+    	}, function () {
+    	  state.text('Modal dismissed with Cancel status');
+    	    });
+    };
+    
+    var ModalInstanceCtrl = function ($scope, $modalInstance) {
+    	
+    
+    $scope.ok = function () {
+    	$http.post('rest/review/delete', {
+    		idComentario : reviewEliminar
+    		 	})
+    		.success(function(data){
+    			$modalInstance.close('closed'); 
+    			$state.reload();
+    		});        	
+    };
+    
+    $scope.cancel = function () {
+  	  $modalInstance.dismiss('cancel');
+  	    };
+	
+	};
+	  
+	 ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+	
 }]);

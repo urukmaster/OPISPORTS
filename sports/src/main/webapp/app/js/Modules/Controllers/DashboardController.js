@@ -174,3 +174,24 @@ App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$root
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
+
+	//Trae los establecimientos deportivos registrados
+    $scope.init = function(){  	
+	    $http.get('rest/establecimientoDeportivo/getAll')
+		.success(function(response) {
+			$scope.Establecimientos = response.establecimientosDeportivos;
+			
+		});
+    };
+    
+    //Inicializa la aplicación
+    $scope.init(); 
+    
+    
+
+    //Recibe la llamada del broadcast de eliminar para refrescar la página
+    $scope.$on('eliminar', function (event) {
+        $scope.init(); 
+    });
+}]); 

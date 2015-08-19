@@ -3,20 +3,45 @@
 </h3>
 <div class="row">
 	<!-- Aqui viene lo suyo de perfil -->
-  	<div class="col-md-6">
-  		<p>Lorem ipsum dolor sit amet, consectetuer 
-  			adipiscing elit. Aenean commodo ligula eget 
-  			dolor. Aenean massa. Cum sociis natoque penatibus 
-  			et magnis dis parturient montes, nascetur ridiculus 
-  			mus. Donec quam felis, ultricies nec, pellentesque 
-  			eu, pretium quis, sem. Nulla consequat massa quis 
-  			enim. Donec pede justo, fringilla vel, aliquet nec,
-  			 vulputate eget, arcu. In enim justo, rhoncus ut, 
-  			 imperdiet a, venenatis vitae, justo. Nullam dictum 
-  			 felis eu pede mollis pretium. Integer tincidunt. 
-  			 Cras dapibus. Vivamus elementum semper nisi. Aenean
-  			  vulputate eleifend tellus. Aenean leo ligula,
-  			   porttitor eu, consequat vitae, eleifend ac, enim.</p>
+  	<div ng-controller="EstablecimientosController" class="col-md-6">
+  	<div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Establecimientos deportivos</div>
+         </div>
+         <scrollable height="230" class="list-group">
+       <div ng-repeat="establecimiento in Establecimientos">
+         <div class="media bb p">
+            <small class="pull-right text-muted"></small>
+            <div class="pull-left"></div>
+            <div class="media-body">
+               <span class="media-heading">
+                  <p class="m0">
+                  	<div ng-controller=CancelarTiqueteModalController>
+                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-warning pull-right fa fa-trash"></button>
+                    </div>
+                    <strong>{{establecimiento.nombre}}</strong>
+                  </p>
+               </span>
+               <p class="mb-sm">
+               		<div class="col-lg-6">
+                    	<label>Estado:</label>
+                        <small>{{tiquete.estado}}</small><br>
+                        <label>Fecha de caducidad:</label>
+                        <small>{{tiquete.fechaCaducidad}}</small><br>
+                    </div>
+             		<div class="col-lg-6">
+                    	<label>Precio:</label>
+                        <small>{{tiquete.precio}}</small><br>
+                        <label>C�digo:</label>
+                        <small>{{tiquete.codigo}}</small><br>
+                    </div>
+              </p>
+             </div>
+          </div>
+        </div>
+         </scrollable>
+         <!-- END panel-footer-->
+      </div>
   	</div>
   	<!-- ---------------------------- -->
   	<div class="col-md-6">
