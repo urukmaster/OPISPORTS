@@ -309,10 +309,17 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                 templateUrl: helper.basepath('configuracion.html'),
                 resolve: helper.resolveFor('ngWig')
              })
-             .state('app.reportes',{
-                 url : "/reporte/{nombre: }",
+             .state('app.reporteTiquetes',{
+                 url : "/reporteTiquetes/{nombre: }",
                  title: 'Reporte',
-                 templateUrl: helper.basepath('reporte.html'),
+                 templateUrl: helper.basepath('reporteTiquetes.html'),
+                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
+             })
+             .state('app.reporteRetos',{
+                 url : "/reporteRetos/{id:[0-9]{1,4}}",
+                 title: 'Reporte',
+                 templateUrl: helper.basepath('reporteRetos.html'),
+                 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','ui.grid')
              })
              .state('app.configuracion.registrarUsuario', {
                 url: '/datosUsuario',
