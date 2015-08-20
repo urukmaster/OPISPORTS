@@ -684,15 +684,15 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
            
             if ($scope.formUsuario.$valid) {
             	$http.post('rest/usuario/save',{
-            		nombre : $scope.usuario.nombre,
-            		apellido : $scope.usuario.apellidos,
-            		telefono : $scope.usuario.telefono,
-            		correo : $scope.usuario.correo,
-            		contrasenna : md5.createHash($scope.usuario.contrasenna)
+            		nombre : $scope.usuarioForm.nombre,
+            		apellido : $scope.usuarioForm.apellidos,
+            		telefono : $scope.usuarioForm.telefono,
+            		correo : $scope.usuarioForm.correo,
+            		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
             	}).success(function(data){
             		$http.post('rest/iniciarSesion/validarUsuario', {
-                		correo : $scope.usuario.correo,
-                		contrasenna : md5.createHash($scope.usuario.contrasenna)
+                		correo : $scope.usuarioForm.correo,
+                		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
             		 	})
             		.success(function(data){ 
             			if(data.code == 200){
@@ -4240,16 +4240,19 @@ App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', 
     function($rootScope, $scope, $state, $http, $timeout, Utils){
 		$scope.validarUsuario = function(item){
 			
-			if(typeof $rootScope.usuario.nombre == 'undefined'){
+			if(angular.equals({},$rootScope.usuario)){
 				return false;
 			}else{
-				for(i=0;i<$rootScope.usuario.roles.length;i++){
-					for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
-						if($rootScope.usuario.roles[i].permisos[j].permiso == item){
-							return true;
+				
+					for(i=0;i<$rootScope.usuario.roles.length;i++){
+						for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+							if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+								return true;
+							}
 						}
 					}
-				}
+					
+					
 							
 			}
 			
