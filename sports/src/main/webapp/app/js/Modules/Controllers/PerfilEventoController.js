@@ -7,7 +7,6 @@
 
 var eventoActual = {};
 var cantTiquetesReservados;
-
 /**==========================================================
  * Modulo: EventoModalController
  * Este controlador se encarga de consultar y modificar la 
@@ -97,13 +96,11 @@ App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$time
  * Modulo: PerfilEventoController
  * Este controlador se traer un evento deportivo por medio del Id
  ============================================================*/
-App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', function($scope, $http, $stateParams, $state, $modal) {
-
-    
+App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal','$rootScope', function($scope, $http, $stateParams, $state, $modal,$rootScope) {
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
-			if(response.data == 200){
+			if(response.code == 200){
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
             $scope.evento = response.evento;
             eventoActual = $scope.evento;
@@ -154,7 +151,6 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
  ============================================================*/
 App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $rootScope, $http, toaster, $state, $timeout) {
 	var id;
-	
 	$scope.open = function (pid) {
 	id = pid;
 	var modalInstance = $modal.open({
@@ -258,7 +254,6 @@ App.controller('InscripcionModalController', ['$scope', '$rootScope','$modal', "
     	$state.go("app.login");
     }
     
-
 //------------------------------------------------------------------------------------
     var InscripcionInstanceCtrl = function ($scope, $rootScope,$modalInstance) {
     	

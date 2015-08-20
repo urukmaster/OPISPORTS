@@ -746,9 +746,6 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
 
 	$scope.login = function() {
         $scope.authMsg = '';
-        alert(md5.createHash('Abcd12345/'));
-        alert(md5.createHash($scope.account.password));
-        
         if ($scope.loginForm.$valid) {
         	$http.post('rest/iniciarSesion/validarUsuario', {
         		correo : $scope.account.email,
