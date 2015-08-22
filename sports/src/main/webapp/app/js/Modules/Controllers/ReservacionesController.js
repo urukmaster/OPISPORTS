@@ -19,7 +19,7 @@ App.controller('ReservacionesController', ['$scope','$state', function($scope,$s
     }
 }]);
 
-App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {
+App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route','$stateParams', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route,$stateParams) {
 	var servicioActual;
     $scope.open = function (size, idServicioActual) {
     	servicioActual = idServicioActual;
@@ -41,7 +41,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
-    var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
+    var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route, $stateParams) {
     	$scope.reservacion = {};	
     	var horaInicial = new Date();
     	horaInicial.setMinutes(00, 00, 00);
@@ -102,7 +102,21 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario = data.establecimientoDeporitvo;
+    			$http.get('rest/establecimientoDeportivo/getAll')
+        		.success(function(response) {
+        			if(response.code == 200){
+        			var establecimientos = response.establecimientosDeportivos;
+        			for (var i = 0; i < establecimientos.length; i++) {
+                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+                            establecimientoCalendario = establecimientos[i];
+                            console.log(establcimientoCalendario);
+                        }
+                    }
+        			}else{
+                		$rootScope.errorMessage = response.codeMessage;
+                		$state.go('page.error');
+                	}
+        		});
     			$('#calendarioContent').remove();
     			$rootScope.$broadcast("actualizar");
     			}else{
@@ -149,6 +163,6 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     };
     
     
-    ModalInstanceCtrl.$inject = ["$scope", "$modalInstance", "toaster","$timeout", "$route"];
+    ModalInstanceCtrl.$inject = ["$scope", "$modalInstance", "toaster","$timeout", "$route", "$stateParams"];
 
 }]);

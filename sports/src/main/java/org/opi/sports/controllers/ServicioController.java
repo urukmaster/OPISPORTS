@@ -8,6 +8,7 @@ import org.opi.sports.ejb.TipoServicio;
 import org.opi.sports.helpers.EstablecimientoDeportivoHelper;
 import org.opi.sports.helpers.ServicioHelper;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
+import org.opi.sports.services.ActividadDeportivaServiceInterface;
 import org.opi.sports.services.EstablecimientoDeportivoServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.services.TipoServicioServiceInterface;
@@ -43,14 +44,19 @@ public class ServicioController {
 	@Autowired
 	EstablecimientoDeportivoServiceInterface establecimientoDeportivoService;
 
+	@Autowired
+	ActividadDeportivaServiceInterface actividadDeportivaService;
+
 	/**
 	 * Se encarga de guardar o modificar los servicios
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public EstablecimientoDeportivoResponse save(
+	public ServicioResponse save(
 			@RequestBody ServicioRequest servicioRequest) {
 
 		EstablecimientoDeportivoResponse establecimientoResponse = new EstablecimientoDeportivoResponse();
+
+		EstablecimientoDeportivo establecimientoDeportivoEJB = null;
 
 		ServicioResponse servicioResponse = new ServicioResponse();
 
@@ -59,9 +65,13 @@ public class ServicioController {
 			TipoServicio tipoServicioEJB = tipoServicioService
 					.findOne(servicioRequest.getTipoServicio());
 
+			establecimientoDeportivoEJB = establecimientoDeportivoService
+					.findOne(servicioRequest.getEstablecimiento());
+
 			servicioResponse.setServicio(ServicioHelper.getInstance()
 					.saveServicio(servicioRequest, tipoServicioEJB,
-							servicioService));
+							servicioService, actividadDeportivaService,
+							establecimientoDeportivoEJB));
 
 			servicioResponse.setCode(200);
 			servicioResponse.setCodeMessage("Operación Exitosa");
@@ -71,27 +81,9 @@ public class ServicioController {
 					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
 							+ "Lamentamos el incoveniente, favor intentar mas tarde");
 			servicioResponse.setErrorMessage(exception.getMessage());
-		} finally {
-			if (servicioResponse.getCode() == 200) {
-				establecimientoResponse
-						.setEstablecimientoDeportivo(EstablecimientoDeportivoHelper
-								.getInstance().convertirEstablecimiento(
-										establecimientoDeportivoService
-												.findOne(servicioRequest
-														.getEstablecimiento())));
-				establecimientoResponse.setCode(200);
-				establecimientoResponse.setCodeMessage("Operación Exitosa");
-			} else {
-				establecimientoResponse.setCode(404);
-				establecimientoResponse.setCodeMessage(servicioResponse
-						.getCodeMessage());
-				establecimientoResponse.setErrorMessage(servicioResponse
-						.getErrorMessage());
-			}
-
 		}
 
-		return establecimientoResponse;
+		return servicioResponse;
 	}
 
 	/**
