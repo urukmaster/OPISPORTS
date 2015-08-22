@@ -2,7 +2,7 @@
   {
     "text": "Establecimientos",
     "sref": "app.establecimientos",
-    "icon": "icon-home",
+    "icon": "icon-star",
     "label": "label label-info"
   },
   {
@@ -23,10 +23,11 @@
     "icon": "icon-settings",
     "label": "label label-info",
     "submenu": [
-      {"text": "Usuarios", "sref": "app.usuarios"},
+      {"text": "Usuarios", "sref": "#"},
       {"text": "Tipos de servicios", "sref": "#" },
       {"text": "Tipos de eventos", "sref": "app.tiposEventos" },
-      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" }
+      {"text": "Tipos de actividades deportivas", "sref": "app.actividades" },
+      {"text": "Centros de distribucion", "sref": "app.centrosDistribucion" }
       ]
   }
 ]

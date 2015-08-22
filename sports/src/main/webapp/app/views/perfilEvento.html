@@ -9,31 +9,20 @@
    </div>
    <div class="text-center bg-gray-dark p-lg mb-xl">
       <div class="row row-table">
-         <div class="col-xs-6 br">
-            <h3 class="m0">400</h3>
-            <p class="m0">
-               <span class="hidden-xs">Visitas de</span>
-               <span>perfil</span>
-            </p>
-         </div>
-         <div class="col-xs-6 br">
-            <h3 class="m0">2000</h3>
-            <p class="m0">Me gusta</p>
-         </div>
+      	 <ul class="nav nav-tabs nav-justified">
+         	<div class="col-xs-6 br">
+           		<li ng-click="mostrarInformacion()">InformaciÃ³n</li>
+         	</div>
+         	<div class="col-xs-6 br">
+           		<li ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</li>
+         	</div>
+         </ul>
       </div>
    </div>
    <div class="p-lg">
       <div class="row">
          <div class="col-lg-9">
-            <div id="panelDemo15" class="panel panel-default">
-               <div class="panel-body">
-                 <ul class="nav nav-tabs nav-justified">
-					<li><a ng-click="mostrarInformacion()">Informaciï¿½n</a></li>	
-					<li><a ng-click="mostrarPuntosDeRetiro()">Puntos de retiro</a></li>
-				</ul>
-               </div>
-               <div ui-view=""> </div>
-            </div>
+			<div class="col-lg-12" ui-view=""> </div>   
          </div>
          <div class="col-lg-3">
             <div class="panel panel-default" ng-controller="InscripcionModalController">
@@ -51,7 +40,8 @@
                      <li>
                         <em class="fa fa-calendar fa-fw mr-lg"></em>{{evento.fecha}}</li>
                   </ul>
-                  <button class="btn btn-success" ng-click="inscripcion()">Inscríbase aqui!</button>
+                  <button class="btn btn-success" ng-click="inscripcion()">Â¡InscrÃ­base aquÃ­!</button>
+
                </div>
             </div>
             
@@ -61,7 +51,7 @@
 				<form>
                 <div class="modal-header">
 					<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
-					<h4 id="myModalLabel" class="modal-title">Inscripción</h4>
+					<h4 id="myModalLabel" class="modal-title">Inscripciï¿½n</h4>
 				</div>
 				<div class="modal-body">
                     <div>
@@ -126,13 +116,13 @@
                         	<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
                         </div>
 			
-						<label  control-label">Dirección</label>
+						<label  control-label">DirecciÃ³n</label>
                     	<div>
 							<textarea name="direccion" ng-model="eventoForm.direccion" rows="2" class="form-control no-resize" required=""></textarea>                    			
                         	<span ng-show="validateInput('direccion', 'required')" class="text-danger">Este campo es requerido</span>
                     	</div>	
 			
-						<label  control-label">Información</label>
+						<label  control-label">InformaciÃ³n</label>
                     	<div>
 							<textarea name="informacion" ng-model="eventoForm.informacion" rows="2" class="form-control" required=""></textarea>                    			
                         	<span ng-show="validateInput('informacion', 'required')" class="text-danger">Este campo es requerido</span>
@@ -147,6 +137,11 @@
 							<input type="text" name="cupo" ng-model="eventoForm.cupo" rows="2" class="form-control" required=""/>                    			
                         	<span ng-show="validateInput('cupo', 'required')" class="text-danger">Este campo es requerido</span>
                         </div>
+                    	<div>
+							<label class="control-label">Cantidad de dÃ­as para retirar inscripciones</label>
+							<input type="number" name="diasParaRetiro" ng-model="eventoForm.diasParaRetiro" rows="2" class="form-control" required="" min="0" max="30"/>                    			
+                        	<span ng-show="validateInput('diasParaRetiro', 'required')" class="text-danger">Este campo es requerido</span>
+                        </div>
                     </div
 				</div>
             </div>   		                             		
@@ -157,7 +152,7 @@
             </div>
 			</form>
         	</script>
-		    <div class="panel-body text-center bg-gray-dark">			   
+		    <div class="panel-body text-center" ng-controller="EliminarEventoModalController">			   
 			   <div>
 			   <div class="btn-group btn-group-justified" role="group">
 			   		<div class="btn-group" role="group">	
@@ -165,8 +160,13 @@
 							<span>Modificar</span>
 						</button>
 		   			</div>
-		   			<div class="btn-group" role="group"  ng-controller="EliminarEventoModalController">	
-			        	<button ng-click="open(evento.idEvento	)" class="btn btn-warning">
+		   			<div class="btn-group" role="group">	
+			        	<button ng-click="consultarTiquetes(evento.nombre)" class="btn btn-primary">
+							<span>Reportes</span>
+						</button>
+	   				</div>
+		   			<div class="btn-group" role="group">	
+			        	<button ng-click="open(evento.idEvento)" class="btn btn-warning">
 							<span>Eliminar</span>
 						</button>
 	   				</div>
@@ -181,10 +181,10 @@
 					<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
 					<h4 id="myModalLabel" class="modal-title">Eliminar evento</h4>
 				</div>
-				<div class="modal-body">¿Desea eliminar el evento?</div>
+				<div class="modal-body">Â¿Desea eliminar el evento?</div>
 				<div class="modal-footer">
-					<button ng-click="ok()" class="btn btn-primary">OK</button>
-					<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+					<button ng-click="ok()" class="btn btn-primary">Si</button>
+					<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
 				</div>
            	</script>
 	    </div>

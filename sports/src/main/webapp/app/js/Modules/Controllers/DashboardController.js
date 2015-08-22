@@ -11,7 +11,7 @@
  * para un cliente.
  ============================================================*/
 
-App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$rootScope', function($scope, $http, $state,$rootScope) {
+App.controller('MisInscripcionesController', ['$scope', '$rootScope','$http', '$state','$rootScope', function($scope, $rootScope,$http, $state,$rootScope) {
 
 	var listaInscripciones = [];
 	$scope.init = function(){   	
@@ -19,9 +19,8 @@ App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$root
     	$http.get('rest/inscripcion/getAll', {
 		 	})
 		.success(function(response){
+	    	if(response.code == 200){
 	    	
-	    	console.log(response);
-			
 	    	angular.forEach(response.inscripciones, function(inscripcion, index){
 	    		if(inscripcion.usuario.idUsuario == $rootScope.usuario.idUsuario){
 	    			listaInscripciones.push(inscripcion.listaTiquetes);
@@ -29,10 +28,37 @@ App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$root
 	    	});
 
 	    	$scope.Inscripciones = listaInscripciones;
+	    	}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 			
 		});
     	
-    	console.log($scope.Inscripciones);
+	}
+	
+    //Inicializa la página
+    $scope.init();
+    
+}]);
+App.controller('SuscripcionController', ['$scope', '$http', '$state','$rootScope', function($scope, $http, $state,$rootScope) {
+
+	var listaSuscripciones = [];
+	$scope.init = function(){   	
+
+    	$http.get('rest/suscripcion/getAll', {
+		 	})
+		.success(function(response){
+	    	angular.forEach(response.suscripciones, function(suscripcion, index){
+	    		if(suscripcion.usuario.idUsuario == $rootScope.usuario.idUsuario){
+	    			listaSuscripciones.push(suscripcion);
+	    		}
+	    	});
+
+	    	$scope.Suscripciones = listaSuscripciones;
+			
+		});
+    	
 	}
 	
     //Inicializa la página
@@ -46,7 +72,7 @@ App.controller('MisInscripcionesController', ['$scope', '$http', '$state','$root
  * Module: CancelarInscripcionModalController
  * Implementa el modal de cancelacion de una inscripcion
  ============================================================*/
-App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $modal, $rootScope, $http, toaster, $state, $timeout) {
+App.controller('CancelarTiqueteModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $rootScope, $http, toaster, $state, $timeout) {
 	var id;
     
 	$scope.cancelarTiquete = function (idTiquete) {
@@ -71,6 +97,7 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 	    $scope.ok = function () {
 	        $http.post('rest/tiquete/delete', id).
 	        success(function(){
+	        	if(data.code == 200){
 	        	var toasterdata = {
 			            type:  'success',
 			            title: 'Tiquete',
@@ -78,6 +105,10 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+	        	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
             	
 	        });
 	    	$modalInstance.close('closed');
@@ -97,6 +128,76 @@ App.controller('CancelarTiqueteModalController', ['$scope', '$modal', '$rootScop
 	    };
 	    
 	  };
+	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
+
+}]);
+App.controller('EliminarSuscripcionModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$timeout','$state', function ($scope, $modal, $rootScope, $http, toaster,$timeout,$state) {
+	var id;
+	
+	$scope.open = function (pid) {
+		id = pid;
+	var modalInstance = $modal.open({
+		templateUrl: '/modalEliminarSuscripcion.html',
+		controller: ModalInstanceCtrl,
+		size: 'sm'
+	});
+	
+	var state = $('#modal-state');
+	modalInstance.result.then(function () {
+	  state.text('Modal dismissed with OK status');
+	}, function () {
+	  state.text('Modal dismissed with Cancel status');
+	    });
+	  };
+	
+	
+  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	
+	    $scope.ok = function () {
+	        $http.post('rest/suscripcion/delete', id).
+	        success(function(){
+	        	var toasterdata = {
+			            type:  'success',
+			            title: 'Suscripcion',
+			            text:  'Se eliminó las suscripcion.'
+			    };                
+	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	$timeout(function(){ $scope.callAtTimeout(); }, 1000);
+	        });
+	    	$modalInstance.close('closed');
+	    };
+	    $scope.pop = function(toasterdata) {
+	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	    };
+	
+	    $scope.callAtTimeout = function(){	
+	    	$state.reload();	
+	    }
+	    $scope.cancelar = function () {
+	    	$modalInstance.dismiss('cancelar');
+	    };
+	    
+	  };
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);
+App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
+
+	//Trae los establecimientos deportivos registrados
+    $scope.init = function(){  	
+	    $http.get('rest/establecimientoDeportivo/getAll')
+		.success(function(response) {
+			$scope.Establecimientos = response.establecimientosDeportivos;
+			
+		});
+    };
+    
+    //Inicializa la aplicación
+    $scope.init(); 
+    
+    
+    //Recibe la llamada del broadcast de eliminar para refrescar la página
+    $scope.$on('eliminar', function (event) {
+        $scope.init(); 
+    });
+}]); 

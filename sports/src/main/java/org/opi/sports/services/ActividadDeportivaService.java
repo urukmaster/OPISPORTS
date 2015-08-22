@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 
 import org.opi.sports.ejb.ActividadDeportiva;
 import org.opi.sports.repositories.ActividadDeportivaRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,36 +14,47 @@ import org.springframework.stereotype.Service;
  * 
  * @author Juan Manuel Viales Chavarría
  * 
- *Sprint #5 Descripción: Actvidad Deportiva que se encarga de comuicarse con el repositorio para
- * las consulta a la base de datos.
+ *         Sprint #5 Descripción: Actvidad Deportiva que se encarga de
+ *         comuicarse con el repositorio para las consulta a la base de datos.
  */
 @Service
-public class ActividadDeportivaService implements ActividadDeportivaServiceInterface {
-	
+public class ActividadDeportivaService implements
+		ActividadDeportivaServiceInterface {
+
 	@Autowired
 	ActividadDeportivaRepository actividadDeportivaRepository;
 
-	@Override
 	public List<ActividadDeportiva> getAllActividadDeportiva() {
-		return actividadDeportivaRepository.findAll();
+		try {
+			return actividadDeportivaRepository.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-	@Override
 	public <ActividadesDeportivas extends ActividadDeportiva> ActividadesDeportivas save(
 			ActividadesDeportivas actividadDeportiva) {
-		// TODO Auto-generated method stub
-		return actividadDeportivaRepository.save(actividadDeportiva);
+		try {
+			return actividadDeportivaRepository.save(actividadDeportiva);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
-	
 
-	@Override
 	public boolean exists(Integer idActividadDeportiva) {
-		// TODO Auto-generated method stub
-		return actividadDeportivaRepository.exists(idActividadDeportiva);
+		try {
+			return actividadDeportivaRepository.exists(idActividadDeportiva);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
-
-
-	
+	public ActividadDeportiva findByOne(Integer actividadDeportiva) {
+		try{
+			return actividadDeportivaRepository.findOne(actividadDeportiva);
+		} catch (Exception exception) {
+			throw exception;
+		}
+	}
 
 }

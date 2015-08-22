@@ -2,7 +2,7 @@
  * Module: Distribucion
  =========================================================*/
 
-App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('CentroDistribucionController', ['$scope', '$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 
 	var data = [];
 	gridDistribucion = $scope.gridDistribucion = {
@@ -11,8 +11,8 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 			columnDefs: [
 			{ field: 'idCentroDistribucion', visible:false},
 			{ field: 'nombre', name:"Nombre"},
-			{ field: 'direccion' , name:'Direccion'},
-			{ field: 'telefono' , name:'Telefono'},
+			{ field: 'direccion' , name:'Dirección'},
+			{ field: 'telefono' , name:'Teléfono'},
 			{ field: 'correo' , name:'Correo'},
 			{ field: 'active', visible:false},
 			{name: 'acciones', cellTemplate:
@@ -20,18 +20,17 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 			'<div class="btn-group btn-group-justified" role="group">' +
 			
 				'<div class="btn-group" role="group" ng-controller="DistribucionModalController" >'+
-					'<button ng-click="modificar(row)" class="btn btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 						'</button>'+
 				'</div>'+
 				'<div class="btn-group" role="group" ng-controller="EliminarModalController">'+
-					'<button ng-click="eliminar(row)" class="btn btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+
 			
-			'</div>'
-			}
+			'</div>',width:120}
 			],data: data,
 				onRegisterApi: function (gridApi) {
 					$scope.gridApi = gridApi;
@@ -40,6 +39,7 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 			var ACentros  = [];
 			$http.get('rest/centroDistribucion/getAll')
 				.success(function(data) {
+					if(data.code == 200){
 					data.centrosDistribucion.forEach( function(centro, index) {
 						var centroView = {};
 						centroView.idCentroDistribucion = centro.idCentroDistribucion;
@@ -50,7 +50,11 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
 						centroView.active = centro.active;
 						ACentros.push(centroView);	
 			        });
-			            $scope.gridDistribucion.data = ACentros;       
+			            $scope.gridDistribucion.data = ACentros;  
+					}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
 			});
 			$scope.$on('actualizarGrid', function (event, responsedata) {
 		    	$scope.gridDistribucion.data = responsedata.newGrid;   	
@@ -63,7 +67,7 @@ App.controller('CentroDistribucionController', ['$scope', 'uiGridConstants', '$h
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var distribucionModificar = {};
-App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$rootScope', function ($scope, $modal,toaster,$rootScope) {
+App.controller('DistribucionModalController', ['$rootScope','$scope', '$modal','$http','toaster',function ($rootScope,$scope, $modal,$http,toaster) {
 
 	$scope.registrar = function () {
         var RegistrarModalInstance = $modal.open({
@@ -86,7 +90,7 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
 //-------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------
     
-    var RegistrarDistribucionInstanceCtrl = function ($scope, $modalInstance,$http) {
+    var RegistrarDistribucionInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http) {
     	'use strict'; 
     	//validación
     	$scope.accion = 'Registrar';
@@ -107,6 +111,7 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
             		correo : $scope.correo
         		 	})
         		.success(function(data){
+        			if(data.code == 200){
         			var ACentros = [];
 					data.centrosDistribucion.forEach( function(centro, index) {
 						var centroView = {};
@@ -126,7 +131,11 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');     			
+        			$modalInstance.close('closed');
+        		}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
         		});        	
             	
             } else {
@@ -140,10 +149,10 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
         };
 
     };
-    RegistrarDistribucionInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    RegistrarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 
 //---------------------------------------------------------------------------------------
-    var ModificarDistribucionInstanceCtrl = function ($scope, $modalInstance,$http,$rootScope) {
+    var ModificarDistribucionInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http) {
         $scope.accion = "Modificar";
         $scope.reto = {};
         
@@ -168,6 +177,7 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
             		correo : $scope.correo
                 })
                 .success(function(data){
+                	if(data.code = 200){
                 	var ACentros = [];
                 	data.centrosDistribucion.forEach( function(centro, index) {
                 		var centroView = {};
@@ -188,7 +198,11 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
    				  }; 
    				   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
    				   $rootScope.$broadcast('actualizarGrid',responsedata);	
-        		   $modalInstance.close('closed');       			
+        		   $modalInstance.close('closed');  
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
         		});   
         } else {
             return false;
@@ -199,19 +213,19 @@ App.controller('DistribucionModalController', ['$scope', '$modal','toaster','$ro
             $modalInstance.dismiss('cancel');
         };
     };
-    ModificarDistribucionInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$rootScope"];
+    ModificarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 
 }]);
 var centroEliminar = {};
-App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$rootScope','$scope', '$modal','$http','toaster',function ($rootScope,$scope, $modal,$http,toaster) {
 
 	$scope.eliminar = function ($row) {
-	centroEliminar = $row.entity;
-	var modalInstance = $modal.open({
-		templateUrl: '/modalEliminarCentro.html',
-		controller: ModalInstanceCtrl,
-		size: 'sm'
-	});
+			centroEliminar = $row.entity;
+			var modalInstance = $modal.open({
+				templateUrl: '/modalEliminarCentro.html',
+				controller: ModalInstanceCtrl,
+				size: 'sm'
+			});
 	
 	var state = $('#modal-state');
 	modalInstance.result.then(function () {
@@ -222,7 +236,7 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 	  };
 	
 	
-  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+  	var ModalInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http) {
 	
 	    $scope.ok = function () {
             $http.post('rest/centroDistribucion/delete',{
@@ -233,6 +247,7 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
         		correo : centroEliminar.correo
             })
             .success(function(data){
+            	if(data.code == 200){
             	var ACentros = [];
             	data.centrosDistribucion.forEach( function(centro, index) {
             		var centroView = {};
@@ -253,7 +268,11 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 				  }; 
 				   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
 				   $rootScope.$broadcast('actualizarGrid',responsedata);	
-				   $modalInstance.close('closed');       			
+				   $modalInstance.close('closed');  
+            	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
     		});   
 	    };
 	    
@@ -261,8 +280,9 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
 	     
 	$scope.cancel = function () {
 	  $modalInstance.dismiss('cancel');
-	    };
+	};
+	
 	};
 	  
-	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 }]);

@@ -2,7 +2,7 @@
 <nav role="navigation" class="navbar topnavbar">
    <!-- START navbar header-->
    <div class="navbar-header">
-      <a href="#/" class="navbar-brand">
+      <a href="#/dashboard" class="navbar-brand">
          <div class="brand-logo">
             <img src="app/img/opie.png" alt="App Logo" class="img-responsive" />
          </div>
@@ -34,6 +34,11 @@
             </a>
          </li>
          <li>
+         	<a href="#" ng-click="dashboard()">
+               <em class="fa fa-newspaper-o"></em>
+            </a>
+         </li>
+         <li>
          	<a href="#" ng-click="miPerfil()">
                <em class="icon-user"></em>
             </a>
@@ -44,11 +49,6 @@
       <!-- START Right Navbar-->
       <ul class="nav navbar-nav navbar-right">
          <!-- Search icon-->
-         <li>
-            <a href="#" search-open="search-open">
-               <em class="icon-magnifier"></em>
-            </a>
-         </li>
          <!-- Fullscreen (only desktops)-->
          <li class="visible-lg">
             <a href="#" toggle-fullscreen="toggle-fullscreen">
@@ -85,12 +85,7 @@
 	                     </a> 
 	                                          
 	                </div>
-	                </scrollable> 	
-                     <!-- last list item -->
-                     <a ui-sref="app.registrarEstablecimiento" class="list-group-item">
-                        <small>Agregar Establecimiento</small>
-                     </a>
-                     
+	                </scrollable> 	                     
                   </div>
                   <!-- END list group-->
                </li>

@@ -1,7 +1,7 @@
 var gridPendientes = {};
 
-App.controller('PendientesController',['$scope','uiGridConstants','$http',
-				function($scope, uiGridConstants, $http) {
+App.controller('PendientesController',['$scope','$rootScope','uiGridConstants','$http',
+				function($scope, $rootScope,uiGridConstants, $http) {
 	
 	var pendientes = [];
 	
@@ -42,6 +42,8 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 	}
 	
 	gridPendientes = $scope.gridPendientes = {
+		paginationPageSizes: [],
+		paginationPageSize: 7,
 		columnDefs : [
 			{
 				field : 'idCalendario',
@@ -67,62 +69,112 @@ App.controller('PendientesController',['$scope','uiGridConstants','$http',
 				field: 'fin',
 				name:'Hora final'
 			},
-			{name: 'Reservar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
-	            '<button ng-click="reservar(row.entity)" class="btn btn-primary" >' +
-	            '<span class="fa fa-rocket"></span>' +
-	            '</button>'+
-	            '</div>'},
-	        {name: 'Eliminar', cellTemplate:'<div ng-controller="ReservacionModalController" >' +
-		            '<button ng-click="eliminar(row.entity)" class="btn btn-primary" >' +
-		            '<span class="fa fa-rocket"></span>' +
+			{name: 'Reservar', cellTemplate:
+			'<div class="btn-group btn-group-justified" role="group">' +
+				'<div class="btn-group" role="group" ng-controller="ReservacionModalController" >' +
+	            	'<button ng-click="reservar(row.entity)" class="btn btn-green" >' +
+	            		'<span class="fa fa-check"></span>' +
+	            	'</button>'+
+	            '</div>'+
+	        '</div>',width:90},
+	        {name: 'Cancelar', cellTemplate:
+	        '<div class="btn-group btn-group-justified" role="group">' +
+	        	'<div class="btn-group" role="group" ng-controller="ReservacionModalController" >' +
+		            '<button ng-click="eliminar(row.entity)" class="btn btn-warning" >' +
+		            	'<span class="fa fa-close"></span>' +
 		            '</button>'+
-		     '</div>'}
+		     	'</div>'+
+		     '</div>',width:90}
 			],
 		data : pendientes
 	}
 	
 } ]);
 
-App.controller('ReservacionModalController', ['$scope', '$http', '$state', function($scope, $http, $state){
+App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', '$modal', 'toaster', '$stateParams',function($scope, $rootScope,$http, $state, $modal, toaster, $stateParams){
+	var accion = '';
+	var pregunta = '';
+	var reserva = {};
 	
 	$scope.eliminar = function(row){
-		$http.post('rest/reservaciones/delete', {
-			idCalendario : row.idCalendario,
-			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
-	 	}).success(function(data){
-	 		var toasterdata = {
-					type:  'success',
-					title: 'Establecimiento',
-					text:  'Se ha aceptado la reservacion correctamente'
-			};
-			//$scope.pop(toasterdata);
-			establecimientoCalendario = data;
-			gridPendientes = establecimientoCalendario.pendientes;
-			$state.reload();
-	 	})
+		reserva = row;
+		accion = 'Eliminar';
+		pregunta = '¿Desea eliminar la solicitud de reservación?'
+		var modalInstance = $modal.open({
+            templateUrl: '/modalPendientes.html',
+            controller: ModalInstanceCtrl,
+            size: ''
+        });
 	}
 	
 	$scope.reservar = function(row){
-		$http.post('rest/reservaciones/update', {
-    			idCalendario : row.idCalendario,
-    			fecha: row.start,
-    			hora: row.start.getTime(),
-    			estado : 'Reservado',
-    			servicio : + row.servicio,
-    			usuario : 1,
-    			accion: 'Aceptar',
-    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
-		 	})
-		.	success(function(data){
-				var toasterdata = {
-						type:  'success',
-						title: 'Establecimiento',
-						text:  'Se ha aceptado la reservacion correctamente'
-				};
-				//$scope.pop(toasterdata);
-				establecimientoCalendario = data;
-				gridPendientes = establecimientoCalendario.pendientes;
-				$state.reload();
-		});
-}
+		reserva = row; 
+		accion = 'Reservar';
+		pregunta = '¿Seguro que desea reservar la solicitud?'
+		var modalInstance = $modal.open({
+            templateUrl: '/modalPendientes.html',
+            controller: ModalInstanceCtrl,
+            size: ''
+        });
+	}
+	
+	var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
+		$scope.accion = accion;
+		$scope.pregunta = pregunta;
+	
+		$scope.confirmar = function(){
+			var rest = '';
+			var data = {};
+			data.idCalendario = reserva.idCalendario;
+			data.establecimiento = establecimientoCalendario.idEstablecimientoDeportivo;
+			if($scope.accion == 'Eliminar'){
+				rest = 'rest/reservaciones/delete';
+			}else{
+				rest = 'rest/reservaciones/update';
+				data.estado = 'Reservado';
+				data.accion = 'Aceptar';
+				data.usuario = 1;
+				data.fecha = reserva.start;
+				data.hora = reserva.start.getTime();
+				data.servicio = reserva.servicio;
+				data.torneo = false;
+			}
+			
+			$http.post(rest, data)
+			.success(function(data){
+				if(data.code == 200){
+					var toasterdata = {
+							type: 'success',
+							title: 'Reservaciones',
+							text: data.codeMessage
+					};
+					$scope.pop(toasterdata);
+					$http.get('rest/establecimientoDeportivo/getAll')
+	        		.success(function(response) {
+	        			if(response.code == 200){
+	        			var establecimientos = response.establecimientosDeportivos;
+	        			for (var i = 0; i < establecimientos.length; i++) {
+	                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+	                            establecimientoCalendario = establecimientos[i];
+	                            gridPendientes.data = establecimientoCalendario.pendientes;
+	                        }
+	                    }
+	        			}else{
+	                		$rootScope.errorMessage = response.codeMessage;
+	                		$state.go('page.error');
+	                	}
+	        		});
+					gridPendientes.data = establecimientoCalendario.pendientes;
+				}else{
+					$rootScope.errorMessage = data.codeMessage;
+					$state.go('page.error');
+				}
+			});
+			 $scope.pop = function(toasterdata) {
+		          toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+		      };
+		      $modalInstance.close('closed');  
+	        	
+		}
+	}
 }]);

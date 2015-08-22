@@ -1,28 +1,31 @@
-/**
+	/**
  * Created by JuanManuel on 30/07/2015.
  */
 
-App.controller('TiposEventosController', ['$scope','$http','toaster', function($scope,$http,toaster) {
+App.controller('TiposEventosController', ['$scope','$rootScope','$http','toaster', function($scope,$rootScope,$http,toaster) {
 	
        
     var data = [];
     $scope.gridTiposEventos = {	
+    		paginationPageSizes: [],
+			paginationPageSize: 7,
+			enableFiltering: true,
         columnDefs: [
             {field: 'idTipoEvento', visible:false},
             {field: 'tipo', name: 'tipo', displayName: 'Tipo de Evento Deportivo'},
             {name: 'acciones', cellTemplate:
             '<div class="btn-group btn-group-justified" role="group" ng-controller="TipoEventoModalController">' +   			
             	'<div class="btn-group" role="group">'+
-					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 					'</button>'+
 				'</div>'+			
 				'<div class="btn-group" role="group">'+
-					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+			
-			'</div>'}
+			'</div>',width:120}
         ],
         data: data,
         onRegisterApi: function (gridApi) {
@@ -33,6 +36,7 @@ App.controller('TiposEventosController', ['$scope','$http','toaster', function($
     var aTipos = [];
     $http.get('rest/tipoEvento/getAll')
         .success(function(data) {
+        	if(data.code = 200){
         	data.tiposEventos.forEach(
         			function(tipo,index){
         				var tipoView = {};
@@ -51,6 +55,10 @@ App.controller('TiposEventosController', ['$scope','$http','toaster', function($
         			
         	);
         	$scope.gridTiposEventos.data = aTipos;
+        	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
         });
     
     $scope.$on('actualizarGrid', function (event, responsedata) {
@@ -90,41 +98,17 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
     
     $scope.eliminar = function ($row) {
     	tipoModificar = $row.entity;
-    	$http.post('rest/tipoEvento/delete', {
-    		idTipoEvento : tipoModificar.idTipoEvento,
-    		tipo : tipoModificar.tipo
-		 	})
-		.success(function(data){
-			var aTipos = [];			
-			data.tiposEventos.forEach(
-        			function(tipo,index){
-        				var tipoView = {};
-        				tipoView = {
-        						idTipoEvento: tipo.idTipoEvento,
-        						tipo: tipo.tipo,
-        						active: tipo.active
-        				}
-        				
-        				if(tipoView.active == 0){        					
-        				}else{
-        					aTipos.push(tipoView);
-        				}
-        			}
-        			
-        	);
-			
-			var responsedata = {
-		            type:  'success',
-		            title: 'Tipo de Evento',
-		            text:  data.codeMessage,
-		            newGrid: aTipos
-		        	};
-			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
-			$rootScope.$broadcast('actualizarGrid',responsedata);
-			
-			
+    	var modalInstance = $modal.open({
+			templateUrl: '/modalEliminarTipoEvento.html',
+			controller: EliminarTipoEventoInstanceCtrl,
+			size: 'sm'
 		});
-    	  
+		var state = $('#modal-state');
+		modalInstance.result.then(function () {
+		  state.text('Modal dismissed with OK status');
+		}, function () {
+		  state.text('Modal dismissed with Cancel status');
+		});  	  
      
     };
     
@@ -148,13 +132,13 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
     	
         // Submit form
         $scope.submitForm = function() {
-            $scope.submitted = false;
-            alert("Validando");
+            $scope.submitted = true;
             if ($scope.formTipoEvento.$valid) {
             	$http.post('rest/tipoEvento/save', {
             		tipo : $scope.tipoEvento.nombre
         		 	})
         		.success(function(data){
+        			if(data.code == 200){
         			var aTipos = [];
         			data.tiposEventos.forEach(
                 			function(tipo,index){
@@ -172,7 +156,6 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
                 			}
                 			
                 	);
-        			alert("Porque entro aqui?");
         			var responsedata = {
         		            type:  'success',
         		            title: 'Tipos de Eventos',
@@ -181,7 +164,11 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed'); 
+        			}else{
+        				$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -191,7 +178,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         };
     	
         $scope.cancel = function () {
-        	alert("Se cancelo");
+        	
             $modalInstance.dismiss('cancel');
         };
 
@@ -223,6 +210,7 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
             		active: tipoModificar.active
         		 	})
         		.success(function(data){
+        			if(data.code = 200){
         			var aTipos = [];
         			data.tiposEventos.forEach(
                 			function(tipo,index){
@@ -249,7 +237,11 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');       			
+        			$modalInstance.close('closed');  
+        			}else{
+        				$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+        			}
         		});        	
             	
             } else {
@@ -264,5 +256,56 @@ App.controller('TipoEventoModalController', ['$rootScope','$scope', '$modal','$h
 
     };
     ModificarTipoEventoInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
+    
+    var EliminarTipoEventoInstanceCtrl = function ($scope, $modalInstance,$http) {
+    	
+    	$scope.ok = function () {
+    		
+    		$http.post('rest/tipoEvento/delete', {
+        		idTipoEvento : tipoModificar.idTipoEvento,
+        		tipo : tipoModificar.tipo
+    		 	})
+    		.success(function(data){
+    			if(data.code == 200){
+    			var aTipos = [];			
+    			data.tiposEventos.forEach(
+            			function(tipo,index){
+            				var tipoView = {};
+            				tipoView = {
+            						idTipoEvento: tipo.idTipoEvento,
+            						tipo: tipo.tipo,
+            						active: tipo.active
+            				}
+            				
+            				if(tipoView.active == 0){        					
+            				}else{
+            					aTipos.push(tipoView);
+            				}
+            			}
+            			
+            	);
+    			
+    			var responsedata = {
+    		            type:  'success',
+    		            title: 'Tipo de Evento',
+    		            text:  data.codeMessage,
+    		            newGrid: aTipos
+    		        	};
+    			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
+    			$rootScope.$broadcast('actualizarGrid',responsedata);
+    			}else{
+    				$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+    			}
+    		});
+    	};
+    	
+    	
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+    };
+    EliminarTipoEventoInstanceCtrl.$inject = ["$scope", "$modalInstance","$http"];
 
 }]);

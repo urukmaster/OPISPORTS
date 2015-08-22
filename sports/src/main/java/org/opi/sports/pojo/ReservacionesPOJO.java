@@ -17,6 +17,7 @@ public class ReservacionesPOJO {
 	private Date fecha;
 	private Time hora;
 	private String estado;
+	private TorneoPOJO torneo;
 	
 	
 	public int getIdCalendario() {
@@ -49,6 +50,14 @@ public class ReservacionesPOJO {
 	
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public TorneoPOJO getTorneo() {
+		return torneo;
+	}
+
+	public void setTorneo(TorneoPOJO torneo) {
+		this.torneo = torneo;
 	}
 			
 }

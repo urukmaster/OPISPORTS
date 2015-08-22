@@ -2,7 +2,9 @@ package org.opi.sports.services;
 
 import java.util.List;
 
+import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.ejb.TipoServicio;
+import org.opi.sports.ejb.Tiquete;
 
 /**
  * Fecha: 20-07-2015 version 1.0

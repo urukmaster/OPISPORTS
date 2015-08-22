@@ -7,13 +7,12 @@
 
 var eventoActual = {};
 var cantTiquetesReservados;
-
 /**==========================================================
  * Modulo: EventoModalController
  * Este controlador se encarga de consultar y modificar la 
  * información de un evento deportivo.
  ============================================================*/
-App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $modal, $timeout ,$http, $state, toaster) {
+App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http, $state, toaster) {
 	
 	//Abre el "Modal" de modificación
 	$scope.modificar = function () {
@@ -59,6 +58,7 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
             
             $http.post('rest/evento/save', data).
             success(function(data){
+            	if(data.code ==200){
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Evento',
@@ -68,6 +68,10 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
       			$scope.pop(toasterdata);
       			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
             	$modalInstance.dismiss('cancel');
+            	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
             });
         };
         $scope.cancel = function () {
@@ -92,40 +96,33 @@ App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http"
  * Modulo: PerfilEventoController
  * Este controlador se traer un evento deportivo por medio del Id
  ============================================================*/
-App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', function($scope, $http, $stateParams, $state, $modal) {
 
-    
+App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$state', '$modal', '$rootScope', function($scope, $http, $stateParams, $state, $modal, $rootScope) {
+
     $scope.init = function(){
 		$http.post('rest/evento/getEvento', $stateParams.id)
 		.success(function(response) {
-			
-			console.log(response);
-			
+			if(response.code == 200){
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
-			
-			console.log(cantTiquetesReservados);
-
             $scope.evento = response.evento;
-            eventoActual = $scope.evento;
             eventoActual = $scope.evento;
             eventoActual.horaModificar = response.hora;
             eventoActual.fechaModificar = response.fecha;
+			}else{
+        		$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
+        	}
 		});
     };
 	
 	$scope.obtenerCantTiquetes = function(listaTiquetes){
-		
 		var cant = 0;
-		
 		for(i = 0; i < listaTiquetes.length; i++){
-			
 			if(listaTiquetes[i].estado == 'reservado'){
 				cant++;
 			}
 		}
-		
 		return cant;
-		
 	}
     
     $scope.init();
@@ -148,7 +145,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
  * Module: EliminarEventoModalController
  * Implementa el modal de eliminacion de un evento
  ============================================================*/
-App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $modal, $rootScope, $http, toaster, $state, $timeout) {
+App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal', '$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $http, toaster, $state, $timeout) {
 	var id;
 	$scope.open = function (pid) {
 	id = pid;
@@ -164,14 +161,20 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	}, function () {
 	  state.text('Modal dismissed with Cancel status');
 	    });
-	  };
+	};
+	
+	//Método que redirecciona a la página de reporte de tiquetes
+	$scope.consultarTiquetes = function(pnombreEvento){
+        $state.go('app.reporteTiquetes',{nombre: pnombreEvento});
+	}
 	
 	
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
 	
 	    $scope.ok = function () {
-	        $http.post('rest/evento/delete', id).
-	        success(function(){
+	    	$http.post('rest/evento/delete', id).
+	        success(function(data){
+	        	if(data.code == 200){
 	        	var toasterdata = {
 			            type:  'success',
 			            title: 'Evento',
@@ -179,6 +182,10 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+	        	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
 	        });
 	    	$modalInstance.close('closed');
 	    };
@@ -197,6 +204,7 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
 	    };
 	    
 	  };
+	  
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);
@@ -206,7 +214,7 @@ App.controller('EliminarEventoModalController', ['$scope', '$modal', '$rootScope
  * Este controlador se encarga de de realizar el registro de
  * una inscripción a un evento deportivo.
  ============================================================*/
-App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", '$rootScope', 'toaster', function ($scope, $modal, $timeout ,$http, $state, $rootScope, toaster) {
+App.controller('InscripcionModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", "$state", '$rootScope', 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http, $state, $rootScope, toaster) {
 	
 	/*Abre el "Modal" de inscripción si el usuario esta logueado, de lo 
 	contrario lo lleva a la página de login*/
@@ -243,9 +251,8 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
     	$state.go("app.login");
     }
     
-
 //------------------------------------------------------------------------------------
-    var InscripcionInstanceCtrl = function ($scope, $modalInstance) {
+    var InscripcionInstanceCtrl = function ($scope, $rootScope,$modalInstance) {
     	
     	$scope.inscripcionForm = {};
         $scope.inscripcionForm.nombre = eventoActual.nombre;
@@ -296,7 +303,7 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
             //Llamada para registrar la inscripcion
             $http.post('rest/tiquete/save', data).
             success(function(data){
-            	console.log(data);
+            	if(data.code == 200){
             	var toasterdata = {
 			            type:  'success',
 			            title: 'Inscripción',
@@ -306,6 +313,10 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
       			$scope.pop(toasterdata);
       			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
     	    	$modalInstance.close('closed');
+            	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
             });
         };
     		   
@@ -331,6 +342,6 @@ App.controller('InscripcionModalController', ['$scope', '$modal', "$timeout" ,"$
         };
     };
 
-    InscripcionInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    InscripcionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance", "$http"];
     
 }]);

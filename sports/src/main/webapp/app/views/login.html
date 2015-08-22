@@ -22,7 +22,7 @@
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.required"
 						class="text-danger">Este campo es requerido</span> <span
 						ng-show="loginForm.account_email.$dirty &amp;&amp; loginForm.account_email.$error.email"
-						class="text-danger">Este campo deberia ser un correo valido</span>
+						class="text-danger">Este campo debería ser un correo válido</span>
 				</div>
 				<div class="form-group has-feedback">
 					<input id="exampleInputPassword1" type="password"
@@ -40,8 +40,7 @@
 						</label>
 					</div>
 					<div class="pull-right">
-						<a ui-sref="page.recover" class="text-muted">Olvido su
-							contraseña?</a>
+						<a ui-sref="page.recover" class="text-muted">Olvido su contraseña?</a>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-block btn-primary mt-lg">Ingresar</button>
@@ -61,7 +60,7 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Nombre</label>
                         			<div class="col-sm-6">
-                           				<input type="text" name="nombre" required="" ng-model="usuario.nombre" class="form-control" />
+                           				<input type="text" name="nombre" required="" ng-model="usuarioForm.nombre" class="form-control" />
                            				<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>
@@ -69,15 +68,15 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Apellidos</label>
                         			<div class="col-sm-6">
-                           				<input type="text" name="apellido" required="" ng-model="usuario.apellidos" class="form-control" />
+                           				<input type="text" name="apellido" required="" ng-model="usuarioForm.apellidos" class="form-control" />
                            				<span ng-show="validateInput('apellido', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>
 							<br>
 							<div class="form-group">
-                        		<label class="col-sm-2 control-label">Telefono</label>
+                        		<label class="col-sm-2 control-label">Teléfono</label>
                         			<div class="col-sm-6">
-                           				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuario.telefono" class="form-control" />
+                           				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuarioForm.telefono" class="form-control" />
                            				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>
@@ -87,7 +86,7 @@
                      		<div class="form-group">
                         		<label class="col-sm-2 control-label">Correo Electrónico</label>
                         			<div class="col-sm-6">
-                           				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuario.correo" class="form-control" />
+                           				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuarioForm.correo" class="form-control" />
                            				<span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>
@@ -95,7 +94,7 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Contraseña</label>
                         			<div class="col-sm-6">
-                           				<input type="password" name="contrasenna" required="" ng-model="usuario.contrasenna" class="form-control" />
+                           				<input type="password" name="contrasenna" required="" ng-model="usuarioForm.contrasenna" class="form-control" />
                            				<span ng-show="validateInput('contrasenna', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>
@@ -103,7 +102,7 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Confirmar Contraseña</label>
                         			<div class="col-sm-6">
-                           				<input type="password" name="confirmarContasenna" required="" ng-model="usuario.confirmarContrasenna" ui-validate="'$value==usuario.contrasenna'" ui-validate-watch="'validator.usuario.contrasenna'" class="form-control" />
+                           				<input type="password" name="confirmarContasenna" required="" ng-model="usuarioForm.confirmarContrasenna" ui-validate="'$value==usuarioForm.contrasenna'" ui-validate-watch="'validator.usuarioForm.contrasenna'" class="form-control" />
                            				<p ng-show="validateInput('confirmarContasenna', 'validator')" class="text-danger">Las contrases no coinciden.</p>
                         			</div>                        
                      		</div>
@@ -112,11 +111,11 @@
        		</div>
        		<div class="modal-footer">
        			<button type="submit" class="btn btn-info">{{accion}}</button>
-				<button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+				<a ng-click="cancel()" class="btn btn-warning">Cancelar</a>
        		</div>
 			</form>
                </script>
-				<a ng-click="registrar()" class="btn btn-block btn-default">Registrate
+				<a ui-sref="page.register" class="btn btn-block btn-default">Regístrate
 					ahora</a>
 			</div>
 		</div>

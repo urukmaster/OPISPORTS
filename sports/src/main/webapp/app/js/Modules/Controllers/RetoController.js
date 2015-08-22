@@ -4,7 +4,7 @@
 
 var gridReto = {};
 
-App.controller('RetoController', ['$scope','uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
+App.controller('RetoController', ['$scope','$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 
 	var data = [];
 	gridReto = $scope.gridReto = {
@@ -29,17 +29,17 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 			'<div class="btn-group btn-group-justified" role="group" >' +
 			
 				'<div class="btn-group" role="group" ng-controller="RetoModalController">'+
-					'<button ng-click="modificar(row)" class="btn btn-sm btn-warning" >' +
+					'<button ng-click="modificar(row)" class="btn btn-sm btn-green" >' +
 						'<span class="fa fa-pencil"></span>' +
 						'</button>'+
 				'</div>'+
 				'<div class="btn-group" role="group" ng-controller="EliminarModalController">'+
-					'<button ng-click="eliminar(row)" class="btn btn-sm btn-danger" >' +
+					'<button ng-click="eliminar(row)" class="btn btn-sm btn-warning" >' +
 						'<span class="fa fa-trash"></span>' +
 					'</button>'+
 				'</div>'+
 			
-			'</div>'	
+			'</div>',width:120	
 			}
 			],
 			filterOptions: {filterText: '', useExternalFilter: false},
@@ -52,6 +52,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 			var ARetos  = [];
 			$http.get('rest/reto/getAll')
 				.success(function(data) {
+					if(data.code == 200){
 					data.retospojo.forEach( function(reto, index) {
 						var retosView = {};
 						retosView.idReto = reto.idReto;
@@ -74,9 +75,14 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 						}
 						
 			        });
-			            $scope.gridReto.data = ARetos;       
+			            $scope.gridReto.data = ARetos;
+					}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
 			}).error(function(response){
-                alert(response.message);
+				$rootScope.errorMessage = response.codeMessage;
+        		$state.go('page.error');
            
             });
 			
@@ -110,7 +116,7 @@ App.controller('RetoController', ['$scope','uiGridConstants', '$http', function(
 }]);
 var retoModificar = {};
 var retoEliminar = {};
-App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','toaster',function ($scope, $modal,$http,$rootScope,toaster) {
+App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','$rootScope','toaster',function ($scope, $rootScope,$modal,$http,$rootScope,toaster) {
 
 
 //----------------------------------------------------------------------------
@@ -156,17 +162,20 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
 				}
 				return hora;
 		}
-
+		
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
     var RegistrarRetoInstanceCtrl = function ($scope, $modalInstance,$http,$rootScope) {
+    	
+
+
     	'use strict'; 
     	//validación
     	$scope.reto = {};
     	$scope.reto.hora = new Date();
     	$scope.reto.fecha = new Date();
-    	var servicioActual;
+    	
     	
     	$scope.accion = 'Registrar';
         $scope.submitted = false;
@@ -186,7 +195,7 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
             		hora: $scope.reto.hora.getTime(),
             		mensaje: $scope.reto.mensaje,
             		active: 1,
-            		servicio: $rootScope.ServicioActual.idServicio,
+            		servicio: $rootScope.Servicio,
             		usuario: $rootScope.usuario.idUsuario
         		 	})
         		.success(function(data){
@@ -247,6 +256,8 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
         $scope.reto.fecha = fechaModal;
         $scope.reto.hora = horaModal;
         $scope.reto.servicio = retoModificar.nombreServicio;
+        $scope.idEstablecimientoDeportivo = retoModificar.idEstablecimiento;
+        $scope.idServicio = retoModificar.idServicio;
 
         $scope.submitForm = function () {
                 $http.post('rest/reto/update',{
@@ -256,10 +267,11 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
                 	fecha: $scope.reto.fecha,
                 	hora:$scope.reto.hora.getTime(),
                     active: 1,
-                    servicio : $rootScope.ServicioActual.idServicio,
+                    servicio : $rootScope.Servicio,
                     usuario : retoModificar.idUsuario
                 })
                 .success(function(data){
+                	if(data.code == 200){
                 	var ARetos = [];
                 	data.retospojo.forEach( function(reto, index) {
    						var retosView = {};
@@ -290,7 +302,11 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
    				  }; 
    				   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
    				   $rootScope.$broadcast('actualizarGrid',responsedata);	
-        		   $modalInstance.close('closed');       			
+        		   $modalInstance.close('closed');    
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
         		});        	
          
         };
@@ -302,35 +318,41 @@ App.controller('RetoModalController', ['$scope', '$modal','$http','$rootScope','
     
     
     
-    App.controller('Cargar', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {    
+    App.controller('Cargar', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {    
     	 
     	$scope.init = function(){  	
-    		    $http.get('rest/establecimientoDeportivo/getAll')
-    			.success(function(response) {
-    				$scope.Establecimientos = response.establecimientosDeportivos;
-    			});
-    	    };
-    	    //Inicializa la aplicación
-    	    $scope.init();  
-    	    
-    	    $scope.buscarServicios = function(establecimiento){
-    	    	cambiarServicios(establecimiento);
-    	    };
-    	    
-    	    //Cambia los servicios asociados al establecimiento
-    	    function cambiarServicios(establecimiento) {
-    	        $scope.serviciosEstablecimiento = establecimiento.servicios;
-    	    }
-    	    
-    	    $scope.obtenerServicio = function(servicio){	
-    	    	$rootScope.ServicioActual = servicio;
-    	    }
+		    $http.get('rest/establecimientoDeportivo/getAll')
+			.success(function(response) {
+				if(response.code = 200)
+				{
+					$scope.Establecimientos = response.establecimientosDeportivos;
+				}else{
+					$rootScope.errorMessage = response.codeMessage;
+            		$state.go('page.error');
+				}
+			});
+	    };
+	    //Inicializa la aplicación
+	    $scope.init();  
+	    
+	    $scope.buscarServicios = function(idEstablecimiento){
+	    	angular.forEach($scope.Establecimientos, function(establecimiento, index){
+	    		if(establecimiento.idEstablecimientoDeportivo == idEstablecimiento){
+	    			$scope.Servicios = establecimiento.servicios;
+	    		}
+	    	});
+	    };
+    	 
+	    $scope.buscarServicio = function(){
+	    	$rootScope.Servicio = $scope.idServicio;
+    	};
+ 
     }]);
   
   
 }]);
 var retoEliminar = {};
-App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {
 
 	$scope.eliminar = function ($row) {
 		retoEliminar = $row.entity;
@@ -365,6 +387,7 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
   				usuario : retoEliminar.idUsuario
   				
   				}).success(function(data) {
+  					if(data.code == 200){
   					   var ARetos = [];
   						data.retospojo.forEach( function(reto, index) {
   							var retosView = {};
@@ -397,6 +420,10 @@ App.controller('EliminarModalController', ['$scope', '$modal', '$rootScope','$ht
   					   toaster.pop(responsedata.type, responsedata.title, responsedata.text);
   					   $rootScope.$broadcast('actualizarGrid',responsedata);
   					   $modalInstance.close('closed');
+  					}else{
+  					 $rootScope.errorMessage = data.codeMessage;
+             		$state.go('page.error');
+  					}
   					});
   				};	
   				$scope.cancel = function () {

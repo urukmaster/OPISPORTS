@@ -1,0 +1,80 @@
+<div ng-controller="TorneoModalController">
+	<div>
+
+		<script type="text/ng-template" id="/myTorneoModalContent.html">
+				<div class="modal-header">
+    				<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+    				<h4 id="myModalLabel" class="modal-title">{{accion}} + ' Torneos'</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+                		<div class="panel-body">
+                    		<form>
+								<div class="col-lg-12 form-group">
+
+									<div class="col-lg-6">
+										<div>
+                            				<label control-label">Torneo</label>
+                            				<input ng-model="torneoForm.nombre" type="text"  class="form-control" />
+                            			</div>
+										<div>
+                            				<label control-label">Cupos</label>
+                                			<input ng-model="torneoForm.cupos" type="number"  class="form-control" />
+										</div>
+										<div>
+                            				<label control-label">Horas del torneo</label>
+                            				<input ng-model="torneoForm.horasTorneos" type="number"  class="form-control" />
+                            			</div>
+										<div>
+                            				<label control-label">Hora</label>
+											<div ng-controller="TimepickerDemoCtrl">
+            									<timepicker ng-model="torneoForm.hora" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+            								</div>
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div>
+                            				<label control-label">Fecha</label>
+    										<div ng-controller="DatepickerDemoCtrl">
+        										<datepicker ng-model="torneoForm.fecha" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+    										</div>
+										</div>
+										
+									</div>
+								</div>
+							</form>
+   						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+    				<button ng-hide="accion != 'Registrar'" ng-click="torneoForm.registrar()" class="btn btn-primary">Registrar</button>
+    				<button ng-hide="accion != 'Modificar'" ng-click="torneoForm.modificar()" class="btn btn-warning">Modificar</button>
+    				<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
+				</div>
+        </script>
+		<fieldset>
+        <div class="row">
+        	<div class="col-lg-12">
+          		<div class="col-md-6">
+          			<div class="input-group">
+          				<span class="input-group-addon"><em class="icon-magnifier"></em></span>
+            			<input id="busquedaNombre" placeholder="Buscar..." type="text" class="form-control" ng-model="search.nombre"/>
+          			</div>
+          		</div>
+          		<div class="col-md-6">
+          			<div class="form-group">
+                    	<button ng-click="registrar()" class="btn btn-labeled btn-success" ><span class="btn-label"><em class="fa fa-plus"></em></span>Registrar</button>
+                    </div>
+          		</div>
+         	</div>
+        </div>
+       	</fieldset>	
+	</div>
+</div>
+<div class="row">
+	<div ng-controller='TorneosController'>
+		<div ui-grid-pagination="" ui-grid='gridTorneos' class='table-uigrid'></div>
+	</div>
+</div>
+<script src='app/js/Modules/Controllers/TorneosController.js'></script>

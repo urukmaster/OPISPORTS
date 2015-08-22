@@ -1,7 +1,7 @@
 <div class="col-md-8">
 	<div class="panel" ng-controller="RegistrarUsuarioModalController">		
 				<form name="formUsuario" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">      		   			
-	   				<div class="panel-body">
+	   				<div class="panel-body" ng-init="accion='update'">
 						<legend>Datos Personales</legend>	
                   		<fieldset>
 							<div class="form-group">
@@ -15,7 +15,7 @@
 							<div class="form-group">
                         		<label class="col-sm-2 control-label">Apellidos</label>
                         			<div class="col-sm-6">
-                           				<input type="text" name="apellido" required="" ng-model="usuario.apellidos" class="form-control" />
+                           				<input type="text" name="apellido" required="" ng-model="usuario.apellido" class="form-control" />
                            				<span ng-show="validateInput('apellido', 'required')" class="text-danger">Este campo es requerido</span>
                         			</div>                        
                      		</div>

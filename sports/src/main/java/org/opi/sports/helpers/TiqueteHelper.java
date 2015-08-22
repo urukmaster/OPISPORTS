@@ -9,7 +9,6 @@ import org.opi.sports.pojo.InscripcionPOJO;
 import org.opi.sports.pojo.TiquetePOJO;
 import org.opi.sports.services.InscripcionServiceInterface;
 import org.opi.sports.services.TiqueteServiceInterface;
-import org.opi.sports.services.UsuarioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

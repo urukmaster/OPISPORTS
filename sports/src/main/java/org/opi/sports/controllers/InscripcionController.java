@@ -18,39 +18,52 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  * @author Mauricio Fernández Mora.
  *
- *Sprint 06 Descripción:Esta clase es la que contendrá cada uno de los servicios que
- *serán necesarios para procesar la información de las inscripciones a eventos deportivos
+ *         Sprint 06 Descripción:Esta clase es la que contendrá cada uno de los
+ *         servicios que serán necesarios para procesar la información de las
+ *         inscripciones a eventos deportivos
  */
 
 @RestController
 @RequestMapping(value = "rest/inscripcion")
-
 public class InscripcionController {
-	
+
 	@Autowired
 	InscripcionServiceInterface inscripcionServices;
 
 	/**
-	 *Este método obtiene cada una de las instancias de inscripciones
-	 *registradas en la base de datos
-	 */	
-	@RequestMapping(value="getAll", method = RequestMethod.GET)
-	public InscripcionResponse getAll(){
-		
+	 * Este método obtiene cada una de las instancias de inscripciones
+	 * registradas en la base de datos
+	 */
+	@RequestMapping(value = "getAll", method = RequestMethod.GET)
+	public InscripcionResponse getAll() {
+
 		InscripcionResponse inscripcionResponse = new InscripcionResponse();
-		
-		List<Inscripcion> inscripcionList = inscripcionServices.getAllInscripciones();
-		List<InscripcionPOJO> inscripcionViewList = new ArrayList<InscripcionPOJO>();
-		
-		for(Inscripcion inscripcion : inscripcionList){
-			inscripcionViewList.add(InscripcionHelper.getInstance().convertirInscripcion(inscripcion));
+
+		try {
+
+			List<Inscripcion> inscripcionList = inscripcionServices
+					.getAllInscripciones();
+			List<InscripcionPOJO> inscripcionViewList = new ArrayList<InscripcionPOJO>();
+
+			for (Inscripcion inscripcion : inscripcionList) {
+				inscripcionViewList.add(InscripcionHelper.getInstance()
+						.convertirInscripcion(inscripcion));
+			}
+
+			inscripcionResponse.setInscripciones(inscripcionViewList);
+
+			inscripcionResponse.setCode(200);
+			inscripcionResponse.setCodeMessage("Operación Exitosa");
+		} catch (Exception exception) {
+			inscripcionResponse.setCode(404);
+			inscripcionResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			inscripcionResponse.setErrorMessage(exception.getMessage());
 		}
-		
-		inscripcionResponse.setInscripciones(inscripcionViewList);
-		
-		return inscripcionResponse;		
-		
+
+		return inscripcionResponse;
+
 	}
 
 }
-
