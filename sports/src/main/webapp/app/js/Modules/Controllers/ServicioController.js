@@ -99,15 +99,15 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
     }
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
-    	
+        
         $scope.accion = "Registrar";
         $scope.servicioForm = {};
         $scope.servicioForm.horaApertura = new Date();
         $scope.servicioForm.horaCierre = new Date();
         $scope.servicioForm.registrar = function () {
-        	
+         
             var data = {
-            	"servicio": $scope.servicioForm.servicio,
+             "servicio": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
                 "horaApertura": $scope.servicioForm.horaApertura.getTime(),
                 "horaCierre": $scope.servicioForm.horaCierre.getTime(),
@@ -119,37 +119,36 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
             };
             $http.post('rest/servicio/save', data).
             success(function(data){
-            	if(data.code == 200){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Servicio',
-			            text:  'Se registro el servicio correctamente.'
-			    };
-    			$scope.pop(toasterdata);
-            	gridServicio.data.push = data.servicio;
-            	$http.get('rest/establecimientoDeportivo/getAll')
-        		.success(function(response) {
-        			if(response.code == 200){
-        			var establecimientos = response.establecimientosDeportivos;
-        			for (var i = 0; i < establecimientos.length; i++) {
+             if(data.code == 200){
+             var toasterdata = {
+               type:  'success',
+               title: 'Servicio',
+               text:  'Se registro el servicio correctamente.'
+       };
+       $scope.pop(toasterdata);
+             $http.get('rest/establecimientoDeportivo/getAll')
+          .success(function(response) {
+           if(response.code == 200){
+           var establecimientos = response.establecimientosDeportivos;
+           for (var i = 0; i < establecimientos.length; i++) {
                         if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                             establecimientoCalendario = establecimientos[i];
                         }
                         gridServicio.data = establcimientoCalendario.servicios;
                     }
-        			}else{
-                		$rootScope.errorMessage = response.codeMessage;
-                		$state.go('page.error');
-                	}
-        		});
-            	$route.reload();
-            	}else{
-            		$rootScope.errorMessage = data.codeMessage;
-            		$state.go('page.error');
-            	}
+           }else{
+                  $rootScope.errorMessage = response.codeMessage;
+                  $state.go('page.error');
+                 }
+          });
+             $route.reload();
+             }else{
+              $rootScope.errorMessage = data.codeMessage;
+              $state.go('page.error');
+             }
             });
             $modalInstance.close('closed');  
-        	
+         
         };
         $scope.pop = function(toasterdata) {
             toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
@@ -193,8 +192,8 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
                     "accion" : $scope.accion
                 };
                 $http.post('rest/servicio/save', data).
-                success(function(data){
-                	if(data.code == 200){
+                success(function(response){
+                	if(response.code == 200){
                 	var toasterdata = {
     			            type:  'success',
     			            title: 'Servicio',
@@ -202,6 +201,7 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
     			    };
         			$scope.pop(toasterdata);
         			gridServicio.data[data.servicio.idServicio-1] = data.servicio;
+        			$state.reload();
                 	}else{
                 		$rootScope.errorMessage = data.codeMessage;
                 		$state.go('page.error');

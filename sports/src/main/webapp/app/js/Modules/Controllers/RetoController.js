@@ -162,17 +162,20 @@ App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','
 				}
 				return hora;
 		}
-
+		
     // Please note that $modalInstance represents a modal window (instance) dependency.
     // It is not the same as the $modal service used above.
 
     var RegistrarRetoInstanceCtrl = function ($scope, $modalInstance,$http,$rootScope) {
+    	
+
+
     	'use strict'; 
     	//validación
     	$scope.reto = {};
     	$scope.reto.hora = new Date();
     	$scope.reto.fecha = new Date();
-    	var servicioActual;
+    	
     	
     	$scope.accion = 'Registrar';
         $scope.submitted = false;
@@ -192,7 +195,7 @@ App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','
             		hora: $scope.reto.hora.getTime(),
             		mensaje: $scope.reto.mensaje,
             		active: 1,
-            		servicio: $rootScope.ServicioActual.idServicio,
+            		servicio: $rootScope.Servicio,
             		usuario: $rootScope.usuario.idUsuario
         		 	})
         		.success(function(data){
@@ -253,6 +256,8 @@ App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','
         $scope.reto.fecha = fechaModal;
         $scope.reto.hora = horaModal;
         $scope.reto.servicio = retoModificar.nombreServicio;
+        $scope.idEstablecimientoDeportivo = retoModificar.idEstablecimiento;
+        $scope.idServicio = retoModificar.idServicio;
 
         $scope.submitForm = function () {
                 $http.post('rest/reto/update',{
@@ -262,7 +267,7 @@ App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','
                 	fecha: $scope.reto.fecha,
                 	hora:$scope.reto.hora.getTime(),
                     active: 1,
-                    servicio : $rootScope.ServicioActual.idServicio,
+                    servicio : $rootScope.Servicio,
                     usuario : retoModificar.idUsuario
                 })
                 .success(function(data){
@@ -316,32 +321,32 @@ App.controller('RetoModalController', ['$scope', '$rootScope','$modal','$http','
     App.controller('Cargar', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {    
     	 
     	$scope.init = function(){  	
-    		    $http.get('rest/establecimientoDeportivo/getAll')
-    			.success(function(response) {
-    				if(response.code = 200)
-    				{
-    					$scope.Establecimientos = response.establecimientosDeportivos;
-    				}else{
-    					$rootScope.errorMessage = response.codeMessage;
-                		$state.go('page.error');
-    				}
-    			});
-    	    };
-    	    //Inicializa la aplicación
-    	    $scope.init();  
-    	    
-    	    $scope.buscarServicios = function(establecimiento){
-    	    	cambiarServicios(establecimiento);
-    	    };
-    	    
-    	    //Cambia los servicios asociados al establecimiento
-    	    function cambiarServicios(establecimiento) {
-    	        $scope.serviciosEstablecimiento = establecimiento.servicios;
-    	    }
-    	    
-    	    $scope.obtenerServicio = function(servicio){	
-    	    	$rootScope.ServicioActual = servicio;
-    	    }
+		    $http.get('rest/establecimientoDeportivo/getAll')
+			.success(function(response) {
+				if(response.code = 200)
+				{
+					$scope.Establecimientos = response.establecimientosDeportivos;
+				}else{
+					$rootScope.errorMessage = response.codeMessage;
+            		$state.go('page.error');
+				}
+			});
+	    };
+	    //Inicializa la aplicación
+	    $scope.init();  
+	    
+	    $scope.buscarServicios = function(idEstablecimiento){
+	    	angular.forEach($scope.Establecimientos, function(establecimiento, index){
+	    		if(establecimiento.idEstablecimientoDeportivo == idEstablecimiento){
+	    			$scope.Servicios = establecimiento.servicios;
+	    		}
+	    	});
+	    };
+    	 
+	    $scope.buscarServicio = function(){
+	    	$rootScope.Servicio = $scope.idServicio;
+    	};
+ 
     }]);
   
   

@@ -27,12 +27,15 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
 
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
+    	console.log('aaa');
         $scope.init(); 
     });
 }]);   
 
 
+
 App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '$stateParams', '$state', function($scope, $rootScope,$http, $stateParams,$state) {
+
        
 	$scope.init = function(){
 		
@@ -73,6 +76,40 @@ App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '
 	}
 
     $scope.init();
+
+       
+}]);
+
+App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
+
+	$scope.init = function(){
+		$http.get('rest/provincia/getAll')
+		.success(function(response) {
+			$scope.Provincias = response.provincias;
+			
+
+		});	    
+    };
+    $scope.init();
+	
+    $scope.buscarCantones = function(){
+    	angular.forEach($scope.Provincias, function(provincia, index){
+    		if(provincia.idProvincia == $scope.idProvincia){
+    			$scope.Cantones = provincia.listaCantones;
+    		}
+    	});
+    };
+    
+    //Busca el distrito asociado al cantón escogido
+    $scope.buscarDistritos = function(){
+    	angular.forEach($scope.Cantones, function(canton, index){
+    		if($scope.idCanton == canton.idCanton){
+    			$scope.Distritos = canton.listaDistritos;
+    		};
+    	});
+    };
+    
+
     
     $scope.eliminar = function(id) {
     	$http.post('rest/review/delete', {
@@ -94,16 +131,15 @@ App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '
         $state.go('app.reporteRetos',{id: pidEstablecimiento});
 	}
 
-}]);
+ 
 
-App.controller('EstablecimientosFormController', ['$scope','$rootScope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$rootScope,$http, $stateParams,$state,toaster,$timeout,$route) {
-	'use strict'; 
 	//validación
     $scope.submitted = false;
     $scope.validateInput = function(name, type) {
         var input = $scope.formEstablecimiento[name];
         return (input.$dirty || $scope.submitted) && input.$error[type];
     };
+    
     // Submit form
     $scope.submitForm = function() {
         $scope.submitted = true;
@@ -113,7 +149,9 @@ App.controller('EstablecimientosFormController', ['$scope','$rootScope','$http',
         		nombre : $scope.establecimiento.nombre,
         		paginaWeb : $scope.establecimiento.paginaWeb,
         		telefono : $scope.establecimiento.telefono,
-        		idUsuario : 1
+        		idDistrito : $scope.idDistrito,
+        		accion : "Registrar",
+        		idUsuario : $rootScope.usuario.idUsuario
     		 	})
     		.success(function(data){
     			if(data.code = 200){
@@ -187,10 +225,6 @@ App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$stat
 //        }
 //    };   	
 	}
-	
-	
-	
-	
 }]);
 
 /**==========================================================
@@ -198,7 +232,7 @@ App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$stat
  * Este controlador se encarga de eliminar un establecimiento deportivo
  ============================================================*/
 
-App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$scope', '$rootScope','$modal','$http', 'toaster', function ($scope, $rootScope,$modal, $http, toaster) {
 	var id;
 	
 	$scope.open = function (pid) {
@@ -215,7 +249,7 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 	}, function () {
 	  state.text('Modal dismissed with Cancel status');
 	    });
-	  };
+	};
 	
 	
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
@@ -230,23 +264,67 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 			            title: 'Establecimiento',
 			            text:  'Se eliminó el establecimiento.'
 			    };                
-	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	toaster.pop(toasterdata);
 	        	}else{
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
             	}
 	        });
-			$rootScope.$broadcast('eliminar');
 	    	$modalInstance.close('closed');
+			$rootScope.$broadcast('eliminar');
 	    };
 	    $scope.pop = function(toasterdata) {
 	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
 	    };
+	    
+  	};
 	
 	$scope.cancel = function () {
-	  $modalInstance.dismiss('cancel');
-	    };
-	  };
-	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
+    	console.log('ajhs');
+		$modalInstance.dismiss('cancel');
+	};
+  	
+  	ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
+}]);
+var reviewEliminar = {};
+App.controller('EliminarComentario', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state', function ($scope, $modal, $rootScope, $http, toaster,$state) {
+	
+    $scope.eliminar = function(pid){
+    	reviewEliminar = pid;
+    	var modalInstance = $modal.open({
+    		templateUrl: '/modalEliminarReview.html',
+    		controller: ModalInstanceCtrl,
+    		size: 'sm'
+    	});
+    	
+    	var state = $('#modal-state');
+    	modalInstance.result.then(function () {
+    	  state.text('Modal dismissed with OK status');
+    	}, function () {
+    	  state.text('Modal dismissed with Cancel status');
+    	    });
+    };
+    
+    var ModalInstanceCtrl = function ($scope, $modalInstance) {
+    	
+    
+    $scope.ok = function () {
+    	$http.post('rest/review/delete', {
+    		idComentario : reviewEliminar
+    		 	})
+    		.success(function(data){
+    			$modalInstance.close('closed'); 
+    			$state.reload();
+    		});        	
+    };
+    
+    $scope.cancel = function () {
+  	  $modalInstance.dismiss('cancel');
+  	    };
+	
+	};
+	  
+	 ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+	
 }]);
