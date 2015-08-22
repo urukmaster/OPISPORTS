@@ -152,7 +152,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
  * Module: EliminarEventoModalController
  * Implementa el modal de eliminacion de un evento
  ============================================================*/
-App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $rootScope, $http, toaster, $state, $timeout) {
+App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal', '$http', 'toaster','$state','$timeout', function ($scope, $rootScope,$modal, $http, toaster, $state, $timeout) {
 	var id;
 	
 	$scope.open = function (pid) {
@@ -180,6 +180,7 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
 	
 	    $scope.ok = function () {
+	    	console.log('ajhs');
 	        $http.post('rest/evento/delete', id).
 	        success(function(data){
 	        	if(data.code == 200){
@@ -208,10 +209,12 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
 	    }
 	
 	    $scope.cancel = function () {
+	    	console.log('ajhs');
 	    	$modalInstance.dismiss('cancel');
 	    };
 	    
 	  };
+	  
 	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"]; 
 
 }]);
