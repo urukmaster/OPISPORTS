@@ -31,6 +31,7 @@ public class EventoPOJO {
 	private TipoEventoPOJO tipoEvento;
 	private int diasParaRetiro;
 	private List<TiquetePOJO> tiquetes;
+	private List<DistribucionPOJO> distribuciones;
 
 	public int getIdEvento() {
 		return idEvento;
@@ -143,6 +144,14 @@ public class EventoPOJO {
 
 	public void setTiquetes(List<TiquetePOJO> tiquetes) {
 		this.tiquetes = tiquetes;
+	}
+
+	public List<DistribucionPOJO> getDistribuciones() {
+		return distribuciones;
+	}
+
+	public void setDistribuciones(List<DistribucionPOJO> distribuciones) {
+		this.distribuciones = distribuciones;
 	}
 
 }

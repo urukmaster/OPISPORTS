@@ -36,22 +36,17 @@
 					
 						<div>	
                     		<div>
-								<label class="control-label">Establecimiento</label>
- 								
-                            	<select value="Establecimientos"ng-model="reto.establecimiento" class="chosen-select input-md form-control" width="'300px'">
-      								<option ng-click="buscarServicios(establecimiento)" ng-repeat="establecimiento in Establecimientos" value="{{establecimiento.idEstablecimientoDeportivo}}">
-           								{{establecimiento.nombre}}
-       								</option>
-    							</select>
+								<label class="control-label">Establecimiento</label>		
+                            	<select name="cmbEstablecimiento" required="" ng-model="idEstablecimientoDeportivo" ng-change="buscarServicios(idEstablecimientoDeportivo)" class="chosen-select input-md form-control" ng-options="establecimiento.idEstablecimientoDeportivo as establecimiento.nombre for establecimiento in Establecimientos">
+							   		</select>
+							   		<span ng-show="validateInput('cmbEstablecimiento', 'required')" class="text-danger">Este campo es requerido</span>
                         	</div>
 									
                          	<div>
 						 		<label class="control-label">Servicios</label>
-                         		<select ng-model="reto.servicio" class="chosen-select input-md form-control" width="'300px'">
-      								<option ng-click="obtenerServicio(servicio)" ng-repeat="servicio in serviciosEstablecimiento" value="{{servicio.idServicio}}">
-           								{{servicio.servicio}}
-       								</option>
-    							</select>
+                         		<select name="cmbServicios" required="" ng-model="idServicio" ng-change="buscarServicio()" class="chosen-select input-md form-control" ng-options="servicio.idServicio as servicio.servicio for servicio in Servicios">
+							   	</select>
+							   	<span ng-show="validateInput('cmbServicios', 'required')" class="text-danger">Este campo es requerido</span>
                         	</div>	
                   		</div>
                     </div
