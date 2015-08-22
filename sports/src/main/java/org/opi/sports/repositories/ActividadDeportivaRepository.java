@@ -25,5 +25,8 @@ public interface ActividadDeportivaRepository extends CrudRepository<ActividadDe
 	 * 
 	 */
 	public <S extends ActividadDeportiva> S save(S actividadDeportiva);
+	
+	
+	public ActividadDeportiva findOne(Integer actividadDeportiva);
 
 }

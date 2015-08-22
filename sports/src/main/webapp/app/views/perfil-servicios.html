@@ -1,4 +1,7 @@
 <div ng-controller="ServicioModalController">
+
+	<toaster-container
+		toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
 	<div class="row">
 		<!-- Modal inline template-->
 		<script type="text/ng-template" id="/myServicioModalContent.html">
@@ -16,10 +19,17 @@
                             	</div>
 								<div>
                             		<label  control-label">Actividad deportiva</label>
-                                	<select ng-model="servicioForm.actividadDeprotiva" type="text"  class="form-control">
-										<option value="1">Futbol</option>
-										<option value="2">Basket</option>
-									</select>
+									<div ng-controller="ComboActividadDeportivaController">
+                                		<select ng-change="changed()" name="cmbActividad" required="" ng-model="idActividadDeportiva" class="chosen-select input-md form-control" ng-options="actividad.idActividadDeportiva as actividad.actividadDeportiva for actividad in actividadesDeportivas">
+                                        </select>
+									</div>
+                        		</div>
+								<div>
+                            		<label  control-label">Tipo de servicio</label>
+									<div ng-controller="ComboTipoServicioController">
+                                		<select ng-change="changed()" name="cmbTipo" required="" ng-model="idTipoServicio" class="chosen-select input-md form-control" ng-options="tipoServicio.idTipoServicio as tipoServicio.tipoServicio for tipoServicio in tipoServicios">
+                                        </select>
+									</div>
                         		</div>
 								<div>
                             		<label control-label">Hora de apertura</label> 
@@ -27,12 +37,7 @@
 										<timepicker ng-model="servicioForm.horaApertura" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
 									</div>
                         		</div>
-								<div>
-                            		<label class=" control-label">Tipo de Servicio</label>
-                           			<div id="servicios">
-                                	</div>
-                           		</div>
-		
+								
 							</div>
 
 							<div class="col-lg-6">
