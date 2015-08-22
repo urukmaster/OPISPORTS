@@ -50,7 +50,7 @@
 				        <div class="form-group">
 							<label class="col-lg-3 control-label">Provincia</label>
 				           <div class="col-lg-9">
-							   <select name="cmbProvincias" required=""  ng-model="idProvincia" class="chosen-select input-md form-control" ng-options="provincia.idProvincia as provincia.provincia for provincia in Provincias" ng-click="buscarCantones()">
+							   <select name="cmbProvincias" required=""  ng-model="idProvincia" class="chosen-select input-md form-control" ng-options="provincia.idProvincia as provincia.provincia for provincia in Provincias" ng-change="buscarCantones()">
 							   </select>
 							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 							</div>
@@ -58,7 +58,7 @@
 				        <div class="form-group">
 				           <label class="col-lg-3 control-label">Cantón</label>
 				           <div class="col-lg-9">
-							   <select name="cmbCantones" required="" ng-model="idCanton" class="chosen-select input-md form-control" ng-options="canton.idCanton as canton.canton for canton in Cantones" ng-click="buscarDistritos()">
+							   <select name="cmbCantones" required="" ng-model="idCanton" class="chosen-select input-md form-control" ng-options="canton.idCanton as canton.canton for canton in Cantones" ng-change="buscarDistritos()">
 							   </select>
 							   <span ng-show="validateInput('cmbProvincias', 'required')" class="text-danger">Este campo es requerido</span>
 				           </div>

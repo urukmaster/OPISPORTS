@@ -172,8 +172,7 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
 	
 	    $scope.ok = function () {
-	    	console.log('ajhs');
-	        $http.post('rest/evento/delete', id).
+	    	$http.post('rest/evento/delete', id).
 	        success(function(data){
 	        	if(data.code == 200){
 	        	var toasterdata = {
@@ -201,7 +200,6 @@ App.controller('EliminarEventoModalController', ['$scope', '$rootScope','$modal'
 	    }
 	
 	    $scope.cancel = function () {
-	    	console.log('ajhs');
 	    	$modalInstance.dismiss('cancel');
 	    };
 	    

@@ -21,6 +21,18 @@ App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','
             size: 'lg'
         });
     };
+    
+    $scope.validarUsuarioId = function(evento){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{			
+				if(evento.idUsuario == $rootScope.usuario.idUsuario){
+						return true;
+				}						
+		}
+		
+	};
 //-------------------------------------------------------------------------------------------------------
     
 	

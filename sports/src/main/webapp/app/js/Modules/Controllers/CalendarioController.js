@@ -98,7 +98,6 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
                 	reservacionModificar.servicio = data.servicio;
                 	reservacionModificar.reservacion = data.reservacion;
                 	reservacionModificar.torneo = data.torneo;
-                	console.log(data);
                 	var ModificarModalInstance = $modal.open({
                         templateUrl: '/modalReservaciones.html',
                         controller: ModificarReservacionInstanceCtrl,
@@ -263,9 +262,7 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
     	$scope.reservacion.hora.setMinutes(0);
         $scope.accion = "Modificar";
         
-        console.log($scope.reservacion);
-   		console.log(reservacionModificar);
-   	 
+      
         
         $scope.modificar = function () {
         	
@@ -340,7 +337,6 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
         			for (var i = 0; i < establecimientos.length; i++) {
                         if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                             establecimientoCalendario = establecimientos[i];
-                            console.log(establcimientoCalendario);
                         }
                     }
         			}else{
@@ -382,7 +378,6 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
         			for (var i = 0; i < establecimientos.length; i++) {
                         if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                             establecimientoCalendario = establecimientos[i];
-                            console.log(establcimientoCalendario);
                         }
                     }
         			}else{

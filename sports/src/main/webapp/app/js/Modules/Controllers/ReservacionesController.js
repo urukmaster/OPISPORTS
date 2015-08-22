@@ -109,7 +109,6 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         			for (var i = 0; i < establecimientos.length; i++) {
                         if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                             establecimientoCalendario = establecimientos[i];
-                            console.log(establcimientoCalendario);
                         }
                     }
         			}else{
