@@ -1,52 +1,53 @@
-<div ng-controller="RegisterFormController" class="block-center mt-xl wd-xl">
+<div ng-controller="RegistrarFormController" class="block-center mt-xl wd-xl">
    <!-- START panel-->
    <div class="panel panel-dark panel-flat">
       <div class="panel-heading text-center">
          <a href="#">
-            <img src="app/img/logo.png" alt="Image" class="block-center img-rounded" />
+            <img src="app/img/opi.png" alt="Image" class="block-center img-rounded" />
          </a>
       </div>
       <div class="panel-body">
          <p class="text-center pv">SIGNUP TO GET INSTANT ACCESS.</p>
-         <form role="form" name="registerForm" novalidate="" ng-submit="register()" class="form-validate mb-lg">
+         <form role="form" name="formUsuario" novalidate="" ng-submit="submitForm()" class="form-validate mb-lg">
+         	<legend>Login</legend>
             <div class="form-group has-feedback">
                <label class="text-muted">Email address</label>
-               <input type="email" name="account_email" placeholder="Enter email" autocomplete="off" ng-model="account.email" required="" class="form-control" />
-               <span class="fa fa-envelope form-control-feedback text-muted"></span>
-               <span ng-show="registerForm.account_email.$dirty &amp;&amp; registerForm.account_email.$error.required" class="text-danger">This field is required</span>
-               <span ng-show="registerForm.account_email.$dirty &amp;&amp; registerForm.account_email.$error.email" class="text-danger">This field must be a valid email address</span>
+               <input type="email" name="correo" placeholder="Enter email" autocomplete="off" ng-model="usuarioForm.correo" required="" class="form-control" />
+               <span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
             </div>
             <div class="form-group has-feedback">
                <label class="text-muted">Password</label>
-               <input id="id-password" type="password" name="account_password" ng-model="register.password" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" class="form-control" />
-               <span class="fa fa-lock form-control-feedback text-muted"></span>
-               <span ng-show="registerForm.account_password.$dirty &amp;&amp; registerForm.account_password.$error.required" class="text-danger">This field is required</span>
-               <span ng-show="registerForm.account_password.$dirty &amp;&amp; registerForm.account_password.$error.pattern" class="text-danger">Input should match 'a-zA-Z0-9' and 6-10 length</span>
+               <input id="id-password" type="password" name="contrasenna" ng-model="usuarioForm.contrasenna" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" class="form-control" />
+               <span ng-show="validateInput('contrasenna', 'pattern')" class="text-danger">This field must contain only letters</span>
             </div>
             <div class="form-group has-feedback">
                <label class="text-muted">Retype Password</label>
-               <input type="password" name="account_password_confirm" ng-model="register.account_password_confirm" ui-validate="'$value==register.password'" ui-validate-watch="'password'" class="form-control" />
-               <span class="fa fa-lock form-control-feedback text-muted"></span>
-               <span ng-show="registerForm.account_password_confirm.$dirty &amp;&amp; registerForm.account_password_confirm.$error.validator" class="text-danger">Password does Not match</span>
+               <input type="password" name="account_password_confirm" ng-model="usuarioForm.confirmarContrasenna" ui-validate="'$value==usuarioForm.contrasenna'" ui-validate-watch="'contrasenna'" class="form-control" />
             </div>
-            <div class="clearfix">
-               <div class="checkbox c-checkbox pull-left mt0">
-                  <label>
-                     <input type="checkbox" required="" name="account_agreed" ng-model="account.agreed" />
-                     <span class="fa fa-check"></span>I agree with the <a href="#">terms</a>
-                  </label>
-               </div>
+            <legend>Datos Personales</legend>
+            <div class="form-group has-feedback">
+               <label class="text-muted">Nombre</label>
+               <input type="text" name="nombre" ng-model="usuarioForm.nombre" required="" class="form-control" />
+               <span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
             </div>
-            <div ng-show="registerForm.account_agreed.$dirty &amp;&amp; registerForm.account_agreed.$error.required" class="text-danger">You must agree the terms</div>
+            <div class="form-group has-feedback">
+               <label class="text-muted">Apellidos</label>
+               <input type="text" name="apellido" ng-model="usuarioForm.apellido" required="" class="form-control" />
+               <span ng-show="validateInput('apellido', 'required')" class="text-danger">Este campo es requerido</span>
+            </div>
+            <div class="form-group has-feedback">
+               <label class="text-muted">Teléfono</label>
+               <input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuarioForm.telefono" class="form-control" />
+               <span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
+            </div>
             <button type="submit" class="btn btn-block btn-primary mt-lg">Create account</button>
          </form>
-         <div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
-         <p class="pt-lg text-center">Have an account?</p><a ui-sref="page.login" class="btn btn-block btn-default">Signup</a>
+         <p class="pt-lg text-center">Have an account?</p><a ui-sref="app.login" class="btn btn-block btn-default">Signup</a>
       </div>
    </div>
    <!-- END panel-->
    <div class="p-lg text-center">
-      <span>&copy;</span>
+      <span>&copy; </span>
       <span ng-bind="app.year"></span>
       <span>-</span>
       <span ng-bind="app.name"></span>

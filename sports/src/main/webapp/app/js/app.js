@@ -361,6 +361,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             	 title: "Error Found",
             	 templateUrl: 'app/pages/404.html'
              })
+             .state('page.register', {
+            	 url: '/register',
+            	 title: "Error Found",
+            	 templateUrl: 'app/pages/register.html',
+            	 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley','inputmask','angular-md5')
+             })
             //
             // CUSTOM RESOLVES
             //   Add your own resolves properties
@@ -684,15 +690,15 @@ App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScop
            
             if ($scope.formUsuario.$valid) {
             	$http.post('rest/usuario/save',{
-            		nombre : $scope.usuario.nombre,
-            		apellido : $scope.usuario.apellidos,
-            		telefono : $scope.usuario.telefono,
-            		correo : $scope.usuario.correo,
-            		contrasenna : md5.createHash($scope.usuario.contrasenna)
+            		nombre : $scope.usuarioForm.nombre,
+            		apellido : $scope.usuarioForm.apellidos,
+            		telefono : $scope.usuarioForm.telefono,
+            		correo : $scope.usuarioForm.correo,
+            		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
             	}).success(function(data){
             		$http.post('rest/iniciarSesion/validarUsuario', {
-                		correo : $scope.usuario.correo,
-                		contrasenna : md5.createHash($scope.usuario.contrasenna)
+                		correo : $scope.usuarioForm.correo,
+                		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
             		 	})
             		.success(function(data){ 
             			if(data.code == 200){
@@ -804,10 +810,66 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
  * Demo for register account api
  =========================================================*/
 
-App.controller('RegistrarFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
+App.controller('RegistrarFormController', ['$scope', '$http', '$state','md5','$rootScope','$timeout', function($scope, $http, $state,md5,$rootScope,$timeout) {
 
+	$scope.accion = "Registrar";
+    $scope.usuarioForm = {};
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formUsuario[name	];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
+    };
     
+    // Submit form
+    $scope.submitForm = function() {
+        $scope.submitted = true;
+       
+        if ($scope.formUsuario.$valid) {
+        	$http.post('rest/usuario/save',{
+        		nombre : $scope.usuarioForm.nombre,
+        		apellido : $scope.usuarioForm.apellido,
+        		telefono : $scope.usuarioForm.telefono,
+        		correo : $scope.usuarioForm.correo,
+        		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+        	}).success(function(data){
+        		$http.post('rest/iniciarSesion/validarUsuario', {
+            		correo : $scope.usuarioForm.correo,
+            		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+        		 	})
+        		.success(function(data){ 
+        			if(data.code == 200){
+        				$rootScope.usuario = {
+        						idUsuario: data.usuario.idUsuario,
+        						nombre: data.usuario.nombre,
+        						apellido: data.usuario.apellido,
+        						contrasenna: md5.createHash(data.usuario.contrasenna),
+        						correo: data.usuario.contrasenna,
+        						telefono: data.usuario.telefono,
+        						roles: data.usuario.roles,
+        						inscripciones: data.usuario.inscripciones
+        				};
+        				var toasterdata = {
+        			            type:  'success',
+        			            title: 'Login',
+        			            text:  data.codeMessage
+        			        	};
 
+        				$timeout(function(){ $scope.callAtTimeout(); }, 3000);           			
+        			}
+        	});
+        	
+        });
+        }else {
+        	
+            return false;
+        }
+        
+    }
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.dashboard");
+    }
+    
+  
 }]);
 /**=========================================================
  * Module: angular-grid.js
@@ -4240,16 +4302,19 @@ App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', 
     function($rootScope, $scope, $state, $http, $timeout, Utils){
 		$scope.validarUsuario = function(item){
 			
-			if(typeof $rootScope.usuario.nombre == 'undefined'){
+			if(angular.equals({},$rootScope.usuario)){
 				return false;
 			}else{
-				for(i=0;i<$rootScope.usuario.roles.length;i++){
-					for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
-						if($rootScope.usuario.roles[i].permisos[j].permiso == item){
-							return true;
+				
+					for(i=0;i<$rootScope.usuario.roles.length;i++){
+						for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+							if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+								return true;
+							}
 						}
 					}
-				}
+					
+					
 							
 			}
 			
