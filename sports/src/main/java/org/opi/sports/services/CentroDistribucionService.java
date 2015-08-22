@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.opi.sports.ejb.CentroDistribucion;
 import org.opi.sports.ejb.Reto;
+import org.opi.sports.ejb.Usuario;
 import org.opi.sports.repositories.CentroDistribucionRepository;
 import org.opi.sports.repositories.RetoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,15 @@ public class CentroDistribucionService implements
 		} catch (Exception exception) {
 			throw exception;
 		}
+	}
+	
+	@Transactional
+	public CentroDistribucion findOne(Integer idCentro) {
+		try{
+			return centroDistribucionRepository.findOne(idCentro);
+		}catch (Exception exception){
+			throw exception;
+		}
+		
 	}
 }

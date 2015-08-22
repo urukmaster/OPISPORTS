@@ -104,7 +104,6 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
 			cantTiquetesReservados = $scope.obtenerCantTiquetes(response.evento.tiquetes);
             $scope.evento = response.evento;
             eventoActual = $scope.evento;
-            eventoActual = $scope.evento;
             eventoActual.horaModificar = response.hora;
             eventoActual.fechaModificar = response.fecha;
 			}else{
@@ -115,18 +114,13 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
     };
 	
 	$scope.obtenerCantTiquetes = function(listaTiquetes){
-		
 		var cant = 0;
-		
 		for(i = 0; i < listaTiquetes.length; i++){
-			
 			if(listaTiquetes[i].estado == 'reservado'){
 				cant++;
 			}
 		}
-		
 		return cant;
-		
 	}
     
     $scope.init();

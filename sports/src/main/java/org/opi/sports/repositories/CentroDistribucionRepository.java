@@ -2,6 +2,7 @@ package org.opi.sports.repositories;
 import java.util.List;
 
 import org.opi.sports.ejb.CentroDistribucion;
+import org.opi.sports.ejb.Usuario;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -25,4 +26,6 @@ public interface CentroDistribucionRepository extends CrudRepository<CentroDistr
 	 * Metodo encargado de probar si existe el reto
 	 */
 	public boolean exists(Integer idCentroDistribucion);
+	
+	public CentroDistribucion findOne(Integer idCentro);
 }

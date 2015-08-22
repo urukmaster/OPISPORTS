@@ -10,11 +10,16 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.opi.sports.contracts.EventoRequest;
 import org.opi.sports.contracts.TorneoRequest;
+import org.opi.sports.ejb.CentroDistribucion;
+import org.opi.sports.ejb.Distribucion;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reservaciones;
 import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.Tiquete;
+import org.opi.sports.pojo.CentroDistribucionPOJO;
+import org.opi.sports.pojo.DistribucionPOJO;
+import org.opi.sports.pojo.DistribucionesPOJO;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.EventoCalendarioPOJO;
 import org.opi.sports.pojo.EventoPOJO;
@@ -68,6 +73,7 @@ public class EventosHelper {
 		PojoUtils.pojoMappingUtility(eventoView, evento);
 		
 		List<TiquetePOJO> tiquetes = new ArrayList<TiquetePOJO>();
+		List<DistribucionPOJO> distribuciones = new ArrayList<DistribucionPOJO>();
 		
 		for(Tiquete tiquete: evento.getTiquetes()){
 			if(tiquete.getActive() == 1){
@@ -75,12 +81,38 @@ public class EventosHelper {
 			}
 		}
 		
+		for(Distribucion distribucion: evento.getDistribucions()){
+			if(distribucion.getActive() == 1){
+			 distribuciones.add(convertirDistribuciones(distribucion));
+			}
+		}
+		eventoView.setDistribuciones(distribuciones);
 		eventoView.setTiquetes(tiquetes);
 		
 		return eventoView;
 	}
 	
+	private DistribucionPOJO convertirDistribuciones(Distribucion distribucion) {
+		// TODO Auto-generated method stub
+		DistribucionPOJO distribucionView = new DistribucionPOJO();
+		
+		PojoUtils.pojoMappingUtility(distribucionView, distribucion);
+		
+		CentroDistribucionPOJO centroDistribuciones = new CentroDistribucionPOJO();
+		
+		PojoUtils.pojoMappingUtility(centroDistribuciones, distribucion.getCentroDistribucion());
+		
+		distribucionView.setIdCentro(centroDistribuciones);
+		
+		return distribucionView;
+	}
 
+	private CentroDistribucionPOJO convertirCentro(CentroDistribucion centroDistribucion) {
+		// TODO Auto-generated method stub
+		CentroDistribucionPOJO centropojo = new CentroDistribucionPOJO();
+		PojoUtils.pojoMappingUtility(centropojo, centroDistribucion);
+		return centropojo;
+	}
 
 	/**
 	 * Este método convierte cada uno de los tiquetesEJB en tiquetesPOJO

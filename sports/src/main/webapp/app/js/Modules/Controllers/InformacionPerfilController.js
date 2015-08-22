@@ -142,10 +142,7 @@ App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParam
         $state.go('app.reporteRetos',{id: pidEstablecimiento});
 	}
 
-}]);
-
-App.controller('EstablecimientosFormController', ['$scope','$rootScope','$http', '$stateParams','$state','toaster','$timeout','$route', function($scope,$rootScope,$http, $stateParams,$state,toaster,$timeout,$route) {
-	'use strict'; 
+ 
 
 	//validación
     $scope.submitted = false;

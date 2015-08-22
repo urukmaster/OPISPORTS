@@ -8,8 +8,6 @@ public class DistribucionPOJO {
 	
 	private CentroDistribucionPOJO idCentro;
 	
-	private EventoPOJO idEvento;
-
 	public int getIdDistribucion() {
 		return idDistribucion;
 	}
@@ -34,11 +32,4 @@ public class DistribucionPOJO {
 		this.idCentro = idCentro;
 	}
 
-	public EventoPOJO getIdEvento() {
-		return idEvento;
-	}
-
-	public void setIdEvento(EventoPOJO idEvento) {
-		this.idEvento = idEvento;
-	}
 }

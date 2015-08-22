@@ -3,6 +3,7 @@ package org.opi.sports.services;
 import java.util.List;
 
 import org.opi.sports.ejb.CentroDistribucion;
+import org.opi.sports.ejb.Usuario;
 
 
 /**
@@ -26,4 +27,6 @@ public interface CentroDistribucionServiceInterface {
 	 * Metodo encargado de probar si existen los centros de distribucion
 	 */
 	public boolean exists(int idCentroDistribucion); 
+	
+	public CentroDistribucion findOne(Integer idCentro);
 }
