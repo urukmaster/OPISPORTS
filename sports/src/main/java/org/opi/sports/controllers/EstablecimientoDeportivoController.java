@@ -103,9 +103,8 @@ public class EstablecimientoDeportivoController {
 			PojoUtils.pojoMappingUtility(distrito,
 					establecimiento.getDistrito());
 
-			EstablecimientoDeportivoPOJO establecimientoView = new EstablecimientoDeportivoPOJO();
-			PojoUtils.pojoMappingUtility(establecimientoView, establecimiento);
-
+			EstablecimientoDeportivoPOJO establecimientoView = EstablecimientoDeportivoHelper.getInstance().convertirEstablecimiento(establecimiento);
+			
 			establecimientoView.setDistrito(distrito);
 
 			establecimientoResponse

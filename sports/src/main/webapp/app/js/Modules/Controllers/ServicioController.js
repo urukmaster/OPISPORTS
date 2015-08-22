@@ -233,7 +233,6 @@ App.controller('ComboTipoServicioController', ['$scope', '$http', function($scop
     });
 	$scope.changed = function(){
 		idTipoServicio = $scope.idTipoServicio;
-		console.log(idTipoServicio);
 	}
 }]);
 
@@ -248,7 +247,6 @@ App.controller('ComboActividadDeportivaController', ['$scope', '$http', function
 		
 		$scope.changed = function(){
 		idActividadDeportiva = $scope.idActividadDeportiva;
-		console.log(idActividadDeportiva);
 		}
 	});
 }]);
