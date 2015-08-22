@@ -91,56 +91,77 @@ App.controller('PendientesController',['$scope','$rootScope','uiGridConstants','
 	
 } ]);
 
-App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', function($scope, $rootScope,$http, $state){
+App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', '$modal', 'toaster',function($scope, $rootScope,$http, $state, $modal, toaster){
+	var accion = '';
+	var pregunta = '';
+	var reserva = {};
 	
 	$scope.eliminar = function(row){
-		$http.post('rest/reservaciones/delete', {
-			idCalendario : row.idCalendario,
-			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
-	 	}).success(function(data){
-	 		if(data.code == 200){
-	 		var toasterdata = {
-					type:  'success',
-					title: 'Establecimiento',
-					text:  'Se ha aceptado la reservacion correctamente'
-			};
-			//$scope.pop(toasterdata);
-			establecimientoCalendario = data.establecimientoDeportivo;
-			gridPendientes = establecimientoCalendario.pendientes;
-			$state.reload();
-	 		}else{
-        		$rootScope.errorMessage = data.codeMessage;
-        		$state.go('page.error');
-        	}
-	 	})
+		reserva = row;
+		accion = 'Eliminar';
+		pregunta = '¿Desea eliminar la solicitud de reservación?'
+		var modalInstance = $modal.open({
+            templateUrl: '/modalPendientes.html',
+            controller: ModalInstanceCtrl,
+            size: ''
+        });
 	}
 	
 	$scope.reservar = function(row){
-		$http.post('rest/reservaciones/update', {
-    			idCalendario : row.idCalendario,
-    			fecha: row.start,
-    			hora: row.start.getTime(),
-    			estado : 'Reservado',
-    			servicio : + row.servicio,
-    			usuario : 1,
-    			accion: 'Aceptar',
-    			establecimiento : establecimientoCalendario.idEstablecimientoDeportivo
-		 	})
-		.	success(function(data){
-			if(data.code == 200){
-				var toasterdata = {
-						type:  'success',
-						title: 'Establecimiento',
-						text:  'Se ha aceptado la reservacion correctamente'
-				};
-				//$scope.pop(toasterdata);
-				establecimientoCalendario = data;
-				gridPendientes = establecimientoCalendario.pendientes;
-				$state.reload();
+		reserva = row; 
+		accion = 'Reservar';
+		pregunta = '¿Seguro que desea reservar la solicitud?'
+		var modalInstance = $modal.open({
+            templateUrl: '/modalPendientes.html',
+            controller: ModalInstanceCtrl,
+            size: ''
+        });
+	}
+	
+	var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
+		$scope.accion = accion;
+		$scope.pregunta = pregunta;
+	
+		$scope.confirmar = function(){
+			var rest = '';
+			var data = {};
+			data.idCalendario = reserva.idCalendario;
+			data.establecimiento = establecimientoCalendario.idEstablecimientoDeportivo;
+			if($scope.accion == 'Eliminar'){
+				rest = 'rest/reservaciones/delete';
 			}else{
-        		$rootScope.errorMessage = data.codeMessage;
-        		$state.go('page.error');
-        	}
-		});
-}
+				rest = 'rest/reservaciones/update';
+				data.estado = 'Reservado';
+				data.accion = 'Aceptar';
+				data.usuario = 1;
+				data.fecha = reserva.start;
+				data.hora = reserva.start.getTime();
+				data.servicio = reserva.servicio;
+				data.torneo = false;
+			}
+			
+			$http.post(rest, data)
+			.success(function(data){
+				if(data.code == 200){
+					var toasterdata = {
+							type: 'success',
+							title: 'Reservaciones',
+							text: data.codeMessage
+					};
+					$scope.pop(toasterdata);
+					establecimientoCalendario = data;
+					gridPendientes = establecimientoCalendario.pendientes;
+					$state.go('app.perfil.reservaciones.calendario');
+				}else{
+					$rootScope.errorMessage = data.codeMessage;
+					$state.go('page.error');
+				}
+			});
+			 $scope.pop = function(toasterdata) {
+		          toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+		      };
+		      $modalInstance.close('closed');  
+	        	
+		}
+	}
 }]);

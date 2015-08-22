@@ -31,24 +31,12 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
     });
 }]);   
 
-var tipoServicios = [];
-
 
 
 App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '$stateParams', '$state', function($scope, $rootScope,$http, $stateParams,$state) {
 
        
 	$scope.init = function(){
-		
-		$http.get('rest/tipoServicio/getAll')
-	    .success(function(data) {
-	    	if(data.code == 200){
-	    	tipoServicios = data.tipoServicio;
-	    	}else{
-        		$rootScope.errorMessage = data.codeMessage;
-        		$state.go('page.error');
-        	}
-	    });
 		
 		$http.get('rest/establecimientoDeportivo/getAll')
 		.success(function(response) {

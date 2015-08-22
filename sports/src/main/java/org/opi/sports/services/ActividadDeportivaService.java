@@ -49,4 +49,12 @@ public class ActividadDeportivaService implements
 		}
 	}
 
+	public ActividadDeportiva findByOne(Integer actividadDeportiva) {
+		try{
+			return actividadDeportivaRepository.findOne(actividadDeportiva);
+		} catch (Exception exception) {
+			throw exception;
+		}
+	}
+
 }
