@@ -287,7 +287,7 @@ App.controller('CalendarControllerEventos', ['$scope', '$rootScope','$http', '$t
         	
         	if(data.code == 200){
         	var calendar = $('#calendar');
-        	        	
+               	
         	var eventos = initEventos(data.jsoncalendar);
         	
         	initExternalEvents(calendar);
