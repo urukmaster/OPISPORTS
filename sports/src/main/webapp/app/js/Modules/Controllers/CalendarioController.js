@@ -13,7 +13,7 @@
 var reservacionModificar = {};
     
 
-App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$modal', 'toaster', function($scope, $rootScope,$state ,$http, $timeout, $modal, toaster) {
+App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http', '$timeout', '$modal', 'toaster', '$stateParams', function($scope, $rootScope,$state ,$http, $timeout, $modal, toaster, $stateParams) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -95,10 +95,10 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
             	$http.post('rest/reservaciones/getReservacion', {idCalendario: evento.idReservacion})
                 .success(function(data){
                 	if(data.code = 200){
-                	reservacionModificar.servicio = data.establecimientoDeportivo.servicio;
-                	reservacionModificar.reservacion = data.establecimientoDeportivo.reservacion;
-                	reservacionModificar.torneo = data.establecimientoDeportivo.torneo;
-                	
+                	reservacionModificar.servicio = data.servicio;
+                	reservacionModificar.reservacion = data.reservacion;
+                	reservacionModificar.torneo = data.torneo;
+                	console.log(data);
                 	var ModificarModalInstance = $modal.open({
                         templateUrl: '/modalReservaciones.html',
                         controller: ModificarReservacionInstanceCtrl,
@@ -132,7 +132,7 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
     	reservacion.idReservacion = reservacionJSON.idCalendario;
     	
     	reservaciones.push(reservacion);
-    })
+    });
     
     return reservaciones;
     }
@@ -221,18 +221,12 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
      * @return Array The array with the events
      */
     
-    $scope.$on('actualizar', function(data){
+    $scope.$on('actualizar', function(){
     	$('#calendario').append('<div id="calendarioContent">' +
 						'<div id="calendar"></div>' +
 					'</div>');
     	
     	$scope.init();
-    	
-    	establecimientoCalendario = {};
-    	establecimientoCalendario =	data.establecimientoDeportivo;
-    	
-    	console.log(establecimientoCalendario);
-    	console.log(data);
     })
     
     $scope.init = function(){
@@ -249,78 +243,18 @@ App.controller('CalendarController', ['$scope', '$rootScope', '$state', '$http',
     
     $scope.init();
     
-    
-    
-}]);
-
-/**
- * Modulo Controlador reservar los servicios
- * author: Mauricio Fernandez
- * Fecha: 15/07/2015
- * Revision: 1.0
- */
-
-App.controller('ServiciosCalendarioController', ['$scope', function($scope ) {
-	$scope.Servicios = establecimientoCalendario.servicios;
-
-}]);
-
-$(function() {
-	  var $container = $('.contenedorServicios');
-	  var $b = $('body');
-	  $.waypoints.settings.scrollThrottle = 0;
-	  $container.waypoint({
-	    handler: function(e, d) {
-	      $b.toggleClass('sticky', d === 'down');
-	      e.preventDefault();
-	    }
-	  });
-	});
-
-
-/**==========================================================
- * Modulo: ModalReservacionesController
- * Este controladorde desplegar un "Modal" para el registro
- * de reservaciones
- ============================================================*/
-
-App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal', '$http', '$state','toaster','$timeout','$route', function ($rootScope, $scope, $modal, $http, $state, moment,toaster,$timeout,$route) {
-	var servicioActual;
-	
-	//Despliega el "Modal"
-    $scope.open = function (size, idServicioActual) {
-    	servicioActual = idServicioActual;
-
-        var modalInstance = $modal.open({
-            templateUrl: '/modalReservaciones.html',
-            controller: ModalInstanceCtrl,
-            size: 'lg'
-        });
-
-        var state = $('#modal-state');
-        modalInstance.result.then(function () {
-            state.text('Modal dismissed with OK status');
-        }, function () {
-            state.text('Modal dismissed with Cancel status');
-        });
-    };
-
-    var ModalInstanceCtrl = function ($scope, $modalInstance, toaster, $timeout, $route) {
-    	
+    var ModificarReservacionInstanceCtrl = function ($scope, $modalInstance) {
     	$scope.isTorneo = false;
-        
     	
     	$scope.reservacion = {};
     	
-    	$scope.reservacion.idReservacion = reservacionModificar.reservacion.idCalendario;
-    	
+    	$scope.reservacion.idReservacion = reservacionModificar.reservacion.idCalendario;    	
     	
     	if(reservacionModificar.torneo != null){
     		$scope.isTorneo = true;
     		$scope.torneoForm = {};
     		$scope.torneoForm = reservacionModificar.torneo;
     		$scope.reservacion.idReservacion = $scope.torneoForm.idTorneo;
-    		console.log($scope.reservacion);
     	}
     	
     	$scope.reservacion.fecha = new Date(reservacionModificar.reservacion.start.millis);
@@ -328,6 +262,10 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     	$scope.reservacion.hora = new Date(reservacionModificar.reservacion.start.millis);
     	$scope.reservacion.hora.setMinutes(0);
         $scope.accion = "Modificar";
+        
+        console.log($scope.reservacion);
+   		console.log(reservacionModificar);
+   	 
         
         $scope.modificar = function () {
         	
@@ -340,12 +278,10 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         		if(validarCalendario(servicioActual, hora, fecha)){
         			registrar = false;
         		}
-        	})
+        	});
         	
         	if(registrar == true){
-        	$scope.modificarReservacion();
-
-			
+        		$scope.modificarReservacion();
         	}else{
         		var toasterdata = {
 			            type:  'error',
@@ -382,7 +318,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         			torneo : $scope.isTorneo
         		 	};
         	if($scope.isTorneo){
-        		data.nombre = $scope.torneoForm.nombre;
+        		data.nombre = $scope.torneoForm.torneo;
         		data.cupos = $scope.torneoForm.cupos;
         		data.horasTorneos = $scope.torneoForm.horasTorneos;
         	}
@@ -397,8 +333,22 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
 			    };
     			$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario = data.establecimientoDeportivo;
-    			$('#calendarioContent').remove();
+    			$http.get('rest/establecimientoDeportivo/getAll')
+        		.success(function(response) {
+        			if(response.code == 200){
+        			var establecimientos = response.establecimientosDeportivos;
+        			for (var i = 0; i < establecimientos.length; i++) {
+                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+                            establecimientoCalendario = establecimientos[i];
+                            console.log(establcimientoCalendario);
+                        }
+                    }
+        			}else{
+                		$rootScope.errorMessage = response.codeMessage;
+                		$state.go('page.error');
+                	}
+        		});
+            	$('#calendarioContent').remove();
     			}else{
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
@@ -425,12 +375,28 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
     			};
     	 		$scope.pop(toasterdata);
     			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
-    			establecimientoCalendario = data.establecimientoDeportivo;
+    			$http.get('rest/establecimientoDeportivo/getAll')
+        		.success(function(response) {
+        			if(response.code == 200){
+        			var establecimientos = response.establecimientosDeportivos;
+        			for (var i = 0; i < establecimientos.length; i++) {
+                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+                            establecimientoCalendario = establecimientos[i];
+                            console.log(establcimientoCalendario);
+                        }
+                    }
+        			}else{
+                		$rootScope.errorMessage = response.codeMessage;
+                		$state.go('page.error');
+                	}
+        		});
+            	$route.reload();
+            	}else{
+            		$rootScope.errorMessage = data.codeMessage;
+            		$state.go('page.error');
+            	}
     			$('#calendarioContent').remove();
-    	 	}else{
-        		$rootScope.errorMessage = data.codeMessage;
-        		$state.go('page.error');
-        	}
+    	 	
     	 	})
     	}
         
@@ -469,7 +435,7 @@ App.controller('ModalReservacionesController', ['$rootScope', '$scope', '$modal'
         }
         
        };
-    ModificarReservacionInstanceCtrl.$inject = ["$scope", '$rootScope' ,"$modalInstance"];
+    //ModificarReservacionInstanceCtrl.$inject = ["$scope", '$rootScope' ,"$modalInstance"];
 }]);
 
 

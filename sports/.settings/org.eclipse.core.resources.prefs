@@ -1,28 +1,20 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=3a52ea885e741845058ff89fda3783576f158219
+>>>>>>>=1db34533e52d43b34db3fe57062e945293c82f91
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/app/js/Modules/Controllers/ReportesController.js=UTF-8
+encoding//src/main/webapp/app/pages/register.html=UTF-8
 encoding//src/main/webapp/app/views/actividadesDeportivas.html=UTF-8
 encoding//src/main/webapp/app/views/app-h.html=UTF-8
 encoding//src/main/webapp/app/views/app.html=UTF-8
 encoding//src/main/webapp/app/views/centroDeDistribucion.html=UTF-8
+encoding//src/main/webapp/app/views/configuracion-cambiarContrasenna.html=UTF-8
 encoding//src/main/webapp/app/views/configuracion.html=UTF-8
 encoding//src/main/webapp/app/views/dashboard-inscripciones.html=UTF-8
 encoding//src/main/webapp/app/views/dashboard.html=UTF-8
 encoding//src/main/webapp/app/views/documentation.html=UTF-8
-<<<<<<< HEAD
-=======
-encoding//src/main/webapp/app/views/actividadesDeportivas.html=UTF-8
-encoding//src/main/webapp/app/views/centroDeDistribucion.html=UTF-8
-encoding//src/main/webapp/app/views/configuracion-cambiarContrasenna.html=UTF-8
-encoding//src/main/webapp/app/views/configuracion.html=UTF-8
-encoding//src/main/webapp/app/views/dashboard.html=UTF-8
->>>>>>> 3a52ea885e741845058ff89fda3783576f158219
-=======
->>>>>>> 1db34533e52d43b34db3fe57062e945293c82f91
 encoding//src/main/webapp/app/views/establecimientos.html=UTF-8
 encoding//src/main/webapp/app/views/eventosIndex.html=UTF-8
 encoding//src/main/webapp/app/views/home.html=UTF-8

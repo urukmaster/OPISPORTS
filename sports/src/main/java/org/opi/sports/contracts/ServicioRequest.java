@@ -24,6 +24,8 @@ public class ServicioRequest extends BasePagingRequest {
 	
 	private String accion;
 
+	private Integer actividadDeportiva;
+	
 	public int getIdServicio() {
 		return idServicio;
 	}
@@ -102,6 +104,14 @@ public class ServicioRequest extends BasePagingRequest {
 
 	public void setAccion(String accion) {
 		this.accion = accion;
+	}
+
+	public Integer getActividadDeportiva() {
+		return actividadDeportiva;
+	}
+
+	public void setActividadDeportiva(Integer actividadDeportiva) {
+		this.actividadDeportiva = actividadDeportiva;
 	}
 	
 }
