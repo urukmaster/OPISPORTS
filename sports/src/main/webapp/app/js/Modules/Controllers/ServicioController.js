@@ -25,11 +25,10 @@ App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', 
             { field: 'precio' , name:'Precio'},
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
-            { field: 'arbitro' , name:'Arbitro'},
             {name: 'modificar', cellTemplate:
             '<div class="btn-group btn-group-justified" role="group">' +	
             	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
-            		'<button ng-click="modificar(row)" class="btn btn-green" >' +
+            		'<button  ng-click="modificar(row)" class="btn btn-green" >' +
             			'<span class="fa fa-pencil"></span>' +
             		'</button>'+
             	'</div>' + 
@@ -97,6 +96,8 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
 	    
 	    });
     }
+    
+
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
         
@@ -141,7 +142,7 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
                   $state.go('page.error');
                  }
           });
-             $route.reload();
+             $state.reload();
              }else{
               $rootScope.errorMessage = data.codeMessage;
               $state.go('page.error');

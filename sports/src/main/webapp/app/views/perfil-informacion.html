@@ -33,7 +33,7 @@
                           			<span class="media-heading">
                              			<p class="m0">
                              			<div ng-controller="EliminarComentario">
-                             				<button ng-click="eliminar(review.idComentario)" class="btn btn-sm btn-warning fa fa-trash pull-right"></button>
+                             				<button ng-show="validarUsuarioId(review)" ng-click="eliminar(review.idComentario)" class="btn btn-sm btn-warning fa fa-trash pull-right"></button>
                                  		</div>	
                                  			<strong>{{review.nombreUsuario}}</strong><strong> {{review.apellidoUsuario}}</strong>
                              			</p>

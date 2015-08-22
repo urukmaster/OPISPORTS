@@ -19,6 +19,7 @@ org\opi\sports\pojo\InscripcionPOJO.class
 org\opi\sports\controllers\CentroDistribucionController.class
 org\opi\sports\pojo\UsuarioPOJO.class
 org\opi\sports\services\CentroDistribucionServiceInterface.class
+org\opi\sports\services\DistribucionService.class
 org\opi\sports\contracts\ProvinciaResponse.class
 org\opi\sports\config\ServletInitializer.class
 org\opi\sports\helpers\ServicioHelper.class
@@ -58,6 +59,7 @@ org\opi\sports\pojo\TiquetePOJO.class
 org\opi\sports\repositories\ActividadDeportivaRepository.class
 org\opi\sports\controllers\TipoServicioController.class
 org\opi\sports\services\EventoService.class
+org\opi\sports\repositories\DistribucionRepository.class
 org\opi\sports\pojo\ServicioRetoPOJO.class
 org\opi\sports\repositories\InscripcionRepository.class
 org\opi\sports\repositories\RolRepository.class
@@ -80,6 +82,7 @@ org\opi\sports\pojo\ActividadDeportivaPOJO.class
 org\opi\sports\config\SwaggerConfig.class
 org\opi\sports\contracts\ReviewResponse.class
 org\opi\sports\controllers\SuscripcionController.class
+org\opi\sports\helpers\DistribucionHelper.class
 org\opi\sports\services\ProvinciaService.class
 org\opi\sports\contracts\InscripcionResponse.class
 org\opi\sports\pojo\CentroDistribucionPOJO.class
@@ -89,6 +92,7 @@ org\opi\sports\contracts\TipoServicioResponse.class
 org\opi\sports\services\EstablecimientoDeportivoService.class
 org\opi\sports\controllers\ActividadDeportivaController.class
 org\opi\sports\services\ReviewService.class
+org\opi\sports\pojo\DistribucionesPOJO.class
 org\opi\sports\contracts\ServicioRequest.class
 org\opi\sports\helpers\ProvinciaHelper.class
 org\opi\sports\repositories\UsuarioRepository.class
@@ -110,6 +114,8 @@ org\opi\sports\helpers\UsuarioHelper.class
 org\opi\sports\controllers\UsuarioController.class
 org\opi\sports\contracts\ActividadDeportivaRequest.class
 org\opi\sports\contracts\EstablecimientoDeportivoResponse.class
+org\opi\sports\pojo\DistribucionPOJO.class
+org\opi\sports\controllers\DistribucionController.class
 org\opi\sports\contracts\ReservacionesRequest.class
 org\opi\sports\helpers\RetoHelper.class
 org\opi\sports\services\ReservacionesServiceInterface.class
@@ -129,6 +135,7 @@ org\opi\sports\ejb\CentroDistribucion.class
 org\opi\sports\helpers\SuscripcionHelper.class
 org\opi\sports\services\ActividadDeportivaServiceInterface.class
 org\opi\sports\helpers\EstablecimientoDeportivoHelper.class
+org\opi\sports\services\DistribucionServiceInterface.class
 org\opi\sports\contracts\BasePagingRequest.class
 org\opi\sports\repositories\ReviewRepository.class
 org\opi\sports\services\IniciarSesionServiceInterface.class
@@ -153,6 +160,7 @@ org\opi\sports\services\TipoEventoService.class
 org\opi\sports\services\EstablecimientoDeportivoServiceInterface.class
 org\opi\sports\services\TiqueteServiceInterface.class
 org\opi\sports\helpers\EventosHelper.class
+org\opi\sports\contracts\DistribucionReponse.class
 org\opi\sports\contracts\CentroDistribucionRequest.class
 org\opi\sports\contracts\EventoResponse.class
 org\opi\sports\helpers\TiqueteHelper.class
@@ -162,6 +170,7 @@ org\opi\sports\contracts\ReservacionesResponse.class
 org\opi\sports\contracts\TipoEventoResponse.class
 org\opi\sports\helpers\ActividadDeportivaHelper.class
 org\opi\sports\ejb\Reto.class
+org\opi\sports\contracts\DistribucionRequest.class
 org\opi\sports\controllers\ReservacionController.class
 org\opi\sports\pojo\ReservacionesPOJO.class
 org\opi\sports\services\IniciarSesionService.class

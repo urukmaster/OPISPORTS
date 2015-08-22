@@ -4,8 +4,8 @@
 			<div>
 				<ul class="nav nav-pills">
 					<li><a ng-click="calendario()">Calendario</a></li>
-					<li><a ng-click="pendientes()">Reservaciones Pendientes</a></li>
-					<li><a ng-click="torneos()">Torneos</a></li>
+					<li><a ng-show="validarUsuarioId(establecimiento)" ng-click="pendientes()">Reservaciones Pendientes</a></li>
+					<li><a ng-show="validarUsuarioId(establecimiento)" ng-click="torneos()">Torneos</a></li>
 				</ul>
 			</div>
 			<div ui-view=""></div>

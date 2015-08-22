@@ -116,6 +116,7 @@ public class EstablecimientoDeportivoHelper {
 		establecimientoView.setServicios(servicios);
 		establecimientoView.setCalendario();
 		establecimientoView.setPendientes();
+		establecimientoView.setIdUsuario(establecimiento.getUsuario().getIdUsuario());
 		return establecimientoView;
 	}
 

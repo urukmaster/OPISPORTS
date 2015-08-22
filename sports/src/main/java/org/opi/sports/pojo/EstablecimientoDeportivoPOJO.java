@@ -37,6 +37,7 @@ public class EstablecimientoDeportivoPOJO {
 	private DistritoPOJO distrito;
 	private List<TorneoPOJO> torneos;
 	private List<ReviewsPOJO> reviews;
+	private int idUsuario;
 	/**
 	 * Metodo get 
 	 * 
@@ -157,5 +158,11 @@ public class EstablecimientoDeportivoPOJO {
 	}
 	public void setReviews(List<ReviewsPOJO> reviews) {
 		this.reviews = reviews;
+	}
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }
