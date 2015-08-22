@@ -995,193 +995,399 @@ App
  * =========================================================
  */
 var tipoServicioModificar = {};
-App
-		.controller(
-				'RegistrarUsuarioModalController',
-				[
-						'$scope',
-						'$modal',
-						'$rootScope',
-						'$http',
-						'$timeout',
-						'$state',
-						'md5',
-						'toaster',
-						function($scope, $modal, $rootScope, $http, $timeout,
-								$state, md5, toaster) {
 
-							$scope.registrar = function() {
+App.controller('RegistrarUsuarioModalController', ['$scope', '$modal','$rootScope','$http','$timeout','$state','md5','toaster' ,function ($scope, $modal,$rootScope,$http,$timeout,$state,md5,toaster) {
 
-								var RegistrarModalInstance = $modal
-										.open({
-											templateUrl : '/myUsuarioModalContent.html',
-											controller : RegistrarUsuarioInstanceCtrl,
-											size : 'lg'
-										});
+    $scope.registrar = function () {
 
-							};
-							$scope.usuarioForm = {};
-							$scope.validateInput = function(name, type) {
-								var input = $scope.formUsuario[name];
-								return (input.$dirty || $scope.submitted)
-										&& input.$error[type];
-							};
+        var RegistrarModalInstance = $modal.open({
+            templateUrl: '/myUsuarioModalContent.html',
+            controller: RegistrarUsuarioInstanceCtrl,
+            size: 'lg'
+        });
 
-							// Submit form
-							$scope.submitForm = function() {
 
-								$scope.submitted = true;
-								if ($scope.formUsuario.$valid) {
-									if ($scope.accion == "update") {
-										$http
-												.post(
-														'rest/usuario/update',
-														{
-															idUsuario : $rootScope.usuario.idUsuario,
-															nombre : $scope.usuario.nombre,
-															apellido : $scope.usuario.apellido,
-															telefono : $scope.usuario.telefono,
-															correo : $rootScope.usuario.correo,
-															contrasenna : $rootScope.usuario.contrasenna
-														})
-												.success(function(data) {
-													var toasterdata = {
-														type : 'success',
-														title : 'Login',
-														text : data.codeMessage
-													};
-													$timeout(function() {
-														$scope.callAtTimeout();
-													}, 3000);
-												});
-									} else {
-										$http
-												.post(
-														'rest/usuario/update',
-														{
-															idUsuario : $rootScope.usuario.idUsuario,
-															nombre : $rootScope.usuario.nombre,
-															apellido : $rootScope.usuario.apellido,
-															telefono : $rootScope.usuario.telefono,
-															correo : $rootScope.usuario.correo,
-															contrasenna : md5
-																	.createHash($scope.usuario.nuevaContrasenna)
-														})
-												.success(function(data) {
-													var toasterdata = {
-														type : 'success',
-														title : 'Usuario',
-														text : data.codeMessage
-													};
-													$scope.pop(toasterdata);
-													$timeout(function() {
-														$scope.callAtTimeout();
-													}, 3000);
-												});
-									}
-								} else {
-									return false;
-								}
+    };
+    $scope.usuarioForm = {};
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formUsuario[name	];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
+    };
+    
+    // Submit form
+    $scope.submitForm = function() {
+    	alert("Entro");
+        $scope.submitted = true;
+	        if ($scope.formUsuario.$valid) {
+	        	alert("Esta valido");
+	        	if($scope.accion == "update"){
+	        		$http.post('rest/usuario/update',{
+	        			idUsuario : $rootScope.usuario.idUsuario,
+	        			nombre : $scope.usuario.nombre,
+	        			apellido : $scope.usuario.apellido,
+	        			telefono : $scope.usuario.telefono,
+	        			correo : $rootScope.usuario.correo,
+	        			contrasenna : $rootScope.usuario.contrasenna
+	        		}).success(function(data){	
+	        			var toasterdata = {
+	        				type:  'success',
+	        				title: 'Login',
+	        				text:  data.codeMessage
+	        			};
+	        			$timeout(function(){ $scope.callAtTimeout(); }, 3000);           				
+	        		});
+	        }else{
+	        	$http.post('rest/usuario/update',{
+        			idUsuario : $rootScope.usuario.idUsuario,
+        			nombre : $rootScope.usuario.nombre,
+        			apellido : $rootScope.usuario.apellido,
+        			telefono : $rootScope.usuario.telefono,
+        			correo : $rootScope.usuario.correo,
+        			contrasenna : md5.createHash($scope.usuario.nuevaContrasenna)
+        		}).success(function(data){	
+        			var toasterdata = {
+    			            type:  'success',
+    			            title: 'Usuario',
+    			            text:  data.codeMessage
+    			    	};
+    				$scope.pop(toasterdata); 
+        			$timeout(function(){ $scope.callAtTimeout(); }, 3000);           				
+        		});
+	        }
+        }else {
+        	alert("No esta valido!! :C");
+            return false;
+        }
+        
+    }
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    $scope.callAtTimeout = function(){
+    	$state.go("app.dashboard");
+    }
+    
+//------------------------------------------------------------------------------------
+    var RegistrarUsuarioInstanceCtrl = function ($scope, $modalInstance,$http,$state,$rootScope,$timeout,md5) {
+        $scope.accion = "Registrar";
+        $scope.usuarioForm = {};
+        $scope.validateInput = function(name, type) {
+            var input = $scope.formUsuario[name	];
+            return (input.$dirty || $scope.submitted) && input.$error[type];
+        };
+        
+        // Submit form
+        $scope.submitForm = function() {
+            $scope.submitted = true;
+           
+            if ($scope.formUsuario.$valid) {
+            	$http.post('rest/usuario/save',{
+            		nombre : $scope.usuarioForm.nombre,
+            		apellido : $scope.usuarioForm.apellidos,
+            		telefono : $scope.usuarioForm.telefono,
+            		correo : $scope.usuarioForm.correo,
+            		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+            	}).success(function(data){
+            		$http.post('rest/iniciarSesion/validarUsuario', {
+                		correo : $scope.usuarioForm.correo,
+                		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+            		 	})
+            		.success(function(data){ 
+            			if(data.code == 200){
+            				$rootScope.usuario = {
+            						idUsuario: data.usuario.idUsuario,
+            						nombre: data.usuario.nombre,
+            						apellido: data.usuario.apellido,
+            						contrasenna: md5.createHash(data.usuario.contrasenna),
+            						correo: data.usuario.contrasenna,
+            						telefono: data.usuario.telefono,
+            						roles: data.usuario.roles,
+            						inscripciones: data.usuario.inscripciones
+            				};
+            				var toasterdata = {
+            			            type:  'success',
+            			            title: 'Login',
+            			            text:  data.codeMessage
+            			        	};
 
-							}
-							$scope.pop = function(toasterdata) {
-								toaster.pop(toasterdata.type,
-										toasterdata.title, toasterdata.text);
-							};
-							$scope.callAtTimeout = function() {
-								$state.go("app.dashboard");
-							}
+            				$timeout(function(){ $scope.callAtTimeout(); }, 3000);           			
+            			}
+            	});
+            	$modalInstance.close('closed');
+            });
+            }else {
+            	
+                return false;
+            }
+            
+        }
+        
+        $scope.callAtTimeout = function(){
+        	$state.go("app.dashboard");
+        }
+        
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+    RegistrarUsuarioInstanceCtrl.$inject = ["$scope", "$modalInstance","$http","$state","$rootScope","$timeout","md5"];
 
-							// ------------------------------------------------------------------------------------
-							var RegistrarUsuarioInstanceCtrl = function($scope,
-									$modalInstance, $http, $state, $rootScope,
-									$timeout, md5) {
-								$scope.accion = "Registrar";
-								$scope.usuarioForm = {};
-								$scope.validateInput = function(name, type) {
-									var input = $scope.formUsuario[name];
-									return (input.$dirty || $scope.submitted)
-											&& input.$error[type];
-								};
+}]);
+/**=========================================================
+ * Module: access-login.js
+ * Demo for login api
+ =========================================================*/
 
-								// Submit form
-								$scope.submitForm = function() {
-									$scope.submitted = true;
+App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state','toaster','$timeout','md5', function($rootScope, $scope, $http, $state,toaster,$timeout,md5) {
+	$scope.account = {};
 
-									if ($scope.formUsuario.$valid) {
-										$http
-												.post(
-														'rest/usuario/save',
-														{
-															nombre : $scope.usuarioForm.nombre,
-															apellido : $scope.usuarioForm.apellidos,
-															telefono : $scope.usuarioForm.telefono,
-															correo : $scope.usuarioForm.correo,
-															contrasenna : md5
-																	.createHash($scope.usuarioForm.contrasenna)
-														})
-												.success(
-														function(data) {
-															$http
-																	.post(
-																			'rest/iniciarSesion/validarUsuario',
-																			{
-																				correo : $scope.usuarioForm.correo,
-																				contrasenna : md5
-																						.createHash($scope.usuarioForm.contrasenna)
-																			})
-																	.success(
-																			function(
-																					data) {
-																				if (data.code == 200) {
-																					$rootScope.usuario = {
-																						idUsuario : data.usuario.idUsuario,
-																						nombre : data.usuario.nombre,
-																						apellido : data.usuario.apellido,
-																						contrasenna : md5
-																								.createHash(data.usuario.contrasenna),
-																						correo : data.usuario.contrasenna,
-																						telefono : data.usuario.telefono,
-																						roles : data.usuario.roles,
-																						inscripciones : data.usuario.inscripciones
-																					};
-																					var toasterdata = {
-																						type : 'success',
-																						title : 'Login',
-																						text : data.codeMessage
-																					};
+	$scope.login = function() {
+        $scope.authMsg = '';
+        alert(md5.createHash('Abcd12345/'));
+        alert(md5.createHash($scope.account.password));
+        
+        if ($scope.loginForm.$valid) {	
+        	$http.post('rest/iniciarSesion/validarUsuario', {
+        		correo : $scope.account.email,
+        		contrasenna : md5.createHash($scope.account.password)
+    		 	})
+    		.success(function(data){
+    			if(data.code == 200){
+    				$rootScope.usuario = {
+    						idUsuario: data.usuario.idUsuario,
+    						nombre: data.usuario.nombre,
+    						apellido: data.usuario.apellido,
+    						contrasenna : data.usuario.contrasenna,
+    						correo: data.usuario.correo,
+    						contrasenna: md5.createHash(data.usuario.contrasenna),
+    						telefono: data.usuario.telefono,
+    						roles: data.usuario.roles,
+    						inscripciones: data.usuario.inscripciones,
+    						subscripciones: data.usuario.subscripciones
+    				};
+    				var toasterdata = {
+    			            type:  'success',
+    			            title: 'Login',
+    			            text:  data.codeMessage
+    			        	};
+    				$scope.pop(toasterdata);
+    				$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+    			}else{  
+    				var toasterdata = {
+    			            type:  'error',
+    			            title: 'Login',
+    			            text:  data.errorMessage
+    			        	};
+    				$scope.pop(toasterdata);     				
+    			}		
+    		});    
+        }
+    };
+    
+    //notificacion
+       
+    $scope.pop = function(toasterdata) {
+        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+    };
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.dashboard");
+    }
+ 
+    
+}]);
 
-																					$timeout(
-																							function() {
-																								$scope
-																										.callAtTimeout();
-																							},
-																							3000);
-																				}
-																			});
-															$modalInstance
-																	.close('closed');
-														});
-									} else {
+/**=========================================================
+ * Module: access-register.js
+ * Demo for register account api
+ =========================================================*/
 
-										return false;
-									}
+App.controller('RegistrarFormController', ['$scope', '$http', '$state','md5','$rootScope','$timeout', function($scope, $http, $state,md5,$rootScope,$timeout) {
 
-								}
+	$scope.accion = "Registrar";
+    $scope.usuarioForm = {};
+    $scope.validateInput = function(name, type) {
+        var input = $scope.formUsuario[name	];
+        return (input.$dirty || $scope.submitted) && input.$error[type];
+    };
+    
+    // Submit form
+    $scope.submitForm = function() {
+        $scope.submitted = true;
+       
+        if ($scope.formUsuario.$valid) {
+        	$http.post('rest/usuario/save',{
+        		nombre : $scope.usuarioForm.nombre,
+        		apellido : $scope.usuarioForm.apellido,
+        		telefono : $scope.usuarioForm.telefono,
+        		correo : $scope.usuarioForm.correo,
+        		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+        	}).success(function(data){
+        		$http.post('rest/iniciarSesion/validarUsuario', {
+            		correo : $scope.usuarioForm.correo,
+            		contrasenna : md5.createHash($scope.usuarioForm.contrasenna)
+        		 	})
+        		.success(function(data){ 
+        			if(data.code == 200){
+        				$rootScope.usuario = {
+        						idUsuario: data.usuario.idUsuario,
+        						nombre: data.usuario.nombre,
+        						apellido: data.usuario.apellido,
+        						contrasenna: md5.createHash(data.usuario.contrasenna),
+        						correo: data.usuario.contrasenna,
+        						telefono: data.usuario.telefono,
+        						roles: data.usuario.roles,
+        						inscripciones: data.usuario.inscripciones
+        				};
+        				var toasterdata = {
+        			            type:  'success',
+        			            title: 'Login',
+        			            text:  data.codeMessage
+        			        	};
 
-								$scope.callAtTimeout = function() {
-									$state.go("app.dashboard");
-								}
+        				$timeout(function(){ $scope.callAtTimeout(); }, 3000);           			
+        			}
+        	});
+        	
+        });
+        }else {
+        	
+            return false;
+        }
+        
+    }
+    
+    $scope.callAtTimeout = function(){
+    	$state.go("app.dashboard");
+    }
+    
+  
+}]);
+/**=========================================================
+ * Module: angular-grid.js
+ * Example for Angular Grid
+ =========================================================*/
 
-								$scope.cancel = function() {
-									$modalInstance.dismiss('cancel');
-								};
-							};
-							RegistrarUsuarioInstanceCtrl.$inject = [ "$scope",
-									"$modalInstance", "$http", "$state",
-									"$rootScope", "$timeout", "md5" ];
+App.controller('AngularGridController', ['$scope', '$http', function ($scope, $http) {
+    'use strict';
 
-						} ]);
+    // Basic
+    var columnDefs = [
+        {displayName: 'Athlete', field: 'athlete', width: 150},
+        {displayName: 'Age', field: 'age', width: 90},
+        {displayName: 'Country', field: 'country', width: 120},
+        {displayName: 'Year', field: 'year', width: 90},
+        {displayName: 'Date', field: 'date', width: 110},
+        {displayName: 'Sport', field: 'sport', width: 110},
+        {displayName: 'Gold', field: 'gold', width: 100},
+        {displayName: 'Silver', field: 'silver', width: 100},
+        {displayName: 'Bronze', field: 'bronze', width: 100},
+        {displayName: 'Total', field: 'total', width: 100}
+    ];
+
+    $scope.gridOptions = {
+        columnDefs: columnDefs,
+        rowData: null,
+        ready: function(api){
+            api.sizeColumnsToFit();
+        }
+    };
+
+    // Filter Example
+    var irishAthletes = ['John Joe Nevin','Katie Taylor','Paddy Barnes','Kenny Egan','Darren Sutherland', 'Margaret Thatcher', 'Tony Blair', 'Ronald Regan', 'Barack Obama'];
+
+    var columnDefsFilter = [
+        {displayName: 'Athlete', field: 'athlete', width: 150, filter: 'set',
+            filterParams: { cellHeight: 20, values: irishAthletes} },
+        {displayName: 'Age', field: 'age', width: 90, filter: 'number'},
+        {displayName: 'Country', field: 'country', width: 120},
+        {displayName: 'Year', field: 'year', width: 90},
+        {displayName: 'Date', field: 'date', width: 110},
+        {displayName: 'Sport', field: 'sport', width: 110},
+        {displayName: 'Gold', field: 'gold', width: 100, filter: 'number'},
+        {displayName: 'Silver', field: 'silver', width: 100, filter: 'number'},
+        {displayName: 'Bronze', field: 'bronze', width: 100, filter: 'number'},
+        {displayName: 'Total', field: 'total', width: 100, filter: 'number'}
+    ];
+
+    $scope.gridOptions1 = {
+        columnDefs: columnDefsFilter,
+        rowData: null,
+        enableFilter: true,
+        ready: function(api){
+            api.sizeColumnsToFit();
+        }
+
+    };
+
+
+    // Pinning Example
+
+    $scope.gridOptions2 = {
+        columnDefs: columnDefs,
+        rowData: null,
+        pinnedColumnCount: 2,
+        ready: function(api){
+            api.sizeColumnsToFit();
+        }
+    };
+
+    //-----------------------------
+    // Get the data from SERVER
+    //-----------------------------
+
+    $http.get('server/ag-owinners.json')
+        .then(function(res){
+            // basic
+            $scope.gridOptions.rowData = res.data;
+            $scope.gridOptions.api.onNewRows();
+            // filter
+            $scope.gridOptions1.rowData = res.data;
+            $scope.gridOptions1.api.onNewRows();
+            // pinning
+            $scope.gridOptions2.rowData = res.data;
+            $scope.gridOptions2.api.onNewRows();
+        });
+
+}]);
+/**=========================================================
+ * Module: article.js
+ =========================================================*/
+
+App.controller('ArticleController', ['$scope', function ($scope) {
+
+    $scope.htmlContent = 'Article content...';
+
+    $scope.postDemo = {};
+    $scope.postDemo.tags = ['coding', 'less'];
+    $scope.availableTags = ['coding', 'less', 'sass', 'angularjs', 'node', 'expressJS'];
+    $scope.postDemo.categories = ['JAVASCRIPT','WEB'];
+    $scope.availableCategories = ['JAVASCRIPT','WEB', 'BOOTSTRAP', 'SERVER', 'HTML5', 'CSS'];
+
+    $scope.reviewers = [
+        { name: 'Adam',      email: 'adam@email.com',      age: 10 },
+        { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
+        { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
+        { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
+        { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
+        { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
+        { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
+        { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
+    ];
+
+
+    $scope.alerts = [
+        { type: 'info', msg: 'There is an autosaved version of this article that is more recent than the version below. <a href="#" class="text-white">Restore</a>' }
+    ];
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+}]);
+
+
+
 /**
  * ========================================================= Module:
  * access-login.js Demo for login api
@@ -8031,19 +8237,754 @@ App.directive('flot', [ '$http', '$timeout', function($http, $timeout) {
 				}).error(function() {
 					$.error('Flot chart: Bad request.');
 				});
-
 			}
-		}
-		scope.$watch('src', onSrcChanged);
-	}
+		};
+	};
+}]);		
+/**=========================================================
+ * Module: notifications.js
+ * Initializes the notifications system
+ =========================================================*/
+App.controller('NotificationController', ['$scope', function($scope){
 
-} ]);
+    $scope.autoplace = function (context, source) {
+        //return (predictTooltipTop(source) < 0) ?  "bottom": "top";
+        var pos = 'top';
+        if(predictTooltipTop(source) < 0)
+            pos = 'bottom';
+        if(predictTooltipLeft(source) < 0)
+            pos = 'right';
+        return pos;
+    };
+
+    // Predicts tooltip top position
+    // based on the trigger element
+    function predictTooltipTop(el) {
+        var top = el.offsetTop;
+        var height = 40; // asumes ~40px tooltip height
+
+        while(el.offsetParent) {
+            el = el.offsetParent;
+            top += el.offsetTop;
+        }
+        return (top - height) - (window.pageYOffset);
+    }
+
+    // Predicts tooltip top position
+    // based on the trigger element
+    function predictTooltipLeft(el) {
+        var left = el.offsetLeft;
+        var width = el.offsetWidth;
+
+        while(el.offsetParent) {
+            el = el.offsetParent;
+            left += el.offsetLeft;
+        }
+        return (left - width) - (window.pageXOffset);
+    }
+
+}]);
+/**=========================================================
+ * Module: portlet.js
+ * Drag and drop any panel to change its position
+ * The Selector should could be applied to any object that contains
+ * panel, so .col-* element are ideal.
+ =========================================================*/
+App.controller('portletsController', [ '$scope', '$timeout', '$window', function($scope, $timeout, $window) {
+    'use strict';
+
+    // Component is optional
+    if(!$.fn.sortable) return;
+
+    var Selector = '[portlet]',
+        storageKeyName = 'portletState';
+
+    angular.element(document).ready(function () {
+
+        $timeout(function() {
+
+            $( Selector ).sortable({
+                connectWith:          Selector,
+                items:                'div.panel',
+                handle:               '.portlet-handler',
+                opacity:              0.7,
+                placeholder:          'portlet box-placeholder',
+                cancel:               '.portlet-cancel',
+                forcePlaceholderSize: true,
+                iframeFix:            false,
+                tolerance:            'pointer',
+                helper:               'original',
+                revert:               200,
+                forceHelperSize:      true,
+                start:                saveListSize,
+                update:               savePortletOrder,
+                create:               loadPortletOrder
+            })
+                // optionally disables mouse selection
+                //.disableSelection()
+            ;
+        }, 0);
+
+    });
+
+    function savePortletOrder(event, ui) {
+        var self = event.target;
+        var data = angular.fromJson($scope.$storage[storageKeyName]);
+
+        if(!data) { data = {}; }
+
+        data[self.id] = $(self).sortable('toArray');
+
+        $scope.$storage[storageKeyName] = angular.toJson(data);
+
+        // save portlet size to avoid jumps
+        saveListSize.apply(self);
+    }
+
+    function loadPortletOrder(event) {
+        var self = event.target;
+        var data = angular.fromJson($scope.$storage[storageKeyName]);
+
+        if(data) {
+
+            var porletId = self.id,
+                panels   = data[porletId];
+
+            if(panels) {
+                var portlet = $('#'+porletId);
+
+                $.each(panels, function(index, value) {
+                    $('#'+value).appendTo(portlet);
+                });
+            }
+
+        }
+
+        // save portlet size to avoid jumps
+        saveListSize.apply(self);
+    }
+
+    // Keeps a consistent size in all portlet lists
+    function saveListSize() {
+        var $this = $(this);
+        $this.css('min-height', $this.height());
+    }
+
+    /*function resetListSize() {
+     $(this).css('min-height', "");
+     }*/
+
+}]);
+/**=========================================================
+ * Module: rickshaw.js
+ =========================================================*/
+
+App.controller('ChartRickshawController', ['$scope', function($scope) {
+    'use strict';
+
+    $scope.renderers = [{
+        id: 'area',
+        name: 'Area'
+    }, {
+        id: 'line',
+        name: 'Line'
+    }, {
+        id: 'bar',
+        name: 'Bar'
+    }, {
+        id: 'scatterplot',
+        name: 'Scatterplot'
+    }];
+
+    $scope.palettes = [
+        'spectrum14',
+        'spectrum2000',
+        'spectrum2001',
+        'colorwheel',
+        'cool',
+        'classic9',
+        'munin'
+    ];
+
+    $scope.rendererChanged = function(id) {
+        $scope['options' + id] = {
+            renderer: $scope['renderer' + id].id
+        };
+    };
+
+    $scope.paletteChanged = function(id) {
+        $scope['features' + id] = {
+            palette: $scope['palette' + id]
+        };
+    };
+
+    $scope.changeSeriesData = function(id) {
+        var seriesList = [];
+        for (var i = 0; i < 3; i++) {
+            var series = {
+                name: 'Series ' + (i + 1),
+                data: []
+            };
+            for (var j = 0; j < 10; j++) {
+                series.data.push({x: j, y: Math.random() * 20});
+            }
+            seriesList.push(series);
+            $scope['series' + id][i] = series;
+        }
+        //$scope['series' + id] = seriesList;
+    };
+
+    $scope.series0 = [];
+
+    $scope.options0 = {
+        renderer: 'area'
+    };
+
+    $scope.renderer0 = $scope.renderers[0];
+    $scope.palette0 = $scope.palettes[0];
+
+    $scope.rendererChanged(0);
+    $scope.paletteChanged(0);
+    $scope.changeSeriesData(0);
+
+    // Graph 2
+
+    var seriesData = [ [], [], [] ];
+    var random = new Rickshaw.Fixtures.RandomData(150);
+
+    for (var i = 0; i < 150; i++) {
+        random.addData(seriesData);
+    }
+
+    $scope.series2 = [
+        {
+            color: "#c05020",
+            data: seriesData[0],
+            name: 'New York'
+        }, {
+            color: "#30c020",
+            data: seriesData[1],
+            name: 'London'
+        }, {
+            color: "#6060c0",
+            data: seriesData[2],
+            name: 'Tokyo'
+        }
+    ];
+
+    $scope.options2 = {
+        renderer: 'area'
+    };
+
+
+}]);
+
+/**=========================================================
+ * Module: sidebar-menu.js
+ * Handle sidebar collapsible elements
+ =========================================================*/
+/**=========================================================
+ * Module: sidebar-menu.js
+ * Handle sidebar collapsible elements
+ =========================================================*/
+
+App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils',
+    function($rootScope, $scope, $state, $http, $timeout, Utils){
+  $scope.validarUsuario = function(item){
+   
+   if(angular.equals({},$rootScope.usuario)){
+    return false;
+   }else{
+    
+     for(i=0;i<$rootScope.usuario.roles.length;i++){
+      for(j=0;j<$rootScope.usuario.roles[i].permisos.length;j++){
+       if($rootScope.usuario.roles[i].permisos[j].permiso == item){
+        return true;
+       }
+      }
+     }      
+   }
+   
+  };
+        var collapseList = [];
+
+        // demo: when switch from collapse to hover, close all items
+        $rootScope.$watch('app.layout.asideHover', function(oldVal, newVal){
+            if ( newVal === false && oldVal === true) {
+                closeAllBut(-1);
+            }
+        });
+
+        // Check item and children active state
+        var isActive = function(item) {
+
+            if(!item) return;
+
+            if( !item.sref || item.sref == '#') {
+                var foundActive = false;
+                angular.forEach(item.submenu, function(value, key) {
+                    if(isActive(value)) foundActive = true;
+                });
+                return foundActive;
+            }
+            else
+                return $state.is(item.sref) || $state.includes(item.sref);
+        };
+
+        // Load menu from json file
+        // ----------------------------------- 
+
+        $scope.getMenuItemPropClasses = function(item) {
+            return (item.heading ? 'nav-heading' : '') +
+                (isActive(item) ? ' active' : '') ;
+        };
+
+        $scope.loadSidebarMenu = function() {
+         
+            var menuJson = 'server/sidebar-menu.json',
+                menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+            $http.get(menuURL)
+                .success(function(items) {
+                    $scope.menuItems = items;
+                })
+                .error(function(data, status, headers, config) {
+                    alert('Failure loading menu');
+                });
+        };
+
+        $scope.loadSidebarMenu();
+        $scope.$emit('miPerfil');
+        // Handle sidebar collapse items
+        // ----------------------------------- 
+
+        $scope.addCollapse = function($index, item) {
+            collapseList[$index] = $rootScope.app.layout.asideHover ? true : !isActive(item);
+        };
+
+        $scope.isCollapse = function($index) {
+            return (collapseList[$index]);
+        };
+
+        $scope.toggleCollapse = function($index, isParentItem) {
+
+
+            // collapsed sidebar doesn't toggle drodopwn
+            if( Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover ) return true;
+
+            // make sure the item index exists
+            if( angular.isDefined( collapseList[$index] ) ) {
+                if ( ! $scope.lastEventFromChild ) {
+                    collapseList[$index] = !collapseList[$index];
+                    closeAllBut($index);
+                }
+            }
+            else if ( isParentItem ) {
+                closeAllBut(-1);
+            }
+
+            $scope.lastEventFromChild = isChild($index);
+
+            return true;
+
+        };
+
+        function closeAllBut(index) {
+            index += '';
+            for(var i in collapseList) {
+                if(index < 0 || index.indexOf(i) < 0)
+                    collapseList[i] = true;
+            }
+        }
+
+        function isChild($index) {
+            return (typeof $index === 'string') && !($index.indexOf('-') < 0);
+        }
+
+    }]);
+
 
 /**
  * ========================================================= Module:
  * form-wizard.js Handles form wizard plugin and validation
  * =========================================================
  */
+
+App.filter('propsFilter', function() {
+    return function(items, props) {
+        var out = [];
+
+        if (angular.isArray(items)) {
+            items.forEach(function(item) {
+                var itemMatches = false;
+
+                var keys = Object.keys(props);
+                for (var i = 0; i < keys.length; i++) {
+                    var prop = keys[i];
+                    var text = props[prop].toLowerCase();
+                    if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                        itemMatches = true;
+                        break;
+                    }
+                }
+
+                if (itemMatches) {
+                    out.push(item);
+                }
+            });
+        } else {
+            // Let the output be the input untouched
+            out = items;
+        }
+
+        return out;
+    };
+});
+/**=========================================================
+ * Module: upload.js
+ =========================================================*/
+
+App.controller('FileUploadController', ['$scope', 'FileUploader', function($scope, FileUploader) {
+
+    var uploader = $scope.uploader = new FileUploader({
+        url: 'server/upload.php'
+    });
+
+    // FILTERS
+
+    uploader.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+
+    // CALLBACKS
+
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+        console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+        console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+        console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        console.info('onSuccessItem', fileItem, response, status, 	s);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+        console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function() {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+}]);
+App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', function($scope,$state,$rootScope,$http) {
+
+    $scope.userBlockVisible = true;
+    $scope.validarUsuario = function(){
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return true;
+		}else{
+			return false;
+				
+						
+		}
+		
+	};
+		
+	
+    $scope.$on('toggleUserBlock', function(event, args) {
+
+        $scope.userBlockVisible = ! $scope.userBlockVisible;
+
+    });
+    
+    $scope.login = function(){
+    	$state.go('app.login');
+    }
+    
+    $scope.logout = function(){
+    	$http.get('rest/iniciarSesion/cerrarSesion');
+    	$rootScope.usuario = {};
+    	$state.go('app.login');
+    }
+    
+    $scope.$on('miPerfil', function(event, args) {
+    	
+    	if(angular.equals({},$rootScope.usuario)){
+    		
+            	$http.get('rest/iniciarSesion/getSession')
+        		.success(function(data){
+                	if(data.code == 200){
+                		if(data.usuario == null){
+                			$state.go('app.login');
+                		}else{
+                			$rootScope.usuario = {
+	        	        			idUsuario: data.usuario.idUsuario,
+	        						nombre: data.usuario.nombre,
+	        						apellido: data.usuario.apellido,
+	        						contrasenna : data.usuario.contrasenna,
+	        						correo: data.usuario.correo,
+	        						telefono: data.usuario.telefono,
+	        						roles: data.usuario.roles,
+	        						inscripciones: data.usuario.inscripciones
+	        	        	}
+                		}
+                	}else if(data.code == 401){
+                		$state.go('app.login');
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
+        		});
+            	
+           
+            	
+            
+        } else {
+        	$state.go('app.perfilUsuario');
+        }
+    });
+}]);
+
+/**=========================================================
+ * Module: vmaps,js
+ * jVector Maps support
+ =========================================================*/
+
+App.controller('VectorMapController', ['$scope', function($scope) {
+    'use strict';
+
+    $scope.seriesData = {
+        'CA': 11100,   // Canada
+        'DE': 2510,    // Germany
+        'FR': 3710,    // France
+        'AU': 5710,    // Australia
+        'GB': 8310,    // Great Britain
+        'RU': 9310,    // Russia
+        'BR': 6610,    // Brazil
+        'IN': 7810,    // India
+        'CN': 4310,    // China
+        'US': 839,     // USA
+        'SA': 410      // Saudi Arabia
+    };
+
+    $scope.markersData = [
+        { latLng:[41.90, 12.45],  name:'Vatican City'          },
+        { latLng:[43.73, 7.41],   name:'Monaco'                },
+        { latLng:[-0.52, 166.93], name:'Nauru'                 },
+        { latLng:[-8.51, 179.21], name:'Tuvalu'                },
+        { latLng:[7.11,171.06],   name:'Marshall Islands'      },
+        { latLng:[17.3,-62.73],   name:'Saint Kitts and Nevis' },
+        { latLng:[3.2,73.22],     name:'Maldives'              },
+        { latLng:[35.88,14.5],    name:'Malta'                 },
+        { latLng:[41.0,-71.06],   name:'New England'           },
+        { latLng:[12.05,-61.75],  name:'Grenada'               },
+        { latLng:[13.16,-59.55],  name:'Barbados'              },
+        { latLng:[17.11,-61.85],  name:'Antigua and Barbuda'   },
+        { latLng:[-4.61,55.45],   name:'Seychelles'            },
+        { latLng:[7.35,134.46],   name:'Palau'                 },
+        { latLng:[42.5,1.51],     name:'Andorra'               }
+    ];
+
+}]);
+
+/**=========================================================
+ * Module: word-cloud.js
+ * Controller for jqCloud
+ =========================================================*/
+
+App.controller('WordCloudController', ['$scope', function ($scope) {
+
+    $scope.words = [
+        {
+            text: 'Lorem',
+            weight: 13
+            //link: 'http://themicon.co'
+        }, {
+            text: 'Ipsum',
+            weight: 10.5
+        }, {
+            text: 'Dolor',
+            weight: 9.4
+        }, {
+            text: 'Sit',
+            weight: 8
+        }, {
+            text: 'Amet',
+            weight: 6.2
+        }, {
+            text: 'Consectetur',
+            weight: 5
+        }, {
+            text: 'Adipiscing',
+            weight: 5
+        }, {
+            text: 'Sit',
+            weight: 8
+        }, {
+            text: 'Amet',
+            weight: 6.2
+        }, {
+            text: 'Consectetur',
+            weight: 5
+        }, {
+            text: 'Adipiscing',
+            weight: 5
+        }
+    ];
+
+}]);
+
+/**=========================================================
+ * Module: anchor.js
+ * Disables null anchor behavior
+ =========================================================*/
+
+App.directive('href', function() {
+
+    return {
+        restrict: 'A',
+        compile: function(element, attr) {
+            return function(scope, element) {
+                if(attr.ngClick || attr.href === '' || attr.href === '#'){
+                    if( !element.hasClass('dropdown-toggle') )
+                        element.on('click', function(e){
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                }
+            };
+        }
+    };
+});
+/**=========================================================
+ * Module: animate-enabled.js
+ * Enable or disables ngAnimate for element with directive
+ =========================================================*/
+
+App.directive("animateEnabled", ["$animate", function ($animate) {
+    return {
+        link: function (scope, element, attrs) {
+            scope.$watch(function () {
+                return scope.$eval(attrs.animateEnabled, scope);
+            }, function (newValue) {
+                $animate.enabled(!!newValue, element);
+            });
+        }
+    };
+}]);
+/**=========================================================
+ * Module: chart.js
+ * Wrapper directive for chartJS.
+ * Based on https://gist.github.com/AndreasHeiberg/9837868
+ =========================================================*/
+
+var ChartJS = function (type) {
+    return {
+        restrict: "A",
+        scope: {
+            data: "=",
+            options: "=",
+            id: "@",
+            width: "=",
+            height: "=",
+            resize: "=",
+            chart: "@",
+            segments: "@",
+            responsive: "=",
+            tooltip: "=",
+            legend: "="
+        },
+        link: function ($scope, $elem) {
+            var ctx = $elem[0].getContext("2d");
+            var autosize = false;
+
+            $scope.size = function () {
+                if ($scope.width <= 0) {
+                    $elem.width($elem.parent().width());
+                    ctx.canvas.width = $elem.width();
+                } else {
+                    ctx.canvas.width = $scope.width || ctx.canvas.width;
+                    autosize = true;
+                }
+
+                if($scope.height <= 0){
+                    $elem.height($elem.parent().height());
+                    ctx.canvas.height = ctx.canvas.width / 2;
+                } else {
+                    ctx.canvas.height = $scope.height || ctx.canvas.height;
+                    autosize = true;
+                }
+            };
+
+            $scope.$watch("data", function (newVal, oldVal) {
+                if(chartCreated)
+                    chartCreated.destroy();
+
+                // if data not defined, exit
+                if (!newVal) {
+                    return;
+                }
+                if ($scope.chart) { type = $scope.chart; }
+
+                if(autosize){
+                    $scope.size();
+                    chart = new Chart(ctx);
+                }
+
+                if($scope.responsive || $scope.resize)
+                    $scope.options.responsive = true;
+
+                if($scope.responsive !== undefined)
+                    $scope.options.responsive = $scope.responsive;
+
+                chartCreated = chart[type]($scope.data, $scope.options);
+                chartCreated.update();
+                if($scope.legend)
+                    angular.element($elem[0]).parent().after( chartCreated.generateLegend() );
+            }, true);
+
+            $scope.$watch("tooltip", function (newVal, oldVal) {
+                if (chartCreated)
+                    chartCreated.draw();
+                if(newVal===undefined || !chartCreated.segments)
+                    return;
+                if(!isFinite(newVal) || newVal >= chartCreated.segments.length || newVal < 0)
+                    return;
+                var activeSegment = chartCreated.segments[newVal];
+                activeSegment.save();
+                activeSegment.fillColor = activeSegment.highlightColor;
+                chartCreated.showTooltip([activeSegment]);
+                activeSegment.restore();
+            }, true);
+
+            $scope.size();
+            var chart = new Chart(ctx);
+            var chartCreated;
+        }
+    };
+};
+
 
 App.directive('formWizard',
 		[
