@@ -18,7 +18,7 @@
 App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http, $state, toaster) {
    
 	//Depliega el "Modal"
-	$scope.registrar = function () {
+	$scope.registrar = function () {	
         var RegistrarModalInstance = $modal.open({
             templateUrl: '/myEventoModalContent.html',
             controller: RegistrarEventoInstanceCtrl,
@@ -26,6 +26,27 @@ App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$time
         });
 
     };
+    
+    $scope.validarUsuarioRol = function(){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{			
+			for(i=0;i<$rootScope.usuario.roles.length;i++){				
+					if($rootScope.usuario.roles[i].rol == "Administrador"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Administrador Evento"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Administrador Establecimiento"){
+						return true;
+					}
+				
+			}					
+		}
+		
+	};
 
 //------------------------------------------------------------------------------------
     var RegistrarEventoInstanceCtrl = function ($scope, $modalInstance) {

@@ -67,7 +67,7 @@ App.controller('CentroDistribucionController', ['$scope', '$rootScope','uiGridCo
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var distribucionModificar = {};
-App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','toaster','$rootScope', function ($scope, $rootScope,$modal,toaster,$rootScope) {
+App.controller('DistribucionModalController', ['$rootScope','$scope', '$modal','$http','toaster',function ($rootScope,$scope, $modal,$http,toaster) {
 
 	$scope.registrar = function () {
         var RegistrarModalInstance = $modal.open({
@@ -152,7 +152,7 @@ App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','
     RegistrarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 
 //---------------------------------------------------------------------------------------
-    var ModificarDistribucionInstanceCtrl = function ($scope, $modalInstance,$http,$rootScope) {
+    var ModificarDistribucionInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http) {
         $scope.accion = "Modificar";
         $scope.reto = {};
         
@@ -213,19 +213,19 @@ App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','
             $modalInstance.dismiss('cancel');
         };
     };
-    ModificarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http","$rootScope"];
+    ModificarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 
 }]);
 var centroEliminar = {};
-App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$rootScope','$scope', '$modal','$http','toaster',function ($rootScope,$scope, $modal,$http,toaster) {
 
 	$scope.eliminar = function ($row) {
-	centroEliminar = $row.entity;
-	var modalInstance = $modal.open({
-		templateUrl: '/modalEliminarCentro.html',
-		controller: ModalInstanceCtrl,
-		size: 'sm'
-	});
+			centroEliminar = $row.entity;
+			var modalInstance = $modal.open({
+				templateUrl: '/modalEliminarCentro.html',
+				controller: ModalInstanceCtrl,
+				size: 'sm'
+			});
 	
 	var state = $('#modal-state');
 	modalInstance.result.then(function () {
@@ -236,7 +236,7 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 	  };
 	
 	
-  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+  	var ModalInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http) {
 	
 	    $scope.ok = function () {
             $http.post('rest/centroDistribucion/delete',{
@@ -280,8 +280,9 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 	     
 	$scope.cancel = function () {
 	  $modalInstance.dismiss('cancel');
-	    };
+	};
+	
 	};
 	  
-	  ModalInstanceCtrl.$inject = ["$scope", "$modalInstance"];
+	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http"];
 }]);

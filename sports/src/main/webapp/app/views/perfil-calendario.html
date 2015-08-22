@@ -16,14 +16,15 @@
 			<div class="panel-title">Servicios</div>
 		</div>
 		<!-- START list group-->
+		<scrollable height="450" class="list-group">
 		<div class="list-group" ng-repeat="servicio in Servicios">
-			<!-- START list group item-->
+			<!-- START list group item-->	 
 			<div class="list-group-item contenedorServicios">
 				<div class="media-box">
 					<div class="pull-left" ng-controller="ModalReservacionesController">
 						<span class="fa-stack" ng-click="open('sm', servicio.idServicio)">
-							<em class="fa fa-circle fa-stack-2x text-purple"></em> <em
-							class="fa fa-life-bouy fa-stack-1x fa-inverse text-white"></em>
+							<em class="fa fa-circle fa-stack-2x text-green"></em> <em
+							class="fa fa-check fa-stack-1x fa-inverse text-white"></em>
 						</span>
 					</div>
 					<div class="media-box-body clearfix">
@@ -36,7 +37,9 @@
 					</div>
 				</div>
 			</div>
+			
 		</div>
+		</scrollable>
 		<!-- END list group-->
 
 		<!-- Modal inline template-->
@@ -82,9 +85,9 @@
                         </div>
                     </div>
                   <div class="modal-footer">
-                    <button ng-click="ok()" class="btn btn-primary">OK</button>
+                    <button ng-click="ok()" class="btn btn-primary">Reservar</button>
                     <button ng-hide="accion != 'Modificar'" ng-click="eliminar()" class="btn btn-warning">Eliminar</button>
-                    <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+                    <button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
                   </div>
                 </form>
     	</script>

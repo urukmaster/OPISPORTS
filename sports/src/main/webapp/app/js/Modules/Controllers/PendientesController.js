@@ -149,9 +149,9 @@ App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$
 							text: data.codeMessage
 					};
 					$scope.pop(toasterdata);
-					establecimientoCalendario = data;
+					establecimientoCalendario = data.establecimientoDeportivo;
 					gridPendientes = establecimientoCalendario.pendientes;
-					$state.go('app.perfil.reservaciones.calendario');
+					$state.reload();
 				}else{
 					$rootScope.errorMessage = data.codeMessage;
 					$state.go('page.error');

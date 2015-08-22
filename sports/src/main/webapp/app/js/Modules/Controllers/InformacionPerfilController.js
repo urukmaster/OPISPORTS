@@ -4,7 +4,7 @@
  * deportivos registrados y de inicializar la página
  ============================================================*/
 var establcimientoCalendario = {};
-App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
+App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, toaster, $timeout, $state) {
 
 	//Trae los establecimientos deportivos registrados
     $scope.init = function(){
@@ -22,6 +22,42 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
     
     //Inicializa la aplicación
     $scope.init(); 
+    
+    //Validar usuario
+    $scope.validarUsuarioId = function(establecimiento){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{			
+				if(establecimiento.idUsuario == $rootScope.usuario.idUsuario){
+						return true;
+				}						
+		}
+		
+	};
+	
+	$scope.validarUsuarioRol = function(){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{	
+			alert()
+			for(i=0;i<$rootScope.usuario.roles.length;i++){				
+					if($rootScope.usuario.roles[i].rol == "Administrador"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Administrador Establecimiento"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Usuario Cliente"){
+						return false;
+					}
+				
+			}					
+		}
+		
+	};
+	
     
     
 
@@ -77,7 +113,19 @@ App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '
 
     $scope.init();
 
-       
+    //Validar usuario
+    $scope.validarUsuarioId = function(establecimiento){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{	
+				
+				if(establecimiento.idUsuario == $rootScope.usuario.idUsuario){
+						return true;
+				}						
+		}
+		
+	}; 
 }]);
 
 App.controller('EstablecimientosFormController', ['$scope','$http', '$stateParams','$state','toaster','$timeout','$route','$rootScope', function($scope,$http, $stateParams,$state,toaster,$timeout,$route,$rootScope) {
@@ -252,7 +300,7 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal','$htt
 	};
 	
 	
-  	var ModalInstanceCtrl = function ($scope, $modalInstance) {
+  	var ModalInstanceCtrl = function ($scope, $modalInstance, $rootScope) {
 	
 	    $scope.ok = function () {
 	    	
@@ -282,13 +330,23 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal','$htt
 	$scope.cancel = function () {
     	console.log('ajhs');
 		$modalInstance.dismiss('cancel');
-	};
+	};	
   	
   	ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
 }]);
 var reviewEliminar = {};
 App.controller('EliminarComentario', ['$scope', '$modal', '$rootScope','$http', 'toaster','$state', function ($scope, $modal, $rootScope, $http, toaster,$state) {
+	//Validar usuario
+    $scope.validarUsuarioId = function(review){		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{	
+			if(review.idUsuario == $rootScope.usuario.idUsuario){
+				return true;
+			}						
+		}
+	};
 	
     $scope.eliminar = function(pid){
     	reviewEliminar = pid;

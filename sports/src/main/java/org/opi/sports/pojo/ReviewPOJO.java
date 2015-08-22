@@ -1,14 +1,17 @@
 package org.opi.sports.pojo;
 
+import org.opi.sports.ejb.EstablecimientoDeportivo;
+import org.opi.sports.ejb.Usuario;
+
 public class ReviewPOJO {
 	
 	private int idComentario;
 	
 	private String review;
 	
-	private int idEstablecimientoDeportivo;
+	private EstablecimientoDeportivo idEstablecimientoDeportivo;
 	
-	private int idUsuario;
+	private Usuario idUsuario;
 	
 	private byte active;
 	
@@ -25,16 +28,16 @@ public class ReviewPOJO {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	public int getIdEstablecimientoDeportivo() {
+	public EstablecimientoDeportivo getIdEstablecimientoDeportivo() {
 		return idEstablecimientoDeportivo;
 	}
-	public void setIdEstablecimientoDeportivo(int idEstablecimientoDeportivo) {
+	public void setIdEstablecimientoDeportivo(EstablecimientoDeportivo idEstablecimientoDeportivo) {
 		this.idEstablecimientoDeportivo = idEstablecimientoDeportivo;
 	}
-	public int getIdUsuario() {
+	public Usuario getIdUsuario() {
 		return idUsuario;
 	}
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Usuario idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 	public byte getActive() {
