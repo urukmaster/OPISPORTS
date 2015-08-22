@@ -1,7 +1,5 @@
 package org.opi.sports.contracts;
 
-import org.opi.sports.pojo.ActividadDeportivaPOJO;
-
 /**
  * Fecha: 29-07-2015 version 1.0
  *

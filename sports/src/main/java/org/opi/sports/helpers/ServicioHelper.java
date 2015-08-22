@@ -1,11 +1,13 @@
 package org.opi.sports.helpers;
 
 import org.opi.sports.contracts.ServicioRequest;
+import org.opi.sports.ejb.ActividadDeportiva;
 import org.opi.sports.ejb.EstablecimientoDeportivo;
 import org.opi.sports.ejb.Servicio;
 import org.opi.sports.ejb.TipoServicio;
 import org.opi.sports.pojo.EstablecimientoDeportivoPOJO;
 import org.opi.sports.pojo.ServicioPOJO;
+import org.opi.sports.services.ActividadDeportivaServiceInterface;
 import org.opi.sports.services.ServicioServiceInterface;
 import org.opi.sports.utils.PojoUtils;
 
@@ -30,10 +32,11 @@ public class ServicioHelper {
 	}
 
 	public ServicioPOJO saveServicio(ServicioRequest servicioRequest,
-			TipoServicio tipoServicioEJB, ServicioServiceInterface servicioService) {
+			TipoServicio tipoServicioEJB, ServicioServiceInterface servicioService, ActividadDeportivaServiceInterface actividadDeportivaService,
+			EstablecimientoDeportivo establecimientoDeportivoEJB) {
 
 		Servicio servicioEJB = new Servicio();
-
+		
 		if(servicioRequest.getAccion().equals("Modificar")){
 			servicioEJB.setIdServicio(servicioRequest.getIdServicio());
 		}
@@ -43,8 +46,10 @@ public class ServicioHelper {
 		servicioEJB.setHoraCierre(servicioRequest.getHoraCierre());
 		servicioEJB.setPrecio(servicioRequest.getPrecio());
 		servicioEJB.setTipoServicio(tipoServicioEJB);
+		servicioEJB.setActividadDeportiva(actividadDeportivaService.findByOne(servicioRequest.getActividadDeportiva()));
 		servicioEJB.setServicio(servicioRequest.getServicio());
 		servicioEJB.setActive((byte) 1);
+		servicioEJB.setEstablecimientoDeportivo(establecimientoDeportivoEJB);
 		servicioEJB = servicioService.save(servicioEJB);
 
 		ServicioPOJO servicioPOJO = new ServicioPOJO();

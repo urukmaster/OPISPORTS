@@ -1,0 +1,200 @@
+<!-- START widgets box-->
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+<div class="row" ng-controller="MisInscripcionesController" >
+    <div class="col-lg-3 col-sm-6">
+        <div class="panel bg-info-light pt b0 widget">
+            <div class="ph">
+                <em class="fa fa-home fa-lg pull-right"></em>
+                <div class="h2 mt0">Establecimientos</div>
+                <p>Busca tu establecimiento mas cercano.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <!-- START widget-->
+        <div class="panel bg-success-light pt b0 widget">
+            <div class="ph">
+                <em class="fa fa-chain-broken fa-lg pull-right"></em>
+                <div class="h2 mt0">Reservaciones</div>
+                <p>Reserva en tu establecimiento favorito.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <!-- START widget-->
+        <div class="panel bg-danger-light pt b0 widget">
+            <div class="ph">
+                <em class="icon-fire fa-lg pull-right"></em>
+                <div class="h2 mt0">Retos</div>
+                <p>Busca retos en linea, juega y conoce a nuevas personas.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <!-- START widget-->
+        <div class="panel widget bg-purple-light pt b0 widget">
+            <div class="ph">
+                <em class="fa fa-flag-checkered fa-lg pull-right"></em>
+                <div class="h2 mt0">Eventos</div>
+                 <p>Eventos masivos, participa y consigue fácil y rapido tu inscripción.</p>
+            </div>
+        </div>
+    </div>
+<!-- END widgets box-->
+
+<!-- START Widgets-->
+<div class="row">
+    <div class="col-lg-3">
+        <!-- START messages and activity-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Actividades mixtas</div>
+            </div>
+            <!-- START list group-->
+            <div class="list-group">
+                <!-- START list group item-->
+                <div class="list-group-item">
+                    <div class="media-box">
+                        <div class="pull-left">
+                     <span class="fa-stack">
+                        <em class="fa fa-circle fa-stack-2x text-purple"></em>
+                        <em class="fa fa-flag-checkered fa-stack-1x fa-inverse text-white"></em>
+                     </span>
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="text-muted pull-right ml">15m</small>
+                            <div class="media-box-heading"><a href="#" class="text-purple m0">Ciclismo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END list group item-->
+                <!-- START list group item-->
+                <div class="list-group-item">
+                    <div class="media-box">
+                        <div class="pull-left">
+                     <span class="fa-stack">
+                        <em class="fa fa-circle fa-stack-2x text-info"></em>
+                        <em class="fa fa-flag-checkered fa-stack-1x fa-inverse text-white"></em>
+                     </span>
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="text-muted pull-right ml">2h</small>
+                            <div class="media-box-heading"><a href="#" class="text-info m0">Aguas abiertas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END list group item-->
+                <!-- START list group item-->
+                <div class="list-group-item">
+                    <div class="media-box">
+                        <div class="pull-left">
+                     <span class="fa-stack">
+                        <em class="fa fa-circle fa-stack-2x text-danger"></em>
+                        <em class="icon-fire fa-stack-1x fa-inverse text-white"></em>
+                     </span>
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="text-muted pull-right ml">5h</small>
+                            <div class="media-box-heading"><a href="#" class="text-danger m0">Reto en desamparados</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END list group item-->
+                <!-- START list group item-->
+                <div class="list-group-item">
+                    <div class="media-box">
+                        <div class="pull-left">
+                     <span class="fa-stack">
+                        <em class="fa fa-circle fa-stack-2x text-success"></em>
+                        <em class="fa fa-clock-o fa-stack-1x fa-inverse text-white"></em>
+                     </span>
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="text-muted pull-right ml">15h</small>
+                            <div class="media-box-heading"><a href="#" class="text-success m0">Evento abierto de paintball</a>
+                            </div>
+                            <p class="m0">
+                                <small>On
+                                    <em>10/12/2015 08:00 am</em>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END list group item-->
+            </div>
+            <!-- END list group-->
+            <!-- START panel footer-->
+            <div class="panel-footer clearfix">
+                
+            </div>
+            <!-- END panel-footer-->
+        </div>
+        <!-- END messages and activity-->
+    </div>   
+    
+    
+    <div class="col-lg-6" ng-controller="MisInscripcionesController">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Mis inscripciones</div>
+            </div>
+            <!-- START list group-->
+            <scrollable height="230" class="list-group">
+                <!-- START list group item-->
+                <a href="#" class="list-group-item" ng-repeat="inscripcion in Inscripciones">
+                    <div class="media-box" ng-repeat="tiquete in inscripcion">
+                        <div class="pull-left">
+                            <img src="app/img/cancha.jpg" alt="Image" class="media-box-object img-circle thumb32" />
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="pull-right"></small>
+	                       <div class="pull-right" ng-controller = "CancelarTiqueteModalController">
+	                           <span class="fa fa-trash fa-lg" ng-click="cancelarTiquete(tiquete.idTiquete)"></span>
+	                       </div>
+                            <strong class="media-box-heading text-primary">
+                                <span class="circle circle-success circle-lg text-left"></span>{{tiquete.nombreEvento}}</strong>
+                            <p class="mb-sm">
+        					<div class="col-lg-6">
+                            	<label>Estado:</label>
+                                <small>{{tiquete.estado}}</small><br>
+                            	<label>Fecha de caducidad:</label>
+                                <small>{{tiquete.fechaCaducidad}}</small><br>
+                            </div>
+        					<div class="col-lg-6">
+                            	<label>Precio:</label>
+                                <small>{{tiquete.precio}}</small><br>
+                            	<label>C�digo:</label>
+                                <small>{{tiquete.codigo}}</small><br>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <!-- END list group item-->
+            </scrollable> 
+        </div>
+    </div>
+    
+   	<!-- Modal inline template-->
+    <script type="text/ng-template" id="/modalCancelarTiquete.html">
+    	<div class="modal-header">
+			<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+			<h4 id="myModalLabel" class="modal-title">Cancelar tiquete</h4>
+		</div>
+		<div class="modal-body">¿Desea cancelar el tiquete?</div>
+			<div class="modal-footer">
+				<button ng-click="ok()" class="btn btn-primary">Si</button>
+				<button ng-click="cancel()" class="btn btn-warning">Cancelar</button>
+			</div>
+	</script> 
+    
+    
+    <!-- END dashboard sidebar-->
+</div>
+<!-- END Widgets-->
+
+<script src="app/js/Modules/Controllers/DashboardController.js"></script>

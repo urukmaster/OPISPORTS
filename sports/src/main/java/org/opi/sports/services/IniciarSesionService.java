@@ -11,24 +11,30 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Araica Hernández
  *
- *Sprint 02 Descripción: Clase que implementa el servicio de la interface
+ *         Sprint 02 Descripción: Clase que implementa el servicio de la
+ *         interface
  *
  */
 @Service
-public class IniciarSesionService implements IniciarSesionServiceInterface{
-	
-	//Variable tipo Iniciar sesion repository
+public class IniciarSesionService implements IniciarSesionServiceInterface {
+
+	// Variable tipo Iniciar sesion repository
 	@Autowired
 	IniciarSesionRepository iniciarSesionRepository;
-	
+
 	/**
 	 * Metodo que valida el usuario por correo y contraseña
 	 * 
 	 */
 	@Override
 	public Usuario ValidarUsuario(IniciarSesionRequest iniciarSesionRequest) {
-		// TODO Auto-generated method stub
-		return iniciarSesionRepository.findByCorreoAndContrasenna(iniciarSesionRequest.getCorreo(),iniciarSesionRequest.getContrasenna());
+		try {
+			return iniciarSesionRepository.findByCorreoAndContrasenna(
+					iniciarSesionRequest.getCorreo(),
+					iniciarSesionRequest.getContrasenna());
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 }

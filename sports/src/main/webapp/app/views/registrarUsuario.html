@@ -1,0 +1,49 @@
+<div class="col-md-8">
+	<div class="panel" ng-controller="RegistrarUsuarioModalController">		
+				<form name="formUsuario" ng-submit="submitForm()" novalidate="" class="form-validate form-horizontal">      		   			
+	   				<div class="panel-body" ng-init="accion='update'">
+						<legend>Datos Personales</legend>	
+                  		<fieldset>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Nombre</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" name="nombre" required="" ng-model="usuario.nombre" class="form-control" />
+                           				<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Apellidos</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" name="apellido" required="" ng-model="usuario.apellido" class="form-control" />
+                           				<span ng-show="validateInput('apellido', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+							<div class="form-group">
+                        		<label class="col-sm-2 control-label">Telefono</label>
+                        			<div class="col-sm-6">
+                           				<input type="text" masked="" data-inputmask="'mask': ' 9999-9999'" name="telefono" required="" ng-model="usuario.telefono" class="form-control" />
+                           				<span ng-show="validateInput('telefono', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+                  		</fieldset>
+						<legend>Login</legend>	
+                  		<fieldset>
+                     		<div class="form-group">
+                        		<label class="col-sm-2 control-label">Correo Electrónico</label>
+                        			<div class="col-sm-6">
+                           				<input type="email" name="correo" placeholder="ejemplo@ejemplo.ej" required="" ng-model="usuario.correo" class="form-control" />
+                           				<span ng-show="validateInput('correo', 'required')" class="text-danger">Este campo es requerido</span>
+                        			</div>                        
+                     		</div>
+							<br>
+                  		</fieldset>
+                  		<div class="text-center">
+               				<button type="submit" class="btn btn-info">Aceptar</button>
+							<a ng-click="cancel()" class="btn btn-warning">Cancel</a> 
+						</div>   
+               		</div>     		
+			</form>
+	</div>
+</div>	

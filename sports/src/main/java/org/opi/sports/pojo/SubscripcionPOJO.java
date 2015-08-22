@@ -4,26 +4,43 @@ import java.util.List;
 
 public class SubscripcionPOJO {
 	
-	private int idSupscripcion;
+	private int idSubscripcion;
+	private TipoEventoPOJO eventopojo;
+	private byte active;
+	private UsuarioPOJO usuario;
 	
-	private TipoEventoPOJO eventospojo;
-
-
-
-	public TipoEventoPOJO getEventospojo() {
-		return eventospojo;
+	public int getIdSubscripcion() {
+		return idSubscripcion;
 	}
 
-	public void setEventospojo(TipoEventoPOJO eventospojo) {
-		this.eventospojo = eventospojo;
+	public void setIdSubscripcion(int idSubscripcion) {
+		this.idSubscripcion = idSubscripcion;
 	}
 
-	public int getIdSupscripcion() {
-		return idSupscripcion;
+	public TipoEventoPOJO getEventopojo() {
+		return eventopojo;
 	}
 
-	public void setIdSupscripcion(int idSupscripcion) {
-		this.idSupscripcion = idSupscripcion;
+	public void setEventopojo(TipoEventoPOJO eventopojo) {
+		this.eventopojo = eventopojo;
 	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
+	}
+
+	public UsuarioPOJO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioPOJO usuario) {
+		this.usuario = usuario;
+	}
+
+
 
 }

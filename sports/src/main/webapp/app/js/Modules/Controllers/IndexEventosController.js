@@ -1,62 +1,133 @@
+/**
+ * Modulo Controlador para traer los datos de registar evento * 
+ * author: Mauricio Fernandez
+ * Fecha: 27/07/2015
+ * Revision: 1.0
+ *//**
+ * Modulo Controlador para traer los datos de registar evento * 
+ * author: Mauricio Fernandez
+ * Fecha: 31/07/2015
+ * Revision: 1.1
+ */
 
-/**=========================================================
- * Module: calendar-ui.js
- * This script handle the calendar demo with draggable
- * events and events creations
- =========================================================*/
-
-App.controller('EventoModalController', ['$scope', '$modal', "$timeout" ,"$http", "$state", function ($scope, $modal, $timeout ,$http, $state) {
-	
-	$scope.registrar = function () {
+/**==========================================================
+ * Modulo: EventoModalController
+ * Este controlador se encarga de desplegar un "Modal" 
+ * para registrar un evento en la base de datos 
+ ============================================================*/
+App.controller('EventoModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", "$state", 'toaster', function ($scope, $rootScope,$modal, $timeout ,$http, $state, toaster) {
+   
+	//Depliega el "Modal"
+	$scope.registrar = function () {	
         var RegistrarModalInstance = $modal.open({
             templateUrl: '/myEventoModalContent.html',
             controller: RegistrarEventoInstanceCtrl,
             size: 'lg'
         });
+
     };
+    
+    $scope.validarUsuarioRol = function(){	
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return false;
+		}else{			
+			for(i=0;i<$rootScope.usuario.roles.length;i++){				
+					if($rootScope.usuario.roles[i].rol == "Administrador"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Administrador Evento"){
+						return true;
+					}
+					if($rootScope.usuario.roles[i].rol == "Administrador Establecimiento"){
+						return true;
+					}
+				
+			}					
+		}
+		
+	};
 
 //------------------------------------------------------------------------------------
     var RegistrarEventoInstanceCtrl = function ($scope, $modalInstance) {
+
+        //Valida el formulario de registro
+          $scope.submitted = false;
+          $scope.validateInput = function(name, type) {
+              var input = $scope.formRegistrarEvento[name];
+              return (input.$dirty || $scope.submitted) && input.$error[type];
+          };
+          
+        //Envío del formulario
+          $scope.submitForm = function() {
+              $scope.submitted = true;
+              if ($scope.formRegistrarEvento.$valid) {
+
+              	var data = {
+              		"nombre": $scope.eventoForm.nombre,
+                      "precio": $scope.eventoForm.precio,
+                      "hora": $scope.eventoForm.hora.getTime(),
+                      "fecha": $scope.eventoForm.fecha,
+                      "informacion": $scope.eventoForm.informacion,
+                      "tipoEvento" : 1,
+                      "establecimiento" : 1,
+                      "active": 1,
+                      "cupo" : $scope.eventoForm.cupo,
+                      "diasParaRetiro": $scope.eventoForm.diasParaRetiro,
+                      "direccion" : $scope.eventoForm.direccion,
+                      "accion" : "Registrar"
+                  };
+                  
+              	//Manda a salvar el evento
+                  $http.post('rest/evento/save', data).
+                  success(function(data){
+                	  if(data.code = 200){
+                  	var toasterdata = {
+      			            type:  'success',
+      			            title: 'Evento',
+      			            text:  'Se registro el evento correctamente.'
+      			    };
+          			$scope.pop(toasterdata);
+            			$timeout(function(){ $scope.callAtTimeout(); }, 2000);
+                  	$modalInstance.dismiss('cancel');
+                	  }else{
+                  		$rootScope.errorMessage = data.codeMessage;
+                  		$state.go('page.error');
+                  	}
+                  });
+                  
+            	  }
+              }
+    	
     	
     	$scope.eventoForm = {};
         $scope.eventoForm.hora = new Date();
-        $scope.eventoForm.fecha = new Date();
-        $scope.eventoForm.registrar = function () {
-
-        	var data = {
-        		"nombre": $scope.eventoForm.evento,
-                "precio": $scope.eventoForm.precio,
-                "hora": $scope.eventoForm.hora.getTime(),
-                "fecha": $scope.eventoForm.fecha,
-                "informacion": $scope.eventoForm.informacion,
-                "tipoEvento" : 1,
-                "establecimiento" : 1,
-                "cupo" : $scope.eventoForm.cupo,
-                "direccion" : $scope.eventoForm.direccion,
-                "accion" : "Registrar"
-            };
-            
-            $http.post('rest/evento/save', data).
-            success(function(data){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Evento',
-			            text:  'Se registro el evento correctamente.'
-			    };
-    			//$scope.pop(toasterdata);
-            	$modalInstance.dismiss('cancel');
-            	$state.reload();
-            });
-        };
+        $scope.eventoForm.fecha = new Date();  
+        
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+        
+        //Despliegue de confirmación    
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+        };
+        
+        $scope.callAtTimeout = function(){
+        	$state.reload();
+        }
+        
     };
-
     RegistrarEventoInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
+    
 }]);
 
-App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$state', '$modal', function($scope, $http, $timeout, $state, $modal) {
+/**==========================================================
+ * Modulo: CalendarControllerEventos
+ * Este controlador se encarga de renderizar e inicializar
+ * el calendario de eventos deportivos
+ ============================================================*/
+App.controller('CalendarControllerEventos', ['$scope', '$rootScope','$http', '$timeout', '$state', '$modal', function($scope, $rootScope,$http, $timeout, $state, $modal) {
     'use strict';
     if(!$.fn.fullCalendar) return;
 
@@ -64,10 +135,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     var draggingEvent = null;
 
 
-    /**
-     * ExternalEvent object
-     * @param jQuery Object elements Set of element as jQuery objects
-     */
+/**
+ * ExternalEvent object
+ * @param jQuery Object elements Set of element as jQuery objects
+ */
     var ExternalEvent = function (elements) {
 
         if (!elements) return;
@@ -93,11 +164,11 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
         });
     };
 
-    /**
-     * Invoke full calendar plugin and attach behavior
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     * @param  EventObject [events] An object with the event list to load when the calendar displays
-     */
+/**
+ * Invoke full calendar plugin and attach behavior
+ * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+ * @param  EventObject [events] An object with the event list to load when the calendar displays
+ */
     function initCalendar(calElement, events) {
 
     	calElement.fullCalendar({
@@ -151,10 +222,10 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     
     }
 
-    /**
-     * Inits the external events panel
-     * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
-     */
+/**
+ * Inits the external events panel
+ * @param  jQuery [calElement] The calendar dom element wrapped into jQuery
+ */
     function initExternalEvents(calElement){
         // Panel with the external events list
         var externalEvents = $('.external-events');
@@ -234,6 +305,8 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
     	
     	$http.get('rest/evento/getAll')
         .success(function(data) {
+        	
+        	if(data.code == 200){
         	var calendar = $('#calendar');
         	        	
         	var eventos = initEventos(data.jsoncalendar);
@@ -241,12 +314,16 @@ App.controller('CalendarControllerEventos', ['$scope', '$http', '$timeout', '$st
         	initExternalEvents(calendar);
 
         	initCalendar(calendar, eventos);
+        	
+        	}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
 
-        })	
+        });	
     	
     };
     
-    $scope.init();
-    
+    $scope.init();    
     
 }]);

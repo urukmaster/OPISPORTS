@@ -37,6 +37,8 @@ public class Evento implements Serializable {
 	private String nombre;
 
 	private String precio;
+	
+	private Integer diasParaRetiro;
 
 	//bi-directional many-to-one association to Distribucion
 	@OneToMany(mappedBy="evento")
@@ -46,11 +48,6 @@ public class Evento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idDistrito")
 	private Distrito distrito;
-
-	//bi-directional many-to-one association to EstablecimientoDeportivo
-	@ManyToOne
-	@JoinColumn(name="idEstablecimiento")
-	private EstablecimientoDeportivo establecimientoDeportivo;
 
 	//bi-directional many-to-one association to TipoEvento
 	@ManyToOne
@@ -166,14 +163,7 @@ public class Evento implements Serializable {
 		this.distrito = distrito;
 	}
 
-	public EstablecimientoDeportivo getEstablecimientoDeportivo() {
-		return this.establecimientoDeportivo;
-	}
-
-	public void setEstablecimientoDeportivo(EstablecimientoDeportivo establecimientoDeportivo) {
-		this.establecimientoDeportivo = establecimientoDeportivo;
-	}
-
+	
 	public TipoEvento getTipoEvento() {
 		return this.tipoEvento;
 	}
@@ -202,6 +192,14 @@ public class Evento implements Serializable {
 		tiquete.setEvento(null);
 
 		return tiquete;
+	}
+
+	public Integer getDiasParaRetiro() {
+		return diasParaRetiro;
+	}
+
+	public void setDiasParaRetiro(Integer diasParaRetiro) {
+		this.diasParaRetiro = diasParaRetiro;
 	}
 
 }

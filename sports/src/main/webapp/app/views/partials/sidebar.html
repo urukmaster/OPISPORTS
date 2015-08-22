@@ -14,9 +14,9 @@
                   <!-- Name and Job-->
                   <div class="user-block-info">
                      <span class="user-block-name">{{ "Bienvenido" }} {{usuario.nombre+' '+usuario.apellido}}</span>
-                     <div class="btn-group">
-               			<button ng-show="usuario == null" ng-click="login()" type="button" class="btn btn-default">Login</button>
-               			<button ng-hide="usuario == null" ng-click="logout()"type="button" class="btn btn-default">Salir</button>
+                     <div>
+               			<button ng-show="validarUsuario()" ng-click="login()" type="button" class="btn btn-default">Login</button>
+               			<button ng-show="!validarUsuario()" ng-click="logout()"type="button" class="btn btn-default">Salir</button>
             		</div>
                   </div>
                </div>

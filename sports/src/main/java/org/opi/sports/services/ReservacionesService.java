@@ -12,29 +12,45 @@ import org.springframework.stereotype.Service;
  * 
  * @author Mauricio Fernández Mora
  *
- *Sprint 01 Descripción: Esta clase se encarga de proveer los servicios que el controlador necesita
- *provenientes de los repositorios.
+ *         Sprint 01 Descripción: Esta clase se encarga de proveer los servicios
+ *         que el controlador necesita provenientes de los repositorios.
  */
 @Service
-public class ReservacionesService implements ReservacionesServiceInterface{
-	
+public class ReservacionesService implements ReservacionesServiceInterface {
+
 	@Autowired
 	ReservacionesRepository reservacionesRepositorio;
 
 	public List<Reservaciones> getAllReservaciones() {
-		return reservacionesRepositorio.findAll();
+		try {
+			return reservacionesRepositorio.findAll();
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public <S extends Reservaciones> S save(S reservacion) {
-		return reservacionesRepositorio.save(reservacion);
+		try {
+			return reservacionesRepositorio.save(reservacion);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public boolean exists(Integer idReservacion) {
-		return reservacionesRepositorio.exists(idReservacion);
+		try {
+			return reservacionesRepositorio.exists(idReservacion);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	public Reservaciones findOne(Integer idReservacion) {
-		return reservacionesRepositorio.findOne(idReservacion);
-	}	
+		try {
+			return reservacionesRepositorio.findOne(idReservacion);
+		} catch (Exception exception) {
+			throw exception;
+		}
+	}
 
 }

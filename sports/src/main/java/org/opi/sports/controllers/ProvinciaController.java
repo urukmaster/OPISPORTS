@@ -42,6 +42,8 @@ public class ProvinciaController {
 		
 		ProvinciaResponse provinciaResponse = new ProvinciaResponse();
 
+		try{
+		
 		List<Provincia> provinciaList = provinciaService.getAllProvincias();
 
 		List<ProvinciaPOJO> provinciaViewList = new ArrayList<ProvinciaPOJO>();
@@ -51,6 +53,15 @@ public class ProvinciaController {
 		}
 		
 		provinciaResponse.setProvincias(provinciaViewList);
+		provinciaResponse.setCode(200);
+		provinciaResponse.setCodeMessage("Operación exitosa");
+		}catch(Exception exception){
+			provinciaResponse.setCode(404);
+			provinciaResponse
+					.setCodeMessage("En estos momentos el servidor no se encuentra disponible./n"
+							+ "Lamentamos el incoveniente, favor intentar mas tarde");
+			provinciaResponse.setErrorMessage(exception.getMessage());
+		}
 		
 		return provinciaResponse;
 	}

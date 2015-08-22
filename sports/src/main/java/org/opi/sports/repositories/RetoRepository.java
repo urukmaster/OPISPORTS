@@ -13,7 +13,7 @@ import org.springframework.data.repository.CrudRepository;
  *Sprint 04 Descripción: Clase repository de los retos
  *
  */
-public interface RetoRepository extends CrudRepository<Reto,Integer>{
+public interface RetoRepository extends CrudRepository<Reto, Integer>{
 	/**
 	 * Metodo encargado de obtener los retos
 	 */
@@ -26,4 +26,5 @@ public interface RetoRepository extends CrudRepository<Reto,Integer>{
 	 * Metodo encargado de probar si existe el reto
 	 */
 	public boolean exists(Integer idReto);
+	
 }

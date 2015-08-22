@@ -46,11 +46,7 @@ public class EventosTest {
 	@Autowired
 	private EventoServiceInterface eventoService;
 
-	
-	@Autowired
-	EstablecimientoDeportivoServiceInterface establecimientoDeporitvoService;
-
-	
+		
 	/**
 	 * Esta prueba permite saber si el servicio de Eventos se inyecta al
 	 * ejecutar la prueba, esto para probar la funcionalidad del Spring al hacer
@@ -59,7 +55,6 @@ public class EventosTest {
 	@Test
 	public void getEventoServiceTest(){
 		assertNotNull(eventoService);
-		assertNotNull(establecimientoDeporitvoService);
 	}
 	
 	/**
@@ -95,14 +90,13 @@ public class EventosTest {
 	/**
 	 * Prueba para guardar o modificar eventos
 	 */
-	@Test
+	//@Test
 	public void saveEventos(){
-EventoResponse eventoResponse = new EventoResponse();
+		EventoResponse eventoResponse = new EventoResponse();
 		EventoRequest eventoRequest = new EventoRequest();
 		eventoRequest.setAccion("Registrar");
 		eventoRequest.setCupo(1000);
 		eventoRequest.setDireccion("Prueba");
-		eventoRequest.setEstablecimiento(1);
 		eventoRequest.setEvento("Evento Prueba");
 		eventoRequest.setFecha(new Date());
 		eventoRequest.setHora(new Time(new Date().getTime()));
@@ -110,7 +104,7 @@ EventoResponse eventoResponse = new EventoResponse();
 		eventoRequest.setPrecio("10000");
 		eventoRequest.setTipoEvento(1);
 		
-		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoService, establecimientoDeporitvoService);
+		EventoPOJO evento = EventosHelper.getInstance().save(eventoRequest, eventoService);
 		
 		eventoResponse.setEvento(evento);
 	}

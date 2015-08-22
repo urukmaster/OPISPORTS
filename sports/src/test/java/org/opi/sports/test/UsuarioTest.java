@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opi.sports.config.OpiSportsApplication;
+import org.opi.sports.contracts.IniciarSesionRequest;
 import org.opi.sports.contracts.UsuarioResponse;
 import org.opi.sports.ejb.Usuario;
 import org.opi.sports.ejb.Permiso;
@@ -16,11 +17,13 @@ import org.opi.sports.ejb.Rol;
 import org.opi.sports.ejb.Usuario_Rol;
 import org.opi.sports.pojo.UsuarioPOJO;
 import org.opi.sports.services.UsuarioServiceInterface;
+import org.opi.sports.contracts.UsuarioRequest;
 import org.opi.sports.utils.PojoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -52,7 +55,7 @@ public class UsuarioTest {
 	public void getUsuarioServiceTest(){
 		assertNotNull(usuarioService);
 	}
-	
+
 	/**
 	* Esta prueba permite saber si el usuario se registra.
 	*
@@ -60,12 +63,36 @@ public class UsuarioTest {
 	//@Test
 	public void saveUsuarioTest(){
 		Usuario usuarioEJB = new Usuario();
-		usuarioEJB.setCorreo("juanmanu24@gmail.com");
+		usuarioEJB.setCorreo("jvialesc@gmail.com");
 		usuarioEJB.setNombre("Juan Manuel");
 		usuarioEJB.setApellido("Viales");
 		usuarioEJB.setTelefono("84427024");
 		usuarioEJB.setContrasenna("147852369");
 		assertNotNull(usuarioService.save(usuarioEJB));
+	}
+	
+	/**
+	* Esta prueba permite saber si el usuario se registra con su rol.
+	*
+	*/
+	
+	//@Test
+	public void saveRolTest(){
+		
+		//------------------------------------------------------------------
+		UsuarioRequest request = new UsuarioRequest();
+		request.setCorreo("jvialesc@ucenfotec.ac.cr");
+		request.setContrasenna("147852369");
+		Usuario usuario = usuarioService.ValidarUsuario(request);	
+			
+		Rol rolEJB = new Rol();
+		rolEJB.setIdRol(1);
+		
+		Usuario_Rol roles = new Usuario_Rol();
+		roles.setRol(rolEJB);
+		roles.setUsuario(usuario);
+		
+		assertNotNull(usuarioService.save(roles));
 	}
 	
 	/**

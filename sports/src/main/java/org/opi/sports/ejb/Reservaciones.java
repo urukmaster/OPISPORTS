@@ -33,6 +33,10 @@ public class Reservaciones implements Serializable {
 	@JoinColumn(name="idServicio")
 	private Servicio servicio;
 
+	@ManyToOne
+	@JoinColumn(name="idTorneo")
+	private Torneo torneo;
+	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idUsuario")
@@ -95,6 +99,14 @@ public class Reservaciones implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Torneo getTorneo() {
+		return torneo;
+	}
+
+	public void setTorneo(Torneo torneo) {
+		this.torneo = torneo;
 	}
 
 }

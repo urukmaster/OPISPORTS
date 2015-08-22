@@ -4,7 +4,14 @@ import java.util.List;
 
 import org.opi.sports.ejb.ActividadDeportiva;
 import org.springframework.data.repository.CrudRepository;
-
+/**
+ * Fecha: 26-07-2015 version 1.0
+ * 
+ * @author Juan Manuel Viales Chavarría
+ *
+ *Sprint 02 Descripción: Esta clase sirve de repositorio para objetos de tipo "Actividad Deportiva"
+ *
+ */
 public interface ActividadDeportivaRepository extends CrudRepository<ActividadDeportiva, Integer> {
 	
 	/**
@@ -18,5 +25,8 @@ public interface ActividadDeportivaRepository extends CrudRepository<ActividadDe
 	 * 
 	 */
 	public <S extends ActividadDeportiva> S save(S actividadDeportiva);
+	
+	
+	public ActividadDeportiva findOne(Integer actividadDeportiva);
 
 }
