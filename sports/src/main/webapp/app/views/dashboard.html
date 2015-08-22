@@ -1,0 +1,157 @@
+<h3>{{usuario.nombre + " " +usuario.apellido}}
+<small>{{usuario.roles.rol[0]}}</small>
+</h3>
+<div class="row">
+	<!-- Aqui viene lo suyo de perfil -->
+  	<div ng-controller="EstablecimientosController" class="col-md-12">
+  	<div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Establecimientos deportivos</div>
+         </div>
+         <scrollable height="230" class="list-group">
+       <div ng-repeat="establecimiento in Establecimientos | filter:search:strict">
+         <div class="media bb p">
+            <small class="pull-right text-muted"></small>
+            <div class="pull-left"></div>
+            <div class="media-body">
+               <span class="media-heading">
+                  <p class="m0">
+                  	<div ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
+                       <button  class="btn btn-sm btn-primary pull-right fa fa-search"></button>
+                    </div>
+                    <h4>{{establecimiento.nombre}}</h4>
+                  </p>
+               </span>
+               <p class="mb-sm">
+               		<div class="col-lg-6">
+                    	<label>Dirección:</label>
+                        <small>{{establecimiento.direccion}}</small><br>
+                        <label>Teléfono:</label>
+                        <small>{{establecimiento.telefono}}</small><br>
+                    </div>
+             		<div class="col-lg-6">
+                    	<label>Correo:</label>
+                        <small>{{establecimiento.paginaWeb}}</small><br>
+                    </div>
+              </p>
+             </div>
+          </div>
+        </div>
+         </scrollable>
+         <div class="panel-footer clearfix">
+                  <div class="input-group">
+                     <input ng-model="search" id="busquedaNombre"  type="text" placeholder="Buscar..." class="form-control input-sm" /> 
+                     <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default btn-sm"><i class="icon-magnifier"></i>
+                        </button>
+                     </span>
+                  </div>
+               </div>
+         <!-- END panel-footer-->
+      </div>
+  	</div>
+  	<!-- ---------------------------- -->
+  	
+</div>
+<div class="row">
+	<div ng-controller="MisInscripcionesController" class="col-md-12">
+		<div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Mis inscripciones</div>
+         </div>
+         <scrollable height="230" class="list-group">
+       <div ng-repeat="inscripcion in Inscripciones">
+       <div ng-repeat="tiquete in inscripcion">
+         <div class="media bb p">
+            <small class="pull-right text-muted"></small>
+            <div class="pull-left"></div>
+            <div class="media-body">
+               <span class="media-heading">
+                  <p class="m0">
+                  	<div ng-controller=CancelarTiqueteModalController>
+                       <button ng-click="cancelarTiquete(tiquete.idTiquete)" class="btn btn-sm btn-warning pull-right fa fa-close"></button>
+                    </div>
+                    <strong>{{tiquete.nombreEvento}}</strong>
+                  </p>
+               </span>
+               <p class="mb-sm">
+               		<div class="col-lg-6">
+                    	<label>Estado:</label>
+                        <small>{{tiquete.estado}}</small><br>
+                        <label>Fecha de caducidad:</label>
+                        <small>{{tiquete.fechaCaducidad}}</small><br>
+                    </div>
+             		<div class="col-lg-6">
+                    	<label>Precio:</label>
+                        <small>{{tiquete.precio}}</small><br>
+                        <label>Código:</label>
+                        <small>{{tiquete.codigo}}</small><br>
+                    </div>
+              </p>
+             </div>
+          </div>
+        </div>
+        </div>
+         </scrollable>
+         
+         <!-- END panel-footer-->
+      </div>
+	</div>
+
+	<!-- <div ng-controller="SuscripcionController" class="col-md-4">
+		<div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Mis suscripciones</div>
+         </div>
+         <scrollable height="230" class="list-group">
+       <div ng-repeat="suscripcion in Suscripciones">
+         <div class="media bb p">
+            <small class="pull-right text-muted"></small>
+            <div class="pull-left"></div>
+            <div class="media-body">
+               <span class="media-heading">
+                  <p class="m0">
+                  	<div ng-controller="EliminarSuscripcionModalController">
+                       <button ng-click="open(suscripcion.idSubscripcion)" class="btn btn-sm btn-warning pull-right fa fa-close"></button>
+                    </div>
+                    <strong>{{suscripcion.eventopojo.tipo}}</strong>
+                  </p>
+               </span>
+             </div>
+          </div>
+        </div>
+         </scrollable>
+         
+         <!-- END panel-footer-->
+      </div>
+      <div ng-controller="CancelarTiqueteModalController">
+      	<script type="text/ng-template" id="/modalCancelarTiquete.html">
+    	<div class="modal-header">
+			<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+			<h4 id="myModalLabel" class="modal-title">Cancelar tiquete</h4>
+		</div>
+		<div class="modal-body">¿Desea cancelar el tiquete?</div>
+			<div class="modal-footer">
+				<button ng-click="ok()" class="btn btn-primary">Sí</button>
+				<button ng-click="cancel()" class="btn btn-warning">No</button>
+			</div>
+	</script> 
+      </div>
+        <div ng-controller="EliminarSuscripcionModalController">
+	       <!-- Modal inline template-->
+	       <script type="text/ng-template" id="/modalEliminarSuscripcion.html">
+           	<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+				<h4 id="myModalLabel" class="modal-title">Eliminar suscripción</h4>
+			</div>
+			<div class="modal-body">¿Desea eliminar la suscripción?</div>
+			<div class="modal-footer">
+				<button ng-click="ok()" class="btn btn-primary">Sí</button>
+				<a ng-click="cancelar()" class="btn btn-warning">No</a>
+			</div>
+           </script>
+	    </div>
+	    
+	</div>-->
+</div>
+<script src="app/js/Modules/Controllers/DashboardController.js"></script>

@@ -30,7 +30,7 @@ public class UsuarioPOJO {
 	//Lista de roles del usuario
 	private List<RolPOJO> roles;
 	
-	private List<InscripcionesPOJO> inscripciones;
+	private List<InscripcionPOJO> inscripciones;
 	
 	private List<SubscripcionPOJO> subscripciones;
 	
@@ -129,10 +129,10 @@ public class UsuarioPOJO {
 		this.roles = roles;
 	}
 	
-	public List<InscripcionesPOJO> getInscripciones() {
+	public List<InscripcionPOJO> getInscripciones() {
 		return inscripciones;
 	}
-	public void setInscripciones(List<InscripcionesPOJO> inscripciones) {
+	public void setInscripciones(List<InscripcionPOJO> inscripciones) {
 		this.inscripciones = inscripciones;
 	}
 	public List<SubscripcionPOJO> getSubscripciones() {

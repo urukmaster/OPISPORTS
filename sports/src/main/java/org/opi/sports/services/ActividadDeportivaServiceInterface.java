@@ -17,5 +17,6 @@ public interface ActividadDeportivaServiceInterface {
 	public List<ActividadDeportiva> getAllActividadDeportiva();
 	public <ActividadesDeportivas extends ActividadDeportiva> ActividadesDeportivas save(ActividadesDeportivas actividadDeportiva);
 	public boolean exists(Integer idActividadDeportiva);
+	public ActividadDeportiva findByOne(Integer actividadDeportiva);
 
 }

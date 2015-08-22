@@ -46,7 +46,7 @@ public class ActividadDeportivaTest {
 	* Esta prueba permite saber si la actividad deportiva se registra.
 	*
 	*/
-	@Test
+	//@Test
 	public void saveUsuarioTest(){
 		ActividadDeportiva actividadDeportivaEJB = new ActividadDeportiva();
 		actividadDeportivaEJB.setActividadDeportiva("Badminton");

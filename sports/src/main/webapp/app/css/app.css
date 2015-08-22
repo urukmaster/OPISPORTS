@@ -8876,7 +8876,7 @@ body .ng-table-pager:after {
    Component: uigrid.less
  ========================================================================== */
 .table-uigrid.ui-grid {
-  border-top-width: 3px;
+  border-top-width: 1px;
 }
 .table-uigrid.ui-grid,
 .table-uigrid.ui-grid .ui-grid-header,
@@ -10358,6 +10358,7 @@ body .jvectormap-zoomout {
 }
 .bg-cover {
   background-size: cover;
+  
 }
 .thumb8 {
   width: 8px !important;

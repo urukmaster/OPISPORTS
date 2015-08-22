@@ -68,6 +68,7 @@ public class RetoHelper {
 			retopojo.setMensaje(reto.getMensaje());
 			retopojo.setIdUsuario(reto.getUsuario().getIdUsuario());
 			retopojo.setNombreUsuario(reto.getUsuario().getNombre());
+			retopojo.setApellidoUsuario(reto.getUsuario().getApellido());
 			retopojo.setTelefonoUsuario(reto.getUsuario().getTelefono());
 			retopojo.setIdServicio(reto.getServicio().getIdServicio());
 			retopojo.setNombreServicio(reto.getServicio().getServicio());

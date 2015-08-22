@@ -1,0 +1,27 @@
+<h3>{{usuario.nombre + " " +usuario.apellidos}}
+   <small>Configuración</small>
+</h3>
+<toaster-container
+		toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+<div class="row">	
+	<!-- Categories-->
+	<div class="col-md-4">
+    <div class="panel panel-default">
+    	<div class="panel-heading">Categorias</div>
+        <div class="panel-body">
+           <ul class="list-unstyled">
+              <li>
+                 <a ui-sref="app.configuracion.registrarUsuario">
+                 <em class="fa fa-angle-right fa-fw"></em>Datos Personales</a>
+              </li>
+              <li>
+                 <a ui-sref="app.configuracion.cambiarContrasenna">
+                 <em class="fa fa-angle-right fa-fw"></em>Cambiar contraseña</a>
+              </li>
+            </ul>
+        </div>  
+     </div>
+     </div> 
+     <!-- Inyeccion -->
+     <div ui-view=""> </div>     
+</div>

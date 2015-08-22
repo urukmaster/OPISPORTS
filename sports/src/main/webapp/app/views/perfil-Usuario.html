@@ -1,0 +1,37 @@
+<h3>Mi perfil</h3>
+<div ng-controller="PerfilUsuarioController">
+	<div class="row">
+		<h3>Información personal</h3>
+	</div>
+	<div class="row">
+   		<div class="col-lg-6">
+   			<fieldset>
+    			<label>Nombre: </label>
+    			<label>{{nombre}}</label>
+    		</fieldset>  
+    		<fieldset> 
+      			<label>Correo: </label>
+      			<label>{{correo}}</label>
+    		</fieldset> 
+   		</div>
+   		<div class="col-lg-6">
+   			<fieldset>
+    			<label>Apellido: </label>
+    			<label>{{apellido}}</label>
+    		</fieldset>
+    		<fieldset> 
+      			<label>Teléfono: </label>
+      			<label>{{telefono}}</label>
+    		</fieldset> 
+   		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<h3>Mis inscripciones</h3>
+		</div>
+		<div class="col-lg-6">
+			<h3>Mis suscripciones</h3>
+		</div>
+	</div>
+</div>
+<script src="app/js/Modules/Controllers/PerfilUsuarioController.js"></script>

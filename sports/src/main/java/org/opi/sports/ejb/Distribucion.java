@@ -16,7 +16,9 @@ public class Distribucion implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idDistribucion;
-
+	
+	private byte active;
+	
 	//bi-directional many-to-one association to CentroDistribucion
 	@ManyToOne
 	@JoinColumn(name="idCentro")
@@ -52,6 +54,14 @@ public class Distribucion implements Serializable {
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+
+	public byte getActive() {
+		return active;
+	}
+
+	public void setActive(byte active) {
+		this.active = active;
 	}
 
 }

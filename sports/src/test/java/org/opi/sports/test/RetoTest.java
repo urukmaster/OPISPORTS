@@ -97,7 +97,7 @@ public class RetoTest {
 		assertNotNull(retoResponse);
 	}
 	
-	@Test
+	//@Test
 	public void saveReto(){
 		
 		RetoRequest reto = new RetoRequest();

@@ -10,6 +10,7 @@ package org.opi.sports.repositories;
  */
 
 import org.opi.sports.ejb.Usuario;
+import org.opi.sports.ejb.Usuario_Rol;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
@@ -25,4 +26,11 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{
 	 * 
 	 */
 	public <S extends Usuario> S save(S usuario);
+	
+	/**
+	 * Metodo para buscar un usuario por el correo y la contraseña
+	 * 
+	 */
+	Usuario findByCorreoAndContrasenna(String correo,String contraseña);
+	
 }

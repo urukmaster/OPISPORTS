@@ -71,7 +71,7 @@ public class ActividadDeportivaHelper {
 	}
 	
 	/**
-	 * Metodo encargado de registrar la actividad deportiva
+	 * Metodo encargado de actualizar la actividad deportiva
 	 * 
 	 */
 	public ActividadDeportivaPOJO updateActividadDeportiva(ActividadDeportivaRequest actividadDeportiva,

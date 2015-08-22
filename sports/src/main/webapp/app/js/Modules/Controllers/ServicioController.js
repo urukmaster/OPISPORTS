@@ -8,14 +8,15 @@
 
 
 var gridServicio = {};
+var servicios;
 
-App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', function($scope, uiGridConstants, $http) {
-
-    var data = [];
-
-    
+App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 	
+	var data = [];
+
     gridServicio = $scope.gridServicio = {
+    	paginationPageSizes: [],
+		paginationPageSize: 7,
         columnDefs: [
             { field: 'idServicio',visible:false},
             {field:'horaInicial.millis', visible:false},
@@ -24,29 +25,36 @@ App.controller('ServicioController', ['$scope', 'uiGridConstants', '$http', func
             { field: 'precio' , name:'Precio'},
             { field: 'horaApertura' , name:'Hora de apertura'},
             { field: 'horaCierre' , name:'Hora de cierre'},
-            { field: 'arbitro' , name:'Arbitro'},
-            {name: 'modificar', cellTemplate:'<div ng-controller="ServicioModalController" >' +
-            '<button ng-click="modificar(row)" class="btn btn-primary" >' +
-            '<span class="fa fa-rocket"></span>' +
-            '</button>'+
-            '</div> <div ng-controller="ServicioModalController" >' +
-                '<button ng-click="eliminar(row)" class="btn btn-primary" >' +
-                '<span class="fa fa-rocket"></span>' +
-                '</button>'+
-            '</div>'}
+            {name: 'modificar', cellTemplate:
+            '<div class="btn-group btn-group-justified" role="group">' +	
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+            		'<button  ng-click="modificar(row)" class="btn btn-green" >' +
+            			'<span class="fa fa-pencil"></span>' +
+            		'</button>'+
+            	'</div>' + 
+            	'<div class="btn-group" role="group" ng-controller="ServicioModalController" >' +
+                	'<button ng-click="eliminar(row)" class="btn btn-warning" >' +
+                		'<span class="fa fa-trash"></span>' +
+                	'</button>'+
+                '</div>'+
+            '</div>',width:120
+                
+            }
         ],
         data: establecimientoCalendario.servicios
     }
 }]);
+
+var idTipoServicio;
+var idActividadDeportiva;
 
 /**=========================================================
  * Module: modals.js Servicio
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var servicioModificar = {};
-App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$http", function ($scope, $modal, $timeout ,$http) {
+App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", 'toaster', '$route', '$state', '$stateParams', function ($scope, $rootScope,$modal, $timeout ,$http, toaster, $route, $state, $stateParams) {
 	
-	$scope.tipoServicios = tipoServicios;
 	$scope.registrar = function () {
 
         var RegistrarModalInstance = $modal.open({
@@ -54,7 +62,6 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
             controller: RegistrarServicioInstanceCtrl,
             size: 'lg'
         });
-
 
     };
 
@@ -73,45 +80,79 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
 				"establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo};
 	    $http.post('rest/servicio/delete', data).
 	    success(function(data){
+	    	if(data.code == 200){
 	    	var toasterdata = {
 		            type:  'success',
 		            title: 'Servicio',
 		            text:  'Se eliminó el servicio.'
 		    };
 	    	
-	    	establecimientoCalendario = data;
+	    	establecimientoCalendario = data.establecimientoDeportivo;
 	    	gridServicio.data = establecimientoCalendario.servicios;
+	    }else{
+	    	$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+	    }
+	    
 	    });
     }
+    
+
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
+        
         $scope.accion = "Registrar";
         $scope.servicioForm = {};
         $scope.servicioForm.horaApertura = new Date();
         $scope.servicioForm.horaCierre = new Date();
         $scope.servicioForm.registrar = function () {
-        	
+         
             var data = {
-            	"servicio": $scope.servicioForm.servicio,
+             "servicio": $scope.servicioForm.servicio,
                 "precio": $scope.servicioForm.precio,
                 "horaApertura": $scope.servicioForm.horaApertura.getTime(),
                 "horaCierre": $scope.servicioForm.horaCierre.getTime(),
                 "arbitro": $scope.servicioForm.arbitro,
                 "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                "tipoServicio" : 1,
+                "tipoServicio" : idTipoServicio,
+                "actividadDeportiva" : idActividadDeportiva,
                 "accion" : $scope.accion
             };
             $http.post('rest/servicio/save', data).
             success(function(data){
-            	var toasterdata = {
-			            type:  'success',
-			            title: 'Servicio',
-			            text:  'Se registro el servicio correctamente.'
-			    };
-    			$scope.pop(toasterdata);
-            	gridServicio.data.push = data.servicio;
-            	establecimientoCalendario.servicios.push(data.servicio);
+             if(data.code == 200){
+             var toasterdata = {
+               type:  'success',
+               title: 'Servicio',
+               text:  'Se registro el servicio correctamente.'
+       };
+       $scope.pop(toasterdata);
+             $http.get('rest/establecimientoDeportivo/getAll')
+          .success(function(response) {
+           if(response.code == 200){
+           var establecimientos = response.establecimientosDeportivos;
+           for (var i = 0; i < establecimientos.length; i++) {
+                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+                            establecimientoCalendario = establecimientos[i];
+                        }
+                        gridServicio.data = establcimientoCalendario.servicios;
+                    }
+           }else{
+                  $rootScope.errorMessage = response.codeMessage;
+                  $state.go('page.error');
+                 }
+          });
+             $state.reload();
+             }else{
+              $rootScope.errorMessage = data.codeMessage;
+              $state.go('page.error');
+             }
             });
+            $modalInstance.close('closed');  
+         
+        };
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
@@ -120,15 +161,16 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
 
     RegistrarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
     var ModificarServicioInstanceCtrl = function ($scope, $modalInstance) {
+    	
         $scope.accion = "Modificar";
         $scope.servicioForm = {};
-
         
         $scope.servicioForm.idServicio = servicioModificar.idServicio;
         $scope.servicioForm.servicio = servicioModificar.servicio;
         $scope.servicioForm.precio = servicioModificar.precio;
         $scope.servicioForm.arbitro = servicioModificar.arbitro;
-        $scope.servicioForm.tipoServicio = servicioModificar.tipoServicio;
+        $scope.idActividadDeportiva = servicioModificar.actividadDeportiva;
+        $scope.idTipoServicio = servicioModifciar.tipoServicio;
         
         horaInicial = new Date(servicioModificar.horaInicial.millis);
         horaFinal = new Date(servicioModificar.horaFinal.millis);
@@ -146,11 +188,13 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
                     "horaCierre": $scope.servicioForm.horaCierre.getTime(),
                     "arbitro": $scope.servicioForm.arbitro,
                     "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                    "tipoServicio" : 1,
+                    "tipoServicio" : idTipoServicio,
+                    "actividadDeportiva" : idActividadDeportiva,
                     "accion" : $scope.accion
                 };
                 $http.post('rest/servicio/save', data).
-                success(function(data){
+                success(function(response){
+                	if(response.code == 200){
                 	var toasterdata = {
     			            type:  'success',
     			            title: 'Servicio',
@@ -158,10 +202,17 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     			    };
         			$scope.pop(toasterdata);
         			gridServicio.data[data.servicio.idServicio-1] = data.servicio;
-                	
+        			$state.reload();
+                	}else{
+                		$rootScope.errorMessage = data.codeMessage;
+                		$state.go('page.error');
+                	}
                 });
-
+                
             $modalInstance.close('closed');
+            $scope.pop = function(toasterdata) {
+                toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+            };
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
@@ -170,3 +221,32 @@ App.controller('ServicioModalController', ['$scope', '$modal', "$timeout" ,"$htt
     ModificarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
 
+App.controller('ComboTipoServicioController', ['$scope', '$http', function($scope, $http){
+	$http.get('rest/tipoServicio/getAll')
+    .success(function(data) {
+    	if(data.code == 200){
+    		$scope.tipoServicios = data.tipoServicio;
+    	}else{
+    		$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+    	}
+    });
+	$scope.changed = function(){
+		idTipoServicio = $scope.idTipoServicio;
+	}
+}]);
+
+App.controller('ComboActividadDeportivaController', ['$scope', '$http', function($scope, $http){
+	$http.get('rest/actividadDeportiva/getAll').success(function(data){
+		if(data.code == 200){
+			$scope.actividadesDeportivas = data.actividadesDeportivas;
+		}else{
+    		$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+    	}
+		
+		$scope.changed = function(){
+		idActividadDeportiva = $scope.idActividadDeportiva;
+		}
+	});
+}]);
