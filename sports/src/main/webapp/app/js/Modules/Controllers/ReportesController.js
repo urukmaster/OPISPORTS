@@ -49,7 +49,6 @@ App.controller('ReportesController', ['$scope', '$http', '$stateParams', 'uiGrid
 	        });
 	            $scope.gridReportes.data = aTiquetes;
 	}).error(function(response){
-        alert(response.message);
    
     });
 	
@@ -118,7 +117,6 @@ App.controller('ReporteRetosController', ['$scope', '$http', '$stateParams', 'ui
 	            $scope.gridReporteRetos.data = aRetos;
 		            
 			}).error(function(response){
-		        alert(response.message);
 		   
 		    });
 		

@@ -3,7 +3,7 @@
  * Este controlador se encarga de carga cada uno de los establecimientos
  * deportivos registrados y de inicializar la página
  ============================================================*/
-var establcimientoCalendario = {};
+var establecimientoCalendario = {};
 App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$stateParams', 'toaster', '$timeout', '$state', function($scope,$rootScope,$http, $stateParams, toaster, $timeout, $state) {
 
 	//Trae los establecimientos deportivos registrados
@@ -41,7 +41,6 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
 		if(angular.equals({},$rootScope.usuario)){
 			return false;
 		}else{	
-			alert()
 			for(i=0;i<$rootScope.usuario.roles.length;i++){				
 					if($rootScope.usuario.roles[i].rol == "Administrador"){
 						return true;
@@ -63,8 +62,7 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
 
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
-    	console.log('aaa');
-        $scope.init(); 
+    	$scope.init(); 
     });
 }]);   
 
@@ -83,6 +81,7 @@ App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '
                 if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
                     $scope.establecimiento = establecimientos[i];
                     establecimientoCalendario = establecimientos[i];
+                    console.log(establecimientoCalendario);
                     $scope.Reviews = establecimientos[i].reviews;
                 }
             }
@@ -91,6 +90,7 @@ App.controller('InformacionPerfilController', ['$scope', '$rootScope','$http', '
         		$state.go('page.error');
         	}
 		});
+		
     };
     
     
@@ -328,8 +328,7 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal','$htt
   	};
 	
 	$scope.cancel = function () {
-    	console.log('ajhs');
-		$modalInstance.dismiss('cancel');
+    	$modalInstance.dismiss('cancel');
 	};	
   	
   	ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 

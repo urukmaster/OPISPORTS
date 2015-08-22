@@ -49,7 +49,6 @@ App.controller('SuscripcionController', ['$scope', '$http', '$state','$rootScope
     	$http.get('rest/suscripcion/getAll', {
 		 	})
 		.success(function(response){
-	    	console.log(response);
 	    	angular.forEach(response.suscripciones, function(suscripcion, index){
 	    		if(suscripcion.usuario.idUsuario == $rootScope.usuario.idUsuario){
 	    			listaSuscripciones.push(suscripcion);

@@ -59,7 +59,6 @@ App.controller('TorneoModalController', ['$scope', '$rootScope','$modal', '$time
 
     $scope.modificar = function ($row) {
         torneoModificar = $row.entity;
-        console.log(torneoModificar);
         var ModificarModalInstance = $modal.open({
             templateUrl: '/myTorneoModalContent.html',
             controller: ModificarTorneoInstanceCtrl,

@@ -91,7 +91,7 @@ App.controller('PendientesController',['$scope','$rootScope','uiGridConstants','
 	
 } ]);
 
-App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', '$modal', 'toaster',function($scope, $rootScope,$http, $state, $modal, toaster){
+App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$state', '$modal', 'toaster', '$stateParams',function($scope, $rootScope,$http, $state, $modal, toaster, $stateParams){
 	var accion = '';
 	var pregunta = '';
 	var reserva = {};
@@ -149,9 +149,22 @@ App.controller('ReservacionModalController', ['$scope', '$rootScope','$http', '$
 							text: data.codeMessage
 					};
 					$scope.pop(toasterdata);
-					establecimientoCalendario = data.establecimientoDeportivo;
-					gridPendientes = establecimientoCalendario.pendientes;
-					$state.reload();
+					$http.get('rest/establecimientoDeportivo/getAll')
+	        		.success(function(response) {
+	        			if(response.code == 200){
+	        			var establecimientos = response.establecimientosDeportivos;
+	        			for (var i = 0; i < establecimientos.length; i++) {
+	                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+	                            establecimientoCalendario = establecimientos[i];
+	                            gridPendientes.data = establecimientoCalendario.pendientes;
+	                        }
+	                    }
+	        			}else{
+	                		$rootScope.errorMessage = response.codeMessage;
+	                		$state.go('page.error');
+	                	}
+	        		});
+					gridPendientes.data = establecimientoCalendario.pendientes;
 				}else{
 					$rootScope.errorMessage = data.codeMessage;
 					$state.go('page.error');
