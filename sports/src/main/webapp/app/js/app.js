@@ -754,7 +754,7 @@ App.controller('LoginFormController', ['$rootScope','$scope', '$http', '$state',
         alert(md5.createHash('Abcd12345/'));
         alert(md5.createHash($scope.account.password));
         
-        if ($scope.loginForm.$valid) {
+        if ($scope.loginForm.$valid) {	
         	$http.post('rest/iniciarSesion/validarUsuario', {
         		correo : $scope.account.email,
         		contrasenna : md5.createHash($scope.account.password)
@@ -4312,10 +4312,7 @@ App.controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', 
 								return true;
 							}
 						}
-					}
-					
-					
-							
+					}						
 			}
 			
 		};
@@ -5141,7 +5138,19 @@ App.controller('FileUploadController', ['$scope', 'FileUploader', function($scop
 App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', function($scope,$state,$rootScope,$http) {
 
     $scope.userBlockVisible = true;
-
+    $scope.validarUsuario = function(){
+		
+		if(angular.equals({},$rootScope.usuario)){
+			return true;
+		}else{
+			return false;
+				
+						
+		}
+		
+	};
+		
+	
     $scope.$on('toggleUserBlock', function(event, args) {
 
         $scope.userBlockVisible = ! $scope.userBlockVisible;
@@ -5160,21 +5169,25 @@ App.controller('UserBlockController', ['$scope','$state','$rootScope','$http', f
     
     $scope.$on('miPerfil', function(event, args) {
     	
-    	if(typeof $rootScope.usuario.nombre == 'undefined'){
+    	if(angular.equals({},$rootScope.usuario)){
     		
             	$http.get('rest/iniciarSesion/getSession')
         		.success(function(data){
                 	if(data.code == 200){
-        	        	$rootScope.usuario = {
-        	        			idUsuario: data.usuario.idUsuario,
-        						nombre: data.usuario.nombre,
-        						apellidos: data.usuario.apellido,
-        						contrasenna : data.usuario.contrasenna,
-        						correo: data.usuario.correo,
-        						telefono: data.usuario.telefono,
-        						roles: data.usuario.roles,
-        						inscripciones: data.usuario.inscripciones
-        	        	}
+                		if(data.usuario == null){
+                			$state.go('app.login');
+                		}else{
+                			$rootScope.usuario = {
+	        	        			idUsuario: data.usuario.idUsuario,
+	        						nombre: data.usuario.nombre,
+	        						apellido: data.usuario.apellido,
+	        						contrasenna : data.usuario.contrasenna,
+	        						correo: data.usuario.correo,
+	        						telefono: data.usuario.telefono,
+	        						roles: data.usuario.roles,
+	        						inscripciones: data.usuario.inscripciones
+	        	        	}
+                		}
                 	}else if(data.code == 401){
                 		$state.go('app.login');
                 	}else{
