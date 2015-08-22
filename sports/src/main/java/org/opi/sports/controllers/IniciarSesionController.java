@@ -64,8 +64,8 @@ public class IniciarSesionController {
 				usuario = IniciarSesionHelper.getInstance().convertirUsuario(
 						usuarioLogeado);
 				iniciarSesionresponse.setUsuario(usuario);
-				request.getSession().setAttribute("idUsusario",
-						usuarioLogeado.getIdUsuario());
+				request.getSession().setAttribute("Usuario",
+						usuario);
 				iniciarSesionresponse.setCode(200);
 				iniciarSesionresponse.setErrorMessage("Operación exitosa");
 			}
@@ -98,10 +98,12 @@ public class IniciarSesionController {
 		UsuarioPOJO usuario = new UsuarioPOJO();
 		try {
 			try {
-				usuarioLogeado = (Usuario) request.getSession().getAttribute(
+				usuario = (UsuarioPOJO) request.getSession().getAttribute(
 						"Usuario");
-				usuario = IniciarSesionHelper.getInstance().convertirUsuario(
-						usuarioLogeado);
+				if(usuario == null){
+					iniciarSesionResponse.setCode(401);
+					iniciarSesionResponse.setCodeMessage("Usuario no logeado");
+				}
 			} catch (NullPointerException nexception) {
 				Exception exception = new Exception("401");
 				throw exception;
