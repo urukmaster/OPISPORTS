@@ -31,7 +31,7 @@
 							<input type="text" name="nombre" ng-model="eventoForm.nombre" rows="2" class="form-control" required=""/>                    			
                         	<span ng-show="validateInput('nombre', 'required')" class="text-danger">Este campo es requerido</span>
                         </div>
-						<label  control-label">Direcci</label>
+						<label  control-label">Dirección</label>
                     	<div>
 							<textarea name="direccion" ng-model="eventoForm.direccion" rows="2" class="form-control no-resize" required=""></textarea>                    			
                         	<span ng-show="validateInput('direccion', 'required')" class="text-danger">Este campo es requerido</span>
@@ -43,13 +43,15 @@
                     	</div>
                     	<div>
 							<label class="control-label">Precio</label>
-							<input type="text" name="precio" ng-model="eventoForm.precio" rows="2" class="form-control" required=""/>                    			
+							<input type="text" name="precio" ng-model="eventoForm.precio" rows="2" class="form-control" required="" ng-pattern="/^[0-9]+$/"/>                    			
                         	<span ng-show="validateInput('precio', 'required')" class="text-danger">Este campo es requerido</span>
+                           	<span ng-show="validateInput('precio', 'pattern')" class="text-danger">Solo números permitidos.</span>
                         </div>	
                     	<div>
 							<label class="control-label">Cupo</label>
-							<input type="text" name="cupo" ng-model="eventoForm.cupo" rows="2" class="form-control" required=""/>                    			
+							<input type="text" name="cupo" ng-model="eventoForm.cupo" rows="2" class="form-control" required="" ng-pattern="/^[0-9]+$/"/>                    			
                         	<span ng-show="validateInput('cupo', 'required')" class="text-danger">Este campo es requerido</span>
+                           	<span ng-show="validateInput('cupo', 'pattern')" class="text-danger">Solo números permitidos.</span>
                         </div>	
                     	<div>
 							<label class="control-label">Cantidad de días para retirar inscripciones</label>
@@ -90,7 +92,7 @@
                <!-- START panel-->
                <div class="panel panel-default">
                   <div class="panel-heading">
-                     <h4 class="panel-title">Proximos eventos</h4>
+                     <h4 class="panel-title">Próximos eventos</h4>
 
                   </div>
                   <!-- Default external events list-->

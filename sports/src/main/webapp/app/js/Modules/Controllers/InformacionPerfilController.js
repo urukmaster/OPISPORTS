@@ -27,6 +27,7 @@ App.controller('EstablecimientosController', ['$scope','$rootScope','$http', '$s
 
     //Recibe la llamada del broadcast de eliminar para refrescar la página
     $scope.$on('eliminar', function (event) {
+    	console.log('aaa');
         $scope.init(); 
     });
 }]);   
@@ -187,10 +188,6 @@ App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$stat
 //        }
 //    };   	
 	}
-	
-	
-	
-	
 }]);
 
 /**==========================================================
@@ -198,7 +195,7 @@ App.controller('FormReviewController', ['$scope', '$http', '$stateParams','$stat
  * Este controlador se encarga de eliminar un establecimiento deportivo
  ============================================================*/
 
-App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$rootScope','$http', 'toaster', function ($scope, $rootScope,$modal, $rootScope, $http, toaster) {
+App.controller('EliminarModalController', ['$scope', '$rootScope','$modal','$http', 'toaster', function ($scope, $rootScope,$modal, $http, toaster) {
 	var id;
 	
 	$scope.open = function (pid) {
@@ -215,7 +212,7 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 	}, function () {
 	  state.text('Modal dismissed with Cancel status');
 	    });
-	  };
+	};
 	
 	
   	var ModalInstanceCtrl = function ($scope, $modalInstance) {
@@ -230,23 +227,26 @@ App.controller('EliminarModalController', ['$scope', '$rootScope','$modal', '$ro
 			            title: 'Establecimiento',
 			            text:  'Se eliminó el establecimiento.'
 			    };                
-	        	toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+	        	toaster.pop(toasterdata);
 	        	}else{
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
             	}
 	        });
-			$rootScope.$broadcast('eliminar');
 	    	$modalInstance.close('closed');
+			$rootScope.$broadcast('eliminar');
 	    };
 	    $scope.pop = function(toasterdata) {
 	        toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
 	    };
+	    
+  	};
 	
 	$scope.cancel = function () {
-	  $modalInstance.dismiss('cancel');
-	    };
-	  };
-	  ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
+    	console.log('ajhs');
+		$modalInstance.dismiss('cancel');
+	};
+  	
+  	ModalInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance"]; 
 
 }]);
