@@ -12,13 +12,6 @@ var servicios;
 
 App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', '$http', function($scope, $rootScope,uiGridConstants, $http) {
 	
-	
-	
-	$scope.init = function(){
-	}
-	
-	$scope.init();
-	
 	var data = [];
 
     gridServicio = $scope.gridServicio = {
@@ -53,13 +46,15 @@ App.controller('ServicioController', ['$scope', '$rootScope','uiGridConstants', 
     }
 }]);
 
+var idTipoServicio;
+var idActividadDeportiva;
+
 /**=========================================================
  * Module: modals.js Servicio
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var servicioModificar = {};
-App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", function ($scope, $rootScope,$modal, $timeout ,$http) {
-	
+App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$timeout" ,"$http", 'toaster', '$route', '$state', '$stateParams', function ($scope, $rootScope,$modal, $timeout ,$http, toaster, $route, $state, $stateParams) {
 	
 	$scope.registrar = function () {
 
@@ -104,6 +99,7 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
     }
 //------------------------------------------------------------------------------------
     var RegistrarServicioInstanceCtrl = function ($scope, $modalInstance) {
+    	
         $scope.accion = "Registrar";
         $scope.servicioForm = {};
         $scope.servicioForm.horaApertura = new Date();
@@ -117,7 +113,8 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
                 "horaCierre": $scope.servicioForm.horaCierre.getTime(),
                 "arbitro": $scope.servicioForm.arbitro,
                 "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                "tipoServicio" : 1,
+                "tipoServicio" : idTipoServicio,
+                "actividadDeportiva" : idActividadDeportiva,
                 "accion" : $scope.accion
             };
             $http.post('rest/servicio/save', data).
@@ -130,12 +127,32 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
 			    };
     			$scope.pop(toasterdata);
             	gridServicio.data.push = data.servicio;
-            	establecimientoCalendario.servicios.push(data.servicio);
+            	$http.get('rest/establecimientoDeportivo/getAll')
+        		.success(function(response) {
+        			if(response.code == 200){
+        			var establecimientos = response.establecimientosDeportivos;
+        			for (var i = 0; i < establecimientos.length; i++) {
+                        if (establecimientos[i].idEstablecimientoDeportivo == $stateParams.mid){
+                            establecimientoCalendario = establecimientos[i];
+                        }
+                        gridServicio.data = establcimientoCalendario.servicios;
+                    }
+        			}else{
+                		$rootScope.errorMessage = response.codeMessage;
+                		$state.go('page.error');
+                	}
+        		});
+            	$route.reload();
             	}else{
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
             	}
             });
+            $modalInstance.close('closed');  
+        	
+        };
+        $scope.pop = function(toasterdata) {
+            toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
@@ -144,15 +161,16 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
 
     RegistrarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance", "$http"];
     var ModificarServicioInstanceCtrl = function ($scope, $modalInstance) {
+    	
         $scope.accion = "Modificar";
         $scope.servicioForm = {};
-
         
         $scope.servicioForm.idServicio = servicioModificar.idServicio;
         $scope.servicioForm.servicio = servicioModificar.servicio;
         $scope.servicioForm.precio = servicioModificar.precio;
         $scope.servicioForm.arbitro = servicioModificar.arbitro;
-        $scope.servicioForm.tipoServicio = servicioModificar.tipoServicio;
+        $scope.idActividadDeportiva = servicioModificar.actividadDeportiva;
+        $scope.idTipoServicio = servicioModifciar.tipoServicio;
         
         horaInicial = new Date(servicioModificar.horaInicial.millis);
         horaFinal = new Date(servicioModificar.horaFinal.millis);
@@ -170,7 +188,8 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
                     "horaCierre": $scope.servicioForm.horaCierre.getTime(),
                     "arbitro": $scope.servicioForm.arbitro,
                     "establecimiento" : establecimientoCalendario.idEstablecimientoDeportivo,
-                    "tipoServicio" : 1,
+                    "tipoServicio" : idTipoServicio,
+                    "actividadDeportiva" : idActividadDeportiva,
                     "accion" : $scope.accion
                 };
                 $http.post('rest/servicio/save', data).
@@ -188,8 +207,11 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
                 		$state.go('page.error');
                 	}
                 });
-
+                
             $modalInstance.close('closed');
+            $scope.pop = function(toasterdata) {
+                toaster.pop(toasterdata.type, toasterdata.title, toasterdata.text);
+            };
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
@@ -198,3 +220,34 @@ App.controller('ServicioModalController', ['$scope', '$rootScope','$modal', "$ti
     ModificarServicioInstanceCtrl.$inject = ["$scope", "$modalInstance"];
 }]);
 
+App.controller('ComboTipoServicioController', ['$scope', '$http', function($scope, $http){
+	$http.get('rest/tipoServicio/getAll')
+    .success(function(data) {
+    	if(data.code == 200){
+    		$scope.tipoServicios = data.tipoServicio;
+    	}else{
+    		$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+    	}
+    });
+	$scope.changed = function(){
+		idTipoServicio = $scope.idTipoServicio;
+		console.log(idTipoServicio);
+	}
+}]);
+
+App.controller('ComboActividadDeportivaController', ['$scope', '$http', function($scope, $http){
+	$http.get('rest/actividadDeportiva/getAll').success(function(data){
+		if(data.code == 200){
+			$scope.actividadesDeportivas = data.actividadesDeportivas;
+		}else{
+    		$rootScope.errorMessage = data.codeMessage;
+    		$state.go('page.error');
+    	}
+		
+		$scope.changed = function(){
+		idActividadDeportiva = $scope.idActividadDeportiva;
+		console.log(idActividadDeportiva);
+		}
+	});
+}]);

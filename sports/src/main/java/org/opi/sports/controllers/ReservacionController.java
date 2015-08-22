@@ -174,21 +174,9 @@ public class ReservacionController {
 			Reservaciones reservacionesEJB = reservacionesServices
 					.findOne(reservacion.getIdCalendario());
 			reservacionesEJB.setActive((byte) 0);
-			ReservacionesPOJO reservacionView = ReservacionesHelper
-					.getInstance()
-					.saveReservacion(
-							reservacion,
-							reservacionesServices,
-							usuarioServices.findOne(reservacion.getUsuario()),
-							servicioServices.findOne(reservacion.getServicio()),
-							torneoService);
-
-			if (reservacionesServices.exists(reservacionView.getIdCalendario())) {
-				List<ReservacionesPOJO> reservaciones = new ArrayList<ReservacionesPOJO>();
-				reservaciones.add(reservacionView);
-				reservacionesResponse.setCode(200);
-				reservacionesResponse.setCodeMessage("Operación Exitosa");
-			}
+			reservacionesServices.save(reservacionesEJB);
+			reservacionesResponse.setCode(200);
+			reservacionesResponse.setCodeMessage("Operación Exitosa");
 
 		} catch (Exception exception) {
 			reservacionesResponse.setCode(404);
@@ -285,7 +273,7 @@ public class ReservacionController {
 			@RequestBody ReservacionesRequest reservacionRequest) {
 		ReservacionesResponse reservacionesResponse = new ReservacionesResponse();
 		try {
-			ReservacionesHelper.getInstance()
+			reservacionesResponse = ReservacionesHelper.getInstance()
 					.getReservacion(reservacionRequest.getIdCalendario(),
 							reservacionesServices);
 		} catch (Exception exception) {
@@ -298,5 +286,4 @@ public class ReservacionController {
 
 		return reservacionesResponse;
 	}
-
 }
