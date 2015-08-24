@@ -20,6 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Fecha: 01-08-2015 version 1.0
+ * 
+ * @author Mauricio Araica
+ *
+ *Sprint 04 Descripción: Prueba de establecimientos deportivos
+ *
+ */
 public class EstablecimientoDeportivoTest {
 
 	@Autowired

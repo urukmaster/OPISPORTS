@@ -8,7 +8,10 @@ import org.opi.sports.contracts.DistribucionReponse;
 import org.opi.sports.contracts.DistribucionRequest;
 import org.opi.sports.contracts.RetoRequest;
 import org.opi.sports.contracts.RetoResponse;
+import org.opi.sports.ejb.CentroDistribucion;
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reto;
+import org.opi.sports.helpers.CentroDistribucionHelper;
 import org.opi.sports.helpers.DistribucionHelper;
 import org.opi.sports.helpers.RetoHelper;
 import org.opi.sports.pojo.DistribucionPOJO;
@@ -40,9 +43,9 @@ public class DistribucionController {
 	public DistribucionReponse save(@RequestBody DistribucionRequest distribucionRequest) {
 		
 		DistribucionReponse distribucionResponse = new DistribucionReponse();
-
+		
 		try {
-
+		
 			DistribucionPOJO distribucionpojo = DistribucionHelper.getInstance().saveDistribucion(
 					distribucionService,
 					centroDistribucionService.findOne(distribucionRequest.getIdCentroDistribucion()),
