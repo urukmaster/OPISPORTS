@@ -1,5 +1,7 @@
 package org.opi.sports.helpers;
 
+import java.util.List;
+
 import org.opi.sports.contracts.DistribucionRequest;
 import org.opi.sports.contracts.RetoRequest;
 import org.opi.sports.ejb.CentroDistribucion;
@@ -36,16 +38,19 @@ public class DistribucionHelper {
 	
 	public DistribucionPOJO saveDistribucion(
 			DistribucionServiceInterface distribucionServiceService, CentroDistribucion centroDistrubucion, Evento evento) {
-		
-		Distribucion DitribucionEJB = new Distribucion();
-		DitribucionEJB.setCentroDistribucion(centroDistrubucion);
-		DitribucionEJB.setEvento(evento);
-		DitribucionEJB.setActive((byte)1);
-		
 		DistribucionPOJO distribucionPOJO = new DistribucionPOJO();
+		
 
-		PojoUtils.pojoMappingUtility(distribucionPOJO,distribucionServiceService.save(DitribucionEJB));
+				Distribucion DitribucionEJB = new Distribucion();
+				DitribucionEJB.setCentroDistribucion(centroDistrubucion);
+				DitribucionEJB.setEvento(evento);
+				DitribucionEJB.setActive((byte)1);
+				PojoUtils.pojoMappingUtility(distribucionPOJO,distribucionServiceService.save(DitribucionEJB));
+
+		
 		
 		return distribucionPOJO;
 	}
+
+
 }

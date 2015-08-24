@@ -85,7 +85,7 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/app/index');
+        $urlRouterProvider.otherwise('/page/landing');
 
         // 
         // Application Routes
@@ -365,6 +365,12 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
             	 url: '/register',
             	 title: "Error Found",
             	 templateUrl: 'app/pages/register.html',
+            	 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley','inputmask','angular-md5')
+             })
+             .state('page.landing', {
+            	 url: '/landing',
+            	 title: "Landing",
+            	 templateUrl: 'landing.html',
             	 resolve: helper.resolveFor('flot-chart','flot-chart-plugins','parsley','inputmask','angular-md5')
              })
             //

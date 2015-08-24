@@ -36,7 +36,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * 
  * @author Mauricio Araica
  *
- *Sprint 04 Descripción: 
+ *Sprint 04 Descripción: prueba de retos
  *
  */
 

@@ -58,26 +58,27 @@ public class RetoHelper {
 		List<RetosPOJO> retospojo = new ArrayList<RetosPOJO>();
 		
 		for(Reto reto:pretos){
-			RetosPOJO retopojo = new RetosPOJO();
-			SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
-			SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");
-			
-			retopojo.setIdReto(reto.getIdReto());
-			retopojo.setFecha(convertirFecha(convertirFecha.format(reto.getFecha())));
-			retopojo.setHora(convertirHora(convertirHora.format(reto.getHora())));
-			retopojo.setMensaje(reto.getMensaje());
-			retopojo.setIdUsuario(reto.getUsuario().getIdUsuario());
-			retopojo.setNombreUsuario(reto.getUsuario().getNombre());
-			retopojo.setApellidoUsuario(reto.getUsuario().getApellido());
-			retopojo.setTelefonoUsuario(reto.getUsuario().getTelefono());
-			retopojo.setIdServicio(reto.getServicio().getIdServicio());
-			retopojo.setNombreServicio(reto.getServicio().getServicio());
-			retopojo.setPrecioServicio(reto.getServicio().getPrecio());
-			retopojo.setIdEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getIdEstablecimientoDeportivo());
-			retopojo.setNombreEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getNombre());
-			retopojo.setDireccionEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getDireccion());
-			retopojo.setActive(reto.getActive());
-			retospojo.add(retopojo);
+			if(reto.getActive() == 1 && reto.getServicio().getEstablecimientoDeportivo().getActive() == 1){
+				RetosPOJO retopojo = new RetosPOJO();
+				SimpleDateFormat convertirHora = new SimpleDateFormat("HH:mm");
+				SimpleDateFormat convertirFecha = new SimpleDateFormat("dd-MM-yyyy");	
+				retopojo.setIdReto(reto.getIdReto());
+				retopojo.setFecha(convertirFecha(convertirFecha.format(reto.getFecha())));
+				retopojo.setHora(convertirHora(convertirHora.format(reto.getHora())));
+				retopojo.setMensaje(reto.getMensaje());
+				retopojo.setIdUsuario(reto.getUsuario().getIdUsuario());
+				retopojo.setNombreUsuario(reto.getUsuario().getNombre());
+				retopojo.setApellidoUsuario(reto.getUsuario().getApellido());
+				retopojo.setTelefonoUsuario(reto.getUsuario().getTelefono());
+				retopojo.setIdServicio(reto.getServicio().getIdServicio());
+				retopojo.setNombreServicio(reto.getServicio().getServicio());
+				retopojo.setPrecioServicio(reto.getServicio().getPrecio());
+				retopojo.setIdEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getIdEstablecimientoDeportivo());
+				retopojo.setNombreEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getNombre());
+				retopojo.setDireccionEstablecimiento(reto.getServicio().getEstablecimientoDeportivo().getDireccion());
+				retopojo.setActive(reto.getActive());
+				retospojo.add(retopojo);
+			}
 		}
 		
 		return retospojo;

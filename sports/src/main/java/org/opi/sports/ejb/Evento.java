@@ -134,6 +134,7 @@ public class Evento implements Serializable {
 	}
 
 	public List<Distribucion> getDistribucions() {
+
 		return this.distribucions;
 	}
 

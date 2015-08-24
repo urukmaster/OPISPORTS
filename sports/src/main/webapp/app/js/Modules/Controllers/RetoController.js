@@ -69,11 +69,8 @@ App.controller('RetoController', ['$scope','$rootScope','uiGridConstants', '$htt
 						retosView.idEstablecimiento = reto.idEstablecimiento;
 						retosView.nombreEstablecimiento = reto.nombreEstablecimiento;
 						retosView.active = reto.active;
-						if(retosView.active == 0){	
-						}else{
-							ARetos.push(retosView);
-						}
-						
+						ARetos.push(retosView);
+							
 			        });
 			            $scope.gridReto.data = ARetos;
 					}else{

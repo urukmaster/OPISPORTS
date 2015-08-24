@@ -2,9 +2,18 @@
  * Module: Distribucion
  =========================================================*/
 
-App.controller('DistribucionController', ['$scope', '$rootScope', '$http', function($scope, $rootScope,$http) {
+App.controller('DistribucionController', ['$scope', function($scope) {
 	
+	$scope.centros = eventoActual.distribuciones;
+	
+}]);
+
+App.controller('DistribucionesController', ['$scope', function($scope) {
+	$scope.init= function(){
 		$scope.centros = eventoActual.distribuciones;
+	};
+	$scope.init();
+	
 }]);
 
 /**=========================================================
@@ -12,46 +21,22 @@ App.controller('DistribucionController', ['$scope', '$rootScope', '$http', funct
  * Implementa el modal de registro y modificacion
  =========================================================*/
 var distribucionModificar = {};
-App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','toaster','$rootScope','$http', function ($scope, $rootScope,$modal,toaster,$rootScope,$http) {
+App.controller('AsociarController', ['$scope', '$rootScope','toaster','$rootScope','$http','$state', function ($scope, $rootScope,toaster,$rootScope,$http,$state) {
 	
-	$scope.registrar = function () {
-        var RegistrarModalInstance = $modal.open({
-            templateUrl: '/myModalDistribucionContent.html',
-            controller: RegistrarDistribucionInstanceCtrl,
-            size: 'lg'
-        });
-    };
-    
-    $scope.validarUsuarioId = function(evento){	
 		
-		if(angular.equals({},$rootScope.usuario)){
-			return false;
-		}else{			
-				if(evento.idUsuario == $rootScope.usuario.idUsuario){
-						return true;
-				}						
-		}
-		
-	};
-//-------------------------------------------------------------------------------------------------------
-    
-	
-//-------------------------------------------------------------------------------------------------------
-    
-    var RegistrarDistribucionInstanceCtrl = function ($scope, $rootScope,$modalInstance,$http,$state) {
-    	
     	$scope.init = function(){
     		$http.get('rest/centroDistribucion/getAll')
     		.success(function(response) {
     			if(response.code ==200){
                 $scope.Centros = response.centrosDistribucion;
+                $scope.idCentroDistribucion =1;
     			}else{
             		$rootScope.errorMessage = response.codeMessage;
             		$state.go('page.error');
             	}
     		});	
     	};
-    	
+
     	 $scope.init();
     	'use strict'; 
     	//validación
@@ -62,36 +47,19 @@ App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','
             var input = $scope.formCentroDistribucion[name];
             return (input.$dirty || $scope.submitted) && input.$error[type];
         };
+        var is = false;
+        
         // Submit form
         $scope.submitForm = function() {
-            $scope.submitted = true;
+            $scope.submitted = true;   
             if ($scope.formCentroDistribucion.$valid) {
+            	
             	$http.post('rest/distribucion/save', {
             		idCentroDistribucion : $scope.idCentroDistribucion,
             		idEvento : eventoActual.idEvento
         		 	})
         		.success(function(data){
-        			if(data.code == 200){
-//        			var ACentros = [];
-//					data.centrosDistribucion.forEach( function(centro, index) {
-//						var centroView = {};
-//						centroView.idCentroDistribucion = centro.idCentroDistribucion;
-//						centroView.nombre = centro.nombre;
-//						centroView.direccion = centro.direccion;
-//						centroView.telefono = centro.telefono;
-//						centroView.correo = centro.correo;
-//						centroView.active = centro.active;
-//						ACentros.push(centroView);	
-//			        });
-//        			var responsedata = {
-//        		            type:  'success',
-//        		            title: 'Centros Distribucion',
-//        		            text:  data.codeMessage,
-//        		            newGrid: ACentros
-//        		        	};
-//        			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
-//        			$rootScope.$broadcast('actualizarGrid',responsedata);
-        			$modalInstance.close('closed');
+        			if(data.code == 200){        			
         			$state.reload();
         		}else{
             		$rootScope.errorMessage = data.codeMessage;
@@ -104,15 +72,8 @@ App.controller('DistribucionModalController', ['$scope', '$rootScope','$modal','
             	
                 return false;
             }
+         
         };
-    	
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-
-    };
-    RegistrarDistribucionInstanceCtrl.$inject = ["$scope", '$rootScope',"$modalInstance","$http","$state"];
-
 }]);
 
 
