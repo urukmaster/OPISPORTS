@@ -201,3 +201,50 @@ App.controller('EstablecimientosController', ['$scope','$http', '$stateParams', 
         $scope.init(); 
     });
 }]); 
+
+App.controller('RetosController', ['$scope','$http', '$stateParams', '$rootScope', 'toaster', '$timeout', '$state', function($scope,$http, $stateParams, $rootScope, toaster, $timeout, $state) {
+
+	//Trae los establecimientos deportivos registrados
+    $scope.init = function(){  	
+		$http.get('rest/reto/getAll')
+		.success(function(data) {
+			if(data.code == 200){
+				
+//				retosView.idReto = reto.idReto;
+//				retosView.fechaGrid = reto.fecha.dayOfMonth + '/' + reto.fecha.monthOfYear + '/' + reto.fecha.year;
+//				retosView.fecha = reto.fecha;
+//				retosView.horaGrid = getHora(reto.hora.millis);
+//				retosView.hora = reto.hora;
+//				retosView.mensaje = reto.mensaje;
+//				retosView.idUsuario = reto.idUsuario;
+//				retosView.nombreUsuario = reto.nombreUsuario + reto.apellidoUsuario;
+//				retosView.telefonoUsuario = reto.telefonoUsuario;
+//				retosView.idServicio = reto.idServicio;
+//				retosView.nombreServicio = reto.nombreServicio;
+//				retosView.idEstablecimiento = reto.idEstablecimiento;
+//				retosView.nombreEstablecimiento = reto.nombreEstablecimiento;
+//				retosView.active = reto.active;
+				
+				$scope.Retos = data.retospojo;
+					
+	       
+			}else{
+        		$rootScope.errorMessage = data.codeMessage;
+        		$state.go('page.error');
+        	}
+	}).error(function(response){
+		$rootScope.errorMessage = response.codeMessage;
+		$state.go('page.error');
+   
+    });
+    };
+    
+    //Inicializa la aplicación
+    $scope.init(); 
+    
+    
+    //Recibe la llamada del broadcast de eliminar para refrescar la página
+    $scope.$on('eliminar', function (event) {
+        $scope.init(); 
+    });
+}]); 

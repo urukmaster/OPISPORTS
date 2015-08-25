@@ -40,15 +40,21 @@ public class DistribucionHelper {
 			DistribucionServiceInterface distribucionServiceService, CentroDistribucion centroDistrubucion, Evento evento) {
 		DistribucionPOJO distribucionPOJO = new DistribucionPOJO();
 		
-
-				Distribucion DitribucionEJB = new Distribucion();
-				DitribucionEJB.setCentroDistribucion(centroDistrubucion);
-				DitribucionEJB.setEvento(evento);
-				DitribucionEJB.setActive((byte)1);
-				PojoUtils.pojoMappingUtility(distribucionPOJO,distribucionServiceService.save(DitribucionEJB));
-
+		boolean yaExiste = false;
 		
+		for(Distribucion distribucion : evento.getDistribucions()){
+			if(distribucion.getCentroDistribucion().getIdCentroDistribucion() == centroDistrubucion.getIdCentroDistribucion()){
+				yaExiste = true;
+			}
+		}
 		
+		if(yaExiste == false){
+			Distribucion DitribucionEJB = new Distribucion();
+			DitribucionEJB.setCentroDistribucion(centroDistrubucion);
+			DitribucionEJB.setEvento(evento);
+			DitribucionEJB.setActive((byte)1);
+			PojoUtils.pojoMappingUtility(distribucionPOJO,distribucionServiceService.save(DitribucionEJB));
+		}
 		return distribucionPOJO;
 	}
 

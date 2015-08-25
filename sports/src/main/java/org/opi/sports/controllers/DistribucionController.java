@@ -56,10 +56,15 @@ public class DistribucionController {
 				//distribucionResponse.setRetospojo(retospojo);
 				distribucionResponse.setCode(200);
 				distribucionResponse.setCodeMessage("El centro se asocio correctamente");
-			} else {
+			} else if(distribucionpojo.getIdDistribucion() == 0){
+				distribucionResponse.setCode(666);
+				distribucionResponse.setCodeMessage("El centro ya esta asociado");
+			}else{
+				
 				distribucionResponse.setCode(401);
 				distribucionResponse.setCodeMessage("El centro no se asocio correctamente");
 			}
+	
 		} catch (Exception exception) {
 			distribucionResponse.setCode(404);
 			distribucionResponse
