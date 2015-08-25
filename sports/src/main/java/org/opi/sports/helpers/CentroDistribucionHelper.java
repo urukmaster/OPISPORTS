@@ -69,18 +69,20 @@ public class CentroDistribucionHelper {
 	 */
 	public CentroDistribucionPOJO saveCentro(CentroDistribucionRequest centroDistribucionRequest,
 			CentroDistribucionServiceInterface centroDistribucionService) {
-
+		
+		List<CentroDistribucion> centros = centroDistribucionService.getAllCentros();
+		boolean yaExiste = false;
 		CentroDistribucion centroDistribucionEJB = new CentroDistribucion();
-		centroDistribucionEJB.setNombre(centroDistribucionRequest.getNombre()); 
-		centroDistribucionEJB.setDireccion(centroDistribucionRequest.getDireccion());
-		centroDistribucionEJB.setTelefono(centroDistribucionRequest.getTelefono());
-		centroDistribucionEJB.setCorreo(centroDistribucionRequest.getCorreo()); 
-		centroDistribucionEJB.setActive((byte)1);
-		
 		CentroDistribucionPOJO centroDistribucionPOJO = new CentroDistribucionPOJO();
-		
-		PojoUtils.pojoMappingUtility(centroDistribucionPOJO,
-				centroDistribucionService.save(centroDistribucionEJB));
+
+			centroDistribucionEJB.setNombre(centroDistribucionRequest.getNombre()); 
+			centroDistribucionEJB.setDireccion(centroDistribucionRequest.getDireccion());
+			centroDistribucionEJB.setTelefono(centroDistribucionRequest.getTelefono());
+			centroDistribucionEJB.setCorreo(centroDistribucionRequest.getCorreo()); 
+			centroDistribucionEJB.setActive((byte)1);
+			PojoUtils.pojoMappingUtility(centroDistribucionPOJO,
+					centroDistribucionService.save(centroDistribucionEJB));
+	
 		
 		return centroDistribucionPOJO;
 	}

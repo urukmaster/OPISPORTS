@@ -1,5 +1,6 @@
 <h3>Centros de distribución</h3>
 <div class="col-lg-12 container-fluid"
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
 	<div ng-controller="AsociarController">
 	<div>
 		<toaster-container
@@ -11,7 +12,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><em class="icon-magnifier"></em></span>
 							<input id="busquedaNombre" placeholder="Buscar..." type="text"
-								class="form-control" ng-model="search" />
+								class="form-control" ng-model="search"/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -48,9 +49,9 @@
             <div class="media-body">
                <span class="media-heading">
                   <p class="m0">
-                  	<div ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
+                  	<!--<div ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
                        <button  class="btn btn-sm btn-primary pull-right fa fa-search"></button>
-                    </div> 
+                    </div>--> 
                     <h4>{{centro.idCentro.nombre}}</h4>
                   </p>
                </span>
