@@ -59,9 +59,12 @@ App.controller('AsociarController', ['$scope', '$rootScope','toaster','$rootScop
             		idEvento : eventoActual.idEvento
         		 	})
         		.success(function(data){
-        			if(data.code == 200){        			
-        			$state.reload();
-        		}else{
+        		if(data.code == 200){        			
+        		$state.reload();
+        		}
+        		if(data.code == 666){
+        			alert(data.codeMessage);
+        		}else if(data.code == 401){
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
             	}

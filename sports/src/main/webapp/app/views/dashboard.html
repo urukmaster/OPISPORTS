@@ -8,34 +8,39 @@
          <div class="panel-heading">
             <div class="panel-title">Establecimientos deportivos</div>
          </div>
-         <scrollable height="230" class="list-group">
+         <scrollable height="315" class="list-group">
        <div ng-repeat="establecimiento in Establecimientos | filter:search:strict">
-         <div class="media bb p">
-            <small class="pull-right text-muted"></small>
-            <div class="pull-left"></div>
-            <div class="media-body">
-               <span class="media-heading">
-                  <p class="m0">
-                  	<div ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
-                       <button  class="btn btn-sm btn-primary pull-right fa fa-search"></button>
-                    </div>
-                    <h4>{{establecimiento.nombre}}</h4>
-                  </p>
-               </span>
-               <p class="mb-sm">
-               		<div class="col-lg-6">
-                    	<label>Dirección:</label>
-                        <small>{{establecimiento.direccion}}</small><br>
-                        <label>Teléfono:</label>
-                        <small>{{establecimiento.telefono}}</small><br>
-                    </div>
-             		<div class="col-lg-6">
-                    	<label>Correo:</label>
-                        <small>{{establecimiento.paginaWeb}}</small><br>
-                    </div>
-              </p>
-             </div>
-          </div>
+							<div class="col-lg-3">
+					<!-- START widget-->
+					<div class="panel widget">
+						<div class="half-float">
+							<img src="app/img/soccerBanner2.jpg" alt=""
+								class="img-responsive" />
+							<div class="half-float-bottom">
+								<img src="app/img/no_image.jpg" alt="Image"
+									class="img-thumbnail img-circle thumb128" />
+							</div>
+						</div>
+						<div class="panel-body text-center">
+							<h3 class="m0">{{establecimiento.nombre}}</h3>
+							<p class="text-muted">{{establecimiento.telefono}}</p>
+							<p>{{establecimiento.paginaWeb}}</p>
+						</div>
+						<div class="panel-body text-center bg-gray-dark">
+							<div>
+								<div class="btn-group btn-group-justified" role="group">
+									<div class="btn-group" role="group"
+										ui-sref="app.perfil({mid: establecimiento.idEstablecimientoDeportivo})">
+										<button type="button" class="btn btn-primary">
+											<span class="fa fa-search"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END widget-->
+				</div>
         </div>
          </scrollable>
          <div class="panel-footer clearfix">
@@ -50,11 +55,9 @@
          <!-- END panel-footer-->
       </div>
   	</div>
-  	<!-- ---------------------------- -->
-  	
 </div>
 <div class="row">
-	<div ng-controller="MisInscripcionesController" class="col-md-12">
+	<div ng-controller="MisInscripcionesController" class="col-md-6">
 		<div class="panel panel-default">
          <div class="panel-heading">
             <div class="panel-title">Mis inscripciones</div>
@@ -123,7 +126,50 @@
          </scrollable>
          
          <!-- END panel-footer-->
+    <div ng-controller="RetosController" class="col-md-6">
+  	<div class="panel panel-default">
+         <div class="panel-heading">
+            <div class="panel-title">Retos</div>
+         </div>
+         <scrollable height="230" class="list-group">
+       <div ng-repeat="reto in Retos | filter:search:strict">
+                <a href="#" class="list-group-item">
+                    <div class="media-box">
+                        <div class="pull-left">
+                            <img src="app/img/cancha.jpg" alt="Image" class="media-box-object img-circle thumb32" />
+                        </div>
+                        <div class="media-box-body clearfix">
+                            <small class="pull-right"></small>
+                            <strong class="media-box-heading text-primary">
+                                <span class="circle circle-success circle-lg text-left"></span>{{reto.nombreUsuario}}</strong>
+                            <p class="mb-sm">
+                            	<div class="col-md-6">
+                            		<small>{{reto.telefonoUsuario}}</small>
+                                	<small>{{reto.nombreEstablecimiento}}</small>
+                            	</div>
+                                <div class="col-md-6">
+                            		<small>{{reto.fecha.dayOfMonth + '/' + reto.fecha.monthOfYear + '/' + reto.fecha.year}}</small>
+                                	<small>{{reto.nombreServicio}}</small>
+                            	</div>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+					<!-- END widget-->
+			</div>
+        </div>
+         </scrollable>
+         <div class="panel-footer clearfix">
+         	<div class="input-group">
+            	<input ng-model="search" id="busquedaNombre"  type="text" placeholder="Buscar..." class="form-control input-sm" /> 
+                <span class="input-group-btn">
+                	<button type="submit" class="btn btn-default btn-sm"><i class="icon-magnifier"></i>
+                    </button>
+                 </span>
+             </div>
+          </div>
       </div>
+   </div>
       <div ng-controller="CancelarTiqueteModalController">
       	<script type="text/ng-template" id="/modalCancelarTiquete.html">
     	<div class="modal-header">
@@ -152,6 +198,11 @@
            </script>
 	    </div>
 	    
-	</div>-->
+	</div>
+</div>
+<div class="row">
+	<!-- Aqui viene lo suyo de perfil -->
+
+  	</div>
 </div>
 <script src="app/js/Modules/Controllers/DashboardController.js"></script>
