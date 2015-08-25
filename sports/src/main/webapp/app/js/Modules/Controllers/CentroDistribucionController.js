@@ -125,14 +125,14 @@ App.controller('DistribucionModalController', ['$rootScope','$scope', '$modal','
 			        });
         			var responsedata = {
         		            type:  'success',
-        		            title: 'Centros Distribucion',
+        		            title: 'Centros de distribucion',
         		            text:  data.codeMessage,
         		            newGrid: ACentros
         		        	};
         			toaster.pop(responsedata.type, responsedata.title, responsedata.text);
         			$rootScope.$broadcast('actualizarGrid',responsedata);
         			$modalInstance.close('closed');
-        		}else{
+        		}else {
             		$rootScope.errorMessage = data.codeMessage;
             		$state.go('page.error');
             	}
