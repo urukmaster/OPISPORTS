@@ -8,7 +8,10 @@ import org.opi.sports.contracts.DistribucionReponse;
 import org.opi.sports.contracts.DistribucionRequest;
 import org.opi.sports.contracts.RetoRequest;
 import org.opi.sports.contracts.RetoResponse;
+import org.opi.sports.ejb.CentroDistribucion;
+import org.opi.sports.ejb.Evento;
 import org.opi.sports.ejb.Reto;
+import org.opi.sports.helpers.CentroDistribucionHelper;
 import org.opi.sports.helpers.DistribucionHelper;
 import org.opi.sports.helpers.RetoHelper;
 import org.opi.sports.pojo.DistribucionPOJO;
@@ -40,9 +43,9 @@ public class DistribucionController {
 	public DistribucionReponse save(@RequestBody DistribucionRequest distribucionRequest) {
 		
 		DistribucionReponse distribucionResponse = new DistribucionReponse();
-
+		
 		try {
-
+		
 			DistribucionPOJO distribucionpojo = DistribucionHelper.getInstance().saveDistribucion(
 					distribucionService,
 					centroDistribucionService.findOne(distribucionRequest.getIdCentroDistribucion()),
@@ -52,11 +55,16 @@ public class DistribucionController {
 			if (distribucionService.exists(distribucionpojo.getIdDistribucion())) {
 				//distribucionResponse.setRetospojo(retospojo);
 				distribucionResponse.setCode(200);
-				distribucionResponse.setCodeMessage("El centro se asocio correctamente");
-			} else {
+				distribucionResponse.setCodeMessage("El punto de retiro se asocio correctamente");
+			} else if(distribucionpojo.getIdDistribucion() == 0){
+				distribucionResponse.setCode(405);
+				distribucionResponse.setCodeMessage("El punto de retiro ya esta asociado");
+			}else{
+				
 				distribucionResponse.setCode(401);
-				distribucionResponse.setCodeMessage("El centro no se asocio correctamente");
+				distribucionResponse.setCodeMessage("El punto de retiro no se asocio correctamente");
 			}
+	
 		} catch (Exception exception) {
 			distribucionResponse.setCode(404);
 			distribucionResponse

@@ -107,17 +107,15 @@ public class CentroDistribucionController {
 					centrosDistribucionPOJO.add(centroDisPOJO);
 				}
 			}
-			if (centroDistribucionService.exists(centroDistribucionPOJO
-					.getIdCentroDistribucion())) {
+			
+			if (centroDistribucionService.exists(centroDistribucionPOJO.getIdCentroDistribucion())) {
+				//distribucionResponse.setRetospojo(retospojo);
+				centroDistribucionResponse.setCentrosDistribucion(centrosDistribucionPOJO);
 				centroDistribucionResponse.setCode(200);
-				centroDistribucionResponse
-						.setCodeMessage("El centro de distribucion se registro correctamente");
-				centroDistribucionResponse
-						.setCentrosDistribucion(centrosDistribucionPOJO);
-			} else {
+				centroDistribucionResponse.setCodeMessage("El punto de retiro se asocio correctamente");
+			}else{
 				centroDistribucionResponse.setCode(401);
-				centroDistribucionResponse
-						.setCodeMessage("El centro de distribucion no se registro");
+				centroDistribucionResponse.setCodeMessage("El punto de retiro no se asocio correctamente");
 			}
 
 		} catch (Exception exception) {

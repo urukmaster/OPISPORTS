@@ -1,9 +1,56 @@
+<div ng-controller="DistribucionController">
     <!-- START timeline-->
     <ul class="timeline">
-    
-
+    <!-- START timeline item DERECHA-->
+    <li class="timeline-inverted">
+    <br>
+    <br>
+    <br>
+        <div class="timeline-badge green">
+            <em class="fa fa-comment"></em>
+        </div>
+        <div class="timeline-panel">
+            <div class="popover right">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <div class="table-grid table-grid-align-middle mb">
+                        <div class="col col-xs">
+                        </div>
+                        <div class="col">
+                            <p class="m0">
+                                <a href="#" class="text-muted"><strong>Puntos de retiro</strong></a>
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-muted mv">Retira tu tiquete en estos puntos de retiro.</p>
+                    <div>
+                    <scrollable height="183">
+						<div ng-repeat="centro in centros">
+                     		<div class="media bb p">
+                        		<small class="pull-right text-muted"></small>
+                        		<div class="pull-left"></div>
+                        		<div class="media-body">
+                          			<span class="media-heading">
+                             			<p class="m0">
+                                 			<strong>{{centro.idCentro.nombre}}</strong>
+                             			</p>
+                             			<p class="m0 text-muted">{{centro.idCentro.direccion}}</p>            			
+                          			</span>
+                       	 		</div>
+                      		</div>
+                      	</div>
+                     </scrollable>
+					</div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <!-- END timeline item-->
     <!-- START timeline item-->
     <li>
+    <br>
+    <br>
+    <br>
         <div class="timeline-badge purple">
             <em class="fa fa-map-marker"></em>
         </div>
@@ -28,4 +75,6 @@
     </li>
     <!-- END timeline item-->
     </ul>
+</div>
     <!-- END timeline-->
+<script src="app/js/Modules/Controllers/DistribucionController.js"></script>

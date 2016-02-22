@@ -7,6 +7,7 @@
 
 var eventoActual = {};
 var cantTiquetesReservados;
+var distribuciones = {};
 /**==========================================================
  * Modulo: EventoModalController
  * Este controlador se encarga de consultar y modificar la 
@@ -108,6 +109,7 @@ App.controller('PerfilEventoController', ['$scope','$http', '$stateParams','$sta
             eventoActual = $scope.evento;
             eventoActual.horaModificar = response.hora;
             eventoActual.fechaModificar = response.fecha;
+            $scope.Distribuciones = response.distribuciones;
 			}else{
         		$rootScope.errorMessage = response.codeMessage;
         		$state.go('page.error');
